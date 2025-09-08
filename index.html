@@ -785,4 +785,144 @@
                 title: "🚛 Estación de Transferencia - Transporte en equipo",
                 description: "Debes transportar un contenedor de recursos hasta la Estación de Transferencia. Los RoverBots deben estar conectados y coordinados entre dos equipos para completar una ruta compleja con giros y avances.",
                 objectives: [
-                    "Coordinar secuencias de programación
+                    "Coordinar secuencias de programación entre equipos",
+                    "Aplicar movimientos combinados: giros + desplazamientos",
+                    "Resolver retos logísticos con rutas impuestas",
+                    "Representar recorridos en planos cuadriculados"
+                ],
+                available: false
+            }
+        };
+        
+        let currentMission = null;
+        let completedMissions = [];
+        
+        function showMissionInfo(missionNumber) {
+            const mission = missions[missionNumber];
+            if (!mission) return;
+            
+            currentMission = missionNumber;
+            
+            document.getElementById('missionTitle').textContent = mission.title;
+            document.getElementById('missionDescription').textContent = mission.description;
+            
+            const objectivesList = document.getElementById('objectivesList');
+            objectivesList.innerHTML = '';
+            mission.objectives.forEach(objective => {
+                const li = document.createElement('li');
+                li.textContent = objective;
+                objectivesList.appendChild(li);
+            });
+            
+            document.getElementById('missionObjectives').style.display = 'block';
+            
+            const startBtn = document.getElementById('startMissionBtn');
+            startBtn.style.display = 'block';
+            startBtn.disabled = !mission.available;
+            
+            document.getElementById('missionInfo').classList.add('active');
+        }
+        
+        function closeMissionInfo() {
+            document.getElementById('missionInfo').classList.remove('active');
+            currentMission = null;
+        }
+        
+        function startMission() {
+            if (!currentMission) return;
+            
+            const mission = missions[currentMission];
+            if (!mission.available) return;
+            
+            // Aquí se puede agregar la lógica para iniciar la misión
+            alert(`¡Iniciando misión: ${mission.title}!`);
+        }
+        
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Agregar event listeners a los planetas
+            document.querySelectorAll('.mission-planet').forEach(planet => {
+                planet.addEventListener('click', function() {
+                    const missionNumber = parseInt(this.dataset.mission);
+                    if (!this.classList.contains('locked')) {
+                        showMissionInfo(missionNumber);
+                    }
+                });
+            });
+            
+            // Event listener para el botón de comenzar misión
+            document.getElementById('startMissionBtn').addEventListener('click', startMission);
+            
+            // Crear partículas espaciales
+            createSpaceParticles();
+        });
+        
+        function createSpaceParticles() {
+            const container = document.body;
+            
+            setInterval(() => {
+                if (document.querySelectorAll('.particle').length < 15) {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+                    particle.style.left = Math.random() * 100 + 'vw';
+                    particle.style.animationDuration = (Math.random() * 5 + 8) + 's';
+                    container.appendChild(particle);
+                    
+                    // Remover partícula después de la animación
+                    setTimeout(() => {
+                        if (particle.parentNode) {
+                            particle.parentNode.removeChild(particle);
+                        }
+                    }, 13000);
+                }
+            }, 2000);
+        }
+        
+        // Función para completar una misión
+        function completeMission(missionNumber) {
+            if (!completedMissions.includes(missionNumber)) {
+                completedMissions.push(missionNumber);
+                
+                // Actualizar UI
+                const planet = document.querySelector(`[data-mission="${missionNumber}"]`);
+                if (planet) {
+                    planet.classList.add('completed');
+                    const badge = planet.querySelector('.mission-badge');
+                    badge.className = 'mission-badge badge-completed';
+                    badge.textContent = '✓';
+                }
+                
+                // Desbloquear siguiente misión
+                const nextMission = missionNumber + 1;
+                if (missions[nextMission]) {
+                    missions[nextMission].available = true;
+                    const nextPlanet = document.querySelector(`[data-mission="${nextMission}"]`);
+                    if (nextPlanet) {
+                        nextPlanet.classList.remove('locked');
+                        const nextBadge = nextPlanet.querySelector('.mission-badge');
+                        nextBadge.className = 'mission-badge badge-available';
+                        nextBadge.textContent = nextMission;
+                    }
+                }
+                
+                // Actualizar estadísticas
+                updateStats();
+            }
+        }
+        
+        function updateStats() {
+            const completedCount = completedMissions.length;
+            const availableCount = Object.values(missions).filter(m => m.available).length;
+            
+            document.querySelector('.status-item:nth-child(1) .status-value').textContent = availableCount;
+            document.querySelector('.status-item:nth-child(2) .status-value').textContent = completedCount;
+            document.querySelector('.status-item:nth-child(3) .status-value').textContent = completedCount;
+            
+            // Actualizar barra de progreso
+            const progressPercent = (completedCount / Object.keys(missions).length) * 100;
+            document.querySelector('.progress-fill').style.width = progressPercent + '%';
+            document.querySelector('.progress-text').textContent = `${completedCount} de ${Object.keys(missions).length} misiones completadas`;
+        }
+    </script>
+</body>
+</html>
