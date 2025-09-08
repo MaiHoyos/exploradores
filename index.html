@@ -3,723 +3,815 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exploradores del Espacio: Misiones con RoverBot</title>
+    <title>🚀 Exploración de Zython - Misiones Espaciales</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap');
-        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
-            font-family: 'Space Mono', monospace;
-            background: linear-gradient(135deg, #0c1445 0%, #1a0b2e 50%, #16213e 100%);
-            min-height: 100vh;
-            overflow-x: hidden;
+            font-family: 'Comic Sans MS', 'Arial', sans-serif;
+            background: #000020;
+            height: 100vh;
+            overflow: hidden;
             position: relative;
+            color: white;
         }
-        
-        /* Fondo de estrellas animado */
-        .stars {
-            position: fixed;
+
+        /* Fondo espacial animado */
+        .space-background {
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1;
+            background: 
+                radial-gradient(3px 3px at 20px 30px, #fff, transparent),
+                radial-gradient(3px 3px at 40px 70px, #ffeb3b, transparent),
+                radial-gradient(2px 2px at 90px 40px, #ff4081, transparent),
+                radial-gradient(2px 2px at 130px 80px, #4ecdc4, transparent),
+                radial-gradient(3px 3px at 160px 30px, #8bc34a, transparent);
+            background-repeat: repeat;
+            background-size: 200px 100px;
+            animation: starMove 20s linear infinite;
         }
-        
-        .star {
-            position: absolute;
-            background: white;
-            border-radius: 50%;
-            animation: twinkle 3s infinite ease-in-out;
+
+        @keyframes starMove {
+            from { transform: translateY(0px); }
+            to { transform: translateY(-100px); }
         }
-        
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.3; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.2); }
+
+        /* Header principal */
+        .main-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(135deg, #ff6b9d 0%, #4ecdc4 50%, #45b7d1 100%);
+            border: 4px solid #fff;
+            border-radius: 0 0 20px 20px;
+            padding: 15px 30px;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
         }
-        
-        @keyframes float {
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo {
+            font-size: 36px;
+            animation: logoFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes logoFloat {
             0%, 100% { transform: translateY(0px) rotate(0deg); }
-            33% { transform: translateY(-10px) rotate(5deg); }
-            66% { transform: translateY(5px) rotate(-3deg); }
+            50% { transform: translateY(-10px) rotate(180deg); }
         }
-        
-        /* Header */
-        .header {
+
+        .title-text h1 {
+            font-size: 28px;
+            font-weight: bold;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .title-text p {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.9);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        /* Panel de estado del jugador */
+        .player-status {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px 25px;
+            border-radius: 25px;
+            backdrop-filter: blur(5px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .status-item {
             text-align: center;
-            padding: 2rem 0;
-            color: #00d4ff;
-            text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
         }
-        
-        .header h1 {
-            font-family: 'Orbitron', monospace;
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            font-weight: 900;
-            margin-bottom: 0.5rem;
-            animation: glow 2s ease-in-out infinite alternate;
+
+        .status-value {
+            font-size: 20px;
+            font-weight: bold;
+            color: #ffeb3b;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
         }
-        
-        .header p {
-            font-size: clamp(1rem, 2.5vw, 1.3rem);
-            color: #a0e7ff;
+
+        .status-label {
+            font-size: 12px;
+            opacity: 0.9;
+            text-transform: uppercase;
+            font-weight: bold;
         }
-        
-        @keyframes glow {
-            from { text-shadow: 0 0 20px rgba(0, 212, 255, 0.5); }
-            to { text-shadow: 0 0 30px rgba(0, 212, 255, 0.8), 0 0 40px rgba(0, 212, 255, 0.3); }
+
+        /* Contenedor principal de misiones */
+        .missions-container {
+            position: absolute;
+            top: 120px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            padding: 40px;
         }
-        
-        /* Dashboard principal */
-        .dashboard {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
+
+        /* Caminos curvos SVG más coloridos */
+        .mission-paths {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
         }
-        
-        /* Nodos de misión */
-        .mission-node {
-            position: relative;
+
+        .path {
+            fill: none;
+            stroke: #4ecdc4;
+            stroke-width: 0.5;
+            stroke-dasharray: 1, 5;
+            animation: pathFlow 2s linear infinite;
+            opacity: 0.6;
+        }
+
+        @keyframes pathFlow {
+            0% { stroke-dashoffset: 6; }
+            100% { stroke-dashoffset: 0; }
+        }
+
+        /* Planetas de misiones con imágenes */
+        .mission-planet {
+            position: absolute;
             width: 200px;
             height: 200px;
-            margin: 2rem auto;
             cursor: pointer;
-            transition: all 0.3s ease;
-            border-radius: 50%;
+            transition: all 0.4s ease;
+            z-index: 10;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            color: white;
             text-align: center;
-            font-weight: bold;
-            border: 3px solid transparent;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(0,0,0,0.2) 100%);
-            backdrop-filter: blur(10px);
-            animation: float 6s ease-in-out infinite;
+            animation: planetBounce 4s ease-in-out infinite;
         }
-        
-        .mission-node.active {
-            border-color: #00ff88;
-            box-shadow: 0 0 30px rgba(0, 255, 136, 0.4);
-            animation: float 6s ease-in-out infinite, activePulse 3s ease-in-out infinite;
+
+        @keyframes planetBounce {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-15px) scale(1.05); }
         }
-        
-        .mission-node.completed {
-            border-color: #ffd700;
-            box-shadow: 0 0 30px rgba(255, 215, 0, 0.4);
+
+        .mission-planet:hover {
+            transform: scale(1.15) translateY(-10px);
         }
-        
-        .mission-node.locked {
-            opacity: 0.5;
+
+        .mission-planet.locked {
+            opacity: 0.6;
             cursor: not-allowed;
-            filter: grayscale(80%);
+            filter: grayscale(50%);
         }
-        
-        .mission-node:hover:not(.locked) {
-            transform: scale(1.1);
-            box-shadow: 0 0 40px rgba(0, 212, 255, 0.6);
+
+        /* Imagen del planeta */
+        .planet-image {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.3);
+            transition: all 0.4s ease;
+            margin-bottom: 10px;
         }
-        
-        @keyframes activePulse {
-            0%, 100% { box-shadow: 0 0 30px rgba(0, 255, 136, 0.4); }
-            50% { box-shadow: 0 0 50px rgba(0, 255, 136, 0.8); }
+
+        .mission-planet:hover .planet-image {
+            box-shadow: 0 0 60px rgba(255, 255, 255, 0.6);
+            border-color: rgba(255, 255, 255, 0.9);
         }
-        
-        /* Estilos específicos para cada planeta */
-        .mission-1 {
-            background: radial-gradient(circle, #ff6b4a 20%, #d4380d 80%);
-            animation-delay: 0s;
+
+        .mission-planet.completed .planet-image {
+            box-shadow: 0 0 50px rgba(76, 175, 80, 0.8);
+            border-color: #4caf50;
         }
-        
-        .mission-2 {
-            background: radial-gradient(circle, #4a90ff 20%, #0d4cd4 80%);
-            animation-delay: 1s;
+
+        /* Posiciones específicas para cada planeta */
+        .planet-1 {
+            top: 15%;
+            left: 15%;
         }
-        
-        .mission-3 {
-            background: radial-gradient(circle, #9d4aff 20%, #6b0dd4 80%);
-            animation-delay: 2s;
+
+        .planet-2 {
+            top: 15%;
+            right: 15%;
         }
-        
-        .mission-4 {
-            background: radial-gradient(circle, #ff4a9d 20%, #d40d6b 80%);
-            animation-delay: 3s;
+
+        .planet-3 {
+            bottom: 20%;
+            left: 15%;
         }
-        
-        .mission-icon {
-            font-size: 3rem;
-            margin-bottom: 0.5rem;
+
+        .planet-4 {
+            bottom: 20%;
+            right: 15%;
         }
-        
-        .mission-title {
-            font-family: 'Orbitron', monospace;
-            font-size: 1rem;
-            margin-bottom: 0.3rem;
+
+        /* Contenido de los planetas */
+        .planet-content {
+            text-align: center;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px 15px;
+            border-radius: 15px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(5px);
         }
-        
-        .mission-subtitle {
-            font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.8);
+
+        .planet-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 6px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            color: white;
         }
-        
-        .lock-icon {
+
+        .planet-subtitle {
+            font-size: 14px;
+            opacity: 0.95;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Badge de estado más colorido */
+        .mission-badge {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 4rem;
-            color: #666;
-            z-index: 2;
-        }
-        
-        /* Panel de misión */
-        .mission-panel {
-            position: fixed;
-            top: 0;
-            right: -500px;
-            width: 450px;
-            height: 100vh;
-            background: linear-gradient(135deg, rgba(12, 20, 69, 0.95) 0%, rgba(26, 11, 46, 0.95) 100%);
-            backdrop-filter: blur(15px);
-            border-left: 3px solid #00d4ff;
-            transition: right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            z-index: 1000;
-            padding: 2rem;
-            overflow-y: auto;
-            box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
-        }
-        
-        .mission-panel.open {
-            right: 0;
-        }
-        
-        .close-btn {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: rgba(255, 255, 255, 0.1);
-            border: 2px solid #ff4757;
-            color: #ff4757;
+            top: -15px;
+            right: -15px;
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-        }
-        
-        .close-btn:hover {
-            background: #ff4757;
-            color: white;
-            transform: rotate(90deg);
-        }
-        
-        .panel-content {
-            margin-top: 3rem;
-            color: white;
-        }
-        
-        .panel-title {
-            font-family: 'Orbitron', monospace;
-            font-size: 2rem;
-            color: #00d4ff;
-            margin-bottom: 1rem;
-            text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
-        }
-        
-        .mission-description {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            margin-bottom: 2rem;
-            color: #a0e7ff;
-        }
-        
-        .video-placeholder {
-            background: rgba(255, 255, 255, 0.1);
-            border: 2px dashed #00d4ff;
-            border-radius: 15px;
-            padding: 3rem 1rem;
-            text-align: center;
-            margin: 2rem 0;
-            transition: all 0.3s ease;
-        }
-        
-        .video-placeholder:hover {
-            background: rgba(0, 212, 255, 0.1);
-        }
-        
-        .complete-btn {
-            background: linear-gradient(45deg, #00ff88, #00cc6a);
-            border: none;
-            padding: 1rem 2rem;
-            border-radius: 50px;
-            color: white;
-            font-family: 'Orbitron', monospace;
+            font-size: 24px;
             font-weight: bold;
-            font-size: 1.1rem;
+            border: 4px solid white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .badge-completed {
+            background: linear-gradient(45deg, #4caf50, #8bc34a);
+            animation: badgeSuccess 2s ease-in-out infinite;
+        }
+
+        @keyframes badgeSuccess {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .badge-locked {
+            background: linear-gradient(45deg, #757575, #424242);
+        }
+
+        .badge-available {
+            background: linear-gradient(45deg, #ff9800, #f57c00);
+            animation: badgePulse 1.8s ease-in-out infinite;
+        }
+
+        @keyframes badgePulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 20px rgba(255, 152, 0, 0.5); }
+            50% { transform: scale(1.2); box-shadow: 0 0 30px rgba(255, 152, 0, 0.8); }
+        }
+
+        /* Panel de información de misión más colorido */
+        .mission-info {
+            position: fixed;
+            right: -450px;
+            top: 120px;
+            width: 420px;
+            height: calc(100% - 140px);
+            background: linear-gradient(135deg, #ff6b9d 0%, #4ecdc4 100%);
+            border: 4px solid #fff;
+            border-radius: 20px 0 0 20px;
+            padding: 30px;
+            transition: right 0.4s ease;
+            z-index: 500;
+            overflow-y: auto;
+            box-shadow: 0 0 40px rgba(255, 107, 157, 0.6);
+        }
+
+        .mission-info.active {
+            right: 0;
+        }
+
+        .mission-info h2 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 24px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .mission-info p {
+            line-height: 1.7;
+            margin-bottom: 20px;
+            color: rgba(255, 255, 255, 0.95);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .objectives-list {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 25px 0;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .objectives-list h3 {
+            color: #ffeb3b;
+            margin-bottom: 15px;
+            font-size: 18px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .objectives-list ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .objectives-list li {
+            padding: 10px 0;
+            position: relative;
+            padding-left: 30px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .objectives-list li:before {
+            content: "🚀";
+            position: absolute;
+            left: 0;
+            font-size: 18px;
+        }
+
+        .start-mission-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(45deg, #8bc34a, #4caf50);
+            border: 3px solid #fff;
+            border-radius: 25px;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
             cursor: pointer;
             transition: all 0.3s ease;
-            width: 100%;
-            margin-top: 2rem;
-            box-shadow: 0 5px 20px rgba(0, 255, 136, 0.3);
+            margin-top: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
         }
-        
-        .complete-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0, 255, 136, 0.5);
+
+        .start-mission-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(139, 195, 74, 0.5);
         }
-        
-        .complete-btn:disabled {
-            background: #666;
+
+        .start-mission-btn:disabled {
+            opacity: 0.6;
             cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
+            background: linear-gradient(45deg, #757575, #424242);
         }
-        
-        /* Barra de progreso */
-        .progress-bar {
-            position: fixed;
-            bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 1rem;
-            background: rgba(0, 0, 0, 0.3);
-            padding: 1rem 2rem;
-            border-radius: 50px;
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(0, 212, 255, 0.3);
-        }
-        
-        .progress-step {
+
+        .close-info {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid white;
+            border-radius: 50%;
             width: 40px;
             height: 40px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: bold;
-            color: #666;
             transition: all 0.3s ease;
         }
-        
-        .progress-step.completed {
-            background: linear-gradient(45deg, #ffd700, #ffed4a);
-            color: #333;
-            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
-        }
-        
-        .progress-step.active {
-            background: linear-gradient(45deg, #00ff88, #00cc6a);
-            color: white;
-            box-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
-            animation: activePulse 2s ease-in-out infinite;
-        }
-        
-        /* Botón de instrucciones */
-        .instructions-btn {
-            position: fixed;
-            top: 2rem;
-            right: 2rem;
-            background: linear-gradient(45deg, #ff6b4a, #d4380d);
-            border: none;
-            padding: 1rem;
-            border-radius: 50%;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 20px rgba(255, 107, 74, 0.3);
-            z-index: 100;
-        }
-        
-        .instructions-btn:hover {
+
+        .close-info:hover {
+            background: rgba(255, 255, 255, 0.3);
             transform: scale(1.1);
-            box-shadow: 0 8px 25px rgba(255, 107, 74, 0.5);
         }
-        
+
+        /* Planetas decorativos del fondo */
+        .bg-planet {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: bgPlanetFloat 8s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes bgPlanetFloat {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(180deg); }
+        }
+
+        .bg-planet1 {
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle at 30% 30%, #ff6b9d, #ff4081);
+            top: 10%;
+            right: 8%;
+            animation-delay: 0s;
+        }
+
+        .bg-planet2 {
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle at 40% 20%, #4ecdc4, #00bcd4);
+            bottom: 30%;
+            left: 5%;
+            animation-delay: 2s;
+        }
+
+        .bg-planet3 {
+            width: 70px;
+            height: 70px;
+            background: radial-gradient(circle at 50% 30%, #ffeb3b, #ffc107);
+            top: 60%;
+            left: 3%;
+            animation-delay: 4s;
+        }
+
+        /* Panel de progreso general más colorido */
+        .progress-panel {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: linear-gradient(135deg, #8bc34a 0%, #4caf50 100%);
+            border: 4px solid #fff;
+            border-radius: 20px;
+            padding: 20px;
+            z-index: 100;
+            box-shadow: 0 0 30px rgba(139, 195, 74, 0.6);
+            animation: progressPulse 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes progressPulse {
+            0% { box-shadow: 0 0 30px rgba(139, 195, 74, 0.6); }
+            100% { box-shadow: 0 0 50px rgba(139, 195, 74, 0.9); }
+        }
+
+        .progress-title {
+            font-size: 18px;
+            margin-bottom: 12px;
+            color: white;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .progress-bar {
+            width: 250px;
+            height: 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 2px solid white;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 12px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ffeb3b, #ff9800);
+            width: 25%;
+            transition: width 0.6s ease;
+            animation: progressGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes progressGlow {
+            0% { box-shadow: 0 0 10px rgba(255, 235, 59, 0.5); }
+            100% { box-shadow: 0 0 20px rgba(255, 235, 59, 0.9); }
+        }
+
+        .progress-text {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: bold;
+        }
+
+        /* Partículas espaciales */
+        .particle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: particleFloat 8s infinite linear;
+        }
+
+        .particle:nth-child(odd) {
+            background: #ff6b9d;
+            box-shadow: 0 0 15px #ff6b9d;
+        }
+
+        .particle:nth-child(even) {
+            background: #4ecdc4;
+            box-shadow: 0 0 15px #4ecdc4;
+        }
+
+        @keyframes particleFloat {
+            0% {
+                opacity: 0;
+                transform: translateY(100vh) translateX(0) scale(0);
+            }
+            10% {
+                opacity: 1;
+                transform: translateY(90vh) translateX(20px) scale(1);
+            }
+            90% {
+                opacity: 1;
+                transform: translateY(10vh) translateX(100px) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-20px) translateX(120px) scale(0);
+            }
+        }
+
         /* Responsive */
-        @media (max-width: 768px) {
-            .mission-panel {
-                width: 100vw;
-                right: -100vw;
+        @media (max-width: 1400px) {
+            .mission-planet {
+                width: 170px;
+                height: 170px;
             }
             
-            .dashboard {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 1rem;
-                padding: 1rem;
+            .planet-image {
+                width: 130px;
+                height: 130px;
             }
-            
-            .mission-node {
+        }
+
+        @media (max-width: 1200px) {
+            .mission-planet {
                 width: 150px;
                 height: 150px;
             }
             
-            .mission-icon {
-                font-size: 2rem;
+            .planet-image {
+                width: 110px;
+                height: 110px;
             }
             
-            .mission-title {
-                font-size: 0.9rem;
+            .planet-title {
+                font-size: 16px;
             }
             
-            .progress-bar {
-                bottom: 1rem;
-                padding: 0.5rem 1rem;
+            .mission-info {
+                width: 350px;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .missions-container {
+                padding: 20px;
             }
             
-            .progress-step {
-                width: 30px;
-                height: 30px;
-                font-size: 0.8rem;
+            .mission-planet {
+                width: 120px;
+                height: 120px;
             }
+            
+            .planet-image {
+                width: 90px;
+                height: 90px;
+            }
+            
+            .planet-title {
+                font-size: 14px;
+            }
+            
+            .planet-subtitle {
+                font-size: 12px;
+            }
+            
+            .mission-info {
+                width: 100%;
+                right: -100%;
+                left: 0;
+            }
+
+            .main-header {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+
+        /* Estilo para imagen no encontrada */
+        .planet-image-error {
+            background: linear-gradient(45deg, #ff6b9d, #4ecdc4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 48px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
     </style>
 </head>
 <body>
-    <!-- Fondo de estrellas -->
-    <div class="stars" id="stars"></div>
+    <!-- Fondo espacial -->
+    <div class="space-background"></div>
     
-    <!-- Header -->
-    <div class="header">
-        <h1>🚀 EXPLORADORES DEL ESPACIO</h1>
-        <p>Misiones con RoverBot - Dashboard de Control</p>
-    <!-- Panel de misión -->
-    <div class="mission-panel" id="mission-panel">
-        <button class="close-btn" onclick="closeMissionPanel()">✕</button>
-        <div class="panel-content" id="panel-content">
-            <!-- El contenido se carga dinámicamente -->
-        </div>
-    </div>
+    <!-- Planetas decorativos del fondo -->
+    <div class="bg-planet bg-planet1"></div>
+    <div class="bg-planet bg-planet2"></div>
+    <div class="bg-planet bg-planet3"></div>
     
-    <!-- Botón de instrucciones -->
-    <button class="instructions-btn" onclick="showInstructions()">
-        ▶️
-    </button>
-    
-    <!-- Dashboard principal -->
-    <div class="dashboard">
-        <!-- Misión 1: Planeta Rojo -->
-        <div class="mission-node mission-1 active" id="mission-1" onclick="openMission(1)">
-            <div class="mission-icon">🪐</div>
-            <div class="mission-title">MISIÓN 1</div>
-            <div class="mission-subtitle">Planeta Rojo</div>
+    <!-- Header principal -->
+    <header class="main-header">
+        <div class="logo-section">
+            <div class="logo">🚀</div>
+            <div class="title-text">
+                <h1>Exploración de Zython</h1>
+                <p>Misiones de Robótica Educativa</p>
+            </div>
         </div>
         
-        <!-- Misión 2: Planeta Azul -->
-        <div class="mission-node mission-2 locked" id="mission-2" onclick="openMission(2)">
-            <div class="mission-icon">🌍</div>
-            <div class="mission-title">MISIÓN 2</div>
-            <div class="mission-subtitle">Planeta Azul</div>
-            <div class="lock-icon">🔒</div>
+        <div class="player-status">
+            <div class="status-item">
+                <div class="status-value">1</div>
+                <div class="status-label">🎯 Misión</div>
+            </div>
+            <div class="status-item">
+                <div class="status-value">0</div>
+                <div class="status-label">⭐ Completadas</div>
+            </div>
+            <div class="status-item">
+                <div class="status-value">0</div>
+                <div class="status-label">🏆 Insignias</div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Contenedor de misiones -->
+    <div class="missions-container">
+        <!-- Caminos SVG entre planetas -->
+        <svg class="mission-paths" viewBox="0 0 100 100" preserveAspectRatio="none">
+            <!-- Camino de Planeta 1 a Planeta 2 -->
+            <path class="path" d="M 25 25 Q 50 10 75 25"></path>
+            
+            <!-- Camino de Planeta 2 a Planeta 3 -->
+            <path class="path" d="M 75 25 Q 85 50 25 75"></path>
+            
+            <!-- Camino de Planeta 3 a Planeta 4 -->
+            <path class="path" d="M 25 75 Q 50 90 75 75"></path>
+        </svg>
+        
+        <!-- Planeta Misión 1 -->
+        <div class="mission-planet planet-1" data-mission="1">
+            <img src="mision1.png" alt="Llanura de Vectonia" class="planet-image" onerror="this.classList.add('planet-image-error'); this.innerHTML='🏔️';">
+            <div class="planet-content">
+                <div class="planet-title">Llanura de Vectonia</div>
+                <div class="planet-subtitle">Calibra tu RoverBot</div>
+            </div>
+            <div class="mission-badge badge-available">1</div>
         </div>
         
-        <!-- Misión 3: Estación Espacial -->
-        <div class="mission-node mission-3 locked" id="mission-3" onclick="openMission(3)">
-            <div class="mission-icon">🛰️</div>
-            <div class="mission-title">MISIÓN 3</div>
-            <div class="mission-subtitle">Estación Orbital</div>
-            <div class="lock-icon">🔒</div>
+        <!-- Planeta Misión 2 -->
+        <div class="mission-planet planet-2 locked" data-mission="2">
+            <img src="mision2.png" alt="Paso de Zycurva" class="planet-image" onerror="this.classList.add('planet-image-error'); this.innerHTML='🌀';">
+            <div class="planet-content">
+                <div class="planet-title">Paso de Zycurva</div>
+                <div class="planet-subtitle">¡Activen la conexión!</div>
+            </div>
+            <div class="mission-badge badge-locked">🔒</div>
         </div>
         
-        <!-- Misión 4: RoverBot Final -->
-        <div class="mission-node mission-4 locked" id="mission-4" onclick="openMission(4)">
-            <div class="mission-icon">🤖</div>
-            <div class="mission-title">MISIÓN 4</div>
-            <div class="mission-subtitle">RoverBot Final</div>
-            <div class="lock-icon">🔒</div>
+        <!-- Planeta Misión 3 -->
+        <div class="mission-planet planet-3 locked" data-mission="3">
+            <img src="mision3.png" alt="Cráter del Sensorium" class="planet-image" onerror="this.classList.add('planet-image-error'); this.innerHTML='🕳️';">
+            <div class="planet-content">
+                <div class="planet-title">Cráter del Sensorium</div>
+                <div class="planet-subtitle">¡Detente a tiempo!</div>
+            </div>
+            <div class="mission-badge badge-locked">🔒</div>
+        </div>
+        
+        <!-- Planeta Misión 4 -->
+        <div class="mission-planet planet-4 locked" data-mission="4">
+            <img src="mision4.png" alt="Estación de Transferencia" class="planet-image" onerror="this.classList.add('planet-image-error'); this.innerHTML='🚛';">
+            <div class="planet-content">
+                <div class="planet-title">Estación de Transferencia</div>
+                <div class="planet-subtitle">Transporte en equipo</div>
+            </div>
+            <div class="mission-badge badge-locked">🔒</div>
         </div>
     </div>
     
-    <!-- Panel de misión -->
-    <div class="mission-panel" id="mission-panel">
-        <button class="close-btn" onclick="closeMissionPanel()">✕</button>
-        <div class="panel-content" id="panel-content">
-            <!-- El contenido se carga dinámicamente -->
+    <!-- Panel de información de misión -->
+    <div class="mission-info" id="missionInfo">
+        <button class="close-info" onclick="closeMissionInfo()">×</button>
+        <h2 id="missionTitle">Selecciona una misión</h2>
+        <p id="missionDescription">Haz clic en uno de los planetas para ver los detalles de la misión.</p>
+        
+        <div class="objectives-list" id="missionObjectives" style="display: none;">
+            <h3>🎯 Objetivos de aprendizaje</h3>
+            <ul id="objectivesList"></ul>
         </div>
+        
+        <button class="start-mission-btn" id="startMissionBtn" style="display: none;" disabled>
+            🚀 Comenzar Misión
+        </button>
     </div>
     
-    <!-- Barra de progreso -->
-    <div class="progress-bar">
-        <div class="progress-step active" id="progress-1">1</div>
-        <div class="progress-step" id="progress-2">2</div>
-        <div class="progress-step" id="progress-3">3</div>
-        <div class="progress-step" id="progress-4">4</div>
+    <!-- Panel de progreso -->
+    <div class="progress-panel">
+        <div class="progress-title">🌟 Progreso General</div>
+        <div class="progress-bar">
+            <div class="progress-fill"></div>
+        </div>
+        <div class="progress-text">1 de 4 misiones disponibles</div>
     </div>
-
+    
     <script>
-        // Estado del juego
-        let gameState = {
-            currentMission: 1,
-            completedMissions: [],
-            unlockedMissions: [1]
-        };
-        
-        // Datos de las misiones
         const missions = {
             1: {
-                title: "🪐 MISIÓN 1: Planeta Rojo",
-                description: "¡Bienvenido, Explorador Espacial! Tu primera misión es aterrizar en el Planeta Rojo y explorar su superficie. RoverBot necesita tu ayuda para navegar por el terreno marciano y recolectar muestras importantes.",
+                title: "🏔️ Llanura de Vectonia - Calibra tu RoverBot",
+                description: "Acabas de llegar a la superficie del planeta Zython. Tu RoverBot debe salir de la base y recorrer una distancia exacta hasta el primer punto de control. Tu trabajo es calibrar tu robot, haciendo pruebas y registrando los resultados.",
                 objectives: [
-                    "Aterrizar de forma segura en el Planeta Rojo",
-                    "Programar RoverBot para moverse por el terreno",
-                    "Recolectar 3 muestras de rocas marcianas",
-                    "Enviar datos a la Tierra"
-                ]
+                    "Comprender la relación entre potencia del motor, tiempo y distancia",
+                    "Realizar mediciones reales y registrar datos",
+                    "Estimar y ajustar valores para alcanzar distancia propuesta",
+                    "Representar datos en tablas y emitir conclusiones"
+                ],
+                available: true
             },
             2: {
-                title: "🌍 MISIÓN 2: Planeta Azul",
-                description: "¡Excelente trabajo en el Planeta Rojo! Ahora tu misión es explorar el misterioso Planeta Azul. Este planeta tiene océanos y atmósfera, pero también presenta nuevos desafíos para RoverBot.",
+                title: "🌀 Paso de Zycurva - ¡Activen la conexión!",
+                description: "Debes cambiar la dirección del RoverBot para explorar una nueva zona. Cada RoverBot cuenta con un motor, pero deben unir fuerzas con otro equipo para formar un sistema de doble motor y lograr giros coordinados.",
                 objectives: [
-                    "Adaptar RoverBot para terreno húmedo",
-                    "Explorar las costas del océano alienígena",
-                    "Analizar muestras de agua y vida marina",
-                    "Mapear las regiones habitables"
-                ]
+                    "Comprender el uso de sistemas de doble motor",
+                    "Coordinar movimientos entre dos equipos",
+                    "Explorar ángulos de giro mediante tiempo de activación",
+                    "Trabajar en equipo para resolver desafíos de navegación"
+                ],
+                available: false
             },
             3: {
-                title: "🛰️ MISIÓN 3: Estación Orbital",
-                description: "¡Tu experiencia planetaria te ha preparado para el espacio! Ahora debes dirigir operaciones desde la Estación Orbital. Coordina múltiples RoverBots y mantén las comunicaciones con todas las misiones.",
+                title: "🕳️ Cráter del Sensorium - ¡Detente a tiempo!",
+                description: "En una región llena de cráteres peligrosos, tu RoverBot debe detenerse automáticamente al detectar un obstáculo. Usarás el sensor de distancia para lograr navegación autónoma y segura.",
                 objectives: [
-                    "Establecer comunicación con todos los RoverBots",
-                    "Coordinar misiones simultáneas",
-                    "Mantener la estación en órbita estable",
-                    "Procesar datos de múltiples planetas"
-                ]
+                    "Comprender el uso de condicionales simples (si... entonces...)",
+                    "Explorar el comportamiento del sensor de distancia",
+                    "Medir y comparar distancias de activación real",
+                    "Analizar márgenes de error en sensores"
+                ],
+                available: false
             },
             4: {
-                title: "🤖 MISIÓN FINAL: RoverBot Maestro",
-                description: "¡Felicitaciones, Comandante! Has demostrado ser un verdadero Explorador del Espacio. En esta misión final, dirigirás una flota completa de RoverBots en la exploración más ambiciosa de la galaxia.",
+                title: "🚛 Estación de Transferencia - Transporte en equipo",
+                description: "Debes transportar un contenedor de recursos hasta la Estación de Transferencia. Los RoverBots deben estar conectados y coordinados entre dos equipos para completar una ruta compleja con giros y avances.",
                 objectives: [
-                    "Comandar una flota de 10 RoverBots",
-                    "Explorar un sistema solar completo",
-                    "Establecer bases permanentes",
-                    "Completar el mapa galáctico"
-                ]
+                    "Coordinar secuencias de programación entre equipos",
+                    "Aplicar movimientos combinados: giros + desplazamientos",
+                    "Resolver retos logísticos con rutas impuestas",
+                    "Representar recorridos en planos cuadriculados"
+                ],
+                available: false
             }
         };
         
-        // Inicializar el juego
-        function initGame() {
-            createStars();
-            updateUI();
-        }
+        let currentMission = null;
+        let completedMissions = [];
         
-        // Crear estrellas animadas
-        function createStars() {
-            const starsContainer = document.getElementById('stars');
-            for (let i = 0; i < 100; i++) {
-                const star = document.createElement('div');
-                star.className = 'star';
-                star.style.left = Math.random() * 100 + '%';
-                star.style.top = Math.random() * 100 + '%';
-                star.style.width = star.style.height = (Math.random() * 3 + 1) + 'px';
-                star.style.animationDelay = Math.random() * 3 + 's';
-                starsContainer.appendChild(star);
-            }
-        }
-        
-        // Abrir panel de misión
-        function openMission(missionNumber) {
-            if (!gameState.unlockedMissions.includes(missionNumber)) {
-                // Animación de error para misiones bloqueadas
-                const missionNode = document.getElementById(`mission-${missionNumber}`);
-                missionNode.style.animation = 'none';
-                setTimeout(() => {
-                    missionNode.style.animation = '';
-                    missionNode.style.transform = 'scale(0.9)';
-                    setTimeout(() => {
-                        missionNode.style.transform = '';
-                    }, 200);
-                }, 10);
-                return;
-            }
-            
+        function showMissionInfo(missionNumber) {
             const mission = missions[missionNumber];
-            const panelContent = document.getElementById('panel-content');
+            if (!mission) return;
             
-            panelContent.innerHTML = `
-                <h2 class="panel-title">${mission.title}</h2>
-                <p class="mission-description">${mission.description}</p>
-                
-                <h3 style="color: #00ff88; font-family: 'Orbitron', monospace; margin: 2rem 0 1rem 0;">🎯 OBJETIVOS:</h3>
-                <ul style="list-style: none; padding: 0;">
-                    ${mission.objectives.map(obj => `
-                        <li style="padding: 0.5rem 0; color: #a0e7ff; border-left: 3px solid #00d4ff; padding-left: 1rem; margin: 0.5rem 0;">
-                            ✓ ${obj}
-                        </li>
-                    `).join('')}
-                </ul>
-                
-                <div class="video-placeholder">
-                    <div style="font-size: 3rem; margin-bottom: 1rem;">🎬</div>
-                    <p style="color: #00d4ff; font-weight: bold;">ÁREA DE CONTENIDO</p>
-                    <p style="color: #a0e7ff;">Aquí se cargarán videos, retos interactivos y actividades de la misión</p>
-                </div>
-                
-                <button class="complete-btn" onclick="completeMission(${missionNumber})" 
-                        ${gameState.completedMissions.includes(missionNumber) ? 'disabled' : ''}>
-                    ${gameState.completedMissions.includes(missionNumber) ? '✅ MISIÓN COMPLETADA' : '🚀 COMPLETAR MISIÓN'}
-                </button>
-            `;
+            currentMission = missionNumber;
             
-            document.getElementById('mission-panel').classList.add('open');
-        }
-        
-        // Cerrar panel de misión
-        function closeMissionPanel() {
-            document.getElementById('mission-panel').classList.remove('open');
-        }
-        
-        // Completar misión
-        function completeMission(missionNumber) {
-            if (!gameState.completedMissions.includes(missionNumber)) {
-                gameState.completedMissions.push(missionNumber);
-                
-                // Desbloquear siguiente misión
-                if (missionNumber < 4 && !gameState.unlockedMissions.includes(missionNumber + 1)) {
-                    gameState.unlockedMissions.push(missionNumber + 1);
-                }
-                
-                updateUI();
-                closeMissionPanel();
-                
-                // Animación de celebración
-                celebrateMissionComplete(missionNumber);
-            }
-        }
-        
-        // Actualizar interfaz
-        function updateUI() {
-            // Actualizar nodos de misión
-            for (let i = 1; i <= 4; i++) {
-                const node = document.getElementById(`mission-${i}`);
-                const lockIcon = node.querySelector('.lock-icon');
-                
-                if (gameState.completedMissions.includes(i)) {
-                    node.className = node.className.replace(/\b(active|locked)\b/g, '').trim() + ' completed';
-                    if (lockIcon) lockIcon.style.display = 'none';
-                } else if (gameState.unlockedMissions.includes(i)) {
-                    node.className = node.className.replace(/\b(completed|locked)\b/g, '').trim() + ' active';
-                    if (lockIcon) lockIcon.style.display = 'none';
-                } else {
-                    node.className = node.className.replace(/\b(active|completed)\b/g, '').trim() + ' locked';
-                    if (lockIcon) lockIcon.style.display = 'block';
-                }
-            }
+            document.getElementById('missionTitle').textContent = mission.title;
+            document.getElementById('missionDescription').textContent = mission.description;
             
-            // Actualizar barra de progreso
-            for (let i = 1; i <= 4; i++) {
-                const progressStep = document.getElementById(`progress-${i}`);
-                
-                if (gameState.completedMissions.includes(i)) {
-                    progressStep.className = 'progress-step completed';
-                } else if (gameState.unlockedMissions.includes(i)) {
-                    progressStep.className = 'progress-step active';
-                } else {
-                    progressStep.className = 'progress-step';
-                }
-            }
-        }
-        
-        // Animación de celebración
-        function celebrateMissionComplete(missionNumber) {
-            // Crear elementos de celebración
-            for (let i = 0; i < 20; i++) {
-                const particle = document.createElement('div');
-                particle.style.position = 'fixed';
-                particle.style.left = '50%';
-                particle.style.top = '50%';
-                particle.style.width = '10px';
-                particle.style.height = '10px';
-                particle.style.background = ['#ffd700', '#00ff88', '#ff6b4a', '#00d4ff'][Math.floor(Math.random() * 4)];
-                particle.style.borderRadius = '50%';
-                particle.style.pointerEvents = 'none';
-                particle.style.zIndex = '2000';
-                
-                document.body.appendChild(particle);
-                
-                const angle = (360 / 20) * i;
-                const velocity = 100 + Math.random() * 100;
-                
-                particle.animate([
-                    { transform: 'translate(-50%, -50%) rotate(0deg) translateX(0px) scale(1)', opacity: 1 },
-                    { transform: `translate(-50%, -50%) rotate(${angle}deg) translateX(${velocity}px) scale(0)`, opacity: 0 }
-                ], {
-                    duration: 1500,
-                    easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
-                }).onfinish = () => particle.remove();
-            }
-        }
-        
-        // Mostrar instrucciones
-        function showInstructions() {
-            const panelContent = document.getElementById('panel-content');
+            const objectivesList = document.getElementById('objectivesList');
+            objectivesList.innerHTML = '';
+            mission.objectives.forEach(objective => {
+                const li = document.createElement('li');
+                li.textContent = objective;
+                objectivesList.appendChild(li);
+            });
             
-            panelContent.innerHTML = `
-                <h2 class="panel-title">🚀 INSTRUCCIONES DE JUEGO</h2>
-                <div class="mission-description">
-                    <p><strong>¡Bienvenido a Exploradores del Espacio!</strong></p>
-                    <p>Eres un comandante espacial encargado de dirigir las misiones de RoverBot por toda la galaxia.</p>
-                </div>
-                
-                <h3 style="color: #00ff88; font-family: 'Orbitron', monospace; margin: 2rem 0 1rem 0;">📋 CÓMO JUGAR:</h3>
-                <ul style="list-style: none; padding: 0;">
-                    <li style="padding: 0.5rem 0; color: #a0e7ff; border-left: 3px solid #00d4ff; padding-left: 1rem; margin: 0.5rem 0;">
-                        🎯 Haz clic en los planetas y estaciones para abrir las misiones
-                    </li>
-                    <li style="padding: 0.5rem 0; color: #a0e7ff; border-left: 3px solid #00d4ff; padding-left: 1rem; margin: 0.5rem 0;">
-                        🔒 Las misiones se desbloquean progresivamente al completar la anterior
-                    </li>
-                    <li style="padding: 0.5rem 0; color: #a0e7ff; border-left: 3px solid #00d4ff; padding-left: 1rem; margin: 0.5rem 0;">
-                        📊 Sigue tu progreso en la barra inferior
-                    </li>
-                    <li style="padding: 0.5rem 0; color: #a0e7ff; border-left: 3px solid #00d4ff; padding-left: 1rem; margin: 0.5rem 0;">
-                        🎬 Cada misión incluirá videos y retos interactivos
-                    </li>
-                    <li style="padding: 0.5rem 0; color: #a0e7ff; border-left: 3px solid #00d4ff; padding-left: 1rem; margin: 0.5rem 0;">
-                        🏆 Completa todas las misiones para convertirte en Maestro Explorador
-                    </li>
-                </ul>
-                
-                <div class="video-placeholder">
-                    <div style="font-size: 3rem; margin-bottom: 1rem;">🌟</div>
-                    <p style="color: #00d4ff; font-weight: bold;">¡COMIENZA TU AVENTURA!</p>
-                    <p style="color: #a0e7ff;">Haz clic en el Planeta Rojo para iniciar tu primera misión</p>
-                </div>
-            `;
+            document.getElementById('missionObjectives').style.display = 'block';
             
-            document.getElementById('mission-panel').classList.add('open');
-        }
-        
-        // Inicializar cuando la página cargue
-        document.addEventListener('DOMContentLoaded', initGame);
-        
-        // Cerrar panel con tecla Escape
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeMissionPanel();
-            }
-        });
-        
-        // Prevenir scroll horizontal en móviles
-        document.addEventListener('touchmove', function(e) {
-            e.preventDefault();
-        }, { passive: false });
-    </script>
-</body>
-</html>
+            const startBtn = document.getElementById('startMissionBtn');
+            startBtn.style.display = 'block';
+            startBtn.disabled =
