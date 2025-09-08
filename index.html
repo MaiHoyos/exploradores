@@ -182,7 +182,7 @@
             filter: grayscale(50%);
         }
 
-        /* Imagen del planeta - NATURAL, sin bordes circulares */
+        /* Imagen del planeta - NATURAL, sin bordes circulares ni luces de fondo */
         .planet-image {
             width: 180px;
             height: auto;
@@ -190,20 +190,19 @@
             object-fit: contain;
             /* Eliminamos border-radius para que mantenga forma natural */
             /* Eliminamos border para que no tenga marco */
-            box-shadow: 0 0 40px rgba(255, 255, 255, 0.3);
+            /* Eliminamos box-shadow y filter para quitar luces de fondo */
             transition: all 0.4s ease;
             margin-bottom: 15px;
-            filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.2));
         }
 
         .mission-planet:hover .planet-image {
-            box-shadow: 0 0 60px rgba(255, 255, 255, 0.6);
-            filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.4));
+            /* Solo efecto de escala sin luces */
+            transform: scale(1.05);
         }
 
         .mission-planet.completed .planet-image {
-            box-shadow: 0 0 50px rgba(76, 175, 80, 0.8);
-            filter: drop-shadow(0 0 25px rgba(76, 175, 80, 0.6));
+            /* Sin luces, solo un ligero filtro verde para completadas */
+            filter: hue-rotate(90deg) brightness(1.1);
         }
 
         /* Posiciones específicas para cada planeta */
