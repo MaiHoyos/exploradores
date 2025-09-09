@@ -1,16 +1,84 @@
-<script>
-    // Sistema de gestión de jugadores compatible con index.html
-    function getCurrentPlayer() {
-        try {
-            return localStorage.getItem('zython-current-player');
-        } catch (error) {
-            console.error('Error getting current player:', error);
-            return null;
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Misión 2: Paso de Zycurva</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
         }
-    }
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-b from-purple-900 via-blue-900 to-black text-white relative overflow-auto">
+    <!-- Space Background -->
+    <div class="stars" id="stars"></div>
+    
+    <!-- Header -->
+    <header class="relative z-10 bg-gradient-to-r from-pink-400 via-teal-400 to-blue-400 border-4 border-white rounded-b-3xl p-6 m-4">
+        <div class="flex items-center justify-between">
+            <button onclick="volverAMisiones()" class="flex items-center gap-4 hover:scale-105 transition-transform">
+                <div class="text-3xl">🚀</div>
+                <div>
+                    <div class="text-xl font-bold">← Volver a Misiones</div>
+                    <div class="text-sm opacity-90">Exploración de Zython</div>
+                </div>
+            </button>
+            <div id="completion-badge" class="hidden bg-green-500 px-4 py-2 rounded-full border-2 border-white flex items-center gap-2">
+                <span class="text-xl">✅</span>
+                <span class="font-bold">¡Completada!</span>
+            </div>
+        </div>
+    </header>
 
-    function loadPlayerProgress(playerName) {
-        try {
+    <!-- Mission Content -->
+    <div class="relative z-10 max-w-4xl mx-auto p-6">
+        <div class="bg-gradient-to-br from-purple-600/20 to-blue-600/20 backdrop-blur-sm border-4 border-white/30 rounded-3xl p-8 mb-8">
+            <h1 class="text-4xl font-bold mb-6 text-center bg-gradient-to-r from-yellow-300 to-orange-400 bg-clip-text text-transparent">
+                Paso de Zycurva
+            </h1>
+            <div class="text-lg leading-relaxed mb-8 text-center text-white/90">
+                En esta misión aprenderás a coordinar dos motores para realizar giros y movimientos más complejos.
+            </div>
+        </div>
+
+        <!-- Botones de acción -->
+        <div class="flex gap-4 justify-center">
+            <button id="complete-btn" onclick="completeMission()" class="bg-gradient-to-r from-green-400 to-green-600 hover:from-green-500 hover:to-green-700 px-8 py-4 rounded-2xl border-3 border-white font-bold text-lg transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(34,197,94,0.5)]">
+                🏆 Completar Misión
+            </button>
+            <div id="completed-btn" class="hidden bg-gradient-to-r from-green-400 to-green-600 px-8 py-4 rounded-2xl border-3 border-white font-bold text-lg opacity-75">
+                ✅ Misión Completada
+            </div>
+            <button onclick="volverAMisiones()" class="bg-gradient-to-r from-blue-400 to-blue-600 hover:from-blue-500 hover:to-blue-700 px-8 py-4 rounded-2xl border-3 border-white font-bold text-lg transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(59,130,246,0.5)]">
+                🚀 Volver a Misiones
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Sistema de gestión de jugadores
+        function getCurrentPlayer() {
+            return localStorage.getItem('zython-current-player');
+        }
+
+        function loadPlayerProgress(playerName) {
             const players = JSON.parse(localStorage.getItem('zython-players') || '{}');
             return players[playerName] || {
                 completedMissions: [],
@@ -19,109 +87,79 @@
                 badges: 0,
                 currentMission: 1
             };
-        } catch (error) {
-            console.error('Error loading progress:', error);
-            return {
-                completedMissions: [],
-                available: 1,
-                completed: 0,
-                badges: 0,
-                currentMission: 1
-            };
         }
-    }
 
-    function savePlayerProgress(playerName, progress) {
-        try {
+        function savePlayerProgress(playerName, progress) {
             const players = JSON.parse(localStorage.getItem('zython-players') || '{}');
             players[playerName] = progress;
             localStorage.setItem('zython-players', JSON.stringify(players));
-            console.log('Progress saved for:', playerName, progress);
-        } catch (error) {
-            console.error('Error saving progress:', error);
-        }
-    }
-
-    // Función para volver a misiones manteniendo la sesión
-    function volverAMisiones() {
-        const currentPlayer = getCurrentPlayer();
-        if (currentPlayer) {
-            window.location.href = `index.html?player=${encodeURIComponent(currentPlayer)}`;
-        } else {
-            console.warn('No current player found, going to main page');
-            window.location.href = 'index.html';
-        }
-    }
-
-    // Create stars background
-    function createStars() {
-        const starsContainer = document.getElementById('stars');
-        for (let i = 0; i < 100; i++) {
-            const star = document.createElement('div');
-            star.className = 'star';
-            star.style.left = Math.random() * 100 + '%';
-            star.style.top = Math.random() * 100 + '%';
-            star.style.width = Math.random() * 3 + 1 + 'px';
-            star.style.height = star.style.width;
-            star.style.animationDelay = Math.random() * 3 + 's';
-            starsContainer.appendChild(star);
-        }
-    }
-
-    // Check if mission is completed
-    function checkCompletion() {
-        const currentPlayer = getCurrentPlayer();
-        if (!currentPlayer) {
-            console.warn('No current player found');
-            window.location.href = 'index.html';
-            return;
         }
 
-        const progress = loadPlayerProgress(currentPlayer);
-
-        if (progress.completedMissions.includes(2)) {
-            document.getElementById('completion-badge').classList.remove('hidden');
-            document.getElementById('complete-btn').classList.add('hidden');
-            document.getElementById('completed-btn').classList.remove('hidden');
-        }
-    }
-
-    // Complete mission
-    function completeMission() {
-        const currentPlayer = getCurrentPlayer();
-        if (!currentPlayer) {
-            alert('Error: No se encontró información del jugador. Regresa al menú principal.');
-            return;
+        function volverAMisiones() {
+            const currentPlayer = getCurrentPlayer();
+            if (currentPlayer) {
+                window.location.href = `index.html?player=${encodeURIComponent(currentPlayer)}`;
+            } else {
+                window.location.href = 'index.html';
+            }
         }
 
-        const progress = loadPlayerProgress(currentPlayer);
-
-        if (!progress.completedMissions.includes(2)) {
-            progress.completedMissions.push(2);
-            progress.completed = progress.completedMissions.length;
-            progress.badges = progress.completedMissions.length;
-
-            // Desbloquear siguiente misión (Misión 3)
-            progress.currentMission = 3;
-            progress.available = Math.max(progress.available, 3);
-
-            savePlayerProgress(currentPlayer, progress);
-
-            document.getElementById('completion-badge').classList.remove('hidden');
-            document.getElementById('complete-btn').classList.add('hidden');
-            document.getElementById('completed-btn').classList.remove('hidden');
-
-            alert('¡Felicitaciones! Has completado la Misión 2: Paso de Zycurva. La Misión 3 ahora está disponible.');
-        } else {
-            alert('Esta misión ya ha sido completada anteriormente.');
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.width = Math.random() * 3 + 1 + 'px';
+                star.style.height = star.style.width;
+                star.style.animationDelay = Math.random() * 3 + 's';
+                starsContainer.appendChild(star);
+            }
         }
-    }
 
-    // Initialize
-    function initialize() {
-        createStars();
-        checkCompletion();
-    }
+        function checkCompletion() {
+            const currentPlayer = getCurrentPlayer();
+            if (!currentPlayer) {
+                window.location.href = 'index.html';
+                return;
+            }
+            const progress = loadPlayerProgress(currentPlayer);
+            if (progress.completedMissions.includes(2)) {
+                document.getElementById('completion-badge').classList.remove('hidden');
+                document.getElementById('complete-btn').classList.add('hidden');
+                document.getElementById('completed-btn').classList.remove('hidden');
+            }
+        }
 
-    document.addEventListener('DOMContentLoaded', initialize);
-</script>
+        function completeMission() {
+            const currentPlayer = getCurrentPlayer();
+            if (!currentPlayer) {
+                alert("No se encontró jugador. Regresa al inicio.");
+                return;
+            }
+            const progress = loadPlayerProgress(currentPlayer);
+            if (!progress.completedMissions.includes(2)) {
+                progress.completedMissions.push(2);
+                progress.completed = progress.completedMissions.length;
+                progress.badges = progress.completedMissions.length;
+                progress.currentMission = 3;
+                progress.available = Math.max(progress.available, 3);
+                savePlayerProgress(currentPlayer, progress);
+
+                document.getElementById('completion-badge').classList.remove('hidden');
+                document.getElementById('complete-btn').classList.add('hidden');
+                document.getElementById('completed-btn').classList.remove('hidden');
+                alert("¡Felicidades! Has completado la Misión 2: Paso de Zycurva. Ahora está disponible la Misión 3.");
+            }
+        }
+
+        function initialize() {
+            createStars();
+            checkCompletion();
+        }
+
+        document.addEventListener('DOMContentLoaded', initialize);
+    </script>
+</body>
+</html>
