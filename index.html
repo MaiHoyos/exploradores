@@ -434,9 +434,16 @@
                 nameInput.value = '';
                 startButton.disabled = true;
                 
+                // Remove saved player
+                window.localStorage.removeItem('zython-current-player');
+                
                 // Show login, hide game
                 gameContent.classList.add('hidden');
                 loginScreen.classList.remove('hidden');
+                
+                // Set up login again and focus
+                setupLogin();
+                nameInput.focus();
             });
         }
 
