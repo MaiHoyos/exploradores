@@ -89,9 +89,10 @@
     <div class="absolute top-[120px] left-0 right-0 bottom-0 p-10">
         <!-- SVG paths between planets -->
         <svg class="absolute inset-0 w-full h-full z-[1]" viewBox="0 0 100 100" preserveAspectRatio="none">
-            <path class="fill-none stroke-teal-400 stroke-[0.5] opacity-60 animate-path-flow" stroke-dasharray="1,5" d="M 20 30 Q 40 15 65 35"/>
-            <path class="fill-none stroke-teal-400 stroke-[0.5] opacity-60 animate-path-flow" stroke-dasharray="1,5" d="M 65 35 Q 85 50 30 70"/>
-            <path class="fill-none stroke-teal-400 stroke-[0.5] opacity-60 animate-path-flow" stroke-dasharray="1,5" d="M 30 70 Q 50 85 75 65"/>
+            <!-- Made lines thinner (0.2), more frequent dashes (0.8,1.2), and more curved paths -->
+            <path class="fill-none stroke-teal-400 stroke-[0.2] opacity-60 animate-path-flow" stroke-dasharray="0.8,1.2" d="M 20 30 Q 30 10 50 20 Q 70 30 65 35"/>
+            <path class="fill-none stroke-teal-400 stroke-[0.2] opacity-60 animate-path-flow" stroke-dasharray="0.8,1.2" d="M 65 35 Q 80 45 75 60 Q 70 75 50 70 Q 35 65 30 70"/>
+            <path class="fill-none stroke-teal-400 stroke-[0.2] opacity-60 animate-path-flow" stroke-dasharray="0.8,1.2" d="M 30 70 Q 40 80 55 85 Q 70 80 75 65"/>
         </svg>
 
         <!-- Mission 1: Llanura de Vectonia -->
@@ -130,7 +131,8 @@
         </div>
 
         <!-- Mission 3: Cráter del Sensorium -->
-        <div class="absolute bottom-[25%] left-[18%] w-[140px] z-10">
+        <!-- Moved mission 3 from left-[18%] to left-[28%] to avoid overlap with mission 1 -->
+        <div class="absolute bottom-[25%] left-[28%] w-[140px] z-10">
             <div class="opacity-60 cursor-not-allowed" id="mission-3">
                 <div class="flex flex-col items-center transition-all duration-400 animate-planet-bounce grayscale-50">
                     <div class="w-[140px] h-[140px] mb-4 relative rounded-3xl overflow-hidden shadow-2xl">
@@ -172,7 +174,8 @@
             <div class="w-full h-full rounded-3xl border-4 border-white/30 bg-black/20 backdrop-blur-sm flex items-center justify-center">
                 <div class="text-center">
                     <div class="w-20 h-20 mx-auto mb-2 rounded-full overflow-hidden border-2 border-white/40">
-                        <img src="robot.png" alt="Robot Compañero" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex items-center justify-center text-4xl bg-gradient-to-br from-blue-400 to-purple-500&quot;>🤖</div>'">
+                        <!-- Fixed robot image path to use ./robot.png for proper loading from root directory -->
+                        <img src="./robot.png" alt="Robot Compañero" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex items-center justify-center text-4xl bg-gradient-to-br from-blue-400 to-purple-500&quot;>🤖</div>'">
                     </div>
                     <div class="text-sm text-white/80 font-medium">Tu Compañero Robot</div>
                     <div class="text-xs text-white/60 mt-1">¡Listo para la aventura!</div>
