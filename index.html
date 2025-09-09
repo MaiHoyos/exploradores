@@ -3,925 +3,230 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🚀 Exploración de Zython - Misiones Espaciales</title>
+    <title>Exploración de Zython - Misiones Espaciales</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Comic Sans MS', 'Arial', sans-serif;
-            background: #000020;
-            height: 100vh;
-            overflow: hidden;
-            position: relative;
-            color: white;
-        }
-
-        /* Fondo espacial animado */
-        .space-background {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(3px 3px at 20px 30px, #fff, transparent),
-                radial-gradient(3px 3px at 40px 70px, #ffeb3b, transparent),
-                radial-gradient(2px 2px at 90px 40px, #ff4081, transparent),
-                radial-gradient(2px 2px at 130px 80px, #4ecdc4, transparent),
-                radial-gradient(3px 3px at 160px 30px, #8bc34a, transparent);
-            background-repeat: repeat;
-            background-size: 200px 100px;
-            animation: starMove 20s linear infinite;
-        }
-
-        @keyframes starMove {
-            from { transform: translateY(0px); }
-            to { transform: translateY(-100px); }
-        }
-
-        /* Header principal */
-        .main-header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(135deg, #ff6b9d 0%, #4ecdc4 50%, #45b7d1 100%);
-            border: 4px solid #fff;
-            border-radius: 0 0 20px 20px;
-            padding: 15px 30px;
-            z-index: 1000;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
-        }
-
-        .logo-section {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .logo {
-            font-size: 36px;
-            animation: logoFloat 3s ease-in-out infinite;
-        }
-
-        @keyframes logoFloat {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-10px) rotate(180deg); }
-        }
-
-        .title-text h1 {
-            font-size: 28px;
-            font-weight: bold;
-            color: white;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-        }
-
-        .title-text p {
-            font-size: 14px;
-            color: rgba(255, 255, 255, 0.9);
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-        }
-
-        /* Panel de estado del jugador */
-        .player-status {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            background: rgba(255, 255, 255, 0.2);
-            padding: 15px 25px;
-            border-radius: 25px;
-            backdrop-filter: blur(5px);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-        }
-
-        .status-item {
-            text-align: center;
-        }
-
-        .status-value {
-            font-size: 20px;
-            font-weight: bold;
-            color: #ffeb3b;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-        }
-
-        .status-label {
-            font-size: 12px;
-            opacity: 0.9;
-            text-transform: uppercase;
-            font-weight: bold;
-        }
-
-        /* Contenedor principal de misiones */
-        .missions-container {
-            position: absolute;
-            top: 120px;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            padding: 40px;
-        }
-
-        /* Caminos curvos SVG más coloridos */
-        .mission-paths {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-        }
-
-        .path {
-            fill: none;
-            stroke: #4ecdc4;
-            stroke-width: 0.5;
-            stroke-dasharray: 1, 5;
-            animation: pathFlow 2s linear infinite;
-            opacity: 0.6;
-        }
-
-        @keyframes pathFlow {
-            0% { stroke-dashoffset: 6; }
-            100% { stroke-dashoffset: 0; }
-        }
-
-        /* Planetas de misiones - SIN marcos, tamaño y forma natural */
-        .mission-planet {
-            position: absolute;
-            cursor: pointer;
-            transition: all 0.4s ease;
-            z-index: 10;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-end;
-            text-align: center;
-            animation: planetBounce 4s ease-in-out infinite;
-        }
-
         @keyframes planetBounce {
             0%, 100% { transform: translateY(0px) scale(1); }
             50% { transform: translateY(-15px) scale(1.05); }
         }
-
-        .mission-planet:hover {
-            transform: scale(1.15) translateY(-10px);
+        
+        @keyframes pathFlow {
+            0% { stroke-dashoffset: 6; }
+            100% { stroke-dashoffset: 0; }
         }
-
-        .mission-planet.locked {
-            opacity: 0.6;
-            cursor: not-allowed;
-            filter: grayscale(50%);
+        
+        .animate-planet-bounce {
+            animation: planetBounce 4s ease-in-out infinite;
         }
-
-        /* Imagen del planeta - NATURAL, sin bordes circulares ni luces de fondo */
-        .planet-image {
-            width: 180px;
-            height: auto;
-            max-height: 180px;
-            object-fit: contain;
-            /* Eliminamos border-radius para que mantenga forma natural */
-            /* Eliminamos border para que no tenga marco */
-            /* Eliminamos box-shadow y filter para quitar luces de fondo */
-            transition: all 0.4s ease;
-            margin-bottom: 15px;
+        
+        .animate-path-flow {
+            animation: pathFlow 2s linear infinite;
         }
-
-        .mission-planet:hover .planet-image {
-            /* Solo efecto de escala sin luces */
-            transform: scale(1.05);
-        }
-
-        .mission-planet.completed .planet-image {
-            /* Sin luces, solo un ligero filtro verde para completadas */
-            filter: hue-rotate(90deg) brightness(1.1);
-        }
-
-        /* Posiciones específicas para cada planeta */
-        .planet-1 {
-            top: 10%;
-            left: 15%;
-            width: 180px;
-        }
-
-        .planet-2 {
-            top: 10%;
-            right: 15%;
-            width: 180px;
-        }
-
-        .planet-3 {
-            bottom: 15%;
-            left: 15%;
-            width: 180px;
-        }
-
-        .planet-4 {
-            bottom: 15%;
-            right: 15%;
-            width: 180px;
-        }
-
-        /* Contenido de los planetas */
-        .planet-content {
-            text-align: center;
-            background: rgba(0, 0, 0, 0.8);
-            padding: 12px 18px;
-            border-radius: 15px;
-            border: 2px solid rgba(255, 255, 255, 0.4);
-            backdrop-filter: blur(8px);
-            min-width: 160px;
-        }
-
-        .planet-title {
-            font-size: 16px;
-            font-weight: bold;
-            margin-bottom: 6px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-            color: white;
-        }
-
-        .planet-subtitle {
-            font-size: 13px;
-            opacity: 0.95;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
-            color: rgba(255, 255, 255, 0.9);
-        }
-
-        /* Badge de estado más colorido */
-        .mission-badge {
-            position: absolute;
-            top: -10px;
-            right: -10px;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            font-weight: bold;
-            border: 3px solid white;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-        }
-
-        .badge-completed {
-            background: linear-gradient(45deg, #4caf50, #8bc34a);
-            animation: badgeSuccess 2s ease-in-out infinite;
-        }
-
-        @keyframes badgeSuccess {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
-
-        .badge-locked {
-            background: linear-gradient(45deg, #757575, #424242);
-        }
-
-        .badge-available {
-            background: linear-gradient(45deg, #ff9800, #f57c00);
-            animation: badgePulse 1.8s ease-in-out infinite;
-        }
-
-        @keyframes badgePulse {
-            0%, 100% { transform: scale(1); box-shadow: 0 0 20px rgba(255, 152, 0, 0.5); }
-            50% { transform: scale(1.2); box-shadow: 0 0 30px rgba(255, 152, 0, 0.8); }
-        }
-
-        /* Panel de información de misión más colorido */
-        .mission-info {
+        
+        .stars {
             position: fixed;
-            right: -450px;
-            top: 120px;
-            width: 420px;
-            height: calc(100% - 140px);
-            background: linear-gradient(135deg, #ff6b9d 0%, #4ecdc4 100%);
-            border: 4px solid #fff;
-            border-radius: 20px 0 0 20px;
-            padding: 30px;
-            transition: right 0.4s ease;
-            z-index: 500;
-            overflow-y: auto;
-            box-shadow: 0 0 40px rgba(255, 107, 157, 0.6);
-        }
-
-        .mission-info.active {
-            right: 0;
-        }
-
-        .mission-info h2 {
-            color: white;
-            margin-bottom: 20px;
-            font-size: 24px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-        }
-
-        .mission-info p {
-            line-height: 1.7;
-            margin-bottom: 20px;
-            color: rgba(255, 255, 255, 0.95);
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
-        }
-
-        .objectives-list {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 25px;
-            border-radius: 15px;
-            margin: 25px 0;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-        }
-
-        .objectives-list h3 {
-            color: #ffeb3b;
-            margin-bottom: 15px;
-            font-size: 18px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-        }
-
-        .objectives-list ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .objectives-list li {
-            padding: 10px 0;
-            position: relative;
-            padding-left: 30px;
-            color: rgba(255, 255, 255, 0.9);
-        }
-
-        .objectives-list li:before {
-            content: "🚀";
-            position: absolute;
+            top: 0;
             left: 0;
-            font-size: 18px;
-        }
-
-        .start-mission-btn {
             width: 100%;
-            padding: 18px;
-            background: linear-gradient(45deg, #8bc34a, #4caf50);
-            border: 3px solid #fff;
-            border-radius: 25px;
-            color: white;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 25px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-        }
-
-        .start-mission-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(139, 195, 74, 0.5);
-        }
-
-        .start-mission-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            background: linear-gradient(45deg, #757575, #424242);
-        }
-
-        .close-info {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: rgba(255, 255, 255, 0.2);
-            border: 2px solid white;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            color: white;
-            font-size: 24px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-        }
-
-        .close-info:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: scale(1.1);
-        }
-
-        /* Planetas decorativos del fondo */
-        .bg-planet {
-            position: absolute;
-            border-radius: 50%;
-            opacity: 0.3;
-            animation: bgPlanetFloat 8s ease-in-out infinite;
-            pointer-events: none;
-        }
-
-        @keyframes bgPlanetFloat {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-30px) rotate(180deg); }
-        }
-
-        .bg-planet1 {
-            width: 80px;
-            height: 80px;
-            background: radial-gradient(circle at 30% 30%, #ff6b9d, #ff4081);
-            top: 10%;
-            right: 8%;
-            animation-delay: 0s;
-        }
-
-        .bg-planet2 {
-            width: 60px;
-            height: 60px;
-            background: radial-gradient(circle at 40% 20%, #4ecdc4, #00bcd4);
-            bottom: 30%;
-            left: 5%;
-            animation-delay: 2s;
-        }
-
-        .bg-planet3 {
-            width: 70px;
-            height: 70px;
-            background: radial-gradient(circle at 50% 30%, #ffeb3b, #ffc107);
-            top: 60%;
-            left: 3%;
-            animation-delay: 4s;
-        }
-
-        /* Panel de progreso general más colorido */
-        .progress-panel {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            background: linear-gradient(135deg, #8bc34a 0%, #4caf50 100%);
-            border: 4px solid #fff;
-            border-radius: 20px;
-            padding: 20px;
-            z-index: 100;
-            box-shadow: 0 0 30px rgba(139, 195, 74, 0.6);
-            animation: progressPulse 3s ease-in-out infinite alternate;
-        }
-
-        @keyframes progressPulse {
-            0% { box-shadow: 0 0 30px rgba(139, 195, 74, 0.6); }
-            100% { box-shadow: 0 0 50px rgba(139, 195, 74, 0.9); }
-        }
-
-        .progress-title {
-            font-size: 18px;
-            margin-bottom: 12px;
-            color: white;
-            font-weight: bold;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-        }
-
-        .progress-bar {
-            width: 250px;
-            height: 15px;
-            background: rgba(0, 0, 0, 0.3);
-            border: 2px solid white;
-            border-radius: 10px;
-            overflow: hidden;
-            margin-bottom: 12px;
-        }
-
-        .progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, #ffeb3b, #ff9800);
-            width: 25%;
-            transition: width 0.6s ease;
-            animation: progressGlow 2s ease-in-out infinite alternate;
-        }
-
-        @keyframes progressGlow {
-            0% { box-shadow: 0 0 10px rgba(255, 235, 59, 0.5); }
-            100% { box-shadow: 0 0 20px rgba(255, 235, 59, 0.9); }
-        }
-
-        .progress-text {
-            font-size: 14px;
-            color: rgba(255, 255, 255, 0.9);
-            font-weight: bold;
-        }
-
-        /* Partículas espaciales */
-        .particle {
-            position: absolute;
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
             pointer-events: none;
-            animation: particleFloat 8s infinite linear;
         }
-
-        .particle:nth-child(odd) {
-            background: #ff6b9d;
-            box-shadow: 0 0 15px #ff6b9d;
+        
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
         }
-
-        .particle:nth-child(even) {
-            background: #4ecdc4;
-            box-shadow: 0 0 15px #4ecdc4;
-        }
-
-        @keyframes particleFloat {
-            0% {
-                opacity: 0;
-                transform: translateY(100vh) translateX(0) scale(0);
-            }
-            10% {
-                opacity: 1;
-                transform: translateY(90vh) translateX(20px) scale(1);
-            }
-            90% {
-                opacity: 1;
-                transform: translateY(10vh) translateX(100px) scale(1);
-            }
-            100% {
-                opacity: 0;
-                transform: translateY(-20px) translateX(120px) scale(0);
-            }
-        }
-
-        /* Responsive */
-        @media (max-width: 1400px) {
-            .planet-1, .planet-2, .planet-3, .planet-4 {
-                width: 150px;
-            }
-            
-            .planet-image {
-                width: 150px;
-                max-height: 150px;
-            }
-        }
-
-        @media (max-width: 1200px) {
-            .planet-1, .planet-2, .planet-3, .planet-4 {
-                width: 130px;
-            }
-            
-            .planet-image {
-                width: 130px;
-                max-height: 130px;
-            }
-            
-            .planet-title {
-                font-size: 15px;
-            }
-            
-            .mission-info {
-                width: 350px;
-            }
-        }
-
-        @media (max-width: 900px) {
-            .missions-container {
-                padding: 20px;
-            }
-            
-            .planet-1, .planet-2, .planet-3, .planet-4 {
-                width: 110px;
-            }
-            
-            .planet-image {
-                width: 110px;
-                max-height: 110px;
-            }
-            
-            .planet-title {
-                font-size: 14px;
-            }
-            
-            .planet-subtitle {
-                font-size: 12px;
-            }
-            
-            .mission-info {
-                width: 100%;
-                right: -100%;
-                left: 0;
-            }
-
-            .main-header {
-                flex-direction: column;
-                gap: 15px;
-            }
-        }
-
-        /* Estilo para imagen no encontrada - ahora con forma natural */
-        .planet-image-error {
-            background: linear-gradient(135deg, #ff6b9d, #4ecdc4, #8bc34a);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 48px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-            border-radius: 20px;
-            min-height: 120px;
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
         }
     </style>
 </head>
-<body>
-    <!-- Fondo espacial -->
-    <div class="space-background"></div>
+<body class="min-h-screen bg-gradient-to-b from-purple-900 via-blue-900 to-black text-white overflow-hidden relative">
+    <!-- Space Background -->
+    <div class="stars" id="stars"></div>
     
-    <!-- Planetas decorativos del fondo -->
-    <div class="bg-planet bg-planet1"></div>
-    <div class="bg-planet bg-planet2"></div>
-    <div class="bg-planet bg-planet3"></div>
-    
-    <!-- Header principal -->
-    <header class="main-header">
-        <div class="logo-section">
-            <div class="logo">🚀</div>
-            <div class="title-text">
-                <h1>Exploración de Zython</h1>
-                <p>Misiones de Robótica Educativa</p>
+    <!-- Header -->
+    <header class="relative z-10 bg-white/80 border-4 border-white rounded-b-3xl p-6 m-4">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <div class="text-3xl">🚀</div>
+                <div>
+                    <div class="text-xl font-bold text-gray-800">Exploración de Zython</div>
+                    <div class="text-sm text-gray-700">Misiones de Robótica Educativa</div>
+                </div>
             </div>
-        </div>
-        
-        <div class="player-status">
-            <div class="status-item">
-                <div class="status-value">1</div>
-                <div class="status-label">🎯 Misión</div>
-            </div>
-            <div class="status-item">
-                <div class="status-value">0</div>
-                <div class="status-label">⭐ Completadas</div>
-            </div>
-            <div class="status-item">
-                <div class="status-value">0</div>
-                <div class="status-label">🏆 Insignias</div>
+            <div class="text-right">
+                <div class="text-lg font-bold text-gray-800">¡Bienvenido Explorador!</div>
+                <div class="text-sm text-gray-700">Selecciona tu próxima misión</div>
             </div>
         </div>
     </header>
-    
-    <!-- Contenedor de misiones -->
-    <div class="missions-container">
-        <!-- Caminos SVG entre planetas -->
-        <svg class="mission-paths" viewBox="0 0 100 100" preserveAspectRatio="none">
-            <!-- Camino de Planeta 1 a Planeta 2 -->
-            <path class="path" d="M 25 25 Q 50 10 75 25"></path>
-            
-            <!-- Camino de Planeta 2 a Planeta 3 -->
-            <path class="path" d="M 75 25 Q 85 50 25 75"></path>
-            
-            <!-- Camino de Planeta 3 a Planeta 4 -->
-            <path class="path" d="M 25 75 Q 50 90 75 75"></path>
+
+    <!-- Progress Panel -->
+    <div class="fixed top-4 right-4 z-20 bg-white/80 backdrop-blur-sm border-4 border-white/40 rounded-2xl p-4 min-w-[200px]">
+        <div class="grid grid-cols-3 gap-4 text-center">
+            <div>
+                <div class="text-2xl font-bold text-yellow-600" id="available-count">1</div>
+                <div class="text-xs text-gray-800 font-medium">🎯 Misión</div>
+            </div>
+            <div>
+                <div class="text-2xl font-bold text-green-600" id="completed-count">0</div>
+                <div class="text-xs text-gray-800 font-medium">⭐ Completadas</div>
+            </div>
+            <div>
+                <div class="text-2xl font-bold text-purple-600" id="badges-count">0</div>
+                <div class="text-xs text-gray-800 font-medium">🏆 Insignias</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Missions Container -->
+    <div class="absolute top-[120px] left-0 right-0 bottom-0 p-10">
+        <!-- SVG paths between planets -->
+        <svg class="absolute inset-0 w-full h-full z-[1]" viewBox="0 0 100 100" preserveAspectRatio="none">
+            <path class="fill-none stroke-teal-400 stroke-[0.5] opacity-60 animate-path-flow" stroke-dasharray="1,5" d="M 25 25 Q 50 10 75 25"/>
+            <path class="fill-none stroke-teal-400 stroke-[0.5] opacity-60 animate-path-flow" stroke-dasharray="1,5" d="M 75 25 Q 85 50 25 75"/>
+            <path class="fill-none stroke-teal-400 stroke-[0.5] opacity-60 animate-path-flow" stroke-dasharray="1,5" d="M 25 75 Q 50 90 75 75"/>
         </svg>
-        
-        <!-- Planeta Misión 1 -->
-        <div class="mission-planet planet-1" data-mission="1">
-            <img src="mision1.png" alt="Llanura de Vectonia" class="planet-image" onerror="this.classList.add('planet-image-error'); this.innerHTML='🏔️';">
-            <div class="planet-content">
-                <div class="planet-title">Llanura de Vectonia</div>
-                <div class="planet-subtitle">Calibra tu RoverBot</div>
-            </div>
-            <div class="mission-badge badge-available">1</div>
+
+        <!-- Mission 1: Llanura de Vectonia -->
+        <div class="absolute top-[10%] left-[15%] w-[180px] z-10">
+            <a href="mision1.html" class="block" id="mission-1">
+                <div class="flex flex-col items-center cursor-pointer transition-all duration-400 hover:scale-110 hover:-translate-y-2 animate-planet-bounce">
+                    <div class="w-[180px] h-[180px] mb-4 relative rounded-3xl overflow-hidden transition-all duration-400 hover:scale-105 shadow-2xl">
+                        <img src="mision1.png" alt="Llanura de Vectonia" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex items-center justify-center text-6xl bg-gradient-to-br from-pink-400 via-teal-400 to-green-400&quot;>🏔️</div>'">
+                    </div>
+                    <div class="text-center bg-black/80 px-4 py-3 rounded-2xl border-2 border-white/40 backdrop-blur-sm min-w-[160px]">
+                        <div class="text-base font-bold mb-1 text-white drop-shadow-lg">Llanura de Vectonia</div>
+                        <div class="text-sm text-white/90 drop-shadow">Calibra tu RoverBot</div>
+                    </div>
+                </div>
+            </a>
+            <div class="absolute -top-2 -right-2 w-11 h-11 rounded-full flex items-center justify-center text-xl font-bold border-3 border-white shadow-lg bg-gradient-to-br from-orange-400 to-orange-600 animate-pulse" id="badge-1">1</div>
         </div>
-        
-        <!-- Planeta Misión 2 -->
-        <div class="mission-planet planet-2 locked" data-mission="2">
-            <img src="mision2.png" alt="Paso de Zycurva" class="planet-image" onerror="this.classList.add('planet-image-error'); this.innerHTML='🌀';">
-            <div class="planet-content">
-                <div class="planet-title">Paso de Zycurva</div>
-                <div class="planet-subtitle">¡Activen la conexión!</div>
+
+        <!-- Mission 2: Paso de Zycurva -->
+        <div class="absolute top-[10%] right-[15%] w-[180px] z-10">
+            <div class="opacity-60 cursor-not-allowed" id="mission-2">
+                <div class="flex flex-col items-center transition-all duration-400 animate-planet-bounce grayscale-50">
+                    <div class="w-[180px] h-[180px] mb-4 relative rounded-3xl overflow-hidden shadow-2xl">
+                        <img src="mision2.png" alt="Paso de Zycurva" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex items-center justify-center text-6xl bg-gradient-to-br from-pink-400 via-teal-400 to-green-400&quot;>🌀</div>'">
+                        <div class="absolute inset-0 bg-gray-900/60 flex items-center justify-center">
+                            <div class="text-4xl">🔒</div>
+                        </div>
+                    </div>
+                    <div class="text-center bg-black/80 px-4 py-3 rounded-2xl border-2 border-white/40 backdrop-blur-sm min-w-[160px]">
+                        <div class="text-base font-bold mb-1 text-white drop-shadow-lg">Paso de Zycurva</div>
+                        <div class="text-sm text-white/90 drop-shadow">¡Activen la conexión!</div>
+                    </div>
+                </div>
             </div>
-            <div class="mission-badge badge-locked">🔒</div>
+            <div class="absolute -top-2 -right-2 w-11 h-11 rounded-full flex items-center justify-center text-xl font-bold border-3 border-white shadow-lg bg-gradient-to-br from-gray-500 to-gray-700" id="badge-2">🔒</div>
         </div>
-        
-        <!-- Planeta Misión 3 -->
-        <div class="mission-planet planet-3 locked" data-mission="3">
-            <img src="mision3.png" alt="Cráter del Sensorium" class="planet-image" onerror="this.classList.add('planet-image-error'); this.innerHTML='🕳️';">
-            <div class="planet-content">
-                <div class="planet-title">Cráter del Sensorium</div>
-                <div class="planet-subtitle">¡Detente a tiempo!</div>
+
+        <!-- Mission 3: Cráter del Sensorium -->
+        <div class="absolute bottom-[15%] left-[15%] w-[180px] z-10">
+            <div class="opacity-60 cursor-not-allowed" id="mission-3">
+                <div class="flex flex-col items-center transition-all duration-400 animate-planet-bounce grayscale-50">
+                    <div class="w-[180px] h-[180px] mb-4 relative rounded-3xl overflow-hidden shadow-2xl">
+                        <img src="mision3.png" alt="Cráter del Sensorium" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex items-center justify-center text-6xl bg-gradient-to-br from-pink-400 via-teal-400 to-green-400&quot;>🕳️</div>'">
+                        <div class="absolute inset-0 bg-gray-900/60 flex items-center justify-center">
+                            <div class="text-4xl">🔒</div>
+                        </div>
+                    </div>
+                    <div class="text-center bg-black/80 px-4 py-3 rounded-2xl border-2 border-white/40 backdrop-blur-sm min-w-[160px]">
+                        <div class="text-base font-bold mb-1 text-white drop-shadow-lg">Cráter del Sensorium</div>
+                        <div class="text-sm text-white/90 drop-shadow">¡Detente a tiempo!</div>
+                    </div>
+                </div>
             </div>
-            <div class="mission-badge badge-locked">🔒</div>
+            <div class="absolute -top-2 -right-2 w-11 h-11 rounded-full flex items-center justify-center text-xl font-bold border-3 border-white shadow-lg bg-gradient-to-br from-gray-500 to-gray-700" id="badge-3">🔒</div>
         </div>
-        
-        <!-- Planeta Misión 4 -->
-        <div class="mission-planet planet-4 locked" data-mission="4">
-            <img src="mision4.png" alt="Estación de Transferencia" class="planet-image" onerror="this.classList.add('planet-image-error'); this.innerHTML='🚛';">
-            <div class="planet-content">
-                <div class="planet-title">Estación de Transferencia</div>
-                <div class="planet-subtitle">Transporte en equipo</div>
+
+        <!-- Mission 4: Estación de Transferencia -->
+        <div class="absolute bottom-[15%] right-[15%] w-[180px] z-10">
+            <div class="opacity-60 cursor-not-allowed" id="mission-4">
+                <div class="flex flex-col items-center transition-all duration-400 animate-planet-bounce grayscale-50">
+                    <div class="w-[180px] h-[180px] mb-4 relative rounded-3xl overflow-hidden shadow-2xl">
+                        <img src="mision4.png" alt="Estación de Transferencia" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex items-center justify-center text-6xl bg-gradient-to-br from-pink-400 via-teal-400 to-green-400&quot;>🚛</div>'">
+                        <div class="absolute inset-0 bg-gray-900/60 flex items-center justify-center">
+                            <div class="text-4xl">🔒</div>
+                        </div>
+                    </div>
+                    <div class="text-center bg-black/80 px-4 py-3 rounded-2xl border-2 border-white/40 backdrop-blur-sm min-w-[160px]">
+                        <div class="text-base font-bold mb-1 text-white drop-shadow-lg">Estación de Transferencia</div>
+                        <div class="text-sm text-white/90 drop-shadow">Transporte en equipo</div>
+                    </div>
+                </div>
             </div>
-            <div class="mission-badge badge-locked">🔒</div>
+            <div class="absolute -top-2 -right-2 w-11 h-11 rounded-full flex items-center justify-center text-xl font-bold border-3 border-white shadow-lg bg-gradient-to-br from-gray-500 to-gray-700" id="badge-4">🔒</div>
         </div>
     </div>
-    
-    <!-- Panel de información de misión -->
-    <div class="mission-info" id="missionInfo">
-        <button class="close-info" onclick="closeMissionInfo()">×</button>
-        <h2 id="missionTitle">Selecciona una misión</h2>
-        <p id="missionDescription">Haz clic en uno de los planetas para ver los detalles de la misión.</p>
-        
-        <div class="objectives-list" id="missionObjectives" style="display: none;">
-            <h3>🎯 Objetivos de aprendizaje</h3>
-            <ul id="objectivesList"></ul>
-        </div>
-        
-        <button class="start-mission-btn" id="startMissionBtn" style="display: none;" disabled>
-            🚀 Comenzar Misión
-        </button>
-    </div>
-    
-    <!-- Panel de progreso -->
-    <div class="progress-panel">
-        <div class="progress-title">🌟 Progreso General</div>
-        <div class="progress-bar">
-            <div class="progress-fill"></div>
-        </div>
-        <div class="progress-text">1 de 4 misiones disponibles</div>
-    </div>
-    
+
     <script>
-        const missions = {
-            1: {
-                title: "🏔️ Llanura de Vectonia - Calibra tu RoverBot",
-                description: "Acabas de llegar a la superficie del planeta Zython. Tu RoverBot debe salir de la base y recorrer una distancia exacta hasta el primer punto de control. Tu trabajo es calibrar tu robot, haciendo pruebas y registrando los resultados.",
-                objectives: [
-                    "Comprender la relación entre potencia del motor, tiempo y distancia",
-                    "Realizar mediciones reales y registrar datos",
-                    "Estimar y ajustar valores para alcanzar distancia propuesta",
-                    "Representar datos en tablas y emitir conclusiones"
-                ],
-                available: true
-            },
-            2: {
-                title: "🌀 Paso de Zycurva - ¡Activen la conexión!",
-                description: "Debes cambiar la dirección del RoverBot para explorar una nueva zona. Cada RoverBot cuenta con un motor, pero deben unir fuerzas con otro equipo para formar un sistema de doble motor y lograr giros coordinados.",
-                objectives: [
-                    "Comprender el uso de sistemas de doble motor",
-                    "Coordinar movimientos entre dos equipos",
-                    "Explorar ángulos de giro mediante tiempo de activación",
-                    "Trabajar en equipo para resolver desafíos de navegación"
-                ],
-                available: false
-            },
-            3: {
-                title: "🕳️ Cráter del Sensorium - ¡Detente a tiempo!",
-                description: "En una región llena de cráteres peligrosos, tu RoverBot debe detenerse automáticamente al detectar un obstáculo. Usarás el sensor de distancia para lograr navegación autónoma y segura.",
-                objectives: [
-                    "Comprender el uso de condicionales simples (si... entonces...)",
-                    "Explorar el comportamiento del sensor de distancia",
-                    "Medir y comparar distancias de activación real",
-                    "Analizar márgenes de error en sensores"
-                ],
-                available: false
-            },
-            4: {
-                title: "🚛 Estación de Transferencia - Transporte en equipo",
-                description: "Debes transportar un contenedor de recursos hasta la Estación de Transferencia. Los RoverBots deben estar conectados y coordinados entre dos equipos para completar una ruta compleja con giros y avances.",
-                objectives: [
-                    "Coordinar secuencias de programación entre equipos",
-                    "Aplicar movimientos combinados: giros + desplazamientos",
-                    "Resolver retos logísticos con rutas impuestas",
-                    "Representar recorridos en planos cuadriculados"
-                ],
-                available: false
+        // Create stars background
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.width = Math.random() * 3 + 1 + 'px';
+                star.style.height = star.style.width;
+                star.style.animationDelay = Math.random() * 3 + 's';
+                starsContainer.appendChild(star);
             }
-        };
-        
-        let currentMission = null;
-        let completedMissions = [];
-        
-        function showMissionInfo(missionNumber) {
-            const mission = missions[missionNumber];
-            if (!mission) return;
-            
-            currentMission = missionNumber;
-            
-            document.getElementById('missionTitle').textContent = mission.title;
-            document.getElementById('missionDescription').textContent = mission.description;
-            
-            const objectivesList = document.getElementById('objectivesList');
-            objectivesList.innerHTML = '';
-            mission.objectives.forEach(objective => {
-                const li = document.createElement('li');
-                li.textContent = objective;
-                objectivesList.appendChild(li);
-            });
-            
-            document.getElementById('missionObjectives').style.display = 'block';
-            
-            const startBtn = document.getElementById('startMissionBtn');
-            startBtn.style.display = 'block';
-            startBtn.disabled = !mission.available;
-            
-            document.getElementById('missionInfo').classList.add('active');
         }
-        
-        function closeMissionInfo() {
-            document.getElementById('missionInfo').classList.remove('active');
-            currentMission = null;
-        }
-        
-        function startMission() {
-            if (!currentMission) return;
+
+        // Load progress from localStorage
+        function loadProgress() {
+            const saved = localStorage.getItem('completed-missions');
+            const completedMissions = saved ? JSON.parse(saved) : [];
+            const stats = JSON.parse(localStorage.getItem('zython-stats') || '{"available":1,"completed":0,"badges":0}');
             
-            const mission = missions[currentMission];
-            if (!mission.available) return;
+            // Update progress panel
+            document.getElementById('available-count').textContent = stats.available;
+            document.getElementById('completed-count').textContent = stats.completed;
+            document.getElementById('badges-count').textContent = stats.badges;
             
-            // Aquí se puede agregar la lógica para iniciar la misión
-            alert(`¡Iniciando misión: ${mission.title}!`);
-        }
-        
-        // Event listeners
-        document.addEventListener('DOMContentLoaded', function() {
-            // Agregar event listeners a los planetas
-            document.querySelectorAll('.mission-planet').forEach(planet => {
-                planet.addEventListener('click', function() {
-                    const missionNumber = parseInt(this.dataset.mission);
-                    if (!this.classList.contains('locked')) {
-                        showMissionInfo(missionNumber);
-                    }
-                });
-            });
-            
-            // Event listener para el botón de comenzar misión
-            document.getElementById('startMissionBtn').addEventListener('click', startMission);
-            
-            // Crear partículas espaciales
-            createSpaceParticles();
-        });
-        
-        function createSpaceParticles() {
-            const container = document.body;
-            
-            setInterval(() => {
-                if (document.querySelectorAll('.particle').length < 15) {
-                    const particle = document.createElement('div');
-                    particle.className = 'particle';
-                    particle.style.left = Math.random() * 100 + 'vw';
-                    particle.style.animationDuration = (Math.random() * 5 + 8) + 's';
-                    container.appendChild(particle);
-                    
-                    // Remover partícula después de la animación
-                    setTimeout(() => {
-                        if (particle.parentNode) {
-                            particle.parentNode.removeChild(particle);
-                        }
-                    }, 13000);
-                }
-            }, 2000);
-        }
-        
-        // Función para completar una misión
-        function completeMission(missionNumber) {
-            if (!completedMissions.includes(missionNumber)) {
-                completedMissions.push(missionNumber);
+            // Update mission states
+            completedMissions.forEach(missionId => {
+                const mission = document.getElementById(`mission-${missionId}`);
+                const badge = document.getElementById(`badge-${missionId}`);
                 
-                // Actualizar UI
-                const planet = document.querySelector(`[data-mission="${missionNumber}"]`);
-                if (planet) {
-                    planet.classList.add('completed');
-                    const badge = planet.querySelector('.mission-badge');
-                    badge.className = 'mission-badge badge-completed';
+                if (mission && badge) {
+                    // Mark as completed
+                    mission.querySelector('.w-\\[180px\\].h-\\[180px\\]').innerHTML += '<div class="absolute inset-0 bg-green-500/30 flex items-center justify-center"><div class="text-4xl">✓</div></div>';
+                    badge.className = badge.className.replace(/bg-gradient-to-br from-\w+-\d+ to-\w+-\d+/, 'bg-gradient-to-br from-green-400 to-green-600');
                     badge.textContent = '✓';
                 }
                 
-                // Desbloquear siguiente misión
-                const nextMission = missionNumber + 1;
-                if (missions[nextMission]) {
-                    missions[nextMission].available = true;
-                    const nextPlanet = document.querySelector(`[data-mission="${nextMission}"]`);
-                    if (nextPlanet) {
-                        nextPlanet.classList.remove('locked');
-                        const nextBadge = nextPlanet.querySelector('.mission-badge');
-                        nextBadge.className = 'mission-badge badge-available';
-                        nextBadge.textContent = nextMission;
+                // Unlock next mission
+                if (missionId < 4) {
+                    const nextMission = document.getElementById(`mission-${missionId + 1}`);
+                    const nextBadge = document.getElementById(`badge-${missionId + 1}`);
+                    
+                    if (nextMission && nextBadge) {
+                        nextMission.className = nextMission.className.replace('opacity-60 cursor-not-allowed', '');
+                        nextMission.innerHTML = `<a href="mision${missionId + 1}.html" class="block">${nextMission.innerHTML}</a>`;
+                        nextMission.querySelector('.grayscale-50').className = nextMission.querySelector('.grayscale-50').className.replace('grayscale-50', '');
+                        nextMission.querySelector('.bg-gray-900\\/60').remove();
+                        nextBadge.className = nextBadge.className.replace(/bg-gradient-to-br from-gray-\d+ to-gray-\d+/, 'bg-gradient-to-br from-orange-400 to-orange-600 animate-pulse');
+                        nextBadge.textContent = missionId + 1;
                     }
                 }
-                
-                // Actualizar estadísticas
-                updateStats();
-            }
+            });
         }
-        
-        function updateStats() {
-            const completedCount = completedMissions.length;
-            const availableCount = Object.values(missions).filter(m => m.available).length;
-            
-            document.querySelector('.status-item:nth-child(1) .status-value').textContent = availableCount;
-            document.querySelector('.status-item:nth-child(2) .status-value').textContent = completedCount;
-            document.querySelector('.status-item:nth-child(3) .status-value').textContent = completedCount;
-            
-            // Actualizar barra de progreso
-            const progressPercent = (completedCount / Object.keys(missions).length) * 100;
-            document.querySelector('.progress-fill').style.width = progressPercent + '%';
-            document.querySelector('.progress-text').textContent = `${completedCount} de ${Object.keys(missions).length} misiones completadas`;
-        }
+
+        // Initialize
+        createStars();
+        loadProgress();
     </script>
 </body>
 </html>
