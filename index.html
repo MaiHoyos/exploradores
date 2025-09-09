@@ -99,20 +99,20 @@
 
     <!-- Main Game Content -->
     <div id="game-content" class="hidden">
-        <!-- Made header responsive for mobile -->
-        <header class="relative z-10 bg-white/80 border-2 md:border-4 border-white rounded-b-2xl md:rounded-b-3xl p-3 md:p-6 m-2 md:m-4">
+        <!-- Header sin fondo blanco - ahora transparente -->
+        <header class="relative z-10 p-3 md:p-6 m-2 md:m-4">
             <div class="flex items-center justify-between flex-col md:flex-row gap-2 md:gap-4">
                 <div class="flex items-center gap-2 md:gap-4">
                     <div class="text-2xl md:text-3xl">🚀</div>
                     <div class="text-center md:text-left">
-                        <div class="text-lg md:text-xl font-bold text-gray-800">Exploración de Zython</div>
-                        <div class="text-xs md:text-sm text-gray-700">Misiones de Robótica Educativa</div>
+                        <div class="text-lg md:text-xl font-bold text-white drop-shadow-lg">Exploración de Zython</div>
+                        <div class="text-xs md:text-sm text-white/90 drop-shadow">Misiones de Robótica Educativa</div>
                     </div>
                 </div>
                 <div class="text-center md:text-right">
-                    <div class="text-base md:text-lg font-bold text-gray-800">¡Hola <span id="player-name-display"></span>!</div>
-                    <div class="text-xs md:text-sm text-gray-700">Selecciona tu próxima misión</div>
-                    <button id="logout-btn" class="text-xs text-blue-600 hover:text-blue-800 underline mt-1">Cambiar explorador</button>
+                    <div class="text-base md:text-lg font-bold text-white drop-shadow-lg">¡Hola <span id="player-name-display"></span>!</div>
+                    <div class="text-xs md:text-sm text-white/90 drop-shadow">Selecciona tu próxima misión</div>
+                    <button id="logout-btn" class="text-xs text-blue-300 hover:text-blue-100 underline mt-1 drop-shadow">Cambiar explorador</button>
                 </div>
             </div>
         </header>
@@ -136,7 +136,7 @@
         </div>
 
         <!-- Missions container -->
-        <div class="absolute top-[140px] md:top-[120px] left-0 right-0 bottom-0 p-4 md:p-10">
+        <div class="absolute top-[200px] md:top-[180px] left-0 right-0 bottom-0 p-4 md:p-10">
             <!-- Mission 1: Llanura de Vectonia -->
             <div class="absolute top-[2%] left-[5%] md:top-[5%] md:left-[12%] w-[140px] md:w-[220px] z-10">
                 <div class="mission-container" id="mission-1">
