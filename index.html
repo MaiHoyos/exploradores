@@ -414,19 +414,23 @@
             startButton.addEventListener('click', startGame);
 
             function startGame() {
-                const playerName = nameInput.value.trim();
-                if (playerName.length < 2) return;
+                        const playerName = nameInput.value.trim();
+                        if (playerName.length < 2) return;
+                    
+                        currentPlayer = playerName;
+                        playerNameDisplay.textContent = playerName;
+                    
+                        // ✅ Guardar jugador actual para usar en las misiones
+                        window.localStorage.setItem('zython-current-player', playerName);
+                        
+                        // Hide login, show game
+                        loginScreen.classList.add('hidden');
+                        gameContent.classList.remove('hidden');
+                        
+                        // Load and display progress
+                        updateGameDisplay();
+                    }
 
-                currentPlayer = playerName;
-                playerNameDisplay.textContent = playerName;
-                
-                // Hide login, show game
-                loginScreen.classList.add('hidden');
-                gameContent.classList.remove('hidden');
-                
-                // Load and display progress
-                updateGameDisplay();
-            }
 
             // Logout functionality
             logoutBtn.addEventListener('click', () => {
