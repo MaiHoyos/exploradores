@@ -89,19 +89,19 @@
     <div class="absolute top-[120px] left-0 right-0 bottom-0 p-10">
         <!-- SVG paths between planets -->
         <svg class="absolute inset-0 w-full h-full z-[1]" viewBox="0 0 100 100" preserveAspectRatio="none">
-            <path class="fill-none stroke-teal-400 stroke-[0.5] opacity-60 animate-path-flow" stroke-dasharray="1,5" d="M 25 25 Q 50 10 75 25"/>
-            <path class="fill-none stroke-teal-400 stroke-[0.5] opacity-60 animate-path-flow" stroke-dasharray="1,5" d="M 75 25 Q 85 50 25 75"/>
-            <path class="fill-none stroke-teal-400 stroke-[0.5] opacity-60 animate-path-flow" stroke-dasharray="1,5" d="M 25 75 Q 50 90 75 75"/>
+            <path class="fill-none stroke-teal-400 stroke-[0.5] opacity-60 animate-path-flow" stroke-dasharray="1,5" d="M 20 30 Q 40 15 65 35"/>
+            <path class="fill-none stroke-teal-400 stroke-[0.5] opacity-60 animate-path-flow" stroke-dasharray="1,5" d="M 65 35 Q 85 50 30 70"/>
+            <path class="fill-none stroke-teal-400 stroke-[0.5] opacity-60 animate-path-flow" stroke-dasharray="1,5" d="M 30 70 Q 50 85 75 65"/>
         </svg>
 
         <!-- Mission 1: Llanura de Vectonia -->
-        <div class="absolute top-[10%] left-[15%] w-[180px] z-10">
+        <div class="absolute top-[8%] left-[12%] w-[220px] z-10">
             <a href="mision1.html" class="block" id="mission-1">
                 <div class="flex flex-col items-center cursor-pointer transition-all duration-400 hover:scale-110 hover:-translate-y-2 animate-planet-bounce">
-                    <div class="w-[180px] h-[180px] mb-4 relative rounded-3xl overflow-hidden transition-all duration-400 hover:scale-105 shadow-2xl">
+                    <div class="w-[220px] h-[220px] mb-4 relative rounded-3xl overflow-hidden transition-all duration-400 hover:scale-105 shadow-2xl">
                         <img src="mision1.png" alt="Llanura de Vectonia" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex items-center justify-center text-6xl bg-gradient-to-br from-pink-400 via-teal-400 to-green-400&quot;>🏔️</div>'">
                     </div>
-                    <div class="text-center bg-black/80 px-4 py-3 rounded-2xl border-2 border-white/40 backdrop-blur-sm min-w-[160px]">
+                    <div class="text-center bg-black/80 px-4 py-3 rounded-2xl border-2 border-white/40 backdrop-blur-sm min-w-[180px]">
                         <div class="text-base font-bold mb-1 text-white drop-shadow-lg">Llanura de Vectonia</div>
                         <div class="text-sm text-white/90 drop-shadow">Calibra tu RoverBot</div>
                     </div>
@@ -111,18 +111,18 @@
         </div>
 
         <!-- Mission 2: Paso de Zycurva -->
-        <div class="absolute top-[10%] right-[15%] w-[180px] z-10">
+        <div class="absolute top-[15%] right-[8%] w-[160px] z-10">
             <div class="opacity-60 cursor-not-allowed" id="mission-2">
                 <div class="flex flex-col items-center transition-all duration-400 animate-planet-bounce grayscale-50">
-                    <div class="w-[180px] h-[180px] mb-4 relative rounded-3xl overflow-hidden shadow-2xl">
+                    <div class="w-[160px] h-[160px] mb-4 relative rounded-3xl overflow-hidden shadow-2xl">
                         <img src="mision2.png" alt="Paso de Zycurva" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex items-center justify-center text-6xl bg-gradient-to-br from-pink-400 via-teal-400 to-green-400&quot;>🌀</div>'">
                         <div class="absolute inset-0 bg-gray-900/60 flex items-center justify-center">
                             <div class="text-4xl">🔒</div>
                         </div>
                     </div>
-                    <div class="text-center bg-black/80 px-4 py-3 rounded-2xl border-2 border-white/40 backdrop-blur-sm min-w-[160px]">
-                        <div class="text-base font-bold mb-1 text-white drop-shadow-lg">Paso de Zycurva</div>
-                        <div class="text-sm text-white/90 drop-shadow">¡Activen la conexión!</div>
+                    <div class="text-center bg-black/80 px-4 py-3 rounded-2xl border-2 border-white/40 backdrop-blur-sm min-w-[140px]">
+                        <div class="text-sm font-bold mb-1 text-white drop-shadow-lg">Paso de Zycurva</div>
+                        <div class="text-xs text-white/90 drop-shadow">¡Activen la conexión!</div>
                     </div>
                 </div>
             </div>
@@ -130,41 +130,54 @@
         </div>
 
         <!-- Mission 3: Cráter del Sensorium -->
-        <div class="absolute bottom-[15%] left-[15%] w-[180px] z-10">
+        <div class="absolute bottom-[25%] left-[18%] w-[140px] z-10">
             <div class="opacity-60 cursor-not-allowed" id="mission-3">
                 <div class="flex flex-col items-center transition-all duration-400 animate-planet-bounce grayscale-50">
-                    <div class="w-[180px] h-[180px] mb-4 relative rounded-3xl overflow-hidden shadow-2xl">
+                    <div class="w-[140px] h-[140px] mb-4 relative rounded-3xl overflow-hidden shadow-2xl">
                         <img src="mision3.png" alt="Cráter del Sensorium" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex items-center justify-center text-6xl bg-gradient-to-br from-pink-400 via-teal-400 to-green-400&quot;>🕳️</div>'">
                         <div class="absolute inset-0 bg-gray-900/60 flex items-center justify-center">
-                            <div class="text-4xl">🔒</div>
+                            <div class="text-3xl">🔒</div>
                         </div>
                     </div>
-                    <div class="text-center bg-black/80 px-4 py-3 rounded-2xl border-2 border-white/40 backdrop-blur-sm min-w-[160px]">
-                        <div class="text-base font-bold mb-1 text-white drop-shadow-lg">Cráter del Sensorium</div>
-                        <div class="text-sm text-white/90 drop-shadow">¡Detente a tiempo!</div>
+                    <div class="text-center bg-black/80 px-4 py-3 rounded-2xl border-2 border-white/40 backdrop-blur-sm min-w-[120px]">
+                        <div class="text-sm font-bold mb-1 text-white drop-shadow-lg">Cráter del Sensorium</div>
+                        <div class="text-xs text-white/90 drop-shadow">¡Detente a tiempo!</div>
                     </div>
                 </div>
             </div>
-            <div class="absolute -top-2 -right-2 w-11 h-11 rounded-full flex items-center justify-center text-xl font-bold border-3 border-white shadow-lg bg-gradient-to-br from-gray-500 to-gray-700" id="badge-3">🔒</div>
+            <div class="absolute -top-2 -right-2 w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold border-3 border-white shadow-lg bg-gradient-to-br from-gray-500 to-gray-700" id="badge-3">🔒</div>
         </div>
 
         <!-- Mission 4: Estación de Transferencia -->
-        <div class="absolute bottom-[15%] right-[15%] w-[180px] z-10">
+        <div class="absolute bottom-[12%] right-[20%] w-[190px] z-10">
             <div class="opacity-60 cursor-not-allowed" id="mission-4">
                 <div class="flex flex-col items-center transition-all duration-400 animate-planet-bounce grayscale-50">
-                    <div class="w-[180px] h-[180px] mb-4 relative rounded-3xl overflow-hidden shadow-2xl">
+                    <div class="w-[190px] h-[190px] mb-4 relative rounded-3xl overflow-hidden shadow-2xl">
                         <img src="mision4.png" alt="Estación de Transferencia" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex items-center justify-center text-6xl bg-gradient-to-br from-pink-400 via-teal-400 to-green-400&quot;>🚛</div>'">
                         <div class="absolute inset-0 bg-gray-900/60 flex items-center justify-center">
                             <div class="text-4xl">🔒</div>
                         </div>
                     </div>
-                    <div class="text-center bg-black/80 px-4 py-3 rounded-2xl border-2 border-white/40 backdrop-blur-sm min-w-[160px]">
+                    <div class="text-center bg-black/80 px-4 py-3 rounded-2xl border-2 border-white/40 backdrop-blur-sm min-w-[170px]">
                         <div class="text-base font-bold mb-1 text-white drop-shadow-lg">Estación de Transferencia</div>
                         <div class="text-sm text-white/90 drop-shadow">Transporte en equipo</div>
                     </div>
                 </div>
             </div>
             <div class="absolute -top-2 -right-2 w-11 h-11 rounded-full flex items-center justify-center text-xl font-bold border-3 border-white shadow-lg bg-gradient-to-br from-gray-500 to-gray-700" id="badge-4">🔒</div>
+        </div>
+
+        <!-- Added robot space in bottom right corner -->
+        <div class="absolute bottom-4 right-4 w-[200px] h-[200px] z-10">
+            <div class="w-full h-full rounded-3xl border-4 border-white/30 bg-black/20 backdrop-blur-sm flex items-center justify-center">
+                <div class="text-center">
+                    <div class="w-20 h-20 mx-auto mb-2 rounded-full overflow-hidden border-2 border-white/40">
+                        <img src="robot.png" alt="Robot Compañero" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex items-center justify-center text-4xl bg-gradient-to-br from-blue-400 to-purple-500&quot;>🤖</div>'">
+                    </div>
+                    <div class="text-sm text-white/80 font-medium">Tu Compañero Robot</div>
+                    <div class="text-xs text-white/60 mt-1">¡Listo para la aventura!</div>
+                </div>
+            </div>
         </div>
     </div>
 
