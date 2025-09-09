@@ -61,7 +61,7 @@
     <!-- Updated SVG path for mobile responsiveness -->
     <svg class="absolute inset-0 w-full h-full pointer-events-none z-5" viewBox="0 0 100 100" preserveAspectRatio="none">
         <path 
-            d="M 15 20 C 35 10, 65 10, 85 25 C 85 35, 70 45, 55 50 C 40 55, 25 60, 25 70 C 35 75, 55 80, 75 85" 
+            d="M 20 12 C 40 5, 60 5, 80 12 C 85 25, 75 35, 65 45 C 50 55, 35 60, 30 65 C 40 72, 60 78, 75 82" 
             fill="none" 
             stroke="rgba(147, 197, 253, 0.6)" 
             stroke-width="0.3" 
@@ -108,7 +108,7 @@
     <!-- Completely reorganized missions container for mobile layout -->
     <div class="absolute top-[140px] md:top-[120px] left-0 right-0 bottom-0 p-4 md:p-10">
         <!-- Mission 1: Llanura de Vectonia -->
-        <div class="absolute top-[5%] left-[5%] md:top-[8%] md:left-[12%] w-[140px] md:w-[220px] z-10">
+        <div class="absolute top-[2%] left-[5%] md:top-[5%] md:left-[12%] w-[140px] md:w-[220px] z-10">
             <a href="mision1.html" class="block" id="mission-1">
                 <div class="flex flex-col items-center cursor-pointer transition-all duration-400 hover:scale-110 hover:-translate-y-2 animate-planet-bounce">
                     <div class="mobile-planet-large w-[140px] h-[140px] md:w-[220px] md:h-[220px] mb-2 md:mb-4 relative rounded-2xl md:rounded-3xl overflow-hidden transition-all duration-400 hover:scale-105 shadow-2xl">
@@ -124,7 +124,7 @@
         </div>
 
         <!-- Mission 2: Paso de Zycurva -->
-        <div class="absolute top-[5%] right-[5%] md:top-[15%] md:right-[8%] w-[120px] md:w-[160px] z-10">
+        <div class="absolute top-[2%] right-[5%] md:top-[12%] md:right-[8%] w-[120px] md:w-[160px] z-10">
             <div class="opacity-60 cursor-not-allowed" id="mission-2">
                 <div class="flex flex-col items-center transition-all duration-400 animate-planet-bounce grayscale-50">
                     <div class="mobile-planet-medium w-[120px] h-[120px] md:w-[160px] md:h-[160px] mb-2 md:mb-4 relative rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl">
@@ -143,7 +143,7 @@
         </div>
 
         <!-- Mission 3: Cráter del Sensorium -->
-        <div class="absolute bottom-[35%] left-[10%] md:bottom-[25%] md:left-[28%] w-[100px] md:w-[140px] z-10">
+        <div class="absolute bottom-[40%] left-[10%] md:bottom-[30%] md:left-[28%] w-[100px] md:w-[140px] z-10">
             <div class="opacity-60 cursor-not-allowed" id="mission-3">
                 <div class="flex flex-col items-center transition-all duration-400 animate-planet-bounce grayscale-50">
                     <div class="mobile-planet-small w-[100px] h-[100px] md:w-[140px] md:h-[140px] mb-2 md:mb-4 relative rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl">
@@ -162,7 +162,7 @@
         </div>
 
         <!-- Mission 4: Estación de Transferencia -->
-        <div class="absolute bottom-[20%] right-[10%] md:bottom-[12%] md:right-[20%] w-[120px] md:w-[190px] z-10">
+        <div class="absolute bottom-[25%] right-[10%] md:bottom-[17%] md:right-[20%] w-[120px] md:w-[190px] z-10">
             <div class="opacity-60 cursor-not-allowed" id="mission-4">
                 <div class="flex flex-col items-center transition-all duration-400 animate-planet-bounce grayscale-50">
                     <div class="mobile-planet-medium w-[120px] h-[120px] md:w-[190px] md:h-[190px] mb-2 md:mb-4 relative rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl">
@@ -172,7 +172,7 @@
                         </div>
                     </div>
                     <div class="text-center bg-black/80 px-2 py-2 md:px-4 md:py-3 rounded-xl md:rounded-2xl border-2 border-white/40 backdrop-blur-sm min-w-[100px] md:min-w-[170px]">
-                        <div class="mobile-text-small text-xs md:text-base font-bold mb-1 text-white drop-shadow-lg">Estación de Transferencia</div>
+                        <div class="mobile-text-small text-sm md:text-base font-bold mb-1 text-white drop-shadow-lg">Estación de Transferencia</div>
                         <div class="mobile-text-xs text-[10px] md:text-sm text-white/90 drop-shadow">Transporte en equipo</div>
                     </div>
                 </div>
@@ -185,7 +185,7 @@
             <div class="w-full h-full rounded-2xl md:rounded-3xl border-2 md:border-4 border-white/30 bg-black/20 backdrop-blur-sm flex items-center justify-center">
                 <div class="text-center">
                     <div class="w-12 h-12 md:w-20 md:h-20 mx-auto mb-1 md:mb-2 rounded-full overflow-hidden border-2 border-white/40">
-                        <img src="./robot.png" alt="Robot Compañero" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex items-center justify-center text-2xl md:text-4xl bg-gradient-to-br from-blue-400 to-purple-500&quot;>🤖</div>'">
+                        <img src="robot.png" alt="Robot Compañero" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex items-center justify-center text-2xl md:text-4xl bg-gradient-to-br from-blue-400 to-purple-500&quot;>🤖</div>'">
                     </div>
                     <div class="mobile-text-xs text-xs md:text-sm text-white/80 font-medium">Tu Compañero Robot</div>
                     <div class="mobile-text-xs text-[10px] md:text-xs text-white/60 mt-1">¡Listo para la aventura!</div>
@@ -256,4 +256,3 @@
     </script>
 </body>
 </html>
-
