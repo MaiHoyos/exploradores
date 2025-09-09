@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Misión 3: Cráter del Sensorium</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .stars {
@@ -35,13 +36,17 @@
     <!-- Header -->
     <header class="relative z-10 bg-gradient-to-r from-pink-400 via-teal-400 to-blue-400 border-4 border-white rounded-b-3xl p-6 m-4">
         <div class="flex items-center justify-between">
-            <a href="index.html" class="flex items-center gap-4 hover:scale-105 transition-transform">
+            <button onclick="volverAMisiones()" class="flex items-center gap-4 hover:scale-105 transition-transform">
                 <div class="text-3xl">🚀</div>
                 <div>
                     <div class="text-xl font-bold">← Volver a Misiones</div>
                     <div class="text-sm opacity-90">Exploración de Zython</div>
                 </div>
-            </a>
+            </button>
+            <div class="text-right">
+                <div class="text-lg font-bold" id="player-name-display">Explorador</div>
+                <div class="text-sm opacity-90">Misión 3</div>
+            </div>
             <div id="completion-badge" class="hidden bg-green-500 px-4 py-2 rounded-full border-2 border-white flex items-center gap-2">
                 <span class="text-xl">✅</span>
                 <span class="font-bold">¡Completada!</span>
@@ -159,14 +164,69 @@
                 <div id="completed-btn" class="hidden bg-gradient-to-r from-green-400 to-green-600 px-8 py-4 rounded-2xl border-3 border-white font-bold text-lg opacity-75">
                     ✅ Misión Completada
                 </div>
-                <a href="index.html" class="bg-gradient-to-r from-blue-400 to-blue-600 hover:from-blue-500 hover:to-blue-700 px-8 py-4 rounded-2xl border-3 border-white font-bold text-lg transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(59,130,246,0.5)]">
+                <button onclick="volverAMisiones()" class="bg-gradient-to-r from-blue-400 to-blue-600 hover:from-blue-500 hover:to-blue-700 px-8 py-4 rounded-2xl border-3 border-white font-bold text-lg transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(59,130,246,0.5)]">
                     🚀 Volver a Misiones
-                </a>
+                </button>
             </div>
         </div>
     </div>
 
     <script>
+        // Sistema de gestión de jugadores compatible con index.html
+        function getCurrentPlayer() {
+            try {
+                return localStorage.getItem('zython-current-player');
+            } catch (error) {
+                console.error('Error getting current player:', error);
+                return null;
+            }
+        }
+
+        function loadPlayerProgress(playerName) {
+            try {
+                const players = JSON.parse(localStorage.getItem('zython-players') || '{}');
+                return players[playerName] || {
+                    completedMissions: [],
+                    available: 1,
+                    completed: 0,
+                    badges: 0,
+                    currentMission: 1
+                };
+            } catch (error) {
+                console.error('Error loading progress:', error);
+                return {
+                    completedMissions: [],
+                    available: 1,
+                    completed: 0,
+                    badges: 0,
+                    currentMission: 1
+                };
+            }
+        }
+
+        function savePlayerProgress(playerName, progress) {
+            try {
+                const players = JSON.parse(localStorage.getItem('zython-players') || '{}');
+                players[playerName] = progress;
+                localStorage.setItem('zython-players', JSON.stringify(players));
+                console.log('Progress saved for:', playerName, progress);
+            } catch (error) {
+                console.error('Error saving progress:', error);
+            }
+        }
+
+        // Función para volver a misiones manteniendo la sesión
+        function volverAMisiones() {
+            const currentPlayer = getCurrentPlayer();
+            if (currentPlayer) {
+                // Redirigir con el jugador en la URL para asegurar que se mantenga la sesión
+                window.location.href = `index.html?player=${encodeURIComponent(currentPlayer)}`;
+            } else {
+                console.warn('No current player found, going to main page');
+                window.location.href = 'index.html';
+            }
+        }
+
         // Create stars background
         function createStars() {
             const starsContainer = document.getElementById('stars');
@@ -182,12 +242,22 @@
             }
         }
 
-        // Check if mission is completed
+        // Check if mission is completed and update UI
         function checkCompletion() {
-            const saved = localStorage.getItem('completed-missions');
-            const completedMissions = saved ? JSON.parse(saved) : [];
-            
-            if (completedMissions.includes(3)) {
+            const currentPlayer = getCurrentPlayer();
+            if (!currentPlayer) {
+                console.warn('No current player found');
+                // Si no hay jugador, redirigir al inicio
+                window.location.href = 'index.html';
+                return;
+            }
+
+            // Mostrar nombre del jugador
+            document.getElementById('player-name-display').textContent = currentPlayer;
+
+            // Verificar si la misión está completada
+            const progress = loadPlayerProgress(currentPlayer);
+            if (progress.completedMissions.includes(3)) {
                 document.getElementById('completion-badge').classList.remove('hidden');
                 document.getElementById('complete-btn').classList.add('hidden');
                 document.getElementById('completed-btn').classList.remove('hidden');
@@ -196,30 +266,47 @@
 
         // Complete mission
         function completeMission() {
-            const saved = localStorage.getItem('completed-missions');
-            const completedMissions = saved ? JSON.parse(saved) : [];
+            const currentPlayer = getCurrentPlayer();
+            if (!currentPlayer) {
+                console.error('No current player for mission completion');
+                alert('Error: No se encontró información del jugador. Por favor, regresa al menú principal.');
+                return;
+            }
             
-            if (!completedMissions.includes(3)) {
-                completedMissions.push(3);
-                localStorage.setItem('completed-missions', JSON.stringify(completedMissions));
+            const progress = loadPlayerProgress(currentPlayer);
+            
+            // Add mission to completed if not already there
+            if (!progress.completedMissions.includes(3)) {
+                progress.completedMissions.push(3);
+                progress.completed = progress.completedMissions.length;
+                progress.badges = progress.completedMissions.length;
                 
-                // Update stats
-                const stats = JSON.parse(localStorage.getItem('zython-stats') || '{"available":1,"completed":0,"badges":0}');
-                stats.completed = completedMissions.length;
-                stats.badges = completedMissions.length;
-                stats.available = Math.min(completedMissions.length + 1, 4);
-                localStorage.setItem('zython-stats', JSON.stringify(stats));
+                // Unlock next mission (mission 4)
+                progress.currentMission = 4;
+                progress.available = Math.max(progress.available, 4);
+                
+                savePlayerProgress(currentPlayer, progress);
                 
                 // Update UI
                 document.getElementById('completion-badge').classList.remove('hidden');
                 document.getElementById('complete-btn').classList.add('hidden');
                 document.getElementById('completed-btn').classList.remove('hidden');
+                
+                // Show completion message
+                alert('¡Felicitaciones! Has completado la Misión 3: Cráter del Sensorium. La Misión 4 ahora está disponible.');
+            } else {
+                alert('Esta misión ya ha sido completada anteriormente.');
             }
         }
 
         // Initialize
-        createStars();
-        checkCompletion();
+        function initialize() {
+            createStars();
+            checkCompletion();
+        }
+
+        // Start when page loads
+        document.addEventListener('DOMContentLoaded', initialize);
     </script>
 </body>
 </html>
