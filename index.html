@@ -45,6 +45,15 @@
             animation: pathFlow 3s linear infinite;
         }
         
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        
+        .animate-fadeIn {
+            animation: fadeIn 0.5s ease-out;
+        }
+        
         @media (max-width: 768px) {
             .mobile-planet-small { width: 100px !important; height: 100px !important; }
             .mobile-planet-medium { width: 120px !important; height: 120px !important; }
@@ -58,125 +67,159 @@
     <!-- Space Background -->
     <div class="stars" id="stars"></div>
     
-    <!-- Made header responsive for mobile -->
-    <header class="relative z-10 bg-white/80 border-2 md:border-4 border-white rounded-b-2xl md:rounded-b-3xl p-3 md:p-6 m-2 md:m-4">
-        <div class="flex items-center justify-between flex-col md:flex-row gap-2 md:gap-4">
-            <div class="flex items-center gap-2 md:gap-4">
-                <div class="text-2xl md:text-3xl">🚀</div>
-                <div class="text-center md:text-left">
-                    <div class="text-lg md:text-xl font-bold text-gray-800">Exploración de Zython</div>
-                    <div class="text-xs md:text-sm text-gray-700">Misiones de Robótica Educativa</div>
-                </div>
+    <!-- Login Screen -->
+    <div id="login-screen" class="fixed inset-0 bg-gradient-to-b from-purple-900 via-blue-900 to-black flex items-center justify-center z-50">
+        <div class="bg-white/10 backdrop-blur-md border-2 border-white/30 rounded-3xl p-8 max-w-md w-full mx-4 text-center animate-fadeIn">
+            <div class="text-6xl mb-4">🚀</div>
+            <h1 class="text-3xl font-bold mb-2 text-white">¡Bienvenido a Zython!</h1>
+            <p class="text-white/80 mb-6">Introduce tu nombre de explorador para comenzar tu aventura espacial</p>
+            
+            <div class="space-y-4">
+                <input 
+                    type="text" 
+                    id="player-name" 
+                    placeholder="Tu nombre de explorador..."
+                    class="w-full px-4 py-3 rounded-xl bg-white/20 border-2 border-white/30 text-white placeholder-white/60 focus:outline-none focus:border-white/60 focus:bg-white/30 transition-all"
+                    maxlength="20"
+                >
+                <button 
+                    id="start-game" 
+                    class="w-full px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-bold rounded-xl transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+                    disabled
+                >
+                    🌟 Comenzar Exploración
+                </button>
             </div>
-            <div class="text-center md:text-right">
-                <div class="text-base md:text-lg font-bold text-gray-800">¡Bienvenido Explorador!</div>
-                <div class="text-xs md:text-sm text-gray-700">Selecciona tu próxima misión</div>
-            </div>
-        </div>
-    </header>
-
-    <!-- Made progress panel responsive and repositioned for mobile -->
-    <div class="fixed top-2 right-2 md:top-4 md:right-4 z-20 bg-white/80 backdrop-blur-sm border-2 md:border-4 border-white/40 rounded-xl md:rounded-2xl p-2 md:p-4 min-w-[160px] md:min-w-[200px]">
-        <div class="grid grid-cols-3 gap-2 md:gap-4 text-center">
-            <div>
-                <div class="text-lg md:text-2xl font-bold text-yellow-600" id="available-count">1</div>
-                <div class="text-[10px] md:text-xs text-gray-800 font-medium">🎯 Misión</div>
-            </div>
-            <div>
-                <div class="text-lg md:text-2xl font-bold text-green-600" id="completed-count">0</div>
-                <div class="text-[10px] md:text-xs text-gray-800 font-medium">⭐ Completadas</div>
-            </div>
-            <div>
-                <div class="text-lg md:text-2xl font-bold text-purple-600" id="badges-count">0</div>
-                <div class="text-[10px] md:text-xs text-gray-800 font-medium">🏆 Insignias</div>
+            
+            <div class="mt-6 text-sm text-white/60">
+                <p>💡 Si ya tienes una cuenta, usa el mismo nombre para continuar tu progreso</p>
             </div>
         </div>
     </div>
 
-    <!-- Completely reorganized missions container for mobile layout -->
-    <div class="absolute top-[140px] md:top-[120px] left-0 right-0 bottom-0 p-4 md:p-10">
-        <!-- Mission 1: Llanura de Vectonia -->
-        <div class="absolute top-[2%] left-[5%] md:top-[5%] md:left-[12%] w-[140px] md:w-[220px] z-10">
-            <a href="mision1.html" class="block" id="mission-1">
-                <div class="flex flex-col items-center cursor-pointer transition-all duration-400 hover:scale-110 hover:-translate-y-2 animate-planet-bounce">
-                    <div class="mobile-planet-large w-[140px] h-[140px] md:w-[220px] md:h-[220px] mb-2 md:mb-4 relative rounded-2xl md:rounded-3xl overflow-hidden transition-all duration-400 hover:scale-105 shadow-2xl">
-                        <img src="mision1.png" alt="Llanura de Vectonia" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex items-center justify-center text-4xl md:text-6xl bg-gradient-to-br from-pink-400 via-teal-400 to-green-400&quot;>🏔️</div>'">
-                    </div>
-                    <div class="text-center bg-black/80 px-2 py-2 md:px-4 md:py-3 rounded-xl md:rounded-2xl border-2 border-white/40 backdrop-blur-sm min-w-[120px] md:min-w-[180px]">
-                        <div class="mobile-text-small text-sm md:text-base font-bold mb-1 text-white drop-shadow-lg">Llanura de Vectonia</div>
-                        <div class="mobile-text-xs text-xs md:text-sm text-white/90 drop-shadow">Calibra tu RoverBot</div>
+    <!-- Main Game Content -->
+    <div id="game-content" class="hidden">
+        <!-- Made header responsive for mobile -->
+        <header class="relative z-10 bg-white/80 border-2 md:border-4 border-white rounded-b-2xl md:rounded-b-3xl p-3 md:p-6 m-2 md:m-4">
+            <div class="flex items-center justify-between flex-col md:flex-row gap-2 md:gap-4">
+                <div class="flex items-center gap-2 md:gap-4">
+                    <div class="text-2xl md:text-3xl">🚀</div>
+                    <div class="text-center md:text-left">
+                        <div class="text-lg md:text-xl font-bold text-gray-800">Exploración de Zython</div>
+                        <div class="text-xs md:text-sm text-gray-700">Misiones de Robótica Educativa</div>
                     </div>
                 </div>
-            </a>
-            <div class="absolute -top-1 -right-1 md:-top-2 md:-right-2 w-8 h-8 md:w-11 md:h-11 rounded-full flex items-center justify-center text-sm md:text-xl font-bold border-2 md:border-3 border-white shadow-lg bg-gradient-to-br from-orange-400 to-orange-600 animate-pulse" id="badge-1">1</div>
-        </div>
-
-        <!-- Mission 2: Paso de Zycurva - MOVED LEFT -->
-        <div class="absolute top-[2%] right-[25%] md:top-[12%] md:right-[25%] w-[120px] md:w-[160px] z-10">
-            <div class="opacity-60 cursor-not-allowed" id="mission-2">
-                <div class="flex flex-col items-center transition-all duration-400 animate-planet-bounce grayscale-50">
-                    <div class="mobile-planet-medium w-[120px] h-[120px] md:w-[160px] md:h-[160px] mb-2 md:mb-4 relative rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl">
-                        <img src="mision2.png" alt="Paso de Zycurva" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex items-center justify-center text-4xl md:text-6xl bg-gradient-to-br from-pink-400 via-teal-400 to-green-400&quot;>🌀</div>'">
-                        <div class="absolute inset-0 bg-gray-900/60 flex items-center justify-center">
-                            <div class="text-3xl md:text-4xl">🔒</div>
-                        </div>
-                    </div>
-                    <div class="text-center bg-black/80 px-2 py-2 md:px-4 md:py-3 rounded-xl md:rounded-2xl border-2 border-white/40 backdrop-blur-sm min-w-[100px] md:min-w-[140px]">
-                        <div class="mobile-text-small text-xs md:text-sm font-bold mb-1 text-white drop-shadow-lg">Paso de Zycurva</div>
-                        <div class="mobile-text-xs text-[10px] md:text-xs text-white/90 drop-shadow">¡Activen la conexión!</div>
-                    </div>
+                <div class="text-center md:text-right">
+                    <div class="text-base md:text-lg font-bold text-gray-800">¡Hola <span id="player-name-display"></span>!</div>
+                    <div class="text-xs md:text-sm text-gray-700">Selecciona tu próxima misión</div>
+                    <button id="logout-btn" class="text-xs text-blue-600 hover:text-blue-800 underline mt-1">Cambiar explorador</button>
                 </div>
             </div>
-            <div class="absolute -top-1 -right-1 md:-top-2 md:-right-2 w-8 h-8 md:w-11 md:h-11 rounded-full flex items-center justify-center text-sm md:text-xl font-bold border-2 md:border-3 border-white shadow-lg bg-gradient-to-br from-gray-500 to-gray-700" id="badge-2">🔒</div>
-        </div>
+        </header>
 
-        <!-- Mission 3: Cráter del Sensorium -->
-        <div class="absolute bottom-[40%] left-[10%] md:bottom-[30%] md:left-[28%] w-[100px] md:w-[140px] z-10">
-            <div class="opacity-60 cursor-not-allowed" id="mission-3">
-                <div class="flex flex-col items-center transition-all duration-400 animate-planet-bounce grayscale-50">
-                    <div class="mobile-planet-small w-[100px] h-[100px] md:w-[140px] md:h-[140px] mb-2 md:mb-4 relative rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl">
-                        <img src="mision3.png" alt="Cráter del Sensorium" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex items-center justify-center text-4xl md:text-6xl bg-gradient-to-br from-pink-400 via-teal-400 to-green-400&quot;>🕳️</div>'">
-                        <div class="absolute inset-0 bg-gray-900/60 flex items-center justify-center">
-                            <div class="text-2xl md:text-3xl">🔒</div>
-                        </div>
-                    </div>
-                    <div class="text-center bg-black/80 px-2 py-2 md:px-4 md:py-3 rounded-xl md:rounded-2xl border-2 border-white/40 backdrop-blur-sm min-w-[80px] md:min-w-[120px]">
-                        <div class="mobile-text-small text-xs md:text-sm font-bold mb-1 text-white drop-shadow-lg">Cráter del Sensorium</div>
-                        <div class="mobile-text-xs text-[10px] md:text-xs text-white/90 drop-shadow">¡Detente a tiempo!</div>
-                    </div>
+        <!-- Made progress panel responsive and repositioned for mobile -->
+        <div class="fixed top-2 right-2 md:top-4 md:right-4 z-20 bg-white/80 backdrop-blur-sm border-2 md:border-4 border-white/40 rounded-xl md:rounded-2xl p-2 md:p-4 min-w-[160px] md:min-w-[200px]">
+            <div class="grid grid-cols-3 gap-2 md:gap-4 text-center">
+                <div>
+                    <div class="text-lg md:text-2xl font-bold text-yellow-600" id="available-count">1</div>
+                    <div class="text-[10px] md:text-xs text-gray-800 font-medium">🎯 Disponible</div>
+                </div>
+                <div>
+                    <div class="text-lg md:text-2xl font-bold text-green-600" id="completed-count">0</div>
+                    <div class="text-[10px] md:text-xs text-gray-800 font-medium">⭐ Completadas</div>
+                </div>
+                <div>
+                    <div class="text-lg md:text-2xl font-bold text-purple-600" id="badges-count">0</div>
+                    <div class="text-[10px] md:text-xs text-gray-800 font-medium">🏆 Insignias</div>
                 </div>
             </div>
-            <div class="absolute -top-1 -right-1 md:-top-2 md:-right-2 w-7 h-7 md:w-10 md:h-10 rounded-full flex items-center justify-center text-sm md:text-lg font-bold border-2 md:border-3 border-white shadow-lg bg-gradient-to-br from-gray-500 to-gray-700" id="badge-3">🔒</div>
         </div>
 
-        <!-- Mission 4: Estación de Transferencia - MOVED LEFT -->
-        <div class="absolute bottom-[25%] right-[25%] md:bottom-[17%] md:right-[35%] w-[120px] md:w-[190px] z-10">
-            <div class="opacity-60 cursor-not-allowed" id="mission-4">
-                <div class="flex flex-col items-center transition-all duration-400 animate-planet-bounce grayscale-50">
-                    <div class="mobile-planet-medium w-[120px] h-[120px] md:w-[190px] md:h-[190px] mb-2 md:mb-4 relative rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl">
-                        <img src="mision4.png" alt="Estación de Transferencia" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex items-center justify-center text-4xl md:text-6xl bg-gradient-to-br from-pink-400 via-teal-400 to-green-400&quot;>🚛</div>'">
-                        <div class="absolute inset-0 bg-gray-900/60 flex items-center justify-center">
-                            <div class="text-3xl md:text-4xl">🔒</div>
+        <!-- Missions container -->
+        <div class="absolute top-[140px] md:top-[120px] left-0 right-0 bottom-0 p-4 md:p-10">
+            <!-- Mission 1: Llanura de Vectonia -->
+            <div class="absolute top-[2%] left-[5%] md:top-[5%] md:left-[12%] w-[140px] md:w-[220px] z-10">
+                <div class="mission-container" id="mission-1">
+                    <div class="flex flex-col items-center cursor-pointer transition-all duration-400 hover:scale-110 hover:-translate-y-2 animate-planet-bounce">
+                        <div class="mobile-planet-large w-[140px] h-[140px] md:w-[220px] md:h-[220px] mb-2 md:mb-4 relative rounded-2xl md:rounded-3xl overflow-hidden transition-all duration-400 hover:scale-105 shadow-2xl">
+                            <img src="mision1.png" alt="Llanura de Vectonia" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex items-center justify-center text-4xl md:text-6xl bg-gradient-to-br from-pink-400 via-teal-400 to-green-400&quot;>🏔️</div>'">
+                        </div>
+                        <div class="text-center bg-black/80 px-2 py-2 md:px-4 md:py-3 rounded-xl md:rounded-2xl border-2 border-white/40 backdrop-blur-sm min-w-[120px] md:min-w-[180px]">
+                            <div class="mobile-text-small text-sm md:text-base font-bold mb-1 text-white drop-shadow-lg">Llanura de Vectonia</div>
+                            <div class="mobile-text-xs text-xs md:text-sm text-white/90 drop-shadow">Calibra tu RoverBot</div>
                         </div>
                     </div>
-                    <div class="text-center bg-black/80 px-2 py-2 md:px-4 md:py-3 rounded-xl md:rounded-2xl border-2 border-white/40 backdrop-blur-sm min-w-[100px] md:min-w-[170px]">
-                        <div class="mobile-text-small text-sm md:text-base font-bold mb-1 text-white drop-shadow-lg">Estación de Transferencia</div>
-                        <div class="mobile-text-xs text-[10px] md:text-sm text-white/90 drop-shadow">Transporte en equipo</div>
+                </div>
+                <div class="absolute -top-1 -right-1 md:-top-2 md:-right-2 w-8 h-8 md:w-11 md:h-11 rounded-full flex items-center justify-center text-sm md:text-xl font-bold border-2 md:border-3 border-white shadow-lg bg-gradient-to-br from-orange-400 to-orange-600 animate-pulse" id="badge-1">1</div>
+            </div>
+
+            <!-- Mission 2: Paso de Zycurva -->
+            <div class="absolute top-[2%] right-[25%] md:top-[12%] md:right-[25%] w-[120px] md:w-[160px] z-10">
+                <div class="mission-container opacity-60 cursor-not-allowed" id="mission-2">
+                    <div class="flex flex-col items-center transition-all duration-400 animate-planet-bounce grayscale-50">
+                        <div class="mobile-planet-medium w-[120px] h-[120px] md:w-[160px] md:h-[160px] mb-2 md:mb-4 relative rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl">
+                            <img src="mision2.png" alt="Paso de Zycurva" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex items-center justify-center text-4xl md:text-6xl bg-gradient-to-br from-pink-400 via-teal-400 to-green-400&quot;>🌀</div>'">
+                            <div class="absolute inset-0 bg-gray-900/60 flex items-center justify-center lock-overlay">
+                                <div class="text-3xl md:text-4xl">🔒</div>
+                            </div>
+                        </div>
+                        <div class="text-center bg-black/80 px-2 py-2 md:px-4 md:py-3 rounded-xl md:rounded-2xl border-2 border-white/40 backdrop-blur-sm min-w-[100px] md:min-w-[140px]">
+                            <div class="mobile-text-small text-xs md:text-sm font-bold mb-1 text-white drop-shadow-lg">Paso de Zycurva</div>
+                            <div class="mobile-text-xs text-[10px] md:text-xs text-white/90 drop-shadow">¡Activen la conexión!</div>
+                        </div>
                     </div>
                 </div>
+                <div class="absolute -top-1 -right-1 md:-top-2 md:-right-2 w-8 h-8 md:w-11 md:h-11 rounded-full flex items-center justify-center text-sm md:text-xl font-bold border-2 md:border-3 border-white shadow-lg bg-gradient-to-br from-gray-500 to-gray-700" id="badge-2">🔒</div>
             </div>
-            <div class="absolute -top-1 -right-1 md:-top-2 md:-right-2 w-8 h-8 md:w-11 md:h-11 rounded-full flex items-center justify-center text-sm md:text-xl font-bold border-2 md:border-3 border-white shadow-lg bg-gradient-to-br from-gray-500 to-gray-700" id="badge-4">🔒</div>
-        </div>
 
+            <!-- Mission 3: Cráter del Sensorium -->
+            <div class="absolute bottom-[40%] left-[10%] md:bottom-[30%] md:left-[28%] w-[100px] md:w-[140px] z-10">
+                <div class="mission-container opacity-60 cursor-not-allowed" id="mission-3">
+                    <div class="flex flex-col items-center transition-all duration-400 animate-planet-bounce grayscale-50">
+                        <div class="mobile-planet-small w-[100px] h-[100px] md:w-[140px] md:h-[140px] mb-2 md:mb-4 relative rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl">
+                            <img src="mision3.png" alt="Cráter del Sensorium" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex items-center justify-center text-4xl md:text-6xl bg-gradient-to-br from-pink-400 via-teal-400 to-green-400&quot;>🕳️</div>'">
+                            <div class="absolute inset-0 bg-gray-900/60 flex items-center justify-center lock-overlay">
+                                <div class="text-2xl md:text-3xl">🔒</div>
+                            </div>
+                        </div>
+                        <div class="text-center bg-black/80 px-2 py-2 md:px-4 md:py-3 rounded-xl md:rounded-2xl border-2 border-white/40 backdrop-blur-sm min-w-[80px] md:min-w-[120px]">
+                            <div class="mobile-text-small text-xs md:text-sm font-bold mb-1 text-white drop-shadow-lg">Cráter del Sensorium</div>
+                            <div class="mobile-text-xs text-[10px] md:text-xs text-white/90 drop-shadow">¡Detente a tiempo!</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="absolute -top-1 -right-1 md:-top-2 md:-right-2 w-7 h-7 md:w-10 md:h-10 rounded-full flex items-center justify-center text-sm md:text-lg font-bold border-2 md:border-3 border-white shadow-lg bg-gradient-to-br from-gray-500 to-gray-700" id="badge-3">🔒</div>
+            </div>
+
+            <!-- Mission 4: Estación de Transferencia -->
+            <div class="absolute bottom-[25%] right-[25%] md:bottom-[17%] md:right-[35%] w-[120px] md:w-[190px] z-10">
+                <div class="mission-container opacity-60 cursor-not-allowed" id="mission-4">
+                    <div class="flex flex-col items-center transition-all duration-400 animate-planet-bounce grayscale-50">
+                        <div class="mobile-planet-medium w-[120px] h-[120px] md:w-[190px] md:h-[190px] mb-2 md:mb-4 relative rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl">
+                            <img src="mision4.png" alt="Estación de Transferencia" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex items-center justify-center text-4xl md:text-6xl bg-gradient-to-br from-pink-400 via-teal-400 to-green-400&quot;>🚛</div>'">
+                            <div class="absolute inset-0 bg-gray-900/60 flex items-center justify-center lock-overlay">
+                                <div class="text-3xl md:text-4xl">🔒</div>
+                            </div>
+                        </div>
+                        <div class="text-center bg-black/80 px-2 py-2 md:px-4 md:py-3 rounded-xl md:rounded-2xl border-2 border-white/40 backdrop-blur-sm min-w-[100px] md:min-w-[170px]">
+                            <div class="mobile-text-small text-sm md:text-base font-bold mb-1 text-white drop-shadow-lg">Estación de Transferencia</div>
+                            <div class="mobile-text-xs text-[10px] md:text-sm text-white/90 drop-shadow">Transporte en equipo</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="absolute -top-1 -right-1 md:-top-2 md:-right-2 w-8 h-8 md:w-11 md:h-11 rounded-full flex items-center justify-center text-sm md:text-xl font-bold border-2 md:border-3 border-white shadow-lg bg-gradient-to-br from-gray-500 to-gray-700" id="badge-4">🔒</div>
+            </div>
+
+            <!-- Robot -->
             <div class="absolute bottom-2 right-2 md:bottom-4 md:right-4 w-[120px] h-[120px] md:w-[500px] md:h-[500px] z-10">
                 <img src="robot.png" alt="Robot Compañero" class="w-full h-full object-contain">
             </div>
-
-
-
+        </div>
     </div>
 
     <script>
+        let currentPlayer = null;
+        
         // Create stars background
         function createStars() {
             const starsContainer = document.getElementById('stars');
@@ -192,49 +235,222 @@
             }
         }
 
-        // Load progress from localStorage
-        function loadProgress() {
-            const saved = localStorage.getItem('completed-missions');
-            const completedMissions = saved ? JSON.parse(saved) : [];
-            const stats = JSON.parse(localStorage.getItem('zython-stats') || '{"available":1,"completed":0,"badges":0}');
+        // Player management functions
+        function savePlayerProgress(playerName, progress) {
+            const players = JSON.parse(window.localStorage.getItem('zython-players') || '{}');
+            players[playerName] = progress;
+            window.localStorage.setItem('zython-players', JSON.stringify(players));
+        }
+
+        function loadPlayerProgress(playerName) {
+            const players = JSON.parse(window.localStorage.getItem('zython-players') || '{}');
+            return players[playerName] || {
+                completedMissions: [],
+                available: 1,
+                completed: 0,
+                badges: 0,
+                currentMission: 1
+            };
+        }
+
+        // Mission completion function (called from mission pages)
+        window.completeMission = function(missionId) {
+            if (!currentPlayer) return;
             
-            // Update progress panel
-            document.getElementById('available-count').textContent = stats.available;
-            document.getElementById('completed-count').textContent = stats.completed;
-            document.getElementById('badges-count').textContent = stats.badges;
+            const progress = loadPlayerProgress(currentPlayer);
+            
+            // Add mission to completed if not already there
+            if (!progress.completedMissions.includes(missionId)) {
+                progress.completedMissions.push(missionId);
+                progress.completed = progress.completedMissions.length;
+                progress.badges = progress.completedMissions.length;
+                
+                // Unlock next mission if exists
+                if (missionId < 4) {
+                    progress.currentMission = missionId + 1;
+                    progress.available = Math.max(progress.available, missionId + 1);
+                }
+            }
+            
+            savePlayerProgress(currentPlayer, progress);
+            updateGameDisplay();
+        };
+
+        // Update game display based on current progress
+        function updateGameDisplay() {
+            if (!currentPlayer) return;
+            
+            const progress = loadPlayerProgress(currentPlayer);
+            
+            // Update progress counters
+            document.getElementById('available-count').textContent = progress.available;
+            document.getElementById('completed-count').textContent = progress.completed;
+            document.getElementById('badges-count').textContent = progress.badges;
             
             // Update mission states
-            completedMissions.forEach(missionId => {
-                const mission = document.getElementById(`mission-${missionId}`);
-                const badge = document.getElementById(`badge-${missionId}`);
+            for (let i = 1; i <= 4; i++) {
+                const missionContainer = document.getElementById(`mission-${i}`);
+                const badge = document.getElementById(`badge-${i}`);
                 
-                if (mission && badge) {
-                    // Mark as completed
-                    mission.querySelector('.w-\\[180px\\].h-\\[180px\\]').innerHTML += '<div class="absolute inset-0 bg-green-500/30 flex items-center justify-center"><div class="text-4xl">✓</div></div>';
-                    badge.className = badge.className.replace(/bg-gradient-to-br from-\w+-\d+ to-\w+-\d+/, 'bg-gradient-to-br from-green-400 to-green-600');
-                    badge.textContent = '✓';
-                }
+                if (!missionContainer || !badge) continue;
                 
-                // Unlock next mission
-                if (missionId < 4) {
-                    const nextMission = document.getElementById(`mission-${missionId + 1}`);
-                    const nextBadge = document.getElementById(`badge-${missionId + 1}`);
-                    
-                    if (nextMission && nextBadge) {
-                        nextMission.className = nextMission.className.replace('opacity-60 cursor-not-allowed', '');
-                        nextMission.innerHTML = `<a href="mision${missionId + 1}.html" class="block">${nextMission.innerHTML}</a>`;
-                        nextMission.querySelector('.grayscale-50').className = nextMission.querySelector('.grayscale-50').className.replace('grayscale-50', '');
-                        nextMission.querySelector('.bg-gray-900\\/60').remove();
-                        nextBadge.className = nextBadge.className.replace(/bg-gradient-to-br from-gray-\d+ to-gray-\d+/, 'bg-gradient-to-br from-orange-400 to-orange-600 animate-pulse');
-                        nextBadge.textContent = missionId + 1;
-                    }
+                if (progress.completedMissions.includes(i)) {
+                    // Mission completed
+                    markMissionCompleted(i, missionContainer, badge);
+                } else if (i <= progress.available) {
+                    // Mission available
+                    markMissionAvailable(i, missionContainer, badge);
+                } else {
+                    // Mission locked
+                    markMissionLocked(i, missionContainer, badge);
                 }
+            }
+        }
+
+        function markMissionCompleted(missionId, container, badge) {
+            // Remove locked state
+            container.classList.remove('opacity-60', 'cursor-not-allowed');
+            
+            // Remove grayscale and lock overlay
+            const grayscaleDiv = container.querySelector('.grayscale-50');
+            if (grayscaleDiv) grayscaleDiv.classList.remove('grayscale-50');
+            
+            const lockOverlay = container.querySelector('.lock-overlay');
+            if (lockOverlay) lockOverlay.remove();
+            
+            // Add completion indicator
+            const planetDiv = container.querySelector('.mobile-planet-large, .mobile-planet-medium, .mobile-planet-small');
+            if (planetDiv && !planetDiv.querySelector('.completion-indicator')) {
+                const completionDiv = document.createElement('div');
+                completionDiv.className = 'absolute inset-0 bg-green-500/30 flex items-center justify-center completion-indicator';
+                completionDiv.innerHTML = '<div class="text-4xl">✓</div>';
+                planetDiv.appendChild(completionDiv);
+            }
+            
+            // Update badge
+            badge.className = badge.className.replace(/bg-gradient-to-br from-\w+-\d+ to-\w+-\d+/, 'bg-gradient-to-br from-green-400 to-green-600');
+            badge.classList.remove('animate-pulse');
+            badge.textContent = '✓';
+            
+            // Add click functionality
+            if (!container.querySelector('a')) {
+                container.innerHTML = `<a href="mision${missionId}.html" class="block">${container.innerHTML}</a>`;
+            }
+        }
+
+        function markMissionAvailable(missionId, container, badge) {
+            // Remove locked state
+            container.classList.remove('opacity-60', 'cursor-not-allowed');
+            
+            // Remove grayscale and lock overlay
+            const grayscaleDiv = container.querySelector('.grayscale-50');
+            if (grayscaleDiv) grayscaleDiv.classList.remove('grayscale-50');
+            
+            const lockOverlay = container.querySelector('.lock-overlay');
+            if (lockOverlay) lockOverlay.remove();
+            
+            // Update badge
+            badge.className = badge.className.replace(/bg-gradient-to-br from-gray-\d+ to-gray-\d+/, 'bg-gradient-to-br from-orange-400 to-orange-600 animate-pulse');
+            badge.textContent = missionId;
+            
+            // Add click functionality
+            if (!container.querySelector('a')) {
+                container.innerHTML = `<a href="mision${missionId}.html" class="block">${container.innerHTML}</a>`;
+            }
+        }
+
+        function markMissionLocked(missionId, container, badge) {
+            // Add locked state
+            container.classList.add('opacity-60', 'cursor-not-allowed');
+            
+            // Add grayscale
+            const planetDiv = container.querySelector('div[class*="flex flex-col"]');
+            if (planetDiv) planetDiv.classList.add('grayscale-50');
+            
+            // Ensure lock overlay exists
+            const planetImage = container.querySelector('.mobile-planet-large, .mobile-planet-medium, .mobile-planet-small');
+            if (planetImage && !planetImage.querySelector('.lock-overlay')) {
+                const lockDiv = document.createElement('div');
+                lockDiv.className = 'absolute inset-0 bg-gray-900/60 flex items-center justify-center lock-overlay';
+                lockDiv.innerHTML = '<div class="text-3xl md:text-4xl">🔒</div>';
+                planetImage.appendChild(lockDiv);
+            }
+            
+            // Update badge
+            badge.className = badge.className.replace(/bg-gradient-to-br from-\w+-\d+ to-\w+-\d+/, 'bg-gradient-to-br from-gray-500 to-gray-700');
+            badge.classList.remove('animate-pulse');
+            badge.textContent = '🔒';
+            
+            // Remove click functionality
+            const link = container.querySelector('a');
+            if (link) {
+                container.innerHTML = link.innerHTML;
+            }
+        }
+
+        // Login functionality
+        function setupLogin() {
+            const nameInput = document.getElementById('player-name');
+            const startButton = document.getElementById('start-game');
+            const loginScreen = document.getElementById('login-screen');
+            const gameContent = document.getElementById('game-content');
+            const playerNameDisplay = document.getElementById('player-name-display');
+            const logoutBtn = document.getElementById('logout-btn');
+
+            // Enable/disable start button based on input
+            nameInput.addEventListener('input', () => {
+                const name = nameInput.value.trim();
+                startButton.disabled = name.length < 2;
+            });
+
+            // Handle enter key
+            nameInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' && !startButton.disabled) {
+                    startGame();
+                }
+            });
+
+            // Start game
+            startButton.addEventListener('click', startGame);
+
+            function startGame() {
+                const playerName = nameInput.value.trim();
+                if (playerName.length < 2) return;
+
+                currentPlayer = playerName;
+                playerNameDisplay.textContent = playerName;
+                
+                // Hide login, show game
+                loginScreen.classList.add('hidden');
+                gameContent.classList.remove('hidden');
+                
+                // Load and display progress
+                updateGameDisplay();
+            }
+
+            // Logout functionality
+            logoutBtn.addEventListener('click', () => {
+                currentPlayer = null;
+                nameInput.value = '';
+                startButton.disabled = true;
+                
+                // Show login, hide game
+                gameContent.classList.add('hidden');
+                loginScreen.classList.remove('hidden');
             });
         }
 
-        // Initialize
-        createStars();
-        loadProgress();
+        // Initialize everything
+        function initialize() {
+            createStars();
+            setupLogin();
+            
+            // Focus on name input
+            document.getElementById('player-name').focus();
+        }
+
+        // Start when page loads
+        document.addEventListener('DOMContentLoaded', initialize);
     </script>
 </body>
 </html>
