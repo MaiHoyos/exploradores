@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Misión 1: Llanura de Vectonia</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-b from-purple-900 via-blue-900 to-black text-white relative overflow-auto">
+    <!-- Space Background -->
+    <div class="stars" id="stars"></div>
+    
+    <!-- Header -->
+    <header class="relative z-10 bg-gradient-to-r from-pink-400 via-teal-400 to-blue-400 border-4 border-white rounded-b-3xl p-6 m-4">
+        <div class="flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-4 hover:scale-105 transition-transform">
+                <div class="text-3xl">🚀</div>
+                <div>
+                    <div class="text-xl font-bold">← Volver a Misiones</div>
+                    <div class="text-sm opacity-90">Exploración de Zython</div>
+                </div>
+            </a>
+            <div id="completion-badge" class="hidden bg-green-500 px-4 py-2 rounded-full border-2 border-white flex items-center gap-2">
+                <span class="text-xl">✅</span>
+                <span class="font-bold">¡Completada!</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mission Content -->
+    <div class="relative z-10 max-w-4xl mx-auto p-6">
+        <div class="bg-gradient-to-br from-purple-600/20 to-blue-600/20 backdrop-blur-sm border-4 border-white/30 rounded-3xl p-8 mb-8">
+            <h1 class="text-4xl font-bold mb-6 text-center bg-gradient-to-r from-yellow-300 to-orange-400 bg-clip-text text-transparent">
+                Llanura de Vectonia
+            </h1>
+
+            <div class="text-lg leading-relaxed mb-8 text-center text-white/90">
+                En esta primera misión, aprenderás los fundamentos del control de motores y la calibración de tu RoverBot.
+            </div>
+
+            <!-- Objectives -->
+            <div class="bg-white/10 rounded-2xl p-6 mb-8 border-2 border-white/20">
+                <h3 class="text-2xl font-bold mb-4 text-yellow-300 flex items-center gap-2">
+                    🎯 Objetivos de Aprendizaje
+                </h3>
+                <ul class="space-y-3">
+                    <li class="flex items-start gap-3 text-white/90">
+                        <span class="text-xl">🚀</span>
+                        <span class="leading-relaxed">Comprender los principios básicos del control de motores</span>
+                    </li>
+                    <li class="flex items-start gap-3 text-white/90">
+                        <span class="text-xl">🚀</span>
+                        <span class="leading-relaxed">Aprender a calibrar la potencia y el tiempo de activación</span>
+                    </li>
+                    <li class="flex items-start gap-3 text-white/90">
+                        <span class="text-xl">🚀</span>
+                        <span class="leading-relaxed">Desarrollar precisión en el control de distancias</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Mission Content -->
+            <div class="bg-white/10 rounded-2xl p-6 mb-8 border-2 border-white/20">
+                <h3 class="text-2xl font-bold mb-4 text-teal-300 flex items-center gap-2">📚 Contenido de la Misión</h3>
+                <div class="text-white/90 leading-relaxed space-y-4">
+                    <p>En esta primera misión, aprenderás los fundamentos del control de motores y la calibración de tu RoverBot.</p>
+                    <p><strong>Contexto:</strong> Has aterrizado en la superficie del planeta Zython. Tu RoverBot debe salir de la base espacial y recorrer exactamente 50 centímetros hasta el primer punto de control.</p>
+                    <p><strong>Desafío:</strong> Debes encontrar la combinación correcta de potencia del motor y tiempo de activación para lograr la distancia exacta.</p>
+                </div>
+            </div>
+
+            <!-- Activities -->
+            <div class="bg-white/10 rounded-2xl p-6 mb-8 border-2 border-white/20">
+                <h3 class="text-2xl font-bold mb-4 text-green-300 flex items-center gap-2">🔧 Actividades Prácticas</h3>
+                <div class="space-y-4">
+                    <div class="bg-black/30 rounded-xl p-4 border border-white/10">
+                        <div class="flex items-center gap-3 mb-2">
+                            <span class="bg-green-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">1</span>
+                            <span class="font-semibold text-white">Medir y registrar la distancia recorrida con diferentes potencias del motor</span>
+                        </div>
+                    </div>
+                    <div class="bg-black/30 rounded-xl p-4 border border-white/10">
+                        <div class="flex items-center gap-3 mb-2">
+                            <span class="bg-green-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">2</span>
+                            <span class="font-semibold text-white">Crear una tabla de datos con tiempo vs distancia</span>
+                        </div>
+                    </div>
+                    <div class="bg-black/30 rounded-xl p-4 border border-white/10">
+                        <div class="flex items-center gap-3 mb-2">
+                            <span class="bg-green-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">3</span>
+                            <span class="font-semibold text-white">Calcular la potencia óptima para recorrer exactamente 50 cm</span>
+                        </div>
+                    </div>
+                    <div class="bg-black/30 rounded-xl p-4 border border-white/10">
+                        <div class="flex items-center gap-3 mb-2">
+                            <span class="bg-green-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">4</span>
+                            <span class="font-semibold text-white">Realizar 3 intentos y registrar los resultados</span>
+                        </div>
+                    </div>
+                    <div class="bg-black/30 rounded-xl p-4 border border-white/10">
+                        <div class="flex items-center gap-3 mb-2">
+                            <span class="bg-green-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">5</span>
+                            <span class="font-semibold text-white">Analizar las diferencias entre los intentos</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tips -->
+            <div class="bg-white/10 rounded-2xl p-6 mb-8 border-2 border-white/20">
+                <h3 class="text-2xl font-bold mb-4 text-orange-300 flex items-center gap-2">💡 Consejos y Trucos</h3>
+                <div class="space-y-3">
+                    <div class="flex items-start gap-3 text-white/90">
+                        <span class="text-xl">💡</span>
+                        <span class="leading-relaxed">Comienza con potencias bajas para tener mayor control</span>
+                    </div>
+                    <div class="flex items-start gap-3 text-white/90">
+                        <span class="text-xl">💡</span>
+                        <span class="leading-relaxed">Registra todos los datos, incluso los intentos fallidos</span>
+                    </div>
+                    <div class="flex items-start gap-3 text-white/90">
+                        <span class="text-xl">💡</span>
+                        <span class="leading-relaxed">La superficie puede afectar la velocidad del robot</span>
+                    </div>
+                    <div class="flex items-start gap-3 text-white/90">
+                        <span class="text-xl">💡</span>
+                        <span class="leading-relaxed">Usa un cronómetro para medir tiempos exactos</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex gap-4 justify-center">
+                <button id="complete-btn" onclick="completeMission()" class="bg-gradient-to-r from-green-400 to-green-600 hover:from-green-500 hover:to-green-700 px-8 py-4 rounded-2xl border-3 border-white font-bold text-lg transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(34,197,94,0.5)]">
+                    🏆 Completar Misión
+                </button>
+                <div id="completed-btn" class="hidden bg-gradient-to-r from-green-400 to-green-600 px-8 py-4 rounded-2xl border-3 border-white font-bold text-lg opacity-75">
+                    ✅ Misión Completada
+                </div>
+                <a href="index.html" class="bg-gradient-to-r from-blue-400 to-blue-600 hover:from-blue-500 hover:to-blue-700 px-8 py-4 rounded-2xl border-3 border-white font-bold text-lg transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(59,130,246,0.5)]">
+                    🚀 Volver a Misiones
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Create stars background
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.width = Math.random() * 3 + 1 + 'px';
+                star.style.height = star.style.width;
+                star.style.animationDelay = Math.random() * 3 + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+
+        // Check if mission is completed
+        function checkCompletion() {
+            const saved = localStorage.getItem('completed-missions');
+            const completedMissions = saved ? JSON.parse(saved) : [];
+            
+            if (completedMissions.includes(1)) {
+                document.getElementById('completion-badge').classList.remove('hidden');
+                document.getElementById('complete-btn').classList.add('hidden');
+                document.getElementById('completed-btn').classList.remove('hidden');
+            }
+        }
+
+        // Complete mission
+        function completeMission() {
+            const saved = localStorage.getItem('completed-missions');
+            const completedMissions = saved ? JSON.parse(saved) : [];
+            
+            if (!completedMissions.includes(1)) {
+                completedMissions.push(1);
+                localStorage.setItem('completed-missions', JSON.stringify(completedMissions));
+                
+                // Update stats
+                const stats = JSON.parse(localStorage.getItem('zython-stats') || '{"available":1,"completed":0,"badges":0}');
+                stats.completed = completedMissions.length;
+                stats.badges = completedMissions.length;
+                stats.available = Math.min(completedMissions.length + 1, 4);
+                localStorage.setItem('zython-stats', JSON.stringify(stats));
+                
+                // Update UI
+                document.getElementById('completion-badge').classList.remove('hidden');
+                document.getElementById('complete-btn').classList.add('hidden');
+                document.getElementById('completed-btn').classList.remove('hidden');
+            }
+        }
+
+        // Initialize
+        createStars();
+        checkCompletion();
+    </script>
+</body>
+</html>
