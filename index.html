@@ -510,7 +510,7 @@
                 updateGameDisplay();
             }
 
-            // Logout functionality
+            // Logout functionality - CORREGIDO
             if (logoutBtn) {
                 logoutBtn.addEventListener('click', () => {
                     // Clear session
@@ -525,9 +525,12 @@
                     nameInput.value = '';
                     startButton.disabled = true;
                     
-                    // Show login, hide game
-                    gameContent.classList.add('hidden');
+                    // Show login, hide game - CORRECCIÓN AQUÍ
                     loginScreen.classList.remove('hidden');
+                    gameContent.classList.add('hidden');
+                    
+                    // Resetear el estado visual de las misiones
+                    resetMissionsDisplay();
                     
                     // Focus on name input
                     nameInput.focus();
@@ -536,6 +539,30 @@
             
             // Focus on name input initially
             nameInput.focus();
+        }
+
+        // Función para resetear la visualización de las misiones
+        function resetMissionsDisplay() {
+            // Resetear contadores
+            document.getElementById('available-count').textContent = '1';
+            document.getElementById('completed-count').textContent = '0';
+            document.getElementById('badges-count').textContent = '0';
+            
+            // Resetear todas las misiones al estado inicial
+            for (let i = 1; i <= 4; i++) {
+                const missionContainer = document.getElementById(`mission-${i}`);
+                const badge = document.getElementById(`badge-${i}`);
+                
+                if (!missionContainer || !badge) continue;
+                
+                if (i === 1) {
+                    // Solo la primera misión está disponible inicialmente
+                    markMissionAvailable(i, missionContainer, badge);
+                } else {
+                    // Las demás misiones están bloqueadas
+                    markMissionLocked(i, missionContainer, badge);
+                }
+            }
         }
 
         // Start when page loads
