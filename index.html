@@ -116,13 +116,6 @@
                         <div class="text-xs md:text-sm text-white/70 drop-shadow">Explorador: <span id="player-name-display"></span></div>
                     </div>
                 </div>
-                
-                <button 
-                    id="logout-btn" 
-                    class="px-3 py-2 md:px-4 md:py-2 bg-red-600 hover:bg-red-700 text-white font-medium rounded-lg transition-all duration-300 text-sm"
-                >
-                    🚪 Salir
-                </button>
             </div>
         </header>
 
@@ -142,6 +135,16 @@
                     <div class="text-[10px] md:text-xs text-gray-800 font-medium">🏆 Insignias</div>
                 </div>
             </div>
+        </div>
+
+        <!-- Logout button -->
+        <div class="fixed bottom-4 left-4 z-20">
+            <button 
+                id="logout-btn" 
+                class="px-4 py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl transition-all duration-300 hover:scale-105 flex items-center gap-2 shadow-lg"
+            >
+                🚪 <span class="hidden md:inline">Cerrar Sesión</span>
+            </button>
         </div>
 
         <!-- Missions container -->
@@ -246,21 +249,56 @@
             }
         }
 
-        // Player management functions (using variables instead of localStorage for demo)
-        let playersData = {};
+        // Player management functions with proper localStorage handling
+        function saveCurrentPlayer(playerName) {
+            try {
+                localStorage.setItem('zython-current-player', playerName);
+                console.log('Current player saved:', playerName);
+            } catch (error) {
+                console.error('Error saving current player:', error);
+            }
+        }
+
+        function getCurrentPlayer() {
+            try {
+                return localStorage.getItem('zython-current-player');
+            } catch (error) {
+                console.error('Error getting current player:', error);
+                return null;
+            }
+        }
 
         function savePlayerProgress(playerName, progress) {
-            playersData[playerName] = progress;
+            try {
+                const players = JSON.parse(localStorage.getItem('zython-players') || '{}');
+                players[playerName] = progress;
+                localStorage.setItem('zython-players', JSON.stringify(players));
+                console.log('Progress saved for:', playerName, progress);
+            } catch (error) {
+                console.error('Error saving progress:', error);
+            }
         }
 
         function loadPlayerProgress(playerName) {
-            return playersData[playerName] || {
-                completedMissions: [],
-                available: 1,
-                completed: 0,
-                badges: 0,
-                currentMission: 1
-            };
+            try {
+                const players = JSON.parse(localStorage.getItem('zython-players') || '{}');
+                return players[playerName] || {
+                    completedMissions: [],
+                    available: 1,
+                    completed: 0,
+                    badges: 0,
+                    currentMission: 1
+                };
+            } catch (error) {
+                console.error('Error loading progress:', error);
+                return {
+                    completedMissions: [],
+                    available: 1,
+                    completed: 0,
+                    badges: 0,
+                    currentMission: 1
+                };
+            }
         }
 
         // Mission completion function (called from mission pages)
@@ -400,6 +438,20 @@
             }
         }
 
+        // Check for returning player from URL params
+        function checkUrlParams() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const playerFromUrl = urlParams.get('player');
+            
+            if (playerFromUrl) {
+                // Clear URL params
+                window.history.replaceState({}, document.title, window.location.pathname);
+                return playerFromUrl;
+            }
+            
+            return getCurrentPlayer();
+        }
+
         // Login functionality
         function initialize() {
             createStars();
@@ -410,6 +462,21 @@
             const gameContent = document.getElementById('game-content');
             const playerNameDisplay = document.getElementById('player-name-display');
             const logoutBtn = document.getElementById('logout-btn');
+
+            // Check for existing session
+            const existingPlayer = checkUrlParams();
+            if (existingPlayer) {
+                currentPlayer = existingPlayer;
+                playerNameDisplay.textContent = existingPlayer;
+                
+                // Hide login, show game
+                loginScreen.classList.add('hidden');
+                gameContent.classList.remove('hidden');
+                
+                // Load and display progress
+                updateGameDisplay();
+                return;
+            }
 
             // Enable/disable start button based on input
             nameInput.addEventListener('input', () => {
@@ -432,6 +499,7 @@
                 if (playerName.length < 2) return;
 
                 currentPlayer = playerName;
+                saveCurrentPlayer(playerName); // Save to localStorage
                 playerNameDisplay.textContent = playerName;
                 
                 // Hide login, show game
@@ -445,7 +513,15 @@
             // Logout functionality
             if (logoutBtn) {
                 logoutBtn.addEventListener('click', () => {
+                    // Clear session
                     currentPlayer = null;
+                    try {
+                        localStorage.removeItem('zython-current-player');
+                    } catch (error) {
+                        console.error('Error clearing current player:', error);
+                    }
+                    
+                    // Reset form
                     nameInput.value = '';
                     startButton.disabled = true;
                     
