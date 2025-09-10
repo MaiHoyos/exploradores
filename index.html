@@ -237,6 +237,8 @@
         // Create stars background
         function createStars() {
             const starsContainer = document.getElementById('stars');
+            if (!starsContainer) return;
+            
             for (let i = 0; i < 100; i++) {
                 const star = document.createElement('div');
                 star.className = 'star';
@@ -252,53 +254,70 @@
         // Player management functions with proper localStorage handling
         function saveCurrentPlayer(playerName) {
             try {
-                localStorage.setItem('zython-current-player', playerName);
-                console.log('Current player saved:', playerName);
+                if (typeof Storage !== 'undefined') {
+                    localStorage.setItem('zython-current-player', playerName);
+                    console.log('Current player saved:', playerName);
+                }
             } catch (error) {
-                console.error('Error saving current player:', error);
+                console.warn('localStorage not available:', error);
             }
         }
 
         function getCurrentPlayer() {
             try {
-                return localStorage.getItem('zython-current-player');
+                if (typeof Storage !== 'undefined') {
+                    return localStorage.getItem('zython-current-player');
+                }
             } catch (error) {
-                console.error('Error getting current player:', error);
-                return null;
+                console.warn('localStorage not available:', error);
+            }
+            return null;
+        }
+
+        function clearCurrentPlayer() {
+            try {
+                if (typeof Storage !== 'undefined') {
+                    localStorage.removeItem('zython-current-player');
+                    console.log('Current player cleared');
+                }
+            } catch (error) {
+                console.warn('localStorage not available:', error);
             }
         }
 
         function savePlayerProgress(playerName, progress) {
             try {
-                const players = JSON.parse(localStorage.getItem('zython-players') || '{}');
-                players[playerName] = progress;
-                localStorage.setItem('zython-players', JSON.stringify(players));
-                console.log('Progress saved for:', playerName, progress);
+                if (typeof Storage !== 'undefined') {
+                    const players = JSON.parse(localStorage.getItem('zython-players') || '{}');
+                    players[playerName] = progress;
+                    localStorage.setItem('zython-players', JSON.stringify(players));
+                    console.log('Progress saved for:', playerName, progress);
+                }
             } catch (error) {
-                console.error('Error saving progress:', error);
+                console.warn('Error saving progress:', error);
             }
         }
 
         function loadPlayerProgress(playerName) {
             try {
-                const players = JSON.parse(localStorage.getItem('zython-players') || '{}');
-                return players[playerName] || {
-                    completedMissions: [],
-                    available: 1,
-                    completed: 0,
-                    badges: 0,
-                    currentMission: 1
-                };
+                if (typeof Storage !== 'undefined') {
+                    const players = JSON.parse(localStorage.getItem('zython-players') || '{}');
+                    return players[playerName] || getDefaultProgress();
+                }
             } catch (error) {
-                console.error('Error loading progress:', error);
-                return {
-                    completedMissions: [],
-                    available: 1,
-                    completed: 0,
-                    badges: 0,
-                    currentMission: 1
-                };
+                console.warn('Error loading progress:', error);
             }
+            return getDefaultProgress();
+        }
+
+        function getDefaultProgress() {
+            return {
+                completedMissions: [],
+                available: 1,
+                completed: 0,
+                badges: 0,
+                currentMission: 1
+            };
         }
 
         // Mission completion function (called from mission pages)
@@ -331,9 +350,13 @@
             const progress = loadPlayerProgress(currentPlayer);
             
             // Update progress counters
-            document.getElementById('available-count').textContent = progress.available;
-            document.getElementById('completed-count').textContent = progress.completed;
-            document.getElementById('badges-count').textContent = progress.badges;
+            const availableCount = document.getElementById('available-count');
+            const completedCount = document.getElementById('completed-count');
+            const badgesCount = document.getElementById('badges-count');
+            
+            if (availableCount) availableCount.textContent = progress.available;
+            if (completedCount) completedCount.textContent = progress.completed;
+            if (badgesCount) badgesCount.textContent = progress.badges;
             
             // Update mission states
             for (let i = 1; i <= 4; i++) {
@@ -452,8 +475,61 @@
             return getCurrentPlayer();
         }
 
+        // Reset to initial state
+        function resetToInitialState() {
+            const nameInput = document.getElementById('player-name');
+            const startButton = document.getElementById('start-game');
+            
+            // Clear and reset form
+            if (nameInput) {
+                nameInput.value = '';
+                nameInput.focus();
+            }
+            if (startButton) {
+                startButton.disabled = true;
+            }
+            
+            // Clear current player
+            currentPlayer = null;
+            
+            // Clear player name display
+            const playerNameDisplay = document.getElementById('player-name-display');
+            if (playerNameDisplay) {
+                playerNameDisplay.textContent = '';
+            }
+        }
+
+        // Logout function
+        function logout() {
+            console.log('Logging out...');
+            
+            // Clear localStorage
+            clearCurrentPlayer();
+            
+            // Reset to initial state
+            resetToInitialState();
+            
+            // Hide game content and show login screen
+            const loginScreen = document.getElementById('login-screen');
+            const gameContent = document.getElementById('game-content');
+            
+            if (gameContent) {
+                gameContent.classList.add('hidden');
+                console.log('Game content hidden');
+            }
+            
+            if (loginScreen) {
+                loginScreen.classList.remove('hidden');
+                console.log('Login screen shown');
+            }
+            
+            console.log('Logout complete');
+        }
+
         // Login functionality
         function initialize() {
+            console.log('Initializing application...');
+            
             createStars();
             
             const nameInput = document.getElementById('player-name');
@@ -465,81 +541,92 @@
 
             // Check for existing session
             const existingPlayer = checkUrlParams();
-            if (existingPlayer) {
+            if (existingPlayer && playerNameDisplay) {
                 currentPlayer = existingPlayer;
                 playerNameDisplay.textContent = existingPlayer;
                 
                 // Hide login, show game
-                loginScreen.classList.add('hidden');
-                gameContent.classList.remove('hidden');
+                if (loginScreen) loginScreen.classList.add('hidden');
+                if (gameContent) gameContent.classList.remove('hidden');
                 
                 // Load and display progress
                 updateGameDisplay();
+                console.log('Existing session loaded for:', existingPlayer);
                 return;
             }
 
             // Enable/disable start button based on input
-            nameInput.addEventListener('input', () => {
-                const name = nameInput.value.trim();
-                startButton.disabled = name.length < 2;
-            });
+            if (nameInput && startButton) {
+                nameInput.addEventListener('input', () => {
+                    const name = nameInput.value.trim();
+                    startButton.disabled = name.length < 2;
+                });
 
-            // Handle enter key
-            nameInput.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter' && !startButton.disabled) {
-                    startGame();
-                }
-            });
+                // Handle enter key
+                nameInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter' && !startButton.disabled) {
+                        startGame();
+                    }
+                });
 
-            // Start game
-            startButton.addEventListener('click', startGame);
+                // Start game
+                startButton.addEventListener('click', startGame);
+                
+                // Focus on name input initially
+                nameInput.focus();
+            }
 
             function startGame() {
-                const playerName = nameInput.value.trim();
+                const playerName = nameInput ? nameInput.value.trim() : '';
                 if (playerName.length < 2) return;
 
                 currentPlayer = playerName;
-                saveCurrentPlayer(playerName); // Save to localStorage
-                playerNameDisplay.textContent = playerName;
+                saveCurrentPlayer(playerName);
+                
+                if (playerNameDisplay) {
+                    playerNameDisplay.textContent = playerName;
+                }
                 
                 // Hide login, show game
-                loginScreen.classList.add('hidden');
-                gameContent.classList.remove('hidden');
+                if (loginScreen) loginScreen.classList.add('hidden');
+                if (gameContent) gameContent.classList.remove('hidden');
                 
                 // Load and display progress
                 updateGameDisplay();
+                console.log('Game started for:', playerName);
             }
 
             // Logout functionality
             if (logoutBtn) {
-                logoutBtn.addEventListener('click', () => {
-                    // Clear session
-                    currentPlayer = null;
-                    try {
-                        localStorage.removeItem('zython-current-player');
-                    } catch (error) {
-                        console.error('Error clearing current player:', error);
-                    }
+                logoutBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
                     
-                    // Reset form
-                    nameInput.value = '';
-                    startButton.disabled = true;
+                    console.log('Logout button clicked');
                     
-                    // Show login, hide game
-                    gameContent.classList.add('hidden');
-                    loginScreen.classList.remove('hidden');
+                    // Add visual feedback
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = 'scale(1)';
+                    }, 150);
                     
-                    // Focus on name input
-                    nameInput.focus();
+                    // Perform logout
+                    logout();
                 });
+                
+                console.log('Logout button event listener attached');
+            } else {
+                console.error('Logout button not found');
             }
             
-            // Focus on name input initially
-            nameInput.focus();
+            console.log('Application initialized successfully');
         }
 
         // Start when page loads
-        document.addEventListener('DOMContentLoaded', initialize);
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM Content Loaded');
+            initialize();
+        });
     </script>
 </body>
 </html>
