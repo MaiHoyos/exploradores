@@ -10,11 +10,11 @@
             0%, 100% { transform: translateY(0px) scale(1); }
             50% { transform: translateY(-15px) scale(1.05); }
         }
-
+        
         .animate-planet-bounce {
             animation: planetBounce 4s ease-in-out infinite;
         }
-
+        
         .stars {
             position: fixed;
             top: 0;
@@ -23,37 +23,37 @@
             height: 100%;
             pointer-events: none;
         }
-
+        
         .star {
             position: absolute;
             background: white;
             border-radius: 50%;
             animation: twinkle 3s infinite;
         }
-
+        
         @keyframes twinkle {
             0%, 100% { opacity: 0.3; }
             50% { opacity: 1; }
         }
-
+        
         @keyframes pathFlow {
             0% { stroke-dashoffset: 20; }
             100% { stroke-dashoffset: 0; }
         }
-
+        
         .animate-path-flow {
             animation: pathFlow 3s linear infinite;
         }
-
+        
         @keyframes fadeIn {
             from { opacity: 0; transform: scale(0.9); }
             to { opacity: 1; transform: scale(1); }
         }
-
+        
         .animate-fadeIn {
             animation: fadeIn 0.5s ease-out;
         }
-
+        
         @media (max-width: 768px) {
             .mobile-planet-small { width: 100px !important; height: 100px !important; }
             .mobile-planet-medium { width: 120px !important; height: 120px !important; }
@@ -72,14 +72,14 @@
 <body class="min-h-screen bg-gradient-to-b from-purple-900 via-blue-900 to-black text-white overflow-hidden relative">
     <!-- Space Background -->
     <div class="stars" id="stars"></div>
-
+    
     <!-- Login Screen -->
     <div id="login-screen" class="fixed inset-0 bg-gradient-to-b from-purple-900 via-blue-900 to-black flex items-center justify-center z-50">
         <div class="bg-white/10 backdrop-blur-md border-2 border-white/30 rounded-3xl p-8 max-w-md w-full mx-4 text-center animate-fadeIn">
             <div class="text-6xl mb-4">🚀</div>
             <h1 class="text-3xl font-bold mb-2 text-white">¡Bienvenido a Zython!</h1>
             <p class="text-white/80 mb-6">Introduce tu nombre de explorador para comenzar tu aventura espacial</p>
-
+            
             <div class="space-y-4">
                 <input 
                     type="text" 
@@ -96,7 +96,7 @@
                     🌟 Comenzar Exploración
                 </button>
             </div>
-
+            
             <div class="mt-6 text-sm text-white/60">
                 <p>💡 Si ya tienes una cuenta, usa el mismo nombre para continuar tu progreso</p>
             </div>
@@ -116,13 +116,6 @@
                         <div class="text-xs md:text-sm text-white/70 drop-shadow">Explorador: <span id="player-name-display"></span></div>
                     </div>
                 </div>
-                
-                <button 
-                    id="logout-btn" 
-                    class="px-3 py-2 md:px-4 md:py-2 bg-red-600 hover:bg-red-700 text-white font-medium rounded-lg transition-all duration-300 text-sm"
-                >
-                    🚪 Salir
-                </button>
             </div>
         </header>
 
@@ -144,15 +137,15 @@
             </div>
         </div>
 
-
-
-
-
-
-
-
-
-
+        <!-- Logout button -->
+        <div class="fixed bottom-4 left-4 z-20">
+            <button 
+                id="logout-btn" 
+                class="px-4 py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl transition-all duration-300 hover:scale-105 flex items-center gap-2 shadow-lg"
+            >
+                🚪 <span class="hidden md:inline">Cerrar Sesión</span>
+            </button>
+        </div>
 
         <!-- Missions container -->
         <div class="absolute top-[200px] md:top-[180px] left-0 right-0 bottom-0 p-4 md:p-10">
@@ -240,7 +233,7 @@
 
     <script>
         let currentPlayer = null;
-
+        
         // Create stars background
         function createStars() {
             const starsContainer = document.getElementById('stars');
@@ -256,77 +249,77 @@
             }
         }
 
-        // Player management functions (using variables instead of localStorage for demo)
-        let playersData = {};
+        // Player management functions with proper localStorage handling
+        function saveCurrentPlayer(playerName) {
+            try {
+                localStorage.setItem('zython-current-player', playerName);
+                console.log('Current player saved:', playerName);
+            } catch (error) {
+                console.error('Error saving current player:', error);
+            }
+        }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        function getCurrentPlayer() {
+            try {
+                return localStorage.getItem('zython-current-player');
+            } catch (error) {
+                console.error('Error getting current player:', error);
+                return null;
+            }
+        }
 
         function savePlayerProgress(playerName, progress) {
-            playersData[playerName] = progress;
-
-
-
-
-
-
-
+            try {
+                const players = JSON.parse(localStorage.getItem('zython-players') || '{}');
+                players[playerName] = progress;
+                localStorage.setItem('zython-players', JSON.stringify(players));
+                console.log('Progress saved for:', playerName, progress);
+            } catch (error) {
+                console.error('Error saving progress:', error);
+            }
         }
 
         function loadPlayerProgress(playerName) {
-            return playersData[playerName] || {
-                completedMissions: [],
-                available: 1,
-                completed: 0,
-                badges: 0,
-                currentMission: 1
-            };
-
-
-
-
-
-
-
-
-
-
-
-
+            try {
+                const players = JSON.parse(localStorage.getItem('zython-players') || '{}');
+                return players[playerName] || {
+                    completedMissions: [],
+                    available: 1,
+                    completed: 0,
+                    badges: 0,
+                    currentMission: 1
+                };
+            } catch (error) {
+                console.error('Error loading progress:', error);
+                return {
+                    completedMissions: [],
+                    available: 1,
+                    completed: 0,
+                    badges: 0,
+                    currentMission: 1
+                };
+            }
         }
 
         // Mission completion function (called from mission pages)
         window.completeMission = function(missionId) {
             if (!currentPlayer) return;
-
+            
             const progress = loadPlayerProgress(currentPlayer);
-
+            
             // Add mission to completed if not already there
             if (!progress.completedMissions.includes(missionId)) {
                 progress.completedMissions.push(missionId);
                 progress.completed = progress.completedMissions.length;
                 progress.badges = progress.completedMissions.length;
-
+                
                 // Unlock next mission if exists
                 if (missionId < 4) {
                     progress.currentMission = missionId + 1;
                     progress.available = Math.max(progress.available, missionId + 1);
                 }
             }
-
+            
             savePlayerProgress(currentPlayer, progress);
             updateGameDisplay();
         };
@@ -334,21 +327,21 @@
         // Update game display based on current progress
         function updateGameDisplay() {
             if (!currentPlayer) return;
-
+            
             const progress = loadPlayerProgress(currentPlayer);
-
+            
             // Update progress counters
             document.getElementById('available-count').textContent = progress.available;
             document.getElementById('completed-count').textContent = progress.completed;
             document.getElementById('badges-count').textContent = progress.badges;
-
+            
             // Update mission states
             for (let i = 1; i <= 4; i++) {
                 const missionContainer = document.getElementById(`mission-${i}`);
                 const badge = document.getElementById(`badge-${i}`);
-
+                
                 if (!missionContainer || !badge) continue;
-
+                
                 if (progress.completedMissions.includes(i)) {
                     // Mission completed
                     markMissionCompleted(i, missionContainer, badge);
@@ -365,14 +358,14 @@
         function markMissionCompleted(missionId, container, badge) {
             // Remove locked state
             container.classList.remove('opacity-60', 'cursor-not-allowed');
-
+            
             // Remove grayscale and lock overlay
             const grayscaleDiv = container.querySelector('.grayscale-50');
             if (grayscaleDiv) grayscaleDiv.classList.remove('grayscale-50');
-
+            
             const lockOverlay = container.querySelector('.lock-overlay');
             if (lockOverlay) lockOverlay.remove();
-
+            
             // Add completion indicator
             const planetDiv = container.querySelector('.mobile-planet-large, .mobile-planet-medium, .mobile-planet-small');
             if (planetDiv && !planetDiv.querySelector('.completion-indicator')) {
@@ -381,12 +374,12 @@
                 completionDiv.innerHTML = '<div class="text-4xl">✓</div>';
                 planetDiv.appendChild(completionDiv);
             }
-
+            
             // Update badge
             badge.className = badge.className.replace(/bg-gradient-to-br from-\w+-\d+ to-\w+-\d+/, 'bg-gradient-to-br from-green-400 to-green-600');
             badge.classList.remove('animate-pulse');
             badge.textContent = '✓';
-
+            
             // Add link to mission page
             if (!container.querySelector('a')) {
                 const missionContent = container.innerHTML;
@@ -397,18 +390,18 @@
         function markMissionAvailable(missionId, container, badge) {
             // Remove locked state
             container.classList.remove('opacity-60', 'cursor-not-allowed');
-
+            
             // Remove grayscale and lock overlay
             const grayscaleDiv = container.querySelector('.grayscale-50');
             if (grayscaleDiv) grayscaleDiv.classList.remove('grayscale-50');
-
+            
             const lockOverlay = container.querySelector('.lock-overlay');
             if (lockOverlay) lockOverlay.remove();
-
+            
             // Update badge
             badge.className = badge.className.replace(/bg-gradient-to-br from-gray-\d+ to-gray-\d+/, 'bg-gradient-to-br from-orange-400 to-orange-600 animate-pulse');
             badge.textContent = missionId;
-
+            
             // Add link to mission page
             if (!container.querySelector('a')) {
                 const missionContent = container.innerHTML;
@@ -419,11 +412,11 @@
         function markMissionLocked(missionId, container, badge) {
             // Add locked state
             container.classList.add('opacity-60', 'cursor-not-allowed');
-
+            
             // Add grayscale
             const planetDiv = container.querySelector('div[class*="flex flex-col"]');
             if (planetDiv) planetDiv.classList.add('grayscale-50');
-
+            
             // Ensure lock overlay exists
             const planetImage = container.querySelector('.mobile-planet-large, .mobile-planet-medium, .mobile-planet-small');
             if (planetImage && !planetImage.querySelector('.lock-overlay')) {
@@ -432,12 +425,12 @@
                 lockDiv.innerHTML = '<div class="text-3xl md:text-4xl">🔒</div>';
                 planetImage.appendChild(lockDiv);
             }
-
+            
             // Update badge
             badge.className = badge.className.replace(/bg-gradient-to-br from-\w+-\d+ to-\w+-\d+/, 'bg-gradient-to-br from-gray-500 to-gray-700');
             badge.classList.remove('animate-pulse');
             badge.textContent = '🔒';
-
+            
             // Remove any existing links
             const link = container.querySelector('a');
             if (link) {
@@ -445,24 +438,24 @@
             }
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+        // Check for returning player from URL params
+        function checkUrlParams() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const playerFromUrl = urlParams.get('player');
+            
+            if (playerFromUrl) {
+                // Clear URL params
+                window.history.replaceState({}, document.title, window.location.pathname);
+                return playerFromUrl;
+            }
+            
+            return getCurrentPlayer();
+        }
 
         // Login functionality
         function initialize() {
             createStars();
-
+            
             const nameInput = document.getElementById('player-name');
             const startButton = document.getElementById('start-game');
             const loginScreen = document.getElementById('login-screen');
@@ -470,20 +463,20 @@
             const playerNameDisplay = document.getElementById('player-name-display');
             const logoutBtn = document.getElementById('logout-btn');
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            // Check for existing session
+            const existingPlayer = checkUrlParams();
+            if (existingPlayer) {
+                currentPlayer = existingPlayer;
+                playerNameDisplay.textContent = existingPlayer;
+                
+                // Hide login, show game
+                loginScreen.classList.add('hidden');
+                gameContent.classList.remove('hidden');
+                
+                // Load and display progress
+                updateGameDisplay();
+                return;
+            }
 
             // Enable/disable start button based on input
             nameInput.addEventListener('input', () => {
@@ -506,13 +499,13 @@
                 if (playerName.length < 2) return;
 
                 currentPlayer = playerName;
-
+                saveCurrentPlayer(playerName); // Save to localStorage
                 playerNameDisplay.textContent = playerName;
-
+                
                 // Hide login, show game
                 loginScreen.classList.add('hidden');
                 gameContent.classList.remove('hidden');
-
+                
                 // Load and display progress
                 updateGameDisplay();
             }
@@ -520,27 +513,27 @@
             // Logout functionality
             if (logoutBtn) {
                 logoutBtn.addEventListener('click', () => {
-
+                    // Clear session
                     currentPlayer = null;
-
-
-
-
-
-
-
+                    try {
+                        localStorage.removeItem('zython-current-player');
+                    } catch (error) {
+                        console.error('Error clearing current player:', error);
+                    }
+                    
+                    // Reset form
                     nameInput.value = '';
                     startButton.disabled = true;
-
+                    
                     // Show login, hide game
                     gameContent.classList.add('hidden');
                     loginScreen.classList.remove('hidden');
-
+                    
                     // Focus on name input
                     nameInput.focus();
                 });
             }
-
+            
             // Focus on name input initially
             nameInput.focus();
         }
