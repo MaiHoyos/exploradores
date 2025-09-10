@@ -172,7 +172,7 @@
     </div>
 
     <script>
-        // Sistema de gestión de jugadores compatible con index.html
+        // Sistema de gestión de jugadores con localStorage
         function getCurrentPlayer() {
             try {
                 return localStorage.getItem('zython-current-player');
@@ -219,7 +219,7 @@
         function volverAMisiones() {
             const currentPlayer = getCurrentPlayer();
             if (currentPlayer) {
-                // Redirigir con el jugador en la URL para asegurar que se mantenga la sesión
+                // Redirigir directamente al mapa con el jugador como parámetro URL
                 window.location.href = `index.html?player=${encodeURIComponent(currentPlayer)}`;
             } else {
                 console.warn('No current player found, going to main page');
@@ -246,7 +246,7 @@
         function checkCompletion() {
             const currentPlayer = getCurrentPlayer();
             if (!currentPlayer) {
-                console.warn('No current player found');
+                console.warn('No current player found, redirecting to main page');
                 // Si no hay jugador, redirigir al inicio
                 window.location.href = 'index.html';
                 return;
