@@ -30,232 +30,62 @@
     </style>
 </head>
 <body class="min-h-screen bg-gradient-to-b from-purple-900 via-blue-900 to-black text-white relative overflow-auto">
-    <!-- Space Background -->
     <div class="stars" id="stars"></div>
     
-    <!-- Header -->
-    <header class="relative z-10 bg-gradient-to-r from-pink-400 via-teal-400 to-blue-400 border-4 border-white rounded-b-3xl p-6 m-4">
+    <header class="relative z-10 bg-gradient-to-r from-green-400 to-green-600 border-4 border-white rounded-b-3xl p-6 m-4">
         <div class="flex items-center justify-between">
-            <button onclick="volverAMisiones()" class="flex items-center gap-4 hover:scale-105 transition-transform">
-                <div class="text-3xl">🚀</div>
-                <div>
-                    <div class="text-xl font-bold">← Volver a Misiones</div>
-                    <div class="text-sm opacity-90">Exploración de Zython</div>
-                </div>
+            <button onclick="volverAMisiones()" class="px-4 py-2 bg-white text-green-600 font-bold rounded-full shadow-lg transition-transform transform hover:scale-105">
+                ← Volver a Misiones
             </button>
-            <div class="text-right">
-                <div class="text-lg font-bold" id="player-name-display">Explorador</div>
-                <div class="text-sm opacity-90">Misión 4</div>
+            <div class="flex items-center space-x-4">
+                <div class="text-3xl font-extrabold text-white drop-shadow-lg">MISIÓN 4</div>
+                <div class="text-4xl text-yellow-300">🚛</div>
             </div>
-            <div id="completion-badge" class="hidden bg-green-500 px-4 py-2 rounded-full border-2 border-white flex items-center gap-2">
-                <span class="text-xl">✅</span>
-                <span class="font-bold">¡Completada!</span>
+            <div id="completion-badge" class="hidden px-4 py-2 bg-green-500 text-white font-bold rounded-full shadow-lg">
+                ✅ Completada
             </div>
         </div>
     </header>
 
-    <!-- Mission Content -->
-    <div class="relative z-10 max-w-4xl mx-auto p-6">
-        <div class="bg-gradient-to-br from-purple-600/20 to-blue-600/20 backdrop-blur-sm border-4 border-white/30 rounded-3xl p-8 mb-8">
-            <h1 class="text-4xl font-bold mb-6 text-center bg-gradient-to-r from-yellow-300 to-orange-400 bg-clip-text text-transparent">
-                Estación de Transferencia
-            </h1>
-
-            <div class="text-lg leading-relaxed mb-8 text-center text-white/90">
-                La misión final combina todo lo aprendido: motores, sensores y trabajo en equipo.
-            </div>
-
-            <!-- Objectives -->
-            <div class="bg-white/10 rounded-2xl p-6 mb-8 border-2 border-white/20">
-                <h3 class="text-2xl font-bold mb-4 text-yellow-300 flex items-center gap-2">
-                    🎯 Objetivos de Aprendizaje
-                </h3>
-                <ul class="space-y-3">
-                    <li class="flex items-start gap-3 text-white/90">
-                        <span class="text-xl">🚀</span>
-                        <span class="leading-relaxed">Integrar todos los conocimientos adquiridos en las misiones anteriores</span>
-                    </li>
-                    <li class="flex items-start gap-3 text-white/90">
-                        <span class="text-xl">🚀</span>
-                        <span class="leading-relaxed">Ejecutar secuencias complejas de movimientos coordinados</span>
-                    </li>
-                    <li class="flex items-start gap-3 text-white/90">
-                        <span class="text-xl">🚀</span>
-                        <span class="leading-relaxed">Completar una misión de transporte con múltiples desafíos</span>
-                    </li>
-                </ul>
-            </div>
-
-            <!-- Mission Content -->
-            <div class="bg-white/10 rounded-2xl p-6 mb-8 border-2 border-white/20">
-                <h3 class="text-2xl font-bold mb-4 text-teal-300 flex items-center gap-2">📚 Contenido de la Misión</h3>
-                <div class="text-white/90 leading-relaxed space-y-4">
-                    <p>La misión final combina todo lo aprendido: motores, sensores y trabajo en equipo.</p>
-                    <p><strong>Contexto:</strong> Debes transportar un contenedor de recursos valiosos hasta la Estación de Transferencia siguiendo una ruta específica.</p>
-                    <p><strong>Desafío:</strong> Coordinar múltiples RoverBots para completar una secuencia compleja de movimientos y giros.</p>
+    <main class="relative z-10 p-6 md:p-10 max-w-4xl mx-auto">
+        <section class="bg-white/10 backdrop-blur-sm rounded-3xl p-6 md:p-8 border-4 border-white/30 shadow-2xl mb-8">
+            <h2 class="text-2xl md:text-3xl font-bold text-center mb-4 text-yellow-300">Transporte en la Estación de Transferencia</h2>
+            <p class="text-lg text-white/90 text-center mb-6">Esta es tu prueba final. Debes coordinar dos RoverBots para que trabajen en equipo, moviendo un contenedor de carga desde el punto A al punto B sin colisionar.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                <div>
+                    <img src="mision4.png" alt="Estación de Transferencia" class="w-full rounded-2xl border-4 border-white/50 shadow-xl" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-auto aspect-video flex items-center justify-center text-4xl md:text-6xl bg-gradient-to-br from-pink-400 via-teal-400 to-green-400&quot;>🚛</div>'">
+                </div>
+                <div class="bg-black/40 p-4 rounded-xl border-2 border-white/40">
+                    <h3 class="text-xl md:text-2xl font-semibold mb-3 text-white">Objetivo de la Misión:</h3>
+                    <ul class="list-disc list-inside space-y-2 text-white/90">
+                        <li>Sincronizar el movimiento de dos RoverBots.</li>
+                        <li>Transportar un objeto pesado.</li>
+                        <li>Coordinar las acciones para evitar obstáculos.</li>
+                    </ul>
                 </div>
             </div>
-
-            <!-- Activities -->
-            <div class="bg-white/10 rounded-2xl p-6 mb-8 border-2 border-white/20">
-                <h3 class="text-2xl font-bold mb-4 text-green-300 flex items-center gap-2">🔧 Actividades Prácticas</h3>
-                <div class="space-y-4">
-                    <div class="bg-black/30 rounded-xl p-4 border border-white/10">
-                        <div class="flex items-center gap-3 mb-2">
-                            <span class="bg-green-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">1</span>
-                            <span class="font-semibold text-white">Planificar la ruta en papel cuadriculado</span>
-                        </div>
-                    </div>
-                    <div class="bg-black/30 rounded-xl p-4 border border-white/10">
-                        <div class="flex items-center gap-3 mb-2">
-                            <span class="bg-green-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">2</span>
-                            <span class="font-semibold text-white">Dividir el recorrido en segmentos con cada equipo</span>
-                        </div>
-                    </div>
-                    <div class="bg-black/30 rounded-xl p-4 border border-white/10">
-                        <div class="flex items-center gap-3 mb-2">
-                            <span class="bg-green-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">3</span>
-                            <span class="font-semibold text-white">Sincronizar los movimientos entre múltiples robots</span>
-                        </div>
-                    </div>
-                    <div class="bg-black/30 rounded-xl p-4 border border-white/10">
-                        <div class="flex items-center gap-3 mb-2">
-                            <span class="bg-green-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">4</span>
-                            <span class="font-semibold text-white">Transportar el contenedor sin que se caiga</span>
-                        </div>
-                    </div>
-                    <div class="bg-black/30 rounded-xl p-4 border border-white/10">
-                        <div class="flex items-center gap-3 mb-2">
-                            <span class="bg-green-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">5</span>
-                            <span class="font-semibold text-white">Completar la entrega en la Estación de Transferencia</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Tips -->
-            <div class="bg-white/10 rounded-2xl p-6 mb-8 border-2 border-white/20">
-                <h3 class="text-2xl font-bold mb-4 text-orange-300 flex items-center gap-2">💡 Consejos y Trucos</h3>
-                <div class="space-y-3">
-                    <div class="flex items-start gap-3 text-white/90">
-                        <span class="text-xl">💡</span>
-                        <span class="leading-relaxed">Planifica cada movimiento antes de ejecutarlo</span>
-                    </div>
-                    <div class="flex items-start gap-3 text-white/90">
-                        <span class="text-xl">💡</span>
-                        <span class="leading-relaxed">Asigna roles específicos a cada miembro del equipo</span>
-                    </div>
-                    <div class="flex items-start gap-3 text-white/90">
-                        <span class="text-xl">💡</span>
-                        <span class="leading-relaxed">Ten un plan de respaldo si algo sale mal</span>
-                    </div>
-                    <div class="flex items-start gap-3 text-white/90">
-                        <span class="text-xl">💡</span>
-                        <span class="leading-relaxed">La paciencia y la precisión son más importantes que la velocidad</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Final Mission Celebration -->
-            <div id="final-celebration" class="hidden bg-gradient-to-br from-yellow-500/20 to-orange-500/20 rounded-2xl p-6 mb-8 border-4 border-yellow-400/50">
-                <h3 class="text-2xl font-bold mb-4 text-yellow-300 flex items-center gap-2 text-center w-full">
-                    🎉 ¡Felicitaciones, Explorador Espacial! 🎉
-                </h3>
-                <div class="text-white/90 text-center space-y-3">
-                    <p class="text-lg">Has completado todas las misiones en el planeta Zython.</p>
-                    <p>Tu RoverBot ahora domina:</p>
-                    <div class="grid md:grid-cols-2 gap-3 mt-4">
-                        <div class="bg-white/10 rounded-xl p-3">
-                            <span class="text-green-400">✓</span> Control preciso de motores
-                        </div>
-                        <div class="bg-white/10 rounded-xl p-3">
-                            <span class="text-green-400">✓</span> Navegación con sensores
-                        </div>
-                        <div class="bg-white/10 rounded-xl p-3">
-                            <span class="text-green-400">✓</span> Trabajo en equipo
-                        </div>
-                        <div class="bg-white/10 rounded-xl p-3">
-                            <span class="text-green-400">✓</span> Misiones complejas
-                        </div>
-                    </div>
-                    <p class="text-lg mt-4">¡Eres oficialmente un <strong class="text-yellow-300">Maestro Explorador de Zython</strong>! 🏆</p>
-                </div>
-            </div>
-
-            <!-- Action Buttons -->
-            <div class="flex gap-4 justify-center">
-                <button id="complete-btn" onclick="completeMission()" class="bg-gradient-to-r from-green-400 to-green-600 hover:from-green-500 hover:to-green-700 px-8 py-4 rounded-2xl border-3 border-white font-bold text-lg transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(34,197,94,0.5)]">
-                    🏆 Completar Misión Final
+            
+            <div class="mt-8 flex justify-center">
+                <button id="complete-btn" onclick="completeMission()" class="px-6 py-3 bg-gradient-to-r from-green-500 to-green-700 text-white font-bold text-lg rounded-full shadow-lg transition-transform transform hover:scale-110 hover:shadow-2xl">
+                    Completar Misión
                 </button>
-                <div id="completed-btn" class="hidden bg-gradient-to-r from-green-400 to-green-600 px-8 py-4 rounded-2xl border-3 border-white font-bold text-lg opacity-75">
-                    ✅ Misión Completada
-                </div>
-                <button onclick="volverAMisiones()" class="bg-gradient-to-r from-blue-400 to-blue-600 hover:from-blue-500 hover:to-blue-700 px-8 py-4 rounded-2xl border-3 border-white font-bold text-lg transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(59,130,246,0.5)]">
-                    🚀 Volver a Misiones
-                </button>
+                <a href="index.html" id="completed-btn" class="hidden px-6 py-3 bg-white text-green-600 font-bold text-lg rounded-full shadow-lg transition-transform transform hover:scale-110 hover:shadow-2xl">
+                    Volver a Misiones
+                </a>
             </div>
-        </div>
-    </div>
+        </section>
+        
+        <section id="final-celebration" class="hidden mt-8 text-center animate-fadeIn">
+            <h2 class="text-4xl md:text-5xl font-extrabold text-yellow-400 drop-shadow-xl">¡Felicitaciones, Explorador Maestro!</h2>
+            <p class="text-lg md:text-xl text-white/90 mt-4">Has completado con éxito todas las misiones. Tu RoverBot ahora es un experto en la exploración de Zython.</p>
+        </section>
+    </main>
 
     <script>
-        // Sistema de gestión de jugadores compatible con index.html
-        function getCurrentPlayer() {
-            try {
-                return localStorage.getItem('zython-current-player');
-            } catch (error) {
-                console.error('Error getting current player:', error);
-                return null;
-            }
-        }
-
-        function loadPlayerProgress(playerName) {
-            try {
-                const players = JSON.parse(localStorage.getItem('zython-players') || '{}');
-                return players[playerName] || {
-                    completedMissions: [],
-                    available: 1,
-                    completed: 0,
-                    badges: 0,
-                    currentMission: 1
-                };
-            } catch (error) {
-                console.error('Error loading progress:', error);
-                return {
-                    completedMissions: [],
-                    available: 1,
-                    completed: 0,
-                    badges: 0,
-                    currentMission: 1
-                };
-            }
-        }
-
-        function savePlayerProgress(playerName, progress) {
-            try {
-                const players = JSON.parse(localStorage.getItem('zython-players') || '{}');
-                players[playerName] = progress;
-                localStorage.setItem('zython-players', JSON.stringify(players));
-                console.log('Progress saved for:', playerName, progress);
-            } catch (error) {
-                console.error('Error saving progress:', error);
-            }
-        }
-
-        // Función para volver a misiones manteniendo la sesión
-        function volverAMisiones() {
-            const currentPlayer = getCurrentPlayer();
-            if (currentPlayer) {
-                // Redirigir con el jugador en la URL para asegurar que se mantenga la sesión
-                window.location.href = `index.html?player=${encodeURIComponent(currentPlayer)}`;
-            } else {
-                console.warn('No current player found, going to main page');
-                window.location.href = 'index.html';
-            }
-        }
-
-        // Create stars background
         function createStars() {
             const starsContainer = document.getElementById('stars');
+            if (!starsContainer) return;
             for (let i = 0; i < 100; i++) {
                 const star = document.createElement('div');
                 star.className = 'star';
@@ -268,34 +98,45 @@
             }
         }
 
-        // Check if mission is completed and update UI
-        function checkCompletion() {
-            const currentPlayer = getCurrentPlayer();
-            if (!currentPlayer) {
-                console.warn('No current player found');
-                // Si no hay jugador, redirigir al inicio
-                window.location.href = 'index.html';
-                return;
-            }
+        // Funciones para guardar y cargar el progreso en localStorage
+        function getCurrentPlayer() {
+            return localStorage.getItem('zython-current-player');
+        }
 
-            // Mostrar nombre del jugador
-            document.getElementById('player-name-display').textContent = currentPlayer;
-
-            // Verificar si la misión está completada
-            const progress = loadPlayerProgress(currentPlayer);
-            if (progress.completedMissions.includes(4)) {
-                document.getElementById('completion-badge').classList.remove('hidden');
-                document.getElementById('complete-btn').classList.add('hidden');
-                document.getElementById('completed-btn').classList.remove('hidden');
-                document.getElementById('final-celebration').classList.remove('hidden');
-                
-                // Cambiar el botón a mostrar que es la misión final completada
-                const completeBtn = document.getElementById('completed-btn');
-                completeBtn.innerHTML = '🏆 ¡Todas las Misiones Completadas!';
+        function loadPlayerProgress(playerName) {
+            try {
+                const players = JSON.parse(localStorage.getItem('zython-players') || '{}');
+                return players[playerName] || { completedMissions: [], completed: 0, currentMission: 1, available: 1, badges: 0 };
+            } catch (error) {
+                console.error('Error loading progress:', error);
+                return { completedMissions: [], completed: 0, currentMission: 1, available: 1, badges: 0 };
             }
         }
 
-        // Complete mission
+        function savePlayerProgress(playerName, progress) {
+            try {
+                const players = JSON.parse(localStorage.getItem('zython-players') || '{}');
+                players[playerName] = progress;
+                localStorage.setItem('zython-players', JSON.stringify(players));
+            } catch (error) {
+                console.error('Error saving progress:', error);
+            }
+        }
+
+        // Función para verificar si la misión ya está completada al cargar la página
+        function checkCompletion() {
+            const currentPlayer = getCurrentPlayer();
+            if (currentPlayer) {
+                const progress = loadPlayerProgress(currentPlayer);
+                if (progress.completedMissions.includes(4)) {
+                    document.getElementById('completion-badge').classList.remove('hidden');
+                    document.getElementById('complete-btn').classList.add('hidden');
+                    document.getElementById('completed-btn').classList.remove('hidden');
+                    document.getElementById('final-celebration').classList.remove('hidden');
+                }
+            }
+        }
+
         function completeMission() {
             const currentPlayer = getCurrentPlayer();
             if (!currentPlayer) {
@@ -306,13 +147,12 @@
             
             const progress = loadPlayerProgress(currentPlayer);
             
-            // Add mission to completed if not already there
             if (!progress.completedMissions.includes(4)) {
                 progress.completedMissions.push(4);
                 progress.completed = progress.completedMissions.length;
                 progress.badges = progress.completedMissions.length;
                 
-                // Esta es la última misión, no hay más para desbloquear
+                // This is the last mission, no more to unlock
                 progress.currentMission = 4;
                 
                 savePlayerProgress(currentPlayer, progress);
@@ -323,7 +163,7 @@
                 document.getElementById('completed-btn').classList.remove('hidden');
                 document.getElementById('final-celebration').classList.remove('hidden');
                 
-                // Cambiar el texto del botón completado
+                // Change button text for the final mission
                 const completeBtn = document.getElementById('completed-btn');
                 completeBtn.innerHTML = '🏆 ¡Todas las Misiones Completadas!';
                 
@@ -332,6 +172,10 @@
             } else {
                 alert('Esta misión ya ha sido completada anteriormente. ¡Ya eres un Maestro Explorador de Zython!');
             }
+        }
+
+        function volverAMisiones() {
+            window.location.href = 'index.html';
         }
 
         // Initialize
