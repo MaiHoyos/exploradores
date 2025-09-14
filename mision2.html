@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Misión 2: Paso de Zycurva</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .stars {
@@ -14,12 +15,14 @@
             height: 100%;
             pointer-events: none;
         }
+        
         .star {
             position: absolute;
             background: white;
             border-radius: 50%;
             animation: twinkle 3s infinite;
         }
+        
         @keyframes twinkle {
             0%, 100% { opacity: 0.3; }
             50% { opacity: 1; }
@@ -27,85 +30,57 @@
     </style>
 </head>
 <body class="min-h-screen bg-gradient-to-b from-purple-900 via-blue-900 to-black text-white relative overflow-auto">
-    <!-- Space Background -->
     <div class="stars" id="stars"></div>
     
-    <!-- Header -->
-    <header class="relative z-10 bg-gradient-to-r from-pink-400 via-teal-400 to-blue-400 border-4 border-white rounded-b-3xl p-6 m-4">
+    <header class="relative z-10 bg-gradient-to-r from-blue-400 to-blue-600 border-4 border-white rounded-b-3xl p-6 m-4">
         <div class="flex items-center justify-between">
-            <button onclick="volverAMisiones()" class="flex items-center gap-4 hover:scale-105 transition-transform">
-                <div class="text-3xl">🚀</div>
-                <div>
-                    <div class="text-xl font-bold">← Volver a Misiones</div>
-                    <div class="text-sm opacity-90">Exploración de Zython</div>
-                </div>
+            <button onclick="volverAMisiones()" class="px-4 py-2 bg-white text-blue-600 font-bold rounded-full shadow-lg transition-transform transform hover:scale-105">
+                ← Volver a Misiones
             </button>
-            <div id="completion-badge" class="hidden bg-green-500 px-4 py-2 rounded-full border-2 border-white flex items-center gap-2">
-                <span class="text-xl">✅</span>
-                <span class="font-bold">¡Completada!</span>
+            <div class="flex items-center space-x-4">
+                <div class="text-3xl font-extrabold text-white drop-shadow-lg">MISIÓN 2</div>
+                <div class="text-4xl text-yellow-300">🔗</div>
+            </div>
+            <div id="completion-badge" class="hidden px-4 py-2 bg-green-500 text-white font-bold rounded-full shadow-lg">
+                ✅ Completada
             </div>
         </div>
     </header>
 
-    <!-- Mission Content -->
-    <div class="relative z-10 max-w-4xl mx-auto p-6">
-        <div class="bg-gradient-to-br from-purple-600/20 to-blue-600/20 backdrop-blur-sm border-4 border-white/30 rounded-3xl p-8 mb-8">
-            <h1 class="text-4xl font-bold mb-6 text-center bg-gradient-to-r from-yellow-300 to-orange-400 bg-clip-text text-transparent">
-                Paso de Zycurva
-            </h1>
-            <div class="text-lg leading-relaxed mb-8 text-center text-white/90">
-                En esta misión aprenderás a coordinar dos motores para realizar giros y movimientos más complejos.
+    <main class="relative z-10 p-6 md:p-10 max-w-4xl mx-auto">
+        <section class="bg-white/10 backdrop-blur-sm rounded-3xl p-6 md:p-8 border-4 border-white/30 shadow-2xl mb-8">
+            <h2 class="text-2xl md:text-3xl font-bold text-center mb-4 text-yellow-300">Activación en el Paso de Zycurva</h2>
+            <p class="text-lg text-white/90 text-center mb-6">El RoverBot necesita activar la conexión de un puente energético para cruzar un abismo. Programa la secuencia de comandos para energizar el puente de forma segura.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                <div>
+                    <img src="mision2.png" alt="Paso de Zycurva" class="w-full rounded-2xl border-4 border-white/50 shadow-xl" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-auto aspect-video flex items-center justify-center text-4xl md:text-6xl bg-gradient-to-br from-pink-400 via-teal-400 to-green-400&quot;>🌀</div>'">
+                </div>
+                <div class="bg-black/40 p-4 rounded-xl border-2 border-white/40">
+                    <h3 class="text-xl md:text-2xl font-semibold mb-3 text-white">Objetivo de la Misión:</h3>
+                    <ul class="list-disc list-inside space-y-2 text-white/90">
+                        <li>Identificar los puntos de conexión.</li>
+                        <li>Programar la secuencia de activación.</li>
+                        <li>Cruzar el puente con el RoverBot.</li>
+                    </ul>
+                </div>
             </div>
-        </div>
-
-        <!-- Botones de acción -->
-        <div class="flex gap-4 justify-center">
-            <button id="complete-btn" onclick="completeMission()" class="bg-gradient-to-r from-green-400 to-green-600 hover:from-green-500 hover:to-green-700 px-8 py-4 rounded-2xl border-3 border-white font-bold text-lg transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(34,197,94,0.5)]">
-                🏆 Completar Misión
-            </button>
-            <div id="completed-btn" class="hidden bg-gradient-to-r from-green-400 to-green-600 px-8 py-4 rounded-2xl border-3 border-white font-bold text-lg opacity-75">
-                ✅ Misión Completada
+            
+            <div class="mt-8 flex justify-center">
+                <button id="complete-btn" onclick="completeMission()" class="px-6 py-3 bg-gradient-to-r from-green-500 to-green-700 text-white font-bold text-lg rounded-full shadow-lg transition-transform transform hover:scale-110 hover:shadow-2xl">
+                    Completar Misión
+                </button>
+                <a href="index.html" id="completed-btn" class="hidden px-6 py-3 bg-white text-green-600 font-bold text-lg rounded-full shadow-lg transition-transform transform hover:scale-110 hover:shadow-2xl">
+                    Volver a Misiones
+                </a>
             </div>
-            <button onclick="volverAMisiones()" class="bg-gradient-to-r from-blue-400 to-blue-600 hover:from-blue-500 hover:to-blue-700 px-8 py-4 rounded-2xl border-3 border-white font-bold text-lg transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(59,130,246,0.5)]">
-                🚀 Volver a Misiones
-            </button>
-        </div>
-    </div>
+        </section>
+    </main>
 
     <script>
-        // Sistema de gestión de jugadores
-        function getCurrentPlayer() {
-            return localStorage.getItem('zython-current-player');
-        }
-
-        function loadPlayerProgress(playerName) {
-            const players = JSON.parse(localStorage.getItem('zython-players') || '{}');
-            return players[playerName] || {
-                completedMissions: [],
-                available: 1,
-                completed: 0,
-                badges: 0,
-                currentMission: 1
-            };
-        }
-
-        function savePlayerProgress(playerName, progress) {
-            const players = JSON.parse(localStorage.getItem('zython-players') || '{}');
-            players[playerName] = progress;
-            localStorage.setItem('zython-players', JSON.stringify(players));
-        }
-
-        function volverAMisiones() {
-            const currentPlayer = getCurrentPlayer();
-            if (currentPlayer) {
-                window.location.href = `index.html?player=${encodeURIComponent(currentPlayer)}`;
-            } else {
-                window.location.href = 'index.html';
-            }
-        }
-
         function createStars() {
             const starsContainer = document.getElementById('stars');
+            if (!starsContainer) return;
             for (let i = 0; i < 100; i++) {
                 const star = document.createElement('div');
                 star.className = 'star';
@@ -118,47 +93,88 @@
             }
         }
 
+        // Funciones para guardar y cargar el progreso en localStorage
+        function getCurrentPlayer() {
+            return localStorage.getItem('zython-current-player');
+        }
+
+        function loadPlayerProgress(playerName) {
+            try {
+                const players = JSON.parse(localStorage.getItem('zython-players') || '{}');
+                return players[playerName] || { completedMissions: [], completed: 0, currentMission: 1, available: 1, badges: 0 };
+            } catch (error) {
+                console.error('Error loading progress:', error);
+                return { completedMissions: [], completed: 0, currentMission: 1, available: 1, badges: 0 };
+            }
+        }
+
+        function savePlayerProgress(playerName, progress) {
+            try {
+                const players = JSON.parse(localStorage.getItem('zython-players') || '{}');
+                players[playerName] = progress;
+                localStorage.setItem('zython-players', JSON.stringify(players));
+            } catch (error) {
+                console.error('Error saving progress:', error);
+            }
+        }
+
+        // Función para verificar si la misión ya está completada al cargar la página
         function checkCompletion() {
             const currentPlayer = getCurrentPlayer();
-            if (!currentPlayer) {
-                window.location.href = 'index.html';
-                return;
-            }
-            const progress = loadPlayerProgress(currentPlayer);
-            if (progress.completedMissions.includes(2)) {
-                document.getElementById('completion-badge').classList.remove('hidden');
-                document.getElementById('complete-btn').classList.add('hidden');
-                document.getElementById('completed-btn').classList.remove('hidden');
+            if (currentPlayer) {
+                const progress = loadPlayerProgress(currentPlayer);
+                if (progress.completedMissions.includes(2)) {
+                    document.getElementById('completion-badge').classList.remove('hidden');
+                    document.getElementById('complete-btn').classList.add('hidden');
+                    document.getElementById('completed-btn').classList.remove('hidden');
+                }
             }
         }
 
         function completeMission() {
             const currentPlayer = getCurrentPlayer();
             if (!currentPlayer) {
-                alert("No se encontró jugador. Regresa al inicio.");
+                console.error('No current player for mission completion');
+                alert('Error: No se encontró información del jugador. Por favor, regresa al menú principal.');
                 return;
             }
+            
             const progress = loadPlayerProgress(currentPlayer);
+            
             if (!progress.completedMissions.includes(2)) {
                 progress.completedMissions.push(2);
                 progress.completed = progress.completedMissions.length;
                 progress.badges = progress.completedMissions.length;
+                
+                // Unlock next mission (mission 3)
                 progress.currentMission = 3;
                 progress.available = Math.max(progress.available, 3);
+                
                 savePlayerProgress(currentPlayer, progress);
-
+                
+                // Update UI
                 document.getElementById('completion-badge').classList.remove('hidden');
                 document.getElementById('complete-btn').classList.add('hidden');
                 document.getElementById('completed-btn').classList.remove('hidden');
-                alert("¡Felicidades! Has completado la Misión 2: Paso de Zycurva. Ahora está disponible la Misión 3.");
+                
+                // Show completion message
+                alert('¡Felicitaciones! Has completado la Misión 2: Paso de Zycurva. La Misión 3 ahora está disponible.');
+            } else {
+                alert('Esta misión ya ha sido completada anteriormente.');
             }
         }
 
+        function volverAMisiones() {
+            window.location.href = 'index.html';
+        }
+
+        // Initialize
         function initialize() {
             createStars();
             checkCompletion();
         }
 
+        // Start when page loads
         document.addEventListener('DOMContentLoaded', initialize);
     </script>
 </body>
