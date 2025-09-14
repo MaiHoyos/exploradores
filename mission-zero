@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Misión 0: Ensamblaje del Robot - Zython</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.5); }
+            50% { box-shadow: 0 0 30px rgba(59, 130, 246, 0.8); }
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate-float { animation: float 3s ease-in-out infinite; }
+        .animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
+        .animate-slide-in { animation: slideIn 0.8s ease-out; }
+        
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        .typewriter {
+            overflow: hidden;
+            border-right: 2px solid;
+            animation: typing 3s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+        
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        
+        @keyframes blink-caret {
+            from, to { border-color: transparent; }
+            50% { border-color: white; }
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-b from-purple-900 via-blue-900 to-black text-white overflow-x-hidden">
+    <!-- Space Background -->
+    <div class="stars" id="stars"></div>
+    
+    <!-- Main Container -->
+    <div class="relative z-10 min-h-screen flex flex-col">
+        
+        <!-- Step 1: Narrative Introduction -->
+        <div id="step-1" class="step-container min-h-screen flex flex-col items-center justify-center p-6">
+            <div class="max-w-4xl text-center animate-slide-in">
+                <div class="text-8xl mb-8 animate-float">🌌</div>
+                <h1 class="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+                    Bienvenido al Planeta Zython
+                </h1>
+                <div class="text-xl md:text-2xl text-white/90 mb-8 leading-relaxed">
+                    <p class="mb-4">El año es 2157. La humanidad ha expandido su alcance más allá de la Tierra...</p>
+                    <p class="mb-4">Has sido seleccionado como explorador espacial para una misión crítica en <span class="text-yellow-300 font-bold">Zython</span>, un planeta misterioso lleno de terrenos desafiantes y tecnología avanzada.</p>
+                    <p>Tu primera tarea: ensamblar tu compañero robótico que te ayudará en todas las misiones.</p>
+                </div>
+                <button onclick="nextStep()" class="px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 rounded-xl font-bold text-xl transition-all duration-300 transform hover:scale-105 animate-pulse-glow">
+                    🚀 Comenzar Misión
+                </button>
+            </div>
+        </div>
+
+        <!-- Step 2: Mission Briefing -->
+        <div id="step-2" class="step-container min-h-screen flex-col items-center justify-center p-6 hidden">
+            <div class="max-w-4xl text-center animate-slide-in">
+                <div class="text-6xl mb-6 animate-float">🎯</div>
+                <h2 class="text-3xl md:text-5xl font-bold mb-6 text-yellow-300">
+                    MISIÓN 0: Ensamblaje del Robot
+                </h2>
+                <div class="bg-white/10 backdrop-blur-md border-2 border-white/30 rounded-3xl p-8 mb-8">
+                    <div class="text-lg md:text-xl text-white/90 mb-6 leading-relaxed">
+                        <p class="mb-4"><span class="text-red-400 font-bold">⚠️ CRÍTICO:</span> Sin tu robot compañero, las misiones en Zython son imposibles.</p>
+                        <p class="mb-4">Tu RoverBot debe ser ensamblado siguiendo las especificaciones exactas de la Agencia Espacial.</p>
+                        <p>Una vez ensamblado, podrás explorar los cuatro territorios principales de Zython.</p>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-6 text-left">
+                        <div class="bg-blue-600/30 rounded-2xl p-4">
+                            <div class="text-xl font-bold mb-2">📋 Especificaciones</div>
+                            <ul class="text-white/80 space-y-1">
+                                <li>• Chasis resistente a radiación</li>
+                                <li>• Sistema de navegación cuántica</li>
+                                <li>• Sensores de proximidad avanzados</li>
+                                <li>• Módulo de comunicación intergaláctica</li>
+                            </ul>
+                        </div>
+                        <div class="bg-purple-600/30 rounded-2xl p-4">
+                            <div class="text-xl font-bold mb-2">🎯 Objetivo</div>
+                            <ul class="text-white/80 space-y-1">
+                                <li>• Seguir instrucciones paso a paso</li>
+                                <li>• Ensamblar todos los componentes</li>
+                                <li>• Realizar prueba de funcionamiento</li>
+                                <li>• Activar modo exploración</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <button onclick="nextStep()" class="px-8 py-4 bg-gradient-to-r from-green-500 to-blue-600 hover:from-green-600 hover:to-blue-700 rounded-xl font-bold text-xl transition-all duration-300 transform hover:scale-105">
+                    🔧 Iniciar Ensamblaje
+                </button>
+            </div>
+        </div>
+
+        <!-- Step 3: Assembly Instructions -->
+        <div id="step-3" class="step-container min-h-screen flex-col items-center justify-center p-6 hidden">
+            <div class="max-w-6xl w-full animate-slide-in">
+                <div class="text-center mb-8">
+                    <div class="text-5xl mb-4 animate-float">🤖</div>
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4 text-cyan-300">
+                        Instrucciones de Ensamblaje
+                    </h2>
+                    <div class="text-lg text-white/80">
+                        Paso <span id="current-step" class="text-yellow-300 font-bold">1</span> de <span class="text-yellow-300 font-bold">6</span>
+                    </div>
+                </div>
+
+                <!-- Assembly Steps -->
+                <div class="bg-white/10 backdrop-blur-md border-2 border-white/30 rounded-3xl p-8">
+                    
+                    <!-- Step 1 -->
+                    <div id="assembly-step-1" class="assembly-step">
+                        <div class="grid md:grid-cols-2 gap-8 items-center">
+                            <div class="text-center">
+                                <div class="text-8xl mb-4 animate-float">⚙️</div>
+                                <div class="text-2xl font-bold text-yellow-300 mb-4">Paso 1: Chasis Base</div>
+                            </div>
+                            <div>
+                                <div class="text-xl mb-4">🔧 <span class="font-bold">Conecta el chasis principal</span></div>
+                                <div class="text-white/90 mb-4">
+                                    El chasis es la estructura principal de tu robot. Debe ser resistente y estar bien alineado para soportar todas las misiones en Zython.
+                                </div>
+                                <div class="bg-blue-600/30 rounded-lg p-4">
+                                    <div class="font-bold text-cyan-300 mb-2">💡 Instrucción:</div>
+                                    <div>Ensambla las 4 piezas del chasis formando un rectángulo resistente. Asegúrate de que todas las conexiones estén firmes.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div id="assembly-step-2" class="assembly-step hidden">
+                        <div class="grid md:grid-cols-2 gap-8 items-center">
+                            <div class="text-center">
+                                <div class="text-8xl mb-4 animate-float">🛞</div>
+                                <div class="text-2xl font-bold text-yellow-300 mb-4">Paso 2: Sistema de Propulsión</div>
+                            </div>
+                            <div>
+                                <div class="text-xl mb-4">🚗 <span class="font-bold">Instala las ruedas y motores</span></div>
+                                <div class="text-white/90 mb-4">
+                                    Los motores permiten que tu robot se mueva con precisión por los terrenos de Zython. Las ruedas deben estar perfectamente calibradas.
+                                </div>
+                                <div class="bg-green-600/30 rounded-lg p-4">
+                                    <div class="font-bold text-green-300 mb-2">💡 Instrucción:</div>
+                                    <div>Conecta 2 motores al chasis y monta 4 ruedas. Verifica que giren libremente y estén alineadas.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div id="assembly-step-3" class="assembly-step hidden">
+                        <div class="grid md:grid-cols-2 gap-8 items-center">
+                            <div class="text-center">
+                                <div class="text-8xl mb-4 animate-float">🧠</div>
+                                <div class="text-2xl font-bold text-yellow-300 mb-4">Paso 3: Cerebro Cuántico</div>
+                            </div>
+                            <div>
+                                <div class="text-xl mb-4">💻 <span class="font-bold">Instala el procesador principal</span></div>
+                                <div class="text-white/90 mb-4">
+                                    El cerebro cuántico es el corazón de tu robot. Procesará todas las decisiones y comandos durante las misiones.
+                                </div>
+                                <div class="bg-purple-600/30 rounded-lg p-4">
+                                    <div class="font-bold text-purple-300 mb-2">💡 Instrucción:</div>
+                                    <div>Conecta cuidadosamente el microprocessador al centro del chasis. Asegúrate de que todos los cables estén bien conectados.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div id="assembly-step-4" class="assembly-step hidden">
+                        <div class="grid md:grid-cols-2 gap-8 items-center">
+                            <div class="text-center">
+                                <div class="text-8xl mb-4 animate-float">👁️</div>
+                                <div class="text-2xl font-bold text-yellow-300 mb-4">Paso 4: Sensores</div>
+                            </div>
+                            <div>
+                                <div class="text-xl mb-4">📡 <span class="font-bold">Conecta los sensores de proximidad</span></div>
+                                <div class="text-white/90 mb-4">
+                                    Los sensores permitirán que tu robot detecte obstáculos y navegue de forma segura por Zython.
+                                </div>
+                                <div class="bg-orange-600/30 rounded-lg p-4">
+                                    <div class="font-bold text-orange-300 mb-2">💡 Instrucción:</div>
+                                    <div>Instala los sensores ultrasónicos en la parte frontal del robot. Conecta los cables a los puertos correspondientes.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 5 -->
+                    <div id="assembly-step-5" class="assembly-step hidden">
+                        <div class="grid md:grid-cols-2 gap-8 items-center">
+                            <div class="text-center">
+                                <div class="text-8xl mb-4 animate-float">📡</div>
+                                <div class="text-2xl font-bold text-yellow-300 mb-4">Paso 5: Comunicación</div>
+                            </div>
+                            <div>
+                                <div class="text-xl mb-4">📻 <span class="font-bold">Instala el módulo de comunicación</span></div>
+                                <div class="text-white/90 mb-4">
+                                    Este módulo te mantendrá en contacto con tu robot durante todas las misiones, sin importar la distancia.
+                                </div>
+                                <div class="bg-teal-600/30 rounded-lg p-4">
+                                    <div class="font-bold text-teal-300 mb-2">💡 Instrucción:</div>
+                                    <div>Conecta la antena de comunicación en la parte superior. Asegúrate de que tenga buena recepción de señal.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 6 -->
+                    <div id="assembly-step-6" class="assembly-step hidden">
+                        <div class="grid md:grid-cols-2 gap-8 items-center">
+                            <div class="text-center">
+                                <div class="text-8xl mb-4 animate-float">🔋</div>
+                                <div class="text-2xl font-bold text-yellow-300 mb-4">Paso 6: Energía</div>
+                            </div>
+                            <div>
+                                <div class="text-xl mb-4">⚡ <span class="font-bold">Conecta la fuente de energía</span></div>
+                                <div class="text-white/90 mb-4">
+                                    La batería cuántica proporcionará energía ilimitada para todas las aventuras en Zython.
+                                </div>
+                                <div class="bg-yellow-600/30 rounded-lg p-4">
+                                    <div class="font-bold text-yellow-300 mb-2">💡 Instrucción:</div>
+                                    <div>Instala la batería en el compartimento trasero. Conecta todos los cables de alimentación y verifica las conexiones.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Navigation Buttons -->
+                <div class="flex justify-between mt-8">
+                    <button id="prev-btn" onclick="previousAssemblyStep()" class="px-6 py-3 bg-gray-600 hover:bg-gray-700 rounded-xl font-bold transition-all duration-300 opacity-50" disabled>
+                        ← Anterior
+                    </button>
+                    <button id="next-btn" onclick="nextAssemblyStep()" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-xl font-bold transition-all duration-300">
+                        Siguiente →
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 4: Activation -->
+        <div id="step-4" class="step-container min-h-screen flex-col items-center justify-center p-6 hidden">
+            <div class="max-w-4xl text-center animate-slide-in">
+                <div class="text-8xl mb-8 animate-float">🔄</div>
+                <h2 class="text-3xl md:text-5xl font-bold mb-6 text-green-400">
+                    ¡Robot Ensamblado!
+                </h2>
+                <div class="bg-white/10 backdrop-blur-md border-2 border-white/30 rounded-3xl p-8 mb-8">
+                    <div class="text-xl md:text-2xl text-white/90 mb-6 leading-relaxed">
+                        <p class="mb-4">🎉 <span class="text-green-400 font-bold">¡Excelente trabajo, explorador!</span></p>
+                        <p class="mb-4">Tu RoverBot ha sido ensamblado correctamente y está listo para las misiones.</p>
+                        <p>Ahora realizaremos una prueba de activación para verificar que todos los sistemas funcionen perfectamente.</p>
+                    </div>
+                    
+                    <div class="bg-green-600/30 rounded-2xl p-6 mb-6">
+                        <div class="text-xl font-bold mb-4 text-green-300">🔧 Verificación de Sistemas</div>
+                        <div class="grid md:grid-cols-2 gap-4 text-left">
+                            <div class="space-y-2">
+                                <div class="flex items-center gap-2">
+                                    <span class="text-green-400">✅</span>
+                                    <span>Chasis: Operativo</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-green-400">✅</span>
+                                    <span>Motores: Funcionando</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-green-400">✅</span>
+                                    <span>Cerebro: Conectado</span>
+                                </div>
+                            </div>
+                            <div class="space-y-2">
+                                <div class="flex items-center gap-2">
+                                    <span class="text-green-400">✅</span>
+                                    <span>Sensores: Activos</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-green-400">✅</span>
+                                    <span>Comunicación: Online</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-green-400">✅</span>
+                                    <span>Energía: 100%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button onclick="activateRobot()" class="px-8 py-4 bg-gradient-to-r from-green-500 to-blue-600 hover:from-green-600 hover:to-blue-700 rounded-xl font-bold text-xl transition-all duration-300 transform hover:scale-105 animate-pulse-glow">
+                        🚀 Activar Robot
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 5: Final -->
+        <div id="step-5" class="step-container min-h-screen flex-col items-center justify-center p-6 hidden">
+            <div class="max-w-4xl text-center animate-slide-in">
+                <div class="text-8xl mb-8 animate-float">🌟</div>
+                <h2 class="text-3xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-yellow-400 via-orange-400 to-red-400 bg-clip-text text-transparent">
+                    ¡Misión 0 Completada!
+                </h2>
+                <div class="bg-white/10 backdrop-blur-md border-2 border-white/30 rounded-3xl p-8 mb-8">
+                    <div class="text-xl md:text-2xl text-white/90 mb-8 leading-relaxed">
+                        <p class="mb-4">🎯 <span class="text-yellow-400 font-bold">¡Felicitaciones!</span></p>
+                        <p class="mb-4">Tu RoverBot está completamente operativo y listo para explorar Zython.</p>
+                        <p class="mb-6">Ahora tienes acceso a las <span class="text-cyan-400 font-bold">4 zonas principales</span> del planeta:</p>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-2 gap-4 mb-8">
+                        <div class="bg-orange-600/30 rounded-2xl p-4">
+                            <div class="text-4xl mb-2">🏔️</div>
+                            <div class="font-bold text-orange-300">Llanura de Vectonia</div>
+                            <div class="text-sm text-white/80">Calibra tu RoverBot</div>
+                        </div>
+                        <div class="bg-blue-600/30 rounded-2xl p-4">
+                            <div class="text-4xl mb-2">🌀</div>
+                            <div class="font-bold text-blue-300">Paso de Zycurva</div>
+                            <div class="text-sm text-white/80">¡Activa la conexión!</div>
+                        </div>
+                        <div class="bg-purple-600/30 rounded-2xl p-4">
+                            <div class="text-4xl mb-2">🕳️</div>
+                            <div class="font-bold text-purple-300">Cráter del Sensorium</div>
+                            <div class="text-sm text-white/80">¡Detente a tiempo!</div>
+                        </div>
+                        <div class="bg-green-600/30 rounded-2xl p-4">
+                            <div class="text-4xl mb-2">🚛</div>
+                            <div class="font-bold text-green-300">Estación de Transferencia</div>
+                            <div class="text-sm text-white/80">Transporte en equipo</div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-yellow-600/30 rounded-2xl p-6 mb-8">
+                        <div class="text-xl font-bold mb-2 text-yellow-300">🎖️ Logro Desbloqueado</div>
+                        <div class="text-lg">"Constructor de Robots" - Has ensamblado exitosamente tu primer RoverBot</div>
+                    </div>
+                    
+                    <button onclick="goToMissions()" class="px-12 py-5 bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 hover:from-purple-600 hover:via-pink-600 hover:to-red-600 rounded-xl font-bold text-2xl transition-all duration-300 transform hover:scale-105 animate-pulse-glow">
+                        🚀 Ir a las Misiones
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        let currentStep = 1;
+        let currentAssemblyStep = 1;
+        let totalSteps = 5;
+        let totalAssemblySteps = 6;
+
+        // Create stars background
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            if (!starsContainer) return;
+            
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.width = Math.random() * 3 + 1 + 'px';
+                star.style.height = star.style.width;
+                star.style.animationDelay = Math.random() * 3 + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+
+        function showStep(stepNumber) {
+            // Hide all steps
+            for (let i = 1; i <= totalSteps; i++) {
+                const step = document.getElementById(`step-${i}`);
+                if (step) {
+                    step.classList.add('hidden');
+                    step.classList.remove('flex');
+                }
+            }
+            
+            // Show current step
+            const currentStepElement = document.getElementById(`step-${stepNumber}`);
+            if (currentStepElement) {
+                currentStepElement.classList.remove('hidden');
+                currentStepElement.classList.add('flex');
+            }
+        }
+
+        function nextStep() {
+            if (currentStep < totalSteps) {
+                currentStep++;
+                showStep(currentStep);
+            }
+        }
+
+        function showAssemblyStep(stepNumber) {
+            // Hide all assembly steps
+            for (let i = 1; i <= totalAssemblySteps; i++) {
+                const step = document.getElementById(`assembly-step-${i}`);
+                if (step) {
+                    step.classList.add('hidden');
+                }
+            }
+            
+            // Show current assembly step
+            const currentAssemblyStepElement = document.getElementById(`assembly-step-${stepNumber}`);
+            if (currentAssemblyStepElement) {
+                currentAssemblyStepElement.classList.remove('hidden');
+            }
+            
+            // Update step counter
+            const stepCounter = document.getElementById('current-step');
+            if (stepCounter) {
+                stepCounter.textContent = stepNumber;
+            }
+            
+            // Update navigation buttons
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            
+            if (prevBtn) {
+                prevBtn.disabled = stepNumber === 1;
+                prevBtn.classList.toggle('opacity-50', stepNumber === 1);
+            }
+            
+            if (nextBtn) {
+                if (stepNumber === totalAssemblySteps) {
+                    nextBtn.textContent = 'Completar ✅';
+                    nextBtn.onclick = () => nextStep();
+                } else {
+                    nextBtn.textContent = 'Siguiente →';
+                    nextBtn.onclick = () => nextAssemblyStep();
+                }
+            }
+        }
+
+        function nextAssemblyStep() {
+            if (currentAssemblyStep < totalAssemblySteps) {
+                currentAssemblyStep++;
+                showAssemblyStep(currentAssemblyStep);
+            }
+        }
+
+        function previousAssemblyStep() {
+            if (currentAssemblyStep > 1) {
+                currentAssemblyStep--;
+                showAssemblyStep(currentAssemblyStep);
+            }
+        }
+
+        function activateRobot() {
+            const button = event.target;
+            button.innerHTML = '🔄 Activando...';
+            button.disabled = true;
+            
+            // Simulate activation process
+            setTimeout(() => {
+                button.innerHTML = '✅ ¡Activado!';
+                button.classList.remove('bg-gradient-to-r', 'from-green-500', 'to-blue-600');
+                button.classList.add('bg-green-600');
+                
+                setTimeout(() => {
+                    nextStep();
+                }, 1500);
+            }, 2000);
+        }
+
+        function goToMissions() {
+            // Get player name from localStorage or prompt for it
+            let playerName = localStorage.getItem('playerName');
+            if (!playerName) {
+                playerName = prompt('¿Cuál es tu nombre de explorador?') || 'Explorador';
+                localStorage.setItem('playerName', playerName);
+            }
+            
+            // Redirect to main missions page
+            window.location.href = 'index.html';
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            createStars();
+            showStep(1);
+            showAssemblyStep(1);
+        });
+    </script>
+</body>
+</html>
