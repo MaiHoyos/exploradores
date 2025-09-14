@@ -45,30 +45,49 @@
             0%, 100% { opacity: 0.3; }
             50% { opacity: 1; }
         }
-
-        .typewriter {
-            overflow: hidden;
-            border-right: 2px solid;
-            animation: typing 3s steps(40, end), blink-caret 0.75s step-end infinite;
-        }
-        
-        @keyframes typing {
-            from { width: 0; }
-            to { width: 100%; }
-        }
-        
-        @keyframes blink-caret {
-            from, to { border-color: transparent; }
-            50% { border-color: white; }
-        }
     </style>
 </head>
 <body class="min-h-screen bg-gradient-to-b from-purple-900 via-blue-900 to-black text-white overflow-x-hidden">
     <!-- Space Background -->
     <div class="stars" id="stars"></div>
     
+    <!-- Login Screen (Only shows if no name in URL params) -->
+    <div id="login-screen" class="fixed inset-0 bg-gradient-to-b from-purple-900 via-blue-900 to-black flex items-center justify-center z-50">
+        <div class="bg-white/10 backdrop-blur-md border-2 border-white/30 rounded-3xl p-8 max-w-md w-full mx-4 text-center animate-slide-in">
+            <div class="text-6xl mb-4">🚀</div>
+            <h1 class="text-3xl font-bold mb-2 text-white">¡Bienvenido a Zython!</h1>
+            <p class="text-white/80 mb-6">Introduce tu nombre de explorador para comenzar tu aventura espacial</p>
+            
+            <div class="space-y-4">
+                <input 
+                    type="text" 
+                    id="player-name-input" 
+                    placeholder="Tu nombre de explorador..."
+                    class="w-full px-4 py-3 rounded-xl bg-white/20 border-2 border-white/30 text-white placeholder-white/60 focus:outline-none focus:border-white/60 focus:bg-white/30 transition-all"
+                    maxlength="20"
+                >
+                <button 
+                    id="start-mission-zero" 
+                    class="w-full px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-bold rounded-xl transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+                    disabled
+                >
+                    🌟 Comenzar Misión 0
+                </button>
+            </div>
+            
+            <div class="mt-6 text-sm text-white/60">
+                <p>💡 Primero debes ensamblar tu robot compañero</p>
+            </div>
+        </div>
+    </div>
+    
     <!-- Main Container -->
-    <div class="relative z-10 min-h-screen flex flex-col">
+    <div id="mission-content" class="relative z-10 min-h-screen flex flex-col hidden">
+        
+        <!-- Player Info Header -->
+        <div class="fixed top-4 left-4 z-20 bg-white/10 backdrop-blur-md border-2 border-white/30 rounded-xl px-4 py-2">
+            <div class="text-sm text-white/80">Explorador: <span id="player-name-display" class="text-yellow-300 font-bold"></span></div>
+        </div>
         
         <!-- Step 1: Narrative Introduction -->
         <div id="step-1" class="step-container min-h-screen flex flex-col items-center justify-center p-6">
@@ -103,7 +122,7 @@
                     </div>
                     <div class="grid md:grid-cols-2 gap-6 text-left">
                         <div class="bg-blue-600/30 rounded-2xl p-4">
-                            <div class="text-xl font-bold mb-2">📋 Especificaciones</div>
+                            <div class="text-xl font-bold mb-2">🔋 Especificaciones</div>
                             <ul class="text-white/80 space-y-1">
                                 <li>• Chasis resistente a radiación</li>
                                 <li>• Sistema de navegación cuántica</li>
@@ -389,6 +408,7 @@
         let currentAssemblyStep = 1;
         let totalSteps = 5;
         let totalAssemblySteps = 6;
+        let currentPlayerName = '';
 
         // Create stars background
         function createStars() {
@@ -405,6 +425,84 @@
                 star.style.animationDelay = Math.random() * 3 + 's';
                 starsContainer.appendChild(star);
             }
+        }
+
+        // Get player name from URL params or show login
+        function initializeGame() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const playerName = urlParams.get('name');
+            
+            if (playerName && playerName.length >= 2) {
+                // Start directly with mission if name is provided
+                currentPlayerName = decodeURIComponent(playerName);
+                startMissionZero();
+            } else {
+                // Show login screen
+                showLoginScreen();
+            }
+        }
+
+        function showLoginScreen() {
+            const loginScreen = document.getElementById('login-screen');
+            const missionContent = document.getElementById('mission-content');
+            const nameInput = document.getElementById('player-name-input');
+            const startButton = document.getElementById('start-mission-zero');
+            
+            loginScreen.classList.remove('hidden');
+            missionContent.classList.add('hidden');
+            
+            // Focus on input
+            setTimeout(() => nameInput.focus(), 100);
+            
+            // Enable/disable button based on input
+            nameInput.addEventListener('input', () => {
+                const name = nameInput.value.trim();
+                startButton.disabled = name.length < 2;
+            });
+            
+            // Handle enter key
+            nameInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' && !startButton.disabled) {
+                    handleNameSubmit();
+                }
+            });
+            
+            // Handle button click
+            startButton.addEventListener('click', handleNameSubmit);
+        }
+
+        function handleNameSubmit() {
+            const nameInput = document.getElementById('player-name-input');
+            const playerName = nameInput.value.trim();
+            
+            if (playerName.length < 2) return;
+            
+            currentPlayerName = playerName;
+            
+            // Store in sessionStorage for later use
+            sessionStorage.setItem('playerName', playerName);
+            sessionStorage.setItem('missionZeroCompleted', 'false');
+            
+            startMissionZero();
+        }
+
+        function startMissionZero() {
+            const loginScreen = document.getElementById('login-screen');
+            const missionContent = document.getElementById('mission-content');
+            const playerNameDisplay = document.getElementById('player-name-display');
+            
+            // Update player name display
+            if (playerNameDisplay) {
+                playerNameDisplay.textContent = currentPlayerName;
+            }
+            
+            // Hide login, show mission
+            loginScreen.classList.add('hidden');
+            missionContent.classList.remove('hidden');
+            
+            // Start with first step
+            showStep(1);
+            showAssemblyStep(1);
         }
 
         function showStep(stepNumber) {
@@ -505,23 +603,16 @@
         }
 
         function goToMissions() {
-            // Get player name from localStorage or prompt for it
-            let playerName = localStorage.getItem('playerName');
-            if (!playerName) {
-                playerName = prompt('¿Cuál es tu nombre de explorador?') || 'Explorador';
-                localStorage.setItem('playerName', playerName);
-            }
+            // Mark Mission Zero as completed
+            sessionStorage.setItem('missionZeroCompleted', 'true');
             
-            // Redirect to main missions page
-            window.location.href = 'index.html';
+            // Redirect to main missions page with player name
+            const playerName = encodeURIComponent(currentPlayerName);
+            window.location.href = `index.html?name=${playerName}&missionZeroCompleted=true`;
         }
 
-        // Initialize
+        // Initialize when page loads
         document.addEventListener('DOMContentLoaded', function() {
             createStars();
-            showStep(1);
-            showAssemblyStep(1);
+            initializeGame();
         });
-    </script>
-</body>
-</html>
