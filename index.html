@@ -108,7 +108,7 @@
                     <div class="text-[10px] md:text-xs text-gray-800 font-medium">🎯 Disponibles</div>
                 </div>
                 <div>
-                    <div class="text-lg md:text-2xl font-bold text-green-600">0</div>
+                    <div class="text-lg md:text-2xl font-bold text-green-600" id="completed-count">0</div>
                     <div class="text-[10px] md:text-xs text-gray-800 font-medium">⭐ Completadas</div>
                 </div>
                 <div>
@@ -184,17 +184,21 @@
             </div>
         </div>
     </div>
+    
+    <div id="login-modal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
+        <div class="bg-gradient-to-br from-purple-800 to-blue-800 p-8 rounded-2xl shadow-xl max-w-sm w-full border-4 border-white/50 animate-fadeIn">
+            <h2 class="text-3xl font-bold text-center mb-6 text-yellow-300">Bienvenido, Explorador</h2>
+            <p class="text-center text-white/90 mb-6">Ingresa tu nombre para iniciar tu aventura en Zython.</p>
+            <input type="text" id="player-name-input" placeholder="Tu Nombre de Explorador" class="w-full p-3 rounded-lg bg-white/10 text-white placeholder-white/50 border-2 border-white/30 focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-300">
+            <button id="start-session-btn" class="mt-6 w-full py-3 rounded-lg font-bold text-lg bg-gradient-to-r from-green-400 to-teal-500 hover:from-green-500 hover:to-teal-600 transition-all duration-300 hover:scale-105 shadow-lg">
+                🚀 Iniciar Aventura
+            </button>
+        </div>
+    </div>
 
     <script>
-        // Store the number of completed missions
-        let missionsCompleted = 0;
-        const totalMissions = 4;
-
-        // Create stars background
         function createStars() {
             const starsContainer = document.getElementById('stars');
-            if (!starsContainer) return;
-            
             for (let i = 0; i < 100; i++) {
                 const star = document.createElement('div');
                 star.className = 'star';
@@ -207,60 +211,118 @@
             }
         }
 
-        // Update the visual state of the missions based on progress
-        function updateMissionsState() {
-            const missions = document.querySelectorAll('[data-mission-id]');
-            const completedCountDisplay = document.querySelector('.text-green-600');
-            const currentMissionDisplay = document.getElementById('current-mission');
-
-            if (completedCountDisplay) {
-                completedCountDisplay.textContent = missionsCompleted;
+        // Sistema de gestión de jugadores con localStorage
+        function getPlayerProgress(playerName) {
+            try {
+                const players = JSON.parse(localStorage.getItem('zython-players') || '{}');
+                return players[playerName] || {
+                    completedMissions: [],
+                    available: 1,
+                    completed: 0,
+                    badges: 0,
+                    currentMission: 1
+                };
+            } catch (error) {
+                console.error('Error loading progress:', error);
+                return {
+                    completedMissions: [],
+                    available: 1,
+                    completed: 0,
+                    badges: 0,
+                    currentMission: 1
+                };
             }
+        }
 
-            if (currentMissionDisplay) {
-                currentMissionDisplay.textContent = missionsCompleted + 1;
+        function savePlayerProgress(playerName, progress) {
+            try {
+                const players = JSON.parse(localStorage.getItem('zython-players') || '{}');
+                players[playerName] = progress;
+                localStorage.setItem('zython-players', JSON.stringify(players));
+                console.log('Progress saved for:', playerName, progress);
+            } catch (error) {
+                console.error('Error saving progress:', error);
             }
+        }
 
-            missions.forEach(mission => {
-                const missionId = parseInt(mission.dataset.missionId);
-                if (missionId <= missionsCompleted + 1) {
-                    mission.classList.remove('locked');
+        function checkAndLogin() {
+            const params = new URLSearchParams(window.location.search);
+            const playerName = params.get('player');
+
+            if (playerName) {
+                localStorage.setItem('zython-current-player', playerName);
+                setupGame(playerName);
+                document.getElementById('login-modal').classList.add('hidden');
+            } else {
+                showLoginModal();
+            }
+        }
+
+        function showLoginModal() {
+            const loginModal = document.getElementById('login-modal');
+            const startBtn = document.getElementById('start-session-btn');
+            const nameInput = document.getElementById('player-name-input');
+            loginModal.classList.remove('hidden');
+
+            startBtn.addEventListener('click', () => {
+                const playerName = nameInput.value.trim();
+                if (playerName) {
+                    localStorage.setItem('zython-current-player', playerName);
+                    setupGame(playerName);
+                    loginModal.classList.add('hidden');
                 } else {
-                    mission.classList.add('locked');
+                    alert('Por favor, ingresa tu nombre de explorador.');
+                }
+            });
+
+            nameInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    startBtn.click();
                 }
             });
         }
 
-        // Simulate mission completion
-        // This function would be called after a user completes a task on a mission page.
-        // For this example, we'll call it for demonstration purposes.
-        function simulateMissionCompletion() {
-            if (missionsCompleted < totalMissions) {
-                missionsCompleted++;
-                console.log(`Misión ${missionsCompleted} completada.`);
-                updateMissionsState();
-            }
+        function setupGame(playerName) {
+            document.getElementById('player-name-display').textContent = playerName;
+            const progress = getPlayerProgress(playerName);
+            updateMissionsState(progress);
+        }
+
+        function updateMissionsState(progress) {
+            const missions = document.querySelectorAll('[data-mission-id]');
+            const completedCountDisplay = document.getElementById('completed-count');
+            const currentMissionDisplay = document.getElementById('current-mission');
+
+            completedCountDisplay.textContent = progress.completed;
+            currentMissionDisplay.textContent = progress.currentMission;
+
+            missions.forEach(mission => {
+                const missionId = parseInt(mission.dataset.missionId);
+                const isCompleted = progress.completedMissions.includes(missionId);
+                const isAvailable = missionId <= progress.currentMission;
+
+                if (isAvailable || isCompleted) {
+                    mission.classList.remove('locked');
+                    const link = mission.querySelector('.mission-link');
+                    // Actualiza el link para redirigir correctamente
+                    if (link) {
+                        link.href = `mision${missionId}.html`;
+                    }
+                } else {
+                    mission.classList.add('locked');
+                    const link = mission.querySelector('.mission-link');
+                    // Previene la navegación
+                    if (link) {
+                        link.href = '#'; // O link.remove() si quieres deshabilitarlo completamente
+                    }
+                }
+            });
         }
 
         // Initialize application
         function initialize() {
             createStars();
-            updateMissionsState();
-
-            // Simulate progress for demonstration
-            // You would remove this in a real application
-            // and instead call updateMissionsState() based on user actions.
-            setTimeout(() => {
-                simulateMissionCompletion();
-            }, 3000);
-
-            setTimeout(() => {
-                simulateMissionCompletion();
-            }, 6000);
-
-            setTimeout(() => {
-                simulateMissionCompletion();
-            }, 9000);
+            checkAndLogin();
         }
 
         // Start when page loads
