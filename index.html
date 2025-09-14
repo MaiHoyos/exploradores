@@ -67,12 +67,6 @@
             text-decoration: none;
             color: inherit;
         }
-
-        .locked-mission {
-            opacity: 0.5;
-            cursor: not-allowed;
-            pointer-events: none;
-        }
     </style>
 </head>
 <body class="min-h-screen bg-gradient-to-b from-purple-900 via-blue-900 to-black text-white overflow-hidden relative">
@@ -109,37 +103,6 @@
         </div>
     </div>
 
-    <!-- Mission Zero Required Screen -->
-    <div id="mission-zero-required" class="fixed inset-0 bg-gradient-to-b from-purple-900 via-blue-900 to-black flex items-center justify-center z-50 hidden">
-        <div class="bg-white/10 backdrop-blur-md border-2 border-white/30 rounded-3xl p-8 max-w-lg w-full mx-4 text-center animate-fadeIn">
-            <div class="text-6xl mb-4">🤖</div>
-            <h1 class="text-3xl font-bold mb-4 text-white">¡Robot Requerido!</h1>
-            <p class="text-white/80 mb-6">Antes de explorar Zython, debes ensamblar tu RoverBot compañero en la Misión 0.</p>
-            
-            <div class="bg-red-600/30 rounded-2xl p-4 mb-6">
-                <div class="text-lg font-bold text-red-300 mb-2">⚠️ Acceso Restringido</div>
-                <div class="text-white/90">
-                    Sin tu robot, las misiones son imposibles. Complete primero el ensamblaje.
-                </div>
-            </div>
-            
-            <div class="space-y-4">
-                <button 
-                    id="go-to-mission-zero" 
-                    class="w-full px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-bold rounded-xl transition-all duration-300 transform hover:scale-105"
-                >
-                    🔧 Ir a Misión 0: Ensamblaje
-                </button>
-                <button 
-                    id="back-to-login" 
-                    class="w-full px-6 py-3 bg-gray-600 hover:bg-gray-700 text-white font-bold rounded-xl transition-all duration-300"
-                >
-                    ← Volver al Inicio
-                </button>
-            </div>
-        </div>
-    </div>
-
     <!-- Main Game Content -->
     <div id="game-content" class="hidden">
         <!-- Header -->
@@ -160,9 +123,9 @@
         </header>
 
         <!-- Welcome Message -->
-        <div class="fixed top-20 left-1/2 transform -translate-x-1/2 z-20 bg-green-600/90 backdrop-blur-sm border-2 border-green-400/50 rounded-2xl px-4 py-2 md:px-6 md:py-3 max-w-md text-center" id="welcome-message">
+        <div class="fixed top-20 left-1/2 transform -translate-x-1/2 z-20 bg-blue-600/90 backdrop-blur-sm border-2 border-blue-400/50 rounded-2xl px-4 py-2 md:px-6 md:py-3 max-w-md text-center" id="welcome-message">
             <div class="text-sm md:text-base">
-                🎉 ¡Hola <span id="welcome-player-name" class="font-bold text-yellow-300"></span>! ¡Tu RoverBot está listo!
+                🎉 ¡Hola <span id="welcome-player-name" class="font-bold text-yellow-300"></span>! ¡Listo para explorar Zython!
             </div>
         </div>
 
@@ -174,8 +137,8 @@
                     <div class="text-[10px] md:text-xs text-gray-800 font-medium">🎯 Disponibles</div>
                 </div>
                 <div>
-                    <div class="text-lg md:text-2xl font-bold text-green-600" id="completed-missions">0</div>
-                    <div class="text-[10px] md:text-xs text-gray-800 font-medium">⭐ Completadas</div>
+                    <div class="text-lg md:text-2xl font-bold text-green-600">0</div>
+                    <div class="text-[10px] md:text-xs text-gray-800 font-medium">⭐ En esta sesión</div>
                 </div>
                 <div>
                     <div class="text-lg md:text-2xl font-bold text-purple-600" id="current-mission">1</div>
@@ -184,29 +147,13 @@
             </div>
         </div>
 
-        <!-- Mission Zero Success Badge -->
-        <div class="fixed top-20 right-4 z-20 bg-green-600/90 backdrop-blur-sm border-2 border-green-400/50 rounded-xl px-3 py-2">
-            <div class="text-sm font-bold text-center">
-                <div class="text-lg">🏆</div>
-                <div class="text-green-300">Misión 0</div>
-                <div class="text-xs text-white/90">Completada</div>
-            </div>
-        </div>
-
         <!-- Logout button -->
-        <div class="fixed bottom-4 left-4 z-20 flex gap-2">
+        <div class="fixed bottom-4 left-4 z-20">
             <button 
                 id="logout-btn" 
                 class="px-4 py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl transition-all duration-300 hover:scale-105 flex items-center gap-2 shadow-lg"
             >
                 🚪 <span class="hidden md:inline">Nueva Sesión</span>
-            </button>
-            <button 
-                id="go-back-mission-zero" 
-                class="px-4 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl transition-all duration-300 hover:scale-105 flex items-center gap-2 shadow-lg"
-                title="Revisar Misión 0"
-            >
-                🔧 <span class="hidden md:inline">Misión 0</span>
             </button>
         </div>
 
@@ -318,11 +265,6 @@
             }, 4000); // Show for 4 seconds
         }
 
-        // Check if Mission 0 is completed
-        function checkMissionZeroStatus() {
-            return localStorage.getItem('mission0Completed') === 'true';
-        }
-
         // Reset to initial state
         function resetToInitialState() {
             const nameInput = document.getElementById('player-name');
@@ -337,8 +279,6 @@
             }
             
             currentPlayerName = '';
-            localStorage.removeItem('playerName');
-            localStorage.removeItem('mission0Completed');
         }
 
         // Start new session
@@ -347,26 +287,9 @@
             
             const loginScreen = document.getElementById('login-screen');
             const gameContent = document.getElementById('game-content');
-            const missionZeroRequired = document.getElementById('mission-zero-required');
             
             if (gameContent) gameContent.classList.add('hidden');
-            if (missionZeroRequired) missionZeroRequired.classList.add('hidden');
             if (loginScreen) loginScreen.classList.remove('hidden');
-        }
-
-        // Show Mission Zero requirement screen
-        function showMissionZeroRequired() {
-            const loginScreen = document.getElementById('login-screen');
-            const missionZeroRequired = document.getElementById('mission-zero-required');
-            
-            if (loginScreen) loginScreen.classList.add('hidden');
-            if (missionZeroRequired) missionZeroRequired.classList.remove('hidden');
-        }
-
-        // Go to Mission Zero
-        function goToMissionZero() {
-            localStorage.setItem('playerName', currentPlayerName);
-            window.location.href = 'mission-zero.html';
         }
 
         // Initialize application
@@ -377,25 +300,9 @@
             const startButton = document.getElementById('start-game');
             const loginScreen = document.getElementById('login-screen');
             const gameContent = document.getElementById('game-content');
-            const missionZeroRequired = document.getElementById('mission-zero-required');
             const playerNameDisplay = document.getElementById('player-name-display');
             const welcomePlayerName = document.getElementById('welcome-player-name');
             const logoutBtn = document.getElementById('logout-btn');
-            const goToMissionZeroBtn = document.getElementById('go-to-mission-zero');
-            const backToLoginBtn = document.getElementById('back-to-login');
-            const goBackMissionZeroBtn = document.getElementById('go-back-mission-zero');
-
-            // Check if returning from Mission Zero
-            const savedPlayerName = localStorage.getItem('playerName');
-            if (savedPlayerName && checkMissionZeroStatus()) {
-                currentPlayerName = savedPlayerName;
-                if (playerNameDisplay) playerNameDisplay.textContent = savedPlayerName;
-                if (welcomePlayerName) welcomePlayerName.textContent = savedPlayerName;
-                if (loginScreen) loginScreen.classList.add('hidden');
-                if (gameContent) gameContent.classList.remove('hidden');
-                hideWelcomeMessage();
-                return;
-            }
 
             // Enable/disable start button based on input
             if (nameInput && startButton) {
@@ -424,12 +331,6 @@
 
                 currentPlayerName = playerName;
                 
-                // Check if Mission 0 is completed
-                if (!checkMissionZeroStatus()) {
-                    showMissionZeroRequired();
-                    return;
-                }
-                
                 // Update displays with player name
                 if (playerNameDisplay) {
                     playerNameDisplay.textContent = playerName;
@@ -444,22 +345,6 @@
                 
                 // Hide welcome message after delay
                 hideWelcomeMessage();
-            }
-
-            // Mission Zero navigation
-            if (goToMissionZeroBtn) {
-                goToMissionZeroBtn.addEventListener('click', goToMissionZero);
-            }
-
-            if (backToLoginBtn) {
-                backToLoginBtn.addEventListener('click', () => {
-                    if (missionZeroRequired) missionZeroRequired.classList.add('hidden');
-                    if (loginScreen) loginScreen.classList.remove('hidden');
-                });
-            }
-
-            if (goBackMissionZeroBtn) {
-                goBackMissionZeroBtn.addEventListener('click', goToMissionZero);
             }
 
             // New session functionality
