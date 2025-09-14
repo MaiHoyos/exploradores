@@ -36,15 +36,6 @@
             50% { opacity: 1; }
         }
         
-        @keyframes pathFlow {
-            0% { stroke-dashoffset: 20; }
-            100% { stroke-dashoffset: 0; }
-        }
-        
-        .animate-path-flow {
-            animation: pathFlow 3s linear infinite;
-        }
-        
         @keyframes fadeIn {
             from { opacity: 0; transform: scale(0.9); }
             to { opacity: 1; transform: scale(1); }
@@ -67,38 +58,43 @@
             text-decoration: none;
             color: inherit;
         }
+        
+        .mission-locked {
+            opacity: 0.5;
+            filter: grayscale(50%);
+            cursor: not-allowed;
+            pointer-events: none;
+        }
     </style>
 </head>
 <body class="min-h-screen bg-gradient-to-b from-purple-900 via-blue-900 to-black text-white overflow-hidden relative">
     <!-- Space Background -->
     <div class="stars" id="stars"></div>
     
-    <!-- Login Screen -->
-    <div id="login-screen" class="fixed inset-0 bg-gradient-to-b from-purple-900 via-blue-900 to-black flex items-center justify-center z-50">
+    <!-- Need Mission Zero Screen -->
+    <div id="need-mission-zero-screen" class="fixed inset-0 bg-gradient-to-b from-purple-900 via-blue-900 to-black flex items-center justify-center z-50 hidden">
         <div class="bg-white/10 backdrop-blur-md border-2 border-white/30 rounded-3xl p-8 max-w-md w-full mx-4 text-center animate-fadeIn">
-            <div class="text-6xl mb-4">🚀</div>
-            <h1 class="text-3xl font-bold mb-2 text-white">¡Bienvenido a Zython!</h1>
-            <p class="text-white/80 mb-6">Introduce tu nombre de explorador para comenzar tu aventura espacial</p>
+            <div class="text-6xl mb-4">⚠️</div>
+            <h1 class="text-3xl font-bold mb-2 text-white">¡Misión 0 Requerida!</h1>
+            <p class="text-white/80 mb-6">Debes completar el ensamblaje de tu robot antes de acceder a las misiones principales.</p>
             
             <div class="space-y-4">
-                <input 
-                    type="text" 
-                    id="player-name" 
-                    placeholder="Tu nombre de explorador..."
-                    class="w-full px-4 py-3 rounded-xl bg-white/20 border-2 border-white/30 text-white placeholder-white/60 focus:outline-none focus:border-white/60 focus:bg-white/30 transition-all"
-                    maxlength="20"
-                >
                 <button 
-                    id="start-game" 
-                    class="w-full px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-bold rounded-xl transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
-                    disabled
+                    id="go-to-mission-zero" 
+                    class="w-full px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-bold rounded-xl transition-all duration-300 transform hover:scale-105"
                 >
-                    🌟 Comenzar Exploración
+                    🚀 Ir a Misión 0
+                </button>
+                <button 
+                    id="start-new-game" 
+                    class="w-full px-6 py-3 bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white font-bold rounded-xl transition-all duration-300 transform hover:scale-105"
+                >
+                    🌟 Nuevo Juego
                 </button>
             </div>
             
             <div class="mt-6 text-sm text-white/60">
-                <p>💡 Cada vez que inicies, comenzarás una nueva aventura</p>
+                <p>💡 El robot es esencial para todas las misiones en Zython</p>
             </div>
         </div>
     </div>
@@ -125,7 +121,7 @@
         <!-- Welcome Message -->
         <div class="fixed top-20 left-1/2 transform -translate-x-1/2 z-20 bg-blue-600/90 backdrop-blur-sm border-2 border-blue-400/50 rounded-2xl px-4 py-2 md:px-6 md:py-3 max-w-md text-center" id="welcome-message">
             <div class="text-sm md:text-base">
-                🎉 ¡Hola <span id="welcome-player-name" class="font-bold text-yellow-300"></span>! ¡Listo para explorar Zython!
+                🎉 ¡Robot ensamblado! ¡Listo para las misiones, <span id="welcome-player-name" class="font-bold text-yellow-300"></span>!
             </div>
         </div>
 
@@ -137,23 +133,41 @@
                     <div class="text-[10px] md:text-xs text-gray-800 font-medium">🎯 Disponibles</div>
                 </div>
                 <div>
-                    <div class="text-lg md:text-2xl font-bold text-green-600">0</div>
-                    <div class="text-[10px] md:text-xs text-gray-800 font-medium">⭐ En esta sesión</div>
+                    <div class="text-lg md:text-2xl font-bold text-green-600" id="missions-completed">0</div>
+                    <div class="text-[10px] md:text-xs text-gray-800 font-medium">⭐ Completadas</div>
                 </div>
                 <div>
                     <div class="text-lg md:text-2xl font-bold text-purple-600" id="current-mission">1</div>
-                    <div class="text-[10px] md:text-xs text-gray-800 font-medium">🚀 Misión Actual</div>
+                    <div class="text-[10px] md:text-xs text-gray-800 font-medium">🚀 Próxima</div>
                 </div>
             </div>
         </div>
 
-        <!-- Logout button -->
+        <!-- Robot Status -->
+        <div class="fixed top-2 left-2 md:top-4 md:left-4 z-20 bg-green-600/80 backdrop-blur-sm border-2 border-green-400/50 rounded-2xl px-3 py-2 md:px-4 md:py-3">
+            <div class="flex items-center gap-2">
+                <div class="text-lg md:text-xl">🤖</div>
+                <div class="text-xs md:text-sm font-bold">Robot: <span class="text-green-300">Operativo</span></div>
+            </div>
+        </div>
+
+        <!-- New Session button -->
         <div class="fixed bottom-4 left-4 z-20">
             <button 
-                id="logout-btn" 
+                id="new-session-btn" 
                 class="px-4 py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl transition-all duration-300 hover:scale-105 flex items-center gap-2 shadow-lg"
             >
-                🚪 <span class="hidden md:inline">Nueva Sesión</span>
+                🔄 <span class="hidden md:inline">Nueva Sesión</span>
+            </button>
+        </div>
+
+        <!-- Back to Mission Zero button -->
+        <div class="fixed bottom-4 right-4 z-20">
+            <button 
+                id="back-to-mission-zero" 
+                class="px-4 py-3 bg-orange-600 hover:bg-orange-700 text-white font-bold rounded-xl transition-all duration-300 hover:scale-105 flex items-center gap-2 shadow-lg"
+            >
+                🛠️ <span class="hidden md:inline">Ver Robot</span>
             </button>
         </div>
 
@@ -161,10 +175,10 @@
         <div class="absolute top-[200px] md:top-[180px] left-0 right-0 bottom-0 p-4 md:p-10">
             <!-- Mission 1: Llanura de Vectonia -->
             <div class="absolute top-[2%] left-[5%] md:top-[5%] md:left-[12%] w-[140px] md:w-[220px] z-10">
-                <a href="mision1.html" class="mission-link">
+                <a href="mision1.html" class="mission-link" id="mission-1-link">
                     <div class="flex flex-col items-center cursor-pointer transition-all duration-400 hover:scale-110 hover:-translate-y-2 animate-planet-bounce">
                         <div class="mobile-planet-large w-[140px] h-[140px] md:w-[220px] md:h-[220px] mb-2 md:mb-4 relative rounded-2xl md:rounded-3xl overflow-hidden transition-all duration-400 hover:scale-105 shadow-2xl">
-                            <img src="mision1.png" alt="Llanura de Vectonia" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex items-center justify-center text-4xl md:text-6xl bg-gradient-to-br from-pink-400 via-teal-400 to-green-400&quot;>🏔️</div>'">
+                            <img src="mision1.png" alt="Llanura de Vectonia" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex items-center justify-center text-4xl md:text-6xl bg-gradient-to-br from-orange-400 via-yellow-400 to-red-400&quot;>🏔️</div>'">
                         </div>
                         <div class="text-center bg-black/80 px-2 py-2 md:px-4 md:py-3 rounded-xl md:rounded-2xl border-2 border-white/40 backdrop-blur-sm min-w-[120px] md:min-w-[180px]">
                             <div class="mobile-text-small text-sm md:text-base font-bold mb-1 text-white drop-shadow-lg">Llanura de Vectonia</div>
@@ -177,10 +191,10 @@
 
             <!-- Mission 2: Paso de Zycurva -->
             <div class="absolute top-[2%] right-[25%] md:top-[12%] md:right-[25%] w-[120px] md:w-[160px] z-10">
-                <a href="mision2.html" class="mission-link">
+                <a href="mision2.html" class="mission-link" id="mission-2-link">
                     <div class="flex flex-col items-center cursor-pointer transition-all duration-400 hover:scale-110 hover:-translate-y-2 animate-planet-bounce">
                         <div class="mobile-planet-medium w-[120px] h-[120px] md:w-[160px] md:h-[160px] mb-2 md:mb-4 relative rounded-2xl md:rounded-3xl overflow-hidden transition-all duration-400 hover:scale-105 shadow-2xl">
-                            <img src="mision2.png" alt="Paso de Zycurva" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex items-center justify-center text-4xl md:text-6xl bg-gradient-to-br from-pink-400 via-teal-400 to-green-400&quot;>🌀</div>'">
+                            <img src="mision2.png" alt="Paso de Zycurva" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex items-center justify-center text-4xl md:text-6xl bg-gradient-to-br from-blue-400 via-cyan-400 to-teal-400&quot;>🌀</div>'">
                         </div>
                         <div class="text-center bg-black/80 px-2 py-2 md:px-4 md:py-3 rounded-xl md:rounded-2xl border-2 border-white/40 backdrop-blur-sm min-w-[100px] md:min-w-[140px]">
                             <div class="mobile-text-small text-xs md:text-sm font-bold mb-1 text-white drop-shadow-lg">Paso de Zycurva</div>
@@ -193,10 +207,10 @@
 
             <!-- Mission 3: Cráter del Sensorium -->
             <div class="absolute bottom-[40%] left-[10%] md:bottom-[30%] md:left-[28%] w-[100px] md:w-[140px] z-10">
-                <a href="mision3.html" class="mission-link">
+                <a href="mision3.html" class="mission-link" id="mission-3-link">
                     <div class="flex flex-col items-center cursor-pointer transition-all duration-400 hover:scale-110 hover:-translate-y-2 animate-planet-bounce">
                         <div class="mobile-planet-small w-[100px] h-[100px] md:w-[140px] md:h-[140px] mb-2 md:mb-4 relative rounded-2xl md:rounded-3xl overflow-hidden transition-all duration-400 hover:scale-105 shadow-2xl">
-                            <img src="mision3.png" alt="Cráter del Sensorium" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex items-center justify-center text-4xl md:text-6xl bg-gradient-to-br from-pink-400 via-teal-400 to-green-400&quot;>🕳️</div>'">
+                            <img src="mision3.png" alt="Cráter del Sensorium" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex items-center justify-center text-4xl md:text-6xl bg-gradient-to-br from-purple-400 via-pink-400 to-red-400&quot;>🕳️</div>'">
                         </div>
                         <div class="text-center bg-black/80 px-2 py-2 md:px-4 md:py-3 rounded-xl md:rounded-2xl border-2 border-white/40 backdrop-blur-sm min-w-[80px] md:min-w-[120px]">
                             <div class="mobile-text-small text-xs md:text-sm font-bold mb-1 text-white drop-shadow-lg">Cráter del Sensorium</div>
@@ -209,10 +223,10 @@
 
             <!-- Mission 4: Estación de Transferencia -->
             <div class="absolute bottom-[25%] right-[25%] md:bottom-[17%] md:right-[35%] w-[120px] md:w-[190px] z-10">
-                <a href="mision4.html" class="mission-link">
+                <a href="mision4.html" class="mission-link" id="mission-4-link">
                     <div class="flex flex-col items-center cursor-pointer transition-all duration-400 hover:scale-110 hover:-translate-y-2 animate-planet-bounce">
                         <div class="mobile-planet-medium w-[120px] h-[120px] md:w-[190px] md:h-[190px] mb-2 md:mb-4 relative rounded-2xl md:rounded-3xl overflow-hidden transition-all duration-400 hover:scale-105 shadow-2xl">
-                            <img src="mision4.png" alt="Estación de Transferencia" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex items-center justify-center text-4xl md:text-6xl bg-gradient-to-br from-pink-400 via-teal-400 to-green-400&quot;>🚛</div>'">
+                            <img src="mision4.png" alt="Estación de Transferencia" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex items-center justify-center text-4xl md:text-6xl bg-gradient-to-br from-green-400 via-emerald-400 to-teal-400&quot;>🚛</div>'">
                         </div>
                         <div class="text-center bg-black/80 px-2 py-2 md:px-4 md:py-3 rounded-xl md:rounded-2xl border-2 border-white/40 backdrop-blur-sm min-w-[100px] md:min-w-[170px]">
                             <div class="mobile-text-small text-sm md:text-base font-bold mb-1 text-white drop-shadow-lg">Estación de Transferencia</div>
@@ -232,6 +246,7 @@
 
     <script>
         let currentPlayerName = '';
+        let missionZeroCompleted = false;
         
         // Create stars background
         function createStars() {
@@ -250,6 +265,85 @@
             }
         }
 
+        // Check game state and decide what to show
+        function checkGameState() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const playerName = urlParams.get('name');
+            const missionZeroParam = urlParams.get('missionZeroCompleted');
+            
+            // Check URL parameters first
+            if (playerName && missionZeroParam === 'true') {
+                currentPlayerName = decodeURIComponent(playerName);
+                missionZeroCompleted = true;
+                showMainGame();
+                return;
+            }
+            
+            // Check sessionStorage as backup
+            const storedName = sessionStorage.getItem('playerName');
+            const storedMissionZero = sessionStorage.getItem('missionZeroCompleted');
+            
+            if (storedName && storedMissionZero === 'true') {
+                currentPlayerName = storedName;
+                missionZeroCompleted = true;
+                showMainGame();
+                return;
+            }
+            
+            // If we have a name but no Mission Zero completion
+            if (playerName || storedName) {
+                currentPlayerName = playerName ? decodeURIComponent(playerName) : storedName;
+                showNeedMissionZero();
+                return;
+            }
+            
+            // No data at all - redirect to Mission Zero
+            redirectToMissionZero();
+        }
+
+        function showMainGame() {
+            const gameContent = document.getElementById('game-content');
+            const needMissionScreen = document.getElementById('need-mission-zero-screen');
+            const playerNameDisplay = document.getElementById('player-name-display');
+            const welcomePlayerName = document.getElementById('welcome-player-name');
+            
+            // Update displays
+            if (playerNameDisplay) playerNameDisplay.textContent = currentPlayerName;
+            if (welcomePlayerName) welcomePlayerName.textContent = currentPlayerName;
+            
+            // Show main game
+            gameContent.classList.remove('hidden');
+            needMissionScreen.classList.add('hidden');
+            
+            // Hide welcome message after delay
+            hideWelcomeMessage();
+        }
+
+        function showNeedMissionZero() {
+            const gameContent = document.getElementById('game-content');
+            const needMissionScreen = document.getElementById('need-mission-zero-screen');
+            
+            gameContent.classList.add('hidden');
+            needMissionScreen.classList.remove('hidden');
+        }
+
+        function redirectToMissionZero() {
+            window.location.href = 'mission-zero.html';
+        }
+
+        function redirectToMissionZeroWithName() {
+            const playerName = encodeURIComponent(currentPlayerName);
+            window.location.href = `mission-zero.html?name=${playerName}`;
+        }
+
+        function startNewGame() {
+            // Clear all stored data
+            sessionStorage.clear();
+            
+            // Redirect to Mission Zero without parameters
+            window.location.href = 'mission-zero.html';
+        }
+
         // Hide welcome message after delay
         function hideWelcomeMessage() {
             setTimeout(() => {
@@ -265,91 +359,29 @@
             }, 4000); // Show for 4 seconds
         }
 
-        // Reset to initial state
-        function resetToInitialState() {
-            const nameInput = document.getElementById('player-name');
-            const startButton = document.getElementById('start-game');
-            
-            if (nameInput) {
-                nameInput.value = '';
-                setTimeout(() => nameInput.focus(), 100);
-            }
-            if (startButton) {
-                startButton.disabled = true;
-            }
-            
-            currentPlayerName = '';
-        }
-
-        // Start new session
-        function startNewSession() {
-            resetToInitialState();
-            
-            const loginScreen = document.getElementById('login-screen');
-            const gameContent = document.getElementById('game-content');
-            
-            if (gameContent) gameContent.classList.add('hidden');
-            if (loginScreen) loginScreen.classList.remove('hidden');
-        }
-
         // Initialize application
         function initialize() {
             createStars();
             
-            const nameInput = document.getElementById('player-name');
-            const startButton = document.getElementById('start-game');
-            const loginScreen = document.getElementById('login-screen');
-            const gameContent = document.getElementById('game-content');
-            const playerNameDisplay = document.getElementById('player-name-display');
-            const welcomePlayerName = document.getElementById('welcome-player-name');
-            const logoutBtn = document.getElementById('logout-btn');
-
-            // Enable/disable start button based on input
-            if (nameInput && startButton) {
-                nameInput.addEventListener('input', () => {
-                    const name = nameInput.value.trim();
-                    startButton.disabled = name.length < 2;
-                });
-
-                // Handle enter key
-                nameInput.addEventListener('keypress', (e) => {
-                    if (e.key === 'Enter' && !startButton.disabled) {
-                        startGame();
-                    }
-                });
-
-                // Start game
-                startButton.addEventListener('click', startGame);
-                
-                // Focus on name input initially
-                nameInput.focus();
+            // Check what state we should be in
+            checkGameState();
+            
+            // Set up event listeners
+            const goToMissionZeroBtn = document.getElementById('go-to-mission-zero');
+            const startNewGameBtn = document.getElementById('start-new-game');
+            const newSessionBtn = document.getElementById('new-session-btn');
+            const backToMissionZeroBtn = document.getElementById('back-to-mission-zero');
+            
+            if (goToMissionZeroBtn) {
+                goToMissionZeroBtn.addEventListener('click', redirectToMissionZeroWithName);
             }
-
-            function startGame() {
-                const playerName = nameInput ? nameInput.value.trim() : '';
-                if (playerName.length < 2) return;
-
-                currentPlayerName = playerName;
-                
-                // Update displays with player name
-                if (playerNameDisplay) {
-                    playerNameDisplay.textContent = playerName;
-                }
-                if (welcomePlayerName) {
-                    welcomePlayerName.textContent = playerName;
-                }
-                
-                // Hide login, show game
-                if (loginScreen) loginScreen.classList.add('hidden');
-                if (gameContent) gameContent.classList.remove('hidden');
-                
-                // Hide welcome message after delay
-                hideWelcomeMessage();
+            
+            if (startNewGameBtn) {
+                startNewGameBtn.addEventListener('click', startNewGame);
             }
-
-            // New session functionality
-            if (logoutBtn) {
-                logoutBtn.addEventListener('click', function(e) {
+            
+            if (newSessionBtn) {
+                newSessionBtn.addEventListener('click', function(e) {
                     e.preventDefault();
                     e.stopPropagation();
                     
@@ -357,16 +389,19 @@
                     this.style.transform = 'scale(0.95)';
                     setTimeout(() => {
                         this.style.transform = 'scale(1)';
+                        startNewGame();
                     }, 150);
-                    
-                    // Start new session
-                    startNewSession();
+                });
+            }
+            
+            if (backToMissionZeroBtn) {
+                backToMissionZeroBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    redirectToMissionZeroWithName();
                 });
             }
         }
 
         // Start when page loads
         document.addEventListener('DOMContentLoaded', initialize);
-    </script>
-</body>
-</html>
