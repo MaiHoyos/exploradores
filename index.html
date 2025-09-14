@@ -70,8 +70,10 @@
     </style>
 </head>
 <body class="min-h-screen bg-gradient-to-b from-purple-900 via-blue-900 to-black text-white overflow-hidden relative">
+    <!-- Space Background -->
     <div class="stars" id="stars"></div>
     
+    <!-- Login Screen -->
     <div id="login-screen" class="fixed inset-0 bg-gradient-to-b from-purple-900 via-blue-900 to-black flex items-center justify-center z-50">
         <div class="bg-white/10 backdrop-blur-md border-2 border-white/30 rounded-3xl p-8 max-w-md w-full mx-4 text-center animate-fadeIn">
             <div class="text-6xl mb-4">🚀</div>
@@ -101,7 +103,9 @@
         </div>
     </div>
 
+    <!-- Main Game Content -->
     <div id="game-content" class="hidden">
+        <!-- Header -->
         <header class="relative z-10 p-3 md:p-6 m-2 md:m-4">
             <div class="flex items-center justify-center md:justify-between flex-col md:flex-row gap-4">
                 <div class="flex items-center gap-4">
@@ -118,12 +122,14 @@
             </div>
         </header>
 
+        <!-- Welcome Message -->
         <div class="fixed top-20 left-1/2 transform -translate-x-1/2 z-20 bg-blue-600/90 backdrop-blur-sm border-2 border-blue-400/50 rounded-2xl px-4 py-2 md:px-6 md:py-3 max-w-md text-center" id="welcome-message">
             <div class="text-sm md:text-base">
                 🎉 ¡Hola <span id="welcome-player-name" class="font-bold text-yellow-300"></span>! ¡Listo para explorar Zython!
             </div>
         </div>
 
+        <!-- Progress panel -->
         <div class="fixed top-2 right-2 md:top-4 md:right-4 z-20 bg-white/80 backdrop-blur-sm border-2 md:border-4 border-white/40 rounded-xl md:rounded-2xl p-2 md:p-4 min-w-[160px] md:min-w-[200px]">
             <div class="grid grid-cols-3 gap-2 md:gap-4 text-center">
                 <div>
@@ -141,6 +147,7 @@
             </div>
         </div>
 
+        <!-- Logout button -->
         <div class="fixed bottom-4 left-4 z-20">
             <button 
                 id="logout-btn" 
@@ -150,186 +157,215 @@
             </button>
         </div>
 
+        <!-- Missions container -->
         <div class="absolute top-[200px] md:top-[180px] left-0 right-0 bottom-0 p-4 md:p-10">
+            <!-- Mission 1: Llanura de Vectonia -->
             <div class="absolute top-[2%] left-[5%] md:top-[5%] md:left-[12%] w-[140px] md:w-[220px] z-10">
                 <a href="mision1.html" class="mission-link">
                     <div class="flex flex-col items-center cursor-pointer transition-all duration-400 hover:scale-110 hover:-translate-y-2 animate-planet-bounce">
                         <div class="mobile-planet-large w-[140px] h-[140px] md:w-[220px] md:h-[220px] mb-2 md:mb-4 relative rounded-2xl md:rounded-3xl overflow-hidden transition-all duration-400 hover:scale-105 shadow-2xl">
-                            <img src="mision1.png" alt="Llanura de Vectonia" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex items-center justify-center text-4xl md:text-6xl bg-gradient-to-br from-yellow-500 to-orange-400 text-white&quot;>M1</div>';">
+                            <img src="mision1.png" alt="Llanura de Vectonia" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex items-center justify-center text-4xl md:text-6xl bg-gradient-to-br from-pink-400 via-teal-400 to-green-400&quot;>🏔️</div>'">
                         </div>
-                        <div class="text-center font-bold mobile-text-small md:text-xl">Llanura de Vectonia</div>
-                        <div class="mobile-text-xs md:text-sm text-gray-400">Motores</div>
+                        <div class="text-center bg-black/80 px-2 py-2 md:px-4 md:py-3 rounded-xl md:rounded-2xl border-2 border-white/40 backdrop-blur-sm min-w-[120px] md:min-w-[180px]">
+                            <div class="mobile-text-small text-sm md:text-base font-bold mb-1 text-white drop-shadow-lg">Llanura de Vectonia</div>
+                            <div class="mobile-text-xs text-xs md:text-sm text-white/90 drop-shadow">Calibra tu RoverBot</div>
+                        </div>
                     </div>
                 </a>
+                <div class="absolute -top-1 -right-1 md:-top-2 md:-right-2 w-8 h-8 md:w-11 md:h-11 rounded-full flex items-center justify-center text-sm md:text-xl font-bold border-2 md:border-3 border-white shadow-lg bg-gradient-to-br from-orange-400 to-orange-600 animate-pulse">1</div>
             </div>
 
-            <div class="absolute top-[18%] right-[5%] md:top-[20%] md:right-[15%] w-[120px] md:w-[180px] z-10">
+            <!-- Mission 2: Paso de Zycurva -->
+            <div class="absolute top-[2%] right-[25%] md:top-[12%] md:right-[25%] w-[120px] md:w-[160px] z-10">
                 <a href="mision2.html" class="mission-link">
-                    <div class="flex flex-col items-center cursor-pointer transition-all duration-400 hover:scale-110 hover:-translate-y-2 animate-planet-bounce" id="mission-2-link">
-                        <div class="mobile-planet-medium w-[120px] h-[120px] md:w-[180px] md:h-[180px] mb-2 md:mb-4 relative rounded-2xl md:rounded-3xl overflow-hidden transition-all duration-400 hover:scale-105 shadow-2xl">
-                            <img src="mision2.png" alt="Paso de Zycurva" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex items-center justify-center text-4xl md:text-6xl bg-gradient-to-br from-cyan-500 to-blue-400 text-white&quot;>M2</div>';">
+                    <div class="flex flex-col items-center cursor-pointer transition-all duration-400 hover:scale-110 hover:-translate-y-2 animate-planet-bounce">
+                        <div class="mobile-planet-medium w-[120px] h-[120px] md:w-[160px] md:h-[160px] mb-2 md:mb-4 relative rounded-2xl md:rounded-3xl overflow-hidden transition-all duration-400 hover:scale-105 shadow-2xl">
+                            <img src="mision2.png" alt="Paso de Zycurva" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex items-center justify-center text-4xl md:text-6xl bg-gradient-to-br from-pink-400 via-teal-400 to-green-400&quot;>🌀</div>'">
                         </div>
-                        <div class="text-center font-bold mobile-text-small md:text-xl">Paso de Zycurva</div>
-                        <div class="mobile-text-xs md:text-sm text-gray-400">Coordinación</div>
+                        <div class="text-center bg-black/80 px-2 py-2 md:px-4 md:py-3 rounded-xl md:rounded-2xl border-2 border-white/40 backdrop-blur-sm min-w-[100px] md:min-w-[140px]">
+                            <div class="mobile-text-small text-xs md:text-sm font-bold mb-1 text-white drop-shadow-lg">Paso de Zycurva</div>
+                            <div class="mobile-text-xs text-[10px] md:text-xs text-white/90 drop-shadow">¡Activa la conexión!</div>
+                        </div>
                     </div>
                 </a>
+                <div class="absolute -top-1 -right-1 md:-top-2 md:-right-2 w-8 h-8 md:w-11 md:h-11 rounded-full flex items-center justify-center text-sm md:text-xl font-bold border-2 md:border-3 border-white shadow-lg bg-gradient-to-br from-blue-400 to-blue-600 animate-pulse">2</div>
             </div>
 
-            <div class="absolute top-[50%] left-[10%] md:top-[55%] md:left-[18%] w-[100px] md:w-[160px] z-10">
+            <!-- Mission 3: Cráter del Sensorium -->
+            <div class="absolute bottom-[40%] left-[10%] md:bottom-[30%] md:left-[28%] w-[100px] md:w-[140px] z-10">
                 <a href="mision3.html" class="mission-link">
-                    <div class="flex flex-col items-center cursor-pointer transition-all duration-400 hover:scale-110 hover:-translate-y-2 animate-planet-bounce" id="mission-3-link">
-                        <div class="mobile-planet-small w-[100px] h-[100px] md:w-[160px] md:h-[160px] mb-2 md:mb-4 relative rounded-2xl md:rounded-3xl overflow-hidden transition-all duration-400 hover:scale-105 shadow-2xl">
-                            <img src="mision3.png" alt="Cráter del Sensorium" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex items-center justify-center text-4xl md:text-6xl bg-gradient-to-br from-purple-500 to-indigo-400 text-white&quot;>M3</div>';">
+                    <div class="flex flex-col items-center cursor-pointer transition-all duration-400 hover:scale-110 hover:-translate-y-2 animate-planet-bounce">
+                        <div class="mobile-planet-small w-[100px] h-[100px] md:w-[140px] md:h-[140px] mb-2 md:mb-4 relative rounded-2xl md:rounded-3xl overflow-hidden transition-all duration-400 hover:scale-105 shadow-2xl">
+                            <img src="mision3.png" alt="Cráter del Sensorium" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex items-center justify-center text-4xl md:text-6xl bg-gradient-to-br from-pink-400 via-teal-400 to-green-400&quot;>🕳️</div>'">
                         </div>
-                        <div class="text-center font-bold mobile-text-small md:text-xl">Cráter del Sensorium</div>
-                        <div class="mobile-text-xs md:text-sm text-gray-400">Sensores</div>
+                        <div class="text-center bg-black/80 px-2 py-2 md:px-4 md:py-3 rounded-xl md:rounded-2xl border-2 border-white/40 backdrop-blur-sm min-w-[80px] md:min-w-[120px]">
+                            <div class="mobile-text-small text-xs md:text-sm font-bold mb-1 text-white drop-shadow-lg">Cráter del Sensorium</div>
+                            <div class="mobile-text-xs text-[10px] md:text-xs text-white/90 drop-shadow">¡Detente a tiempo!</div>
+                        </div>
                     </div>
                 </a>
+                <div class="absolute -top-1 -right-1 md:-top-2 md:-right-2 w-7 h-7 md:w-10 md:h-10 rounded-full flex items-center justify-center text-sm md:text-lg font-bold border-2 md:border-3 border-white shadow-lg bg-gradient-to-br from-purple-400 to-purple-600 animate-pulse">3</div>
             </div>
 
-            <div class="absolute bottom-[2%] right-[10%] md:bottom-[5%] md:right-[15%] w-[140px] md:w-[200px] z-10">
+            <!-- Mission 4: Estación de Transferencia -->
+            <div class="absolute bottom-[25%] right-[25%] md:bottom-[17%] md:right-[35%] w-[120px] md:w-[190px] z-10">
                 <a href="mision4.html" class="mission-link">
-                    <div class="flex flex-col items-center cursor-pointer transition-all duration-400 hover:scale-110 hover:-translate-y-2 animate-planet-bounce" id="mission-4-link">
-                        <div class="mobile-planet-large w-[140px] h-[140px] md:w-[200px] md:h-[200px] mb-2 md:mb-4 relative rounded-2xl md:rounded-3xl overflow-hidden transition-all duration-400 hover:scale-105 shadow-2xl">
-                            <img src="mision4.png" alt="Estación de Transferencia" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex items-center justify-center text-4xl md:text-6xl bg-gradient-to-br from-red-500 to-pink-400 text-white&quot;>M4</div>';">
+                    <div class="flex flex-col items-center cursor-pointer transition-all duration-400 hover:scale-110 hover:-translate-y-2 animate-planet-bounce">
+                        <div class="mobile-planet-medium w-[120px] h-[120px] md:w-[190px] md:h-[190px] mb-2 md:mb-4 relative rounded-2xl md:rounded-3xl overflow-hidden transition-all duration-400 hover:scale-105 shadow-2xl">
+                            <img src="mision4.png" alt="Estación de Transferencia" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex items-center justify-center text-4xl md:text-6xl bg-gradient-to-br from-pink-400 via-teal-400 to-green-400&quot;>🚛</div>'">
                         </div>
-                        <div class="text-center font-bold mobile-text-small md:text-xl">Estación de Transferencia</div>
-                        <div class="mobile-text-xs md:text-sm text-gray-400">Integración</div>
+                        <div class="text-center bg-black/80 px-2 py-2 md:px-4 md:py-3 rounded-xl md:rounded-2xl border-2 border-white/40 backdrop-blur-sm min-w-[100px] md:min-w-[170px]">
+                            <div class="mobile-text-small text-sm md:text-base font-bold mb-1 text-white drop-shadow-lg">Estación de Transferencia</div>
+                            <div class="mobile-text-xs text-[10px] md:text-sm text-white/90 drop-shadow">Transporte en equipo</div>
+                        </div>
                     </div>
                 </a>
+                <div class="absolute -top-1 -right-1 md:-top-2 md:-right-2 w-8 h-8 md:w-11 md:h-11 rounded-full flex items-center justify-center text-sm md:text-xl font-bold border-2 md:border-3 border-white shadow-lg bg-gradient-to-br from-green-400 to-green-600 animate-pulse">4</div>
+            </div>
+
+            <!-- Robot -->
+            <div class="absolute bottom-2 right-2 md:bottom-4 md:right-4 w-[120px] h-[120px] md:w-[500px] md:h-[500px] z-10">
+                <img src="robot.png" alt="Robot Compañero" class="w-full h-full object-contain" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex items-center justify-center text-6xl md:text-9xl&quot;>🤖</div>'">
             </div>
         </div>
     </div>
 
     <script>
-        // Variables globales
         let currentPlayerName = '';
-
-        // Funciones para el juego
+        
+        // Create stars background
         function createStars() {
             const starsContainer = document.getElementById('stars');
-            if (starsContainer) {
-                for (let i = 0; i < 100; i++) {
-                    const star = document.createElement('div');
-                    star.className = 'star';
-                    star.style.width = `${Math.random() * 3}px`;
-                    star.style.height = star.style.width;
-                    star.style.left = `${Math.random() * 100}%`;
-                    star.style.top = `${Math.random() * 100}%`;
-                    star.style.animationDuration = `${Math.random() * 3 + 2}s`;
-                    starsContainer.appendChild(star);
-                }
+            if (!starsContainer) return;
+            
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.width = Math.random() * 3 + 1 + 'px';
+                star.style.height = star.style.width;
+                star.style.animationDelay = Math.random() * 3 + 's';
+                starsContainer.appendChild(star);
             }
         }
 
+        // Hide welcome message after delay
         function hideWelcomeMessage() {
-            const message = document.getElementById('welcome-message');
-            if (message) {
-                setTimeout(() => {
-                    message.classList.add('opacity-0', 'scale-90', 'transition-all', 'duration-500');
+            setTimeout(() => {
+                const welcomeMessage = document.getElementById('welcome-message');
+                if (welcomeMessage) {
+                    welcomeMessage.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
+                    welcomeMessage.style.opacity = '0';
+                    welcomeMessage.style.transform = 'translate(-50%, -100px)';
                     setTimeout(() => {
-                        message.classList.add('hidden');
+                        welcomeMessage.style.display = 'none';
                     }, 500);
-                }, 3000);
-            }
-        }
-
-        // Nuevo: Función para guardar el progreso del jugador
-        function savePlayerProgress(playerName, progress) {
-            localStorage.setItem(`progress_${playerName}`, JSON.stringify(progress));
-        }
-
-        // Nuevo: Función para cargar el progreso del jugador
-        function loadPlayerProgress(playerName) {
-            const progressString = localStorage.getItem(`progress_${playerName}`);
-            return progressString ? JSON.parse(progressString) : {
-                completedMissions: [],
-                completed: 0,
-                badges: 0,
-                currentMission: 1,
-                available: 1
-            };
-        }
-
-        // Nuevo: Función para actualizar el estado del juego y los enlaces
-        function updateGameState(playerName) {
-            const progress = loadPlayerProgress(playerName);
-            document.getElementById('current-mission').textContent = progress.currentMission;
-            
-            // Habilitar los enlaces a las misiones completadas y disponibles
-            for (let i = 1; i <= 4; i++) {
-                const missionLink = document.getElementById(`mission-${i}-link`);
-                if (missionLink) {
-                    if (progress.available >= i) {
-                        missionLink.classList.remove('opacity-50', 'pointer-events-none');
-                        missionLink.href = `mision${i}.html`;
-                    } else {
-                        missionLink.classList.add('opacity-50', 'pointer-events-none');
-                        missionLink.href = '#';
-                    }
                 }
+            }, 4000); // Show for 4 seconds
+        }
+
+        // Reset to initial state
+        function resetToInitialState() {
+            const nameInput = document.getElementById('player-name');
+            const startButton = document.getElementById('start-game');
+            
+            if (nameInput) {
+                nameInput.value = '';
+                setTimeout(() => nameInput.focus(), 100);
             }
-        }
-
-        // Función para manejar el inicio del juego
-        function startGame(name) {
-            currentPlayerName = name;
-            localStorage.setItem('currentPlayer', name);
+            if (startButton) {
+                startButton.disabled = true;
+            }
             
-            // Actualizar la interfaz con el nombre del jugador
-            document.getElementById('player-name-display').textContent = currentPlayerName;
-            document.getElementById('welcome-player-name').textContent = currentPlayerName;
+            currentPlayerName = '';
+        }
+
+        // Start new session
+        function startNewSession() {
+            resetToInitialState();
             
-            // Cargar o crear el progreso y actualizar el estado
-            const progress = loadPlayerProgress(currentPlayerName);
-            updateGameState(currentPlayerName);
-
-            // Transición a la pantalla de juego
-            document.getElementById('login-screen').classList.add('hidden');
-            document.getElementById('game-content').classList.remove('hidden');
+            const loginScreen = document.getElementById('login-screen');
+            const gameContent = document.getElementById('game-content');
             
-            hideWelcomeMessage();
+            if (gameContent) gameContent.classList.add('hidden');
+            if (loginScreen) loginScreen.classList.remove('hidden');
         }
 
-        // Event listener para el botón de inicio
-        const startGameButton = document.getElementById('start-game');
-        if (startGameButton) {
-            startGameButton.addEventListener('click', () => {
-                const playerName = document.getElementById('player-name').value.trim();
-                if (playerName.length >= 2) {
-                    localStorage.setItem('playerName', playerName);
-                    startGame(playerName);
-                }
-            });
-        }
-        
-        // Event listener para el campo de entrada
-        const playerNameInput = document.getElementById('player-name');
-        if (playerNameInput) {
-            playerNameInput.addEventListener('input', () => {
-                startGameButton.disabled = playerNameInput.value.trim().length < 2;
-            });
-        }
-
-        // Event listener para el botón de nueva sesión
-        const logoutBtn = document.getElementById('logout-btn');
-        if (logoutBtn) {
-            logoutBtn.addEventListener('click', () => {
-                localStorage.removeItem('playerName');
-                window.location.reload();
-            });
-        }
-
-        // Nuevo: Lógica de inicialización al cargar la página
+        // Initialize application
         function initialize() {
             createStars();
-            const storedPlayerName = localStorage.getItem('playerName');
-            if (storedPlayerName) {
-                startGame(storedPlayerName);
+            
+            const nameInput = document.getElementById('player-name');
+            const startButton = document.getElementById('start-game');
+            const loginScreen = document.getElementById('login-screen');
+            const gameContent = document.getElementById('game-content');
+            const playerNameDisplay = document.getElementById('player-name-display');
+            const welcomePlayerName = document.getElementById('welcome-player-name');
+            const logoutBtn = document.getElementById('logout-btn');
+
+            // Enable/disable start button based on input
+            if (nameInput && startButton) {
+                nameInput.addEventListener('input', () => {
+                    const name = nameInput.value.trim();
+                    startButton.disabled = name.length < 2;
+                });
+
+                // Handle enter key
+                nameInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter' && !startButton.disabled) {
+                        startGame();
+                    }
+                });
+
+                // Start game
+                startButton.addEventListener('click', startGame);
+                
+                // Focus on name input initially
+                nameInput.focus();
+            }
+
+            function startGame() {
+                const playerName = nameInput ? nameInput.value.trim() : '';
+                if (playerName.length < 2) return;
+
+                currentPlayerName = playerName;
+                
+                // Update displays with player name
+                if (playerNameDisplay) {
+                    playerNameDisplay.textContent = playerName;
+                }
+                if (welcomePlayerName) {
+                    welcomePlayerName.textContent = playerName;
+                }
+                
+                // Hide login, show game
+                if (loginScreen) loginScreen.classList.add('hidden');
+                if (gameContent) gameContent.classList.remove('hidden');
+                
+                // Hide welcome message after delay
+                hideWelcomeMessage();
+            }
+
+            // New session functionality
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    // Add visual feedback
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = 'scale(1)';
+                    }, 150);
+                    
+                    // Start new session
+                    startNewSession();
+                });
             }
         }
 
-        // Inicializar cuando el documento esté listo
+        // Start when page loads
         document.addEventListener('DOMContentLoaded', initialize);
     </script>
 </body>
