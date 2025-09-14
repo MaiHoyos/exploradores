@@ -271,7 +271,9 @@
             const playerName = urlParams.get('name');
             const missionZeroParam = urlParams.get('missionZeroCompleted');
             
-            // Check URL parameters first
+            console.log('Checking game state:', { playerName, missionZeroParam }); // Debug
+            
+            // Check URL parameters first (coming from Mission Zero)
             if (playerName && missionZeroParam === 'true') {
                 currentPlayerName = decodeURIComponent(playerName);
                 missionZeroCompleted = true;
@@ -297,7 +299,8 @@
                 return;
             }
             
-            // No data at all - redirect to Mission Zero
+            // No data at all - this is first time, redirect to Mission Zero
+            console.log('First time visit, redirecting to Mission Zero');
             redirectToMissionZero();
         }
 
