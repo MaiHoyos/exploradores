@@ -30,206 +30,57 @@
     </style>
 </head>
 <body class="min-h-screen bg-gradient-to-b from-purple-900 via-blue-900 to-black text-white relative overflow-auto">
-    <!-- Space Background -->
     <div class="stars" id="stars"></div>
     
-    <!-- Header -->
-    <header class="relative z-10 bg-gradient-to-r from-pink-400 via-teal-400 to-blue-400 border-4 border-white rounded-b-3xl p-6 m-4">
+    <header class="relative z-10 bg-gradient-to-r from-purple-400 to-purple-600 border-4 border-white rounded-b-3xl p-6 m-4">
         <div class="flex items-center justify-between">
-            <button onclick="volverAMisiones()" class="flex items-center gap-4 hover:scale-105 transition-transform">
-                <div class="text-3xl">🚀</div>
-                <div>
-                    <div class="text-xl font-bold">← Volver a Misiones</div>
-                    <div class="text-sm opacity-90">Exploración de Zython</div>
-                </div>
+            <button onclick="volverAMisiones()" class="px-4 py-2 bg-white text-purple-600 font-bold rounded-full shadow-lg transition-transform transform hover:scale-105">
+                ← Volver a Misiones
             </button>
-            <div class="text-right">
-                <div class="text-lg font-bold" id="player-name-display">Explorador</div>
-                <div class="text-sm opacity-90">Misión 3</div>
+            <div class="flex items-center space-x-4">
+                <div class="text-3xl font-extrabold text-white drop-shadow-lg">MISIÓN 3</div>
+                <div class="text-4xl text-yellow-300">🕳️</div>
             </div>
-            <div id="completion-badge" class="hidden bg-green-500 px-4 py-2 rounded-full border-2 border-white flex items-center gap-2">
-                <span class="text-xl">✅</span>
-                <span class="font-bold">¡Completada!</span>
+            <div id="completion-badge" class="hidden px-4 py-2 bg-green-500 text-white font-bold rounded-full shadow-lg">
+                ✅ Completada
             </div>
         </div>
     </header>
 
-    <!-- Mission Content -->
-    <div class="relative z-10 max-w-4xl mx-auto p-6">
-        <div class="bg-gradient-to-br from-purple-600/20 to-blue-600/20 backdrop-blur-sm border-4 border-white/30 rounded-3xl p-8 mb-8">
-            <h1 class="text-4xl font-bold mb-6 text-center bg-gradient-to-r from-yellow-300 to-orange-400 bg-clip-text text-transparent">
-                Cráter del Sensorium
-            </h1>
-
-            <div class="text-lg leading-relaxed mb-8 text-center text-white/90">
-                Aprenderás a usar sensores para crear comportamientos autónomos en tu RoverBot.
-            </div>
-
-            <!-- Objectives -->
-            <div class="bg-white/10 rounded-2xl p-6 mb-8 border-2 border-white/20">
-                <h3 class="text-2xl font-bold mb-4 text-yellow-300 flex items-center gap-2">
-                    🎯 Objetivos de Aprendizaje
-                </h3>
-                <ul class="space-y-3">
-                    <li class="flex items-start gap-3 text-white/90">
-                        <span class="text-xl">🚀</span>
-                        <span class="leading-relaxed">Integrar sensores con sistemas de control de motores</span>
-                    </li>
-                    <li class="flex items-start gap-3 text-white/90">
-                        <span class="text-xl">🚀</span>
-                        <span class="leading-relaxed">Crear comportamientos autónomos de detección y respuesta</span>
-                    </li>
-                    <li class="flex items-start gap-3 text-white/90">
-                        <span class="text-xl">🚀</span>
-                        <span class="leading-relaxed">Desarrollar sistemas de seguridad para robots</span>
-                    </li>
-                </ul>
-            </div>
-
-            <!-- Mission Content -->
-            <div class="bg-white/10 rounded-2xl p-6 mb-8 border-2 border-white/20">
-                <h3 class="text-2xl font-bold mb-4 text-teal-300 flex items-center gap-2">📚 Contenido de la Misión</h3>
-                <div class="text-white/90 leading-relaxed space-y-4">
-                    <p>Aprenderás a usar sensores para crear comportamientos autónomos en tu RoverBot.</p>
-                    <p><strong>Contexto:</strong> El Cráter del Sensorium está lleno de peligrosos precipicios. Tu RoverBot debe detectar obstáculos y detenerse automáticamente.</p>
-                    <p><strong>Desafío:</strong> Programar tu robot para que se detenga cuando detecte un obstáculo a menos de 10 cm de distancia.</p>
+    <main class="relative z-10 p-6 md:p-10 max-w-4xl mx-auto">
+        <section class="bg-white/10 backdrop-blur-sm rounded-3xl p-6 md:p-8 border-4 border-white/30 shadow-2xl mb-8">
+            <h2 class="text-2xl md:text-3xl font-bold text-center mb-4 text-yellow-300">Rescate en el Cráter del Sensorium</h2>
+            <p class="text-lg text-white/90 text-center mb-6">Un dron de reconocimiento ha caído en el cráter. Debes programar el RoverBot para que se detenga justo antes de un sensor de calor y active el imán de rescate, sin caer al abismo.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                <div>
+                    <img src="mision3.png" alt="Cráter del Sensorium" class="w-full rounded-2xl border-4 border-white/50 shadow-xl" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-auto aspect-video flex items-center justify-center text-4xl md:text-6xl bg-gradient-to-br from-pink-400 via-teal-400 to-green-400&quot;>🕳️</div>'">
+                </div>
+                <div class="bg-black/40 p-4 rounded-xl border-2 border-white/40">
+                    <h3 class="text-xl md:text-2xl font-semibold mb-3 text-white">Objetivo de la Misión:</h3>
+                    <ul class="list-disc list-inside space-y-2 text-white/90">
+                        <li>Detectar el sensor de calor a 1 metro.</li>
+                        <li>Detener el RoverBot con precisión.</li>
+                        <li>Activar el imán para el rescate.</li>
+                    </ul>
                 </div>
             </div>
-
-            <!-- Activities -->
-            <div class="bg-white/10 rounded-2xl p-6 mb-8 border-2 border-white/20">
-                <h3 class="text-2xl font-bold mb-4 text-green-300 flex items-center gap-2">🔧 Actividades Prácticas</h3>
-                <div class="space-y-4">
-                    <div class="bg-black/30 rounded-xl p-4 border border-white/10">
-                        <div class="flex items-center gap-3 mb-2">
-                            <span class="bg-green-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">1</span>
-                            <span class="font-semibold text-white">Calibrar el sensor de distancia con objetos a diferentes distancias</span>
-                        </div>
-                    </div>
-                    <div class="bg-black/30 rounded-xl p-4 border border-white/10">
-                        <div class="flex items-center gap-3 mb-2">
-                            <span class="bg-green-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">2</span>
-                            <span class="font-semibold text-white">Programar una condición IF para detener el robot</span>
-                        </div>
-                    </div>
-                    <div class="bg-black/30 rounded-xl p-4 border border-white/10">
-                        <div class="flex items-center gap-3 mb-2">
-                            <span class="bg-green-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">3</span>
-                            <span class="font-semibold text-white">Probar la detección con obstáculos de diferentes tamaños</span>
-                        </div>
-                    </div>
-                    <div class="bg-black/30 rounded-xl p-4 border border-white/10">
-                        <div class="flex items-center gap-3 mb-2">
-                            <span class="bg-green-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">4</span>
-                            <span class="font-semibold text-white">Medir el tiempo de reacción del sensor</span>
-                        </div>
-                    </div>
-                    <div class="bg-black/30 rounded-xl p-4 border border-white/10">
-                        <div class="flex items-center gap-3 mb-2">
-                            <span class="bg-green-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">5</span>
-                            <span class="font-semibold text-white">Navegar por el campo de obstáculos del cráter</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Tips -->
-            <div class="bg-white/10 rounded-2xl p-6 mb-8 border-2 border-white/20">
-                <h3 class="text-2xl font-bold mb-4 text-orange-300 flex items-center gap-2">💡 Consejos y Trucos</h3>
-                <div class="space-y-3">
-                    <div class="flex items-start gap-3 text-white/90">
-                        <span class="text-xl">💡</span>
-                        <span class="leading-relaxed">El sensor puede dar lecturas diferentes según el material del obstáculo</span>
-                    </div>
-                    <div class="flex items-start gap-3 text-white/90">
-                        <span class="text-xl">💡</span>
-                        <span class="leading-relaxed">Prueba el sensor a diferentes alturas</span>
-                    </div>
-                    <div class="flex items-start gap-3 text-white/90">
-                        <span class="text-xl">💡</span>
-                        <span class="leading-relaxed">Deja un margen de seguridad en la distancia de detección</span>
-                    </div>
-                    <div class="flex items-start gap-3 text-white/90">
-                        <span class="text-xl">💡</span>
-                        <span class="leading-relaxed">Los sensores pueden verse afectados por la luz ambiental</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Action Buttons -->
-            <div class="flex gap-4 justify-center">
-                <button id="complete-btn" onclick="completeMission()" class="bg-gradient-to-r from-green-400 to-green-600 hover:from-green-500 hover:to-green-700 px-8 py-4 rounded-2xl border-3 border-white font-bold text-lg transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(34,197,94,0.5)]">
-                    🏆 Completar Misión
+            
+            <div class="mt-8 flex justify-center">
+                <button id="complete-btn" onclick="completeMission()" class="px-6 py-3 bg-gradient-to-r from-green-500 to-green-700 text-white font-bold text-lg rounded-full shadow-lg transition-transform transform hover:scale-110 hover:shadow-2xl">
+                    Completar Misión
                 </button>
-                <div id="completed-btn" class="hidden bg-gradient-to-r from-green-400 to-green-600 px-8 py-4 rounded-2xl border-3 border-white font-bold text-lg opacity-75">
-                    ✅ Misión Completada
-                </div>
-                <button onclick="volverAMisiones()" class="bg-gradient-to-r from-blue-400 to-blue-600 hover:from-blue-500 hover:to-blue-700 px-8 py-4 rounded-2xl border-3 border-white font-bold text-lg transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(59,130,246,0.5)]">
-                    🚀 Volver a Misiones
-                </button>
+                <a href="index.html" id="completed-btn" class="hidden px-6 py-3 bg-white text-green-600 font-bold text-lg rounded-full shadow-lg transition-transform transform hover:scale-110 hover:shadow-2xl">
+                    Volver a Misiones
+                </a>
             </div>
-        </div>
-    </div>
+        </section>
+    </main>
 
     <script>
-        // Sistema de gestión de jugadores compatible con index.html
-        function getCurrentPlayer() {
-            try {
-                return localStorage.getItem('zython-current-player');
-            } catch (error) {
-                console.error('Error getting current player:', error);
-                return null;
-            }
-        }
-
-        function loadPlayerProgress(playerName) {
-            try {
-                const players = JSON.parse(localStorage.getItem('zython-players') || '{}');
-                return players[playerName] || {
-                    completedMissions: [],
-                    available: 1,
-                    completed: 0,
-                    badges: 0,
-                    currentMission: 1
-                };
-            } catch (error) {
-                console.error('Error loading progress:', error);
-                return {
-                    completedMissions: [],
-                    available: 1,
-                    completed: 0,
-                    badges: 0,
-                    currentMission: 1
-                };
-            }
-        }
-
-        function savePlayerProgress(playerName, progress) {
-            try {
-                const players = JSON.parse(localStorage.getItem('zython-players') || '{}');
-                players[playerName] = progress;
-                localStorage.setItem('zython-players', JSON.stringify(players));
-                console.log('Progress saved for:', playerName, progress);
-            } catch (error) {
-                console.error('Error saving progress:', error);
-            }
-        }
-
-        // Función para volver a misiones manteniendo la sesión
-        function volverAMisiones() {
-            const currentPlayer = getCurrentPlayer();
-            if (currentPlayer) {
-                // Redirigir con el jugador en la URL para asegurar que se mantenga la sesión
-                window.location.href = `index.html?player=${encodeURIComponent(currentPlayer)}`;
-            } else {
-                console.warn('No current player found, going to main page');
-                window.location.href = 'index.html';
-            }
-        }
-
-        // Create stars background
         function createStars() {
             const starsContainer = document.getElementById('stars');
+            if (!starsContainer) return;
             for (let i = 0; i < 100; i++) {
                 const star = document.createElement('div');
                 star.className = 'star';
@@ -242,29 +93,44 @@
             }
         }
 
-        // Check if mission is completed and update UI
-        function checkCompletion() {
-            const currentPlayer = getCurrentPlayer();
-            if (!currentPlayer) {
-                console.warn('No current player found');
-                // Si no hay jugador, redirigir al inicio
-                window.location.href = 'index.html';
-                return;
-            }
+        // Funciones para guardar y cargar el progreso en localStorage
+        function getCurrentPlayer() {
+            return localStorage.getItem('zython-current-player');
+        }
 
-            // Mostrar nombre del jugador
-            document.getElementById('player-name-display').textContent = currentPlayer;
-
-            // Verificar si la misión está completada
-            const progress = loadPlayerProgress(currentPlayer);
-            if (progress.completedMissions.includes(3)) {
-                document.getElementById('completion-badge').classList.remove('hidden');
-                document.getElementById('complete-btn').classList.add('hidden');
-                document.getElementById('completed-btn').classList.remove('hidden');
+        function loadPlayerProgress(playerName) {
+            try {
+                const players = JSON.parse(localStorage.getItem('zython-players') || '{}');
+                return players[playerName] || { completedMissions: [], completed: 0, currentMission: 1, available: 1, badges: 0 };
+            } catch (error) {
+                console.error('Error loading progress:', error);
+                return { completedMissions: [], completed: 0, currentMission: 1, available: 1, badges: 0 };
             }
         }
 
-        // Complete mission
+        function savePlayerProgress(playerName, progress) {
+            try {
+                const players = JSON.parse(localStorage.getItem('zython-players') || '{}');
+                players[playerName] = progress;
+                localStorage.setItem('zython-players', JSON.stringify(players));
+            } catch (error) {
+                console.error('Error saving progress:', error);
+            }
+        }
+
+        // Función para verificar si la misión ya está completada al cargar la página
+        function checkCompletion() {
+            const currentPlayer = getCurrentPlayer();
+            if (currentPlayer) {
+                const progress = loadPlayerProgress(currentPlayer);
+                if (progress.completedMissions.includes(3)) {
+                    document.getElementById('completion-badge').classList.remove('hidden');
+                    document.getElementById('complete-btn').classList.add('hidden');
+                    document.getElementById('completed-btn').classList.remove('hidden');
+                }
+            }
+        }
+
         function completeMission() {
             const currentPlayer = getCurrentPlayer();
             if (!currentPlayer) {
@@ -275,7 +141,6 @@
             
             const progress = loadPlayerProgress(currentPlayer);
             
-            // Add mission to completed if not already there
             if (!progress.completedMissions.includes(3)) {
                 progress.completedMissions.push(3);
                 progress.completed = progress.completedMissions.length;
@@ -297,6 +162,10 @@
             } else {
                 alert('Esta misión ya ha sido completada anteriormente.');
             }
+        }
+
+        function volverAMisiones() {
+            window.location.href = 'index.html';
         }
 
         // Initialize
