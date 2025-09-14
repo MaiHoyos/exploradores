@@ -3,17 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exploración de Zython - Misiones Espaciales</title>
+    <title>Misión Zython</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @keyframes planetBounce {
-            0%, 100% { transform: translateY(0px) scale(1); }
-            50% { transform: translateY(-15px) scale(1.05); }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
         }
         
-        .animate-planet-bounce {
-            animation: planetBounce 4s ease-in-out infinite;
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.5); }
+            50% { box-shadow: 0 0 30px rgba(59, 130, 246, 0.8); }
         }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate-float { animation: float 3s ease-in-out infinite; }
+        .animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
+        .animate-slide-in { animation: slideIn 0.8s ease-out; }
         
         .stars {
             position: fixed;
@@ -34,6 +44,40 @@
         @keyframes twinkle {
             0%, 100% { opacity: 0.3; }
             50% { opacity: 1; }
+        }
+
+        .typewriter {
+            overflow: hidden;
+            border-right: 2px solid;
+            animation: typing 3s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+        
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        
+        @keyframes blink-caret {
+            from, to { border-color: transparent; }
+            50% { border-color: white; }
+        }
+
+        @keyframes planetBounce {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-15px) scale(1.05); }
+        }
+        
+        .animate-planet-bounce {
+            animation: planetBounce 4s ease-in-out infinite;
+        }
+        
+        @keyframes pathFlow {
+            0% { stroke-dashoffset: 20; }
+            100% { stroke-dashoffset: 0; }
+        }
+        
+        .animate-path-flow {
+            animation: pathFlow 3s linear infinite;
         }
         
         @keyframes fadeIn {
@@ -58,50 +102,339 @@
             text-decoration: none;
             color: inherit;
         }
-        
-        .mission-locked {
-            opacity: 0.5;
-            filter: grayscale(50%);
-            cursor: not-allowed;
-            pointer-events: none;
-        }
     </style>
 </head>
-<body class="min-h-screen bg-gradient-to-b from-purple-900 via-blue-900 to-black text-white overflow-hidden relative">
-    <!-- Space Background -->
+<body class="min-h-screen bg-gradient-to-b from-purple-900 via-blue-900 to-black text-white overflow-x-hidden">
     <div class="stars" id="stars"></div>
-    
-    <!-- Need Mission Zero Screen -->
-    <div id="need-mission-zero-screen" class="fixed inset-0 bg-gradient-to-b from-purple-900 via-blue-900 to-black flex items-center justify-center z-50 hidden">
+
+    <div id="login-screen" class="fixed inset-0 bg-gradient-to-b from-purple-900 via-blue-900 to-black flex items-center justify-center z-50">
         <div class="bg-white/10 backdrop-blur-md border-2 border-white/30 rounded-3xl p-8 max-w-md w-full mx-4 text-center animate-fadeIn">
-            <div class="text-6xl mb-4">⚠️</div>
-            <h1 class="text-3xl font-bold mb-2 text-white">¡Misión 0 Requerida!</h1>
-            <p class="text-white/80 mb-6">Debes completar el ensamblaje de tu robot antes de acceder a las misiones principales.</p>
-            
+            <div class="text-6xl mb-4">🚀</div>
+            <h1 class="text-3xl font-bold mb-2 text-white">¡Bienvenido a Zython!</h1>
+            <p class="text-white/80 mb-6">Introduce tu nombre de explorador para comenzar tu aventura espacial</p>
             <div class="space-y-4">
-                <button 
-                    id="go-to-mission-zero" 
-                    class="w-full px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-bold rounded-xl transition-all duration-300 transform hover:scale-105"
+                <input 
+                    type="text" 
+                    id="player-name-input" 
+                    placeholder="Tu nombre de explorador..."
+                    class="w-full px-4 py-3 rounded-xl bg-white/20 border-2 border-white/30 text-white placeholder-white/60 focus:outline-none focus:border-white/60 focus:bg-white/30 transition-all"
+                    maxlength="20"
                 >
-                    🚀 Ir a Misión 0
-                </button>
                 <button 
-                    id="start-new-game" 
-                    class="w-full px-6 py-3 bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white font-bold rounded-xl transition-all duration-300 transform hover:scale-105"
+                    id="start-game" 
+                    class="w-full px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-bold rounded-xl transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+                    disabled
                 >
-                    🌟 Nuevo Juego
+                    🌟 Comenzar Exploración
                 </button>
             </div>
-            
             <div class="mt-6 text-sm text-white/60">
-                <p>💡 El robot es esencial para todas las misiones en Zython</p>
+                <p>💡 Cada vez que inicies, comenzarás una nueva aventura</p>
+            </div>
+        </div>
+    </div>
+    
+    <div id="mission-zero-flow" class="hidden relative z-10 min-h-screen flex flex-col">
+        <div id="step-1" class="step-container min-h-screen flex-col items-center justify-center p-6 hidden">
+            <div class="max-w-4xl text-center animate-slide-in">
+                <div class="text-8xl mb-8 animate-float">🌌</div>
+                <h1 class="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+                    Bienvenido al Planeta Zython
+                </h1>
+                <div class="text-xl md:text-2xl text-white/90 mb-8 leading-relaxed">
+                    <p class="mb-4">El año es 2157. La humanidad ha expandido su alcance más allá de la Tierra...</p>
+                    <p class="mb-4">Has sido seleccionado como explorador espacial para una misión crítica en <span class="text-yellow-300 font-bold">Zython</span>, un planeta misterioso lleno de terrenos desafiantes y tecnología avanzada.</p>
+                    <p>Tu primera tarea: ensamblar tu compañero robótico que te ayudará en todas las misiones.</p>
+                </div>
+                <button onclick="nextStep()" class="px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 rounded-xl font-bold text-xl transition-all duration-300 transform hover:scale-105 animate-pulse-glow">
+                    🚀 Comenzar Misión
+                </button>
+            </div>
+        </div>
+
+        <div id="step-2" class="step-container min-h-screen flex-col items-center justify-center p-6 hidden">
+            <div class="max-w-4xl text-center animate-slide-in">
+                <div class="text-6xl mb-6 animate-float">🎯</div>
+                <h2 class="text-3xl md:text-5xl font-bold mb-6 text-yellow-300">
+                    MISIÓN 0: Ensamblaje del Robot
+                </h2>
+                <div class="bg-white/10 backdrop-blur-md border-2 border-white/30 rounded-3xl p-8 mb-8">
+                    <div class="text-lg md:text-xl text-white/90 mb-6 leading-relaxed">
+                        <p class="mb-4"><span class="text-red-400 font-bold">⚠️ CRÍTICO:</span> Sin tu robot compañero, las misiones en Zython son imposibles.</p>
+                        <p class="mb-4">Tu RoverBot debe ser ensamblado siguiendo las especificaciones exactas de la Agencia Espacial.</p>
+                        <p>Una vez ensamblado, podrás explorar los cuatro territorios principales de Zython.</p>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-6 text-left">
+                        <div class="bg-blue-600/30 rounded-2xl p-4">
+                            <div class="text-xl font-bold mb-2">📋 Especificaciones</div>
+                            <ul class="text-white/80 space-y-1">
+                                <li>• Chasis resistente a radiación</li>
+                                <li>• Sistema de navegación cuántica</li>
+                                <li>• Sensores de proximidad avanzados</li>
+                                <li>• Módulo de comunicación intergaláctica</li>
+                            </ul>
+                        </div>
+                        <div class="bg-purple-600/30 rounded-2xl p-4">
+                            <div class="text-xl font-bold mb-2">🎯 Objetivo</div>
+                            <ul class="text-white/80 space-y-1">
+                                <li>• Seguir instrucciones paso a paso</li>
+                                <li>• Ensamblar todos los componentes</li>
+                                <li>• Realizar prueba de funcionamiento</li>
+                                <li>• Activar modo exploración</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <button onclick="nextStep()" class="px-8 py-4 bg-gradient-to-r from-green-500 to-blue-600 hover:from-green-600 hover:to-blue-700 rounded-xl font-bold text-xl transition-all duration-300 transform hover:scale-105">
+                    🔧 Iniciar Ensamblaje
+                </button>
+            </div>
+        </div>
+
+        <div id="step-3" class="step-container min-h-screen flex-col items-center justify-center p-6 hidden">
+            <div class="max-w-6xl w-full animate-slide-in">
+                <div class="text-center mb-8">
+                    <div class="text-5xl mb-4 animate-float">🤖</div>
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4 text-cyan-300">
+                        Instrucciones de Ensamblaje
+                    </h2>
+                    <div class="text-lg text-white/80">
+                        Paso <span id="current-step" class="text-yellow-300 font-bold">1</span> de <span class="text-yellow-300 font-bold">6</span>
+                    </div>
+                </div>
+
+                <div class="bg-white/10 backdrop-blur-md border-2 border-white/30 rounded-3xl p-8">
+                    
+                    <div id="assembly-step-1" class="assembly-step hidden">
+                        <div class="grid md:grid-cols-2 gap-8 items-center">
+                            <div class="text-center">
+                                <div class="text-8xl mb-4 animate-float">⚙️</div>
+                                <div class="text-2xl font-bold text-yellow-300 mb-4">Paso 1: Chasis Base</div>
+                            </div>
+                            <div>
+                                <div class="text-xl mb-4">🔧 <span class="font-bold">Conecta el chasis principal</span></div>
+                                <div class="text-white/90 mb-4">
+                                    El chasis es la estructura principal de tu robot. Debe ser resistente y estar bien alineado para soportar todas las misiones en Zython.
+                                </div>
+                                <div class="bg-blue-600/30 rounded-lg p-4">
+                                    <div class="font-bold text-cyan-300 mb-2">💡 Instrucción:</div>
+                                    <div>Ensambla las 4 piezas del chasis formando un rectángulo resistente. Asegúrate de que todas las conexiones estén firmes.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="assembly-step-2" class="assembly-step hidden">
+                        <div class="grid md:grid-cols-2 gap-8 items-center">
+                            <div class="text-center">
+                                <div class="text-8xl mb-4 animate-float">🛞</div>
+                                <div class="text-2xl font-bold text-yellow-300 mb-4">Paso 2: Sistema de Propulsión</div>
+                            </div>
+                            <div>
+                                <div class="text-xl mb-4">🚗 <span class="font-bold">Instala las ruedas y motores</span></div>
+                                <div class="text-white/90 mb-4">
+                                    Los motores permiten que tu robot se mueva con precisión por los terrenos de Zython. Las ruedas deben estar perfectamente calibradas.
+                                </div>
+                                <div class="bg-green-600/30 rounded-lg p-4">
+                                    <div class="font-bold text-green-300 mb-2">💡 Instrucción:</div>
+                                    <div>Conecta 2 motores al chasis y monta 4 ruedas. Verifica que giren libremente y estén alineadas.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="assembly-step-3" class="assembly-step hidden">
+                        <div class="grid md:grid-cols-2 gap-8 items-center">
+                            <div class="text-center">
+                                <div class="text-8xl mb-4 animate-float">🧠</div>
+                                <div class="text-2xl font-bold text-yellow-300 mb-4">Paso 3: Cerebro Cuántico</div>
+                            </div>
+                            <div>
+                                <div class="text-xl mb-4">💻 <span class="font-bold">Instala el procesador principal</span></div>
+                                <div class="text-white/90 mb-4">
+                                    El cerebro cuántico es el corazón de tu robot. Procesará todas las decisiones y comandos durante las misiones.
+                                </div>
+                                <div class="bg-purple-600/30 rounded-lg p-4">
+                                    <div class="font-bold text-purple-300 mb-2">💡 Instrucción:</div>
+                                    <div>Conecta cuidadosamente el microprocessador al centro del chasis. Asegúrate de que todos los cables estén bien conectados.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="assembly-step-4" class="assembly-step hidden">
+                        <div class="grid md:grid-cols-2 gap-8 items-center">
+                            <div class="text-center">
+                                <div class="text-8xl mb-4 animate-float">👁️</div>
+                                <div class="text-2xl font-bold text-yellow-300 mb-4">Paso 4: Sensores</div>
+                            </div>
+                            <div>
+                                <div class="text-xl mb-4">📡 <span class="font-bold">Conecta los sensores de proximidad</span></div>
+                                <div class="text-white/90 mb-4">
+                                    Los sensores permitirán que tu robot detecte obstáculos y navegue de forma segura por Zython.
+                                </div>
+                                <div class="bg-orange-600/30 rounded-lg p-4">
+                                    <div class="font-bold text-orange-300 mb-2">💡 Instrucción:</div>
+                                    <div>Instala los sensores ultrasónicos en la parte frontal del robot. Conecta los cables a los puertos correspondientes.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="assembly-step-5" class="assembly-step hidden">
+                        <div class="grid md:grid-cols-2 gap-8 items-center">
+                            <div class="text-center">
+                                <div class="text-8xl mb-4 animate-float">📡</div>
+                                <div class="text-2xl font-bold text-yellow-300 mb-4">Paso 5: Comunicación</div>
+                            </div>
+                            <div>
+                                <div class="text-xl mb-4">📻 <span class="font-bold">Instala el módulo de comunicación</span></div>
+                                <div class="text-white/90 mb-4">
+                                    Este módulo te mantendrá en contacto con tu robot durante todas las misiones, sin importar la distancia.
+                                </div>
+                                <div class="bg-teal-600/30 rounded-lg p-4">
+                                    <div class="font-bold text-teal-300 mb-2">💡 Instrucción:</div>
+                                    <div>Conecta la antena de comunicación en la parte superior. Asegúrate de que tenga buena recepción de señal.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="assembly-step-6" class="assembly-step hidden">
+                        <div class="grid md:grid-cols-2 gap-8 items-center">
+                            <div class="text-center">
+                                <div class="text-8xl mb-4 animate-float">🔋</div>
+                                <div class="text-2xl font-bold text-yellow-300 mb-4">Paso 6: Energía</div>
+                            </div>
+                            <div>
+                                <div class="text-xl mb-4">⚡ <span class="font-bold">Conecta la fuente de energía</span></div>
+                                <div class="text-white/90 mb-4">
+                                    La batería cuántica proporcionará energía ilimitada para todas las aventuras en Zython.
+                                </div>
+                                <div class="bg-yellow-600/30 rounded-lg p-4">
+                                    <div class="font-bold text-yellow-300 mb-2">💡 Instrucción:</div>
+                                    <div>Instala la batería en el compartimento trasero. Conecta todos los cables de alimentación y verifica las conexiones.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-between mt-8">
+                    <button id="prev-btn" onclick="previousAssemblyStep()" class="px-6 py-3 bg-gray-600 hover:bg-gray-700 rounded-xl font-bold transition-all duration-300 opacity-50" disabled>
+                        ← Anterior
+                    </button>
+                    <button id="next-btn" onclick="nextAssemblyStep()" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-xl font-bold transition-all duration-300">
+                        Siguiente →
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="step-4" class="step-container min-h-screen flex-col items-center justify-center p-6 hidden">
+            <div class="max-w-4xl text-center animate-slide-in">
+                <div class="text-8xl mb-8 animate-float">🔄</div>
+                <h2 class="text-3xl md:text-5xl font-bold mb-6 text-green-400">
+                    ¡Robot Ensamblado!
+                </h2>
+                <div class="bg-white/10 backdrop-blur-md border-2 border-white/30 rounded-3xl p-8 mb-8">
+                    <div class="text-xl md:text-2xl text-white/90 mb-6 leading-relaxed">
+                        <p class="mb-4">🎉 <span class="text-green-400 font-bold">¡Excelente trabajo, explorador!</span></p>
+                        <p class="mb-4">Tu RoverBot ha sido ensamblado correctamente y está listo para las misiones.</p>
+                        <p>Ahora realizaremos una prueba de activación para verificar que todos los sistemas funcionen perfectamente.</p>
+                    </div>
+                    
+                    <div class="bg-green-600/30 rounded-2xl p-6 mb-6">
+                        <div class="text-xl font-bold mb-4 text-green-300">🔧 Verificación de Sistemas</div>
+                        <div class="grid md:grid-cols-2 gap-4 text-left">
+                            <div class="space-y-2">
+                                <div class="flex items-center gap-2">
+                                    <span class="text-green-400">✅</span>
+                                    <span>Chasis: Operativo</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-green-400">✅</span>
+                                    <span>Motores: Funcionando</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-green-400">✅</span>
+                                    <span>Cerebro: Conectado</span>
+                                </div>
+                            </div>
+                            <div class="space-y-2">
+                                <div class="flex items-center gap-2">
+                                    <span class="text-green-400">✅</span>
+                                    <span>Sensores: Activos</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-green-400">✅</span>
+                                    <span>Comunicación: Online</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-green-400">✅</span>
+                                    <span>Energía: 100%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button id="activate-btn" onclick="activateRobot()" class="px-8 py-4 bg-gradient-to-r from-green-500 to-blue-600 hover:from-green-600 hover:to-blue-700 rounded-xl font-bold text-xl transition-all duration-300 transform hover:scale-105 animate-pulse-glow">
+                        🚀 Activar Robot
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="step-5" class="step-container min-h-screen flex-col items-center justify-center p-6 hidden">
+            <div class="max-w-4xl text-center animate-slide-in">
+                <div class="text-8xl mb-8 animate-float">🌟</div>
+                <h2 class="text-3xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-yellow-400 via-orange-400 to-red-400 bg-clip-text text-transparent">
+                    ¡Misión 0 Completada!
+                </h2>
+                <div class="bg-white/10 backdrop-blur-md border-2 border-white/30 rounded-3xl p-8 mb-8">
+                    <div class="text-xl md:text-2xl text-white/90 mb-8 leading-relaxed">
+                        <p class="mb-4">🎯 <span class="text-yellow-400 font-bold">¡Felicitaciones!</span></p>
+                        <p class="mb-4">Tu RoverBot está completamente operativo y listo para explorar Zython.</p>
+                        <p class="mb-6">Ahora tienes acceso a las <span class="text-cyan-400 font-bold">4 zonas principales</span> del planeta:</p>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-2 gap-4 mb-8">
+                        <div class="bg-orange-600/30 rounded-2xl p-4">
+                            <div class="text-4xl mb-2">🏔️</div>
+                            <div class="font-bold text-orange-300">Llanura de Vectonia</div>
+                            <div class="text-sm text-white/80">Calibra tu RoverBot</div>
+                        </div>
+                        <div class="bg-blue-600/30 rounded-2xl p-4">
+                            <div class="text-4xl mb-2">🌀</div>
+                            <div class="font-bold text-blue-300">Paso de Zycurva</div>
+                            <div class="text-sm text-white/80">¡Activa la conexión!</div>
+                        </div>
+                        <div class="bg-purple-600/30 rounded-2xl p-4">
+                            <div class="text-4xl mb-2">🕳️</div>
+                            <div class="font-bold text-purple-300">Cráter del Sensorium</div>
+                            <div class="text-sm text-white/80">¡Detente a tiempo!</div>
+                        </div>
+                        <div class="bg-green-600/30 rounded-2xl p-4">
+                            <div class="text-4xl mb-2">🚛</div>
+                            <div class="font-bold text-green-300">Estación de Transferencia</div>
+                            <div class="text-sm text-white/80">Transporte en equipo</div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-yellow-600/30 rounded-2xl p-6 mb-8">
+                        <div class="text-xl font-bold mb-2 text-yellow-300">🎖️ Logro Desbloqueado</div>
+                        <div class="text-lg">"Constructor de Robots" - Has ensamblado exitosamente tu primer RoverBot</div>
+                    </div>
+                    
+                    <button onclick="goToMissions()" class="px-12 py-5 bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 hover:from-purple-600 hover:via-pink-600 hover:to-red-600 rounded-xl font-bold text-2xl transition-all duration-300 transform hover:scale-105 animate-pulse-glow">
+                        🚀 Ir a las Misiones
+                    </button>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Main Game Content -->
-    <div id="game-content" class="hidden">
-        <!-- Header -->
+    <div id="game-content" class="hidden relative z-10 min-h-screen">
         <header class="relative z-10 p-3 md:p-6 m-2 md:m-4">
             <div class="flex items-center justify-center md:justify-between flex-col md:flex-row gap-4">
                 <div class="flex items-center gap-4">
@@ -118,14 +451,12 @@
             </div>
         </header>
 
-        <!-- Welcome Message -->
         <div class="fixed top-20 left-1/2 transform -translate-x-1/2 z-20 bg-blue-600/90 backdrop-blur-sm border-2 border-blue-400/50 rounded-2xl px-4 py-2 md:px-6 md:py-3 max-w-md text-center" id="welcome-message">
             <div class="text-sm md:text-base">
-                🎉 ¡Robot ensamblado! ¡Listo para las misiones, <span id="welcome-player-name" class="font-bold text-yellow-300"></span>!
+                🎉 ¡Hola <span id="welcome-player-name" class="font-bold text-yellow-300"></span>! ¡Listo para explorar Zython!
             </div>
         </div>
 
-        <!-- Progress panel -->
         <div class="fixed top-2 right-2 md:top-4 md:right-4 z-20 bg-white/80 backdrop-blur-sm border-2 md:border-4 border-white/40 rounded-xl md:rounded-2xl p-2 md:p-4 min-w-[160px] md:min-w-[200px]">
             <div class="grid grid-cols-3 gap-2 md:gap-4 text-center">
                 <div>
@@ -133,52 +464,31 @@
                     <div class="text-[10px] md:text-xs text-gray-800 font-medium">🎯 Disponibles</div>
                 </div>
                 <div>
-                    <div class="text-lg md:text-2xl font-bold text-green-600" id="missions-completed">0</div>
-                    <div class="text-[10px] md:text-xs text-gray-800 font-medium">⭐ Completadas</div>
+                    <div class="text-lg md:text-2xl font-bold text-green-600">0</div>
+                    <div class="text-[10px] md:text-xs text-gray-800 font-medium">⭐ En esta sesión</div>
                 </div>
                 <div>
                     <div class="text-lg md:text-2xl font-bold text-purple-600" id="current-mission">1</div>
-                    <div class="text-[10px] md:text-xs text-gray-800 font-medium">🚀 Próxima</div>
+                    <div class="text-[10px] md:text-xs text-gray-800 font-medium">🚀 Misión Actual</div>
                 </div>
             </div>
         </div>
 
-        <!-- Robot Status -->
-        <div class="fixed top-2 left-2 md:top-4 md:left-4 z-20 bg-green-600/80 backdrop-blur-sm border-2 border-green-400/50 rounded-2xl px-3 py-2 md:px-4 md:py-3">
-            <div class="flex items-center gap-2">
-                <div class="text-lg md:text-xl">🤖</div>
-                <div class="text-xs md:text-sm font-bold">Robot: <span class="text-green-300">Operativo</span></div>
-            </div>
-        </div>
-
-        <!-- New Session button -->
         <div class="fixed bottom-4 left-4 z-20">
             <button 
-                id="new-session-btn" 
+                id="logout-btn" 
                 class="px-4 py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl transition-all duration-300 hover:scale-105 flex items-center gap-2 shadow-lg"
             >
-                🔄 <span class="hidden md:inline">Nueva Sesión</span>
+                🚪 <span class="hidden md:inline">Nueva Sesión</span>
             </button>
         </div>
 
-        <!-- Back to Mission Zero button -->
-        <div class="fixed bottom-4 right-4 z-20">
-            <button 
-                id="back-to-mission-zero" 
-                class="px-4 py-3 bg-orange-600 hover:bg-orange-700 text-white font-bold rounded-xl transition-all duration-300 hover:scale-105 flex items-center gap-2 shadow-lg"
-            >
-                🛠️ <span class="hidden md:inline">Ver Robot</span>
-            </button>
-        </div>
-
-        <!-- Missions container -->
         <div class="absolute top-[200px] md:top-[180px] left-0 right-0 bottom-0 p-4 md:p-10">
-            <!-- Mission 1: Llanura de Vectonia -->
             <div class="absolute top-[2%] left-[5%] md:top-[5%] md:left-[12%] w-[140px] md:w-[220px] z-10">
-                <a href="mision1.html" class="mission-link" id="mission-1-link">
+                <a href="mision1.html" class="mission-link">
                     <div class="flex flex-col items-center cursor-pointer transition-all duration-400 hover:scale-110 hover:-translate-y-2 animate-planet-bounce">
                         <div class="mobile-planet-large w-[140px] h-[140px] md:w-[220px] md:h-[220px] mb-2 md:mb-4 relative rounded-2xl md:rounded-3xl overflow-hidden transition-all duration-400 hover:scale-105 shadow-2xl">
-                            <img src="mision1.png" alt="Llanura de Vectonia" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex items-center justify-center text-4xl md:text-6xl bg-gradient-to-br from-orange-400 via-yellow-400 to-red-400&quot;>🏔️</div>'">
+                            <img src="mision1.png" alt="Llanura de Vectonia" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex items-center justify-center text-4xl md:text-6xl bg-gradient-to-br from-pink-400 via-teal-400 to-green-400&quot;>🏔️</div>'">
                         </div>
                         <div class="text-center bg-black/80 px-2 py-2 md:px-4 md:py-3 rounded-xl md:rounded-2xl border-2 border-white/40 backdrop-blur-sm min-w-[120px] md:min-w-[180px]">
                             <div class="mobile-text-small text-sm md:text-base font-bold mb-1 text-white drop-shadow-lg">Llanura de Vectonia</div>
@@ -189,12 +499,11 @@
                 <div class="absolute -top-1 -right-1 md:-top-2 md:-right-2 w-8 h-8 md:w-11 md:h-11 rounded-full flex items-center justify-center text-sm md:text-xl font-bold border-2 md:border-3 border-white shadow-lg bg-gradient-to-br from-orange-400 to-orange-600 animate-pulse">1</div>
             </div>
 
-            <!-- Mission 2: Paso de Zycurva -->
             <div class="absolute top-[2%] right-[25%] md:top-[12%] md:right-[25%] w-[120px] md:w-[160px] z-10">
-                <a href="mision2.html" class="mission-link" id="mission-2-link">
+                <a href="mision2.html" class="mission-link">
                     <div class="flex flex-col items-center cursor-pointer transition-all duration-400 hover:scale-110 hover:-translate-y-2 animate-planet-bounce">
                         <div class="mobile-planet-medium w-[120px] h-[120px] md:w-[160px] md:h-[160px] mb-2 md:mb-4 relative rounded-2xl md:rounded-3xl overflow-hidden transition-all duration-400 hover:scale-105 shadow-2xl">
-                            <img src="mision2.png" alt="Paso de Zycurva" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex items-center justify-center text-4xl md:text-6xl bg-gradient-to-br from-blue-400 via-cyan-400 to-teal-400&quot;>🌀</div>'">
+                            <img src="mision2.png" alt="Paso de Zycurva" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex items-center justify-center text-4xl md:text-6xl bg-gradient-to-br from-pink-400 via-teal-400 to-green-400&quot;>🌀</div>'">
                         </div>
                         <div class="text-center bg-black/80 px-2 py-2 md:px-4 md:py-3 rounded-xl md:rounded-2xl border-2 border-white/40 backdrop-blur-sm min-w-[100px] md:min-w-[140px]">
                             <div class="mobile-text-small text-xs md:text-sm font-bold mb-1 text-white drop-shadow-lg">Paso de Zycurva</div>
@@ -205,12 +514,11 @@
                 <div class="absolute -top-1 -right-1 md:-top-2 md:-right-2 w-8 h-8 md:w-11 md:h-11 rounded-full flex items-center justify-center text-sm md:text-xl font-bold border-2 md:border-3 border-white shadow-lg bg-gradient-to-br from-blue-400 to-blue-600 animate-pulse">2</div>
             </div>
 
-            <!-- Mission 3: Cráter del Sensorium -->
             <div class="absolute bottom-[40%] left-[10%] md:bottom-[30%] md:left-[28%] w-[100px] md:w-[140px] z-10">
-                <a href="mision3.html" class="mission-link" id="mission-3-link">
+                <a href="mision3.html" class="mission-link">
                     <div class="flex flex-col items-center cursor-pointer transition-all duration-400 hover:scale-110 hover:-translate-y-2 animate-planet-bounce">
                         <div class="mobile-planet-small w-[100px] h-[100px] md:w-[140px] md:h-[140px] mb-2 md:mb-4 relative rounded-2xl md:rounded-3xl overflow-hidden transition-all duration-400 hover:scale-105 shadow-2xl">
-                            <img src="mision3.png" alt="Cráter del Sensorium" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex items-center justify-center text-4xl md:text-6xl bg-gradient-to-br from-purple-400 via-pink-400 to-red-400&quot;>🕳️</div>'">
+                            <img src="mision3.png" alt="Cráter del Sensorium" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex items-center justify-center text-4xl md:text-6xl bg-gradient-to-br from-pink-400 via-teal-400 to-green-400&quot;>🕳️</div>'">
                         </div>
                         <div class="text-center bg-black/80 px-2 py-2 md:px-4 md:py-3 rounded-xl md:rounded-2xl border-2 border-white/40 backdrop-blur-sm min-w-[80px] md:min-w-[120px]">
                             <div class="mobile-text-small text-xs md:text-sm font-bold mb-1 text-white drop-shadow-lg">Cráter del Sensorium</div>
@@ -221,34 +529,34 @@
                 <div class="absolute -top-1 -right-1 md:-top-2 md:-right-2 w-7 h-7 md:w-10 md:h-10 rounded-full flex items-center justify-center text-sm md:text-lg font-bold border-2 md:border-3 border-white shadow-lg bg-gradient-to-br from-purple-400 to-purple-600 animate-pulse">3</div>
             </div>
 
-            <!-- Mission 4: Estación de Transferencia -->
             <div class="absolute bottom-[25%] right-[25%] md:bottom-[17%] md:right-[35%] w-[120px] md:w-[190px] z-10">
-                <a href="mision4.html" class="mission-link" id="mission-4-link">
+                <a href="mision4.html" class="mission-link">
                     <div class="flex flex-col items-center cursor-pointer transition-all duration-400 hover:scale-110 hover:-translate-y-2 animate-planet-bounce">
                         <div class="mobile-planet-medium w-[120px] h-[120px] md:w-[190px] md:h-[190px] mb-2 md:mb-4 relative rounded-2xl md:rounded-3xl overflow-hidden transition-all duration-400 hover:scale-105 shadow-2xl">
-                            <img src="mision4.png" alt="Estación de Transferencia" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex items-center justify-center text-4xl md:text-6xl bg-gradient-to-br from-green-400 via-emerald-400 to-teal-400&quot;>🚛</div>'">
+                            <img src="mision4.png" alt="Estación de Transferencia" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex items-center justify-center text-4xl md:text-6xl bg-gradient-to-br from-pink-400 via-teal-400 to-green-400&quot;>🚛</div>'">
                         </div>
                         <div class="text-center bg-black/80 px-2 py-2 md:px-4 md:py-3 rounded-xl md:rounded-2xl border-2 border-white/40 backdrop-blur-sm min-w-[100px] md:min-w-[170px]">
                             <div class="mobile-text-small text-sm md:text-base font-bold mb-1 text-white drop-shadow-lg">Estación de Transferencia</div>
-                            <div class="mobile-text-xs text-[10px] md:text-sm text-white/90 drop-shadow">Transporte en equipo</div>
+                            <div class="mobile-text-xs text-[10px] md:text-xs text-white/90 drop-shadow">Transporte en equipo</div>
                         </div>
                     </div>
                 </a>
                 <div class="absolute -top-1 -right-1 md:-top-2 md:-right-2 w-8 h-8 md:w-11 md:h-11 rounded-full flex items-center justify-center text-sm md:text-xl font-bold border-2 md:border-3 border-white shadow-lg bg-gradient-to-br from-green-400 to-green-600 animate-pulse">4</div>
             </div>
 
-            <!-- Robot -->
             <div class="absolute bottom-2 right-2 md:bottom-4 md:right-4 w-[120px] h-[120px] md:w-[500px] md:h-[500px] z-10">
                 <img src="robot.png" alt="Robot Compañero" class="w-full h-full object-contain" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex items-center justify-center text-6xl md:text-9xl&quot;>🤖</div>'">
             </div>
         </div>
     </div>
-
+    
     <script>
-        let currentPlayerName = '';
-        let missionZeroCompleted = false;
-        
-        // Create stars background
+        let currentStep = 0; // 0 for login, 1-5 for mission-zero flow, 6 for game-content
+        let currentAssemblyStep = 1;
+        let totalSteps = 5;
+        let totalAssemblySteps = 6;
+        let playerName = '';
+
         function createStars() {
             const starsContainer = document.getElementById('stars');
             if (!starsContainer) return;
@@ -264,90 +572,116 @@
                 starsContainer.appendChild(star);
             }
         }
-
-        // Check game state and decide what to show
-        function checkGameState() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const playerName = urlParams.get('name');
-            const missionZeroParam = urlParams.get('missionZeroCompleted');
-            
-            console.log('Checking game state:', { playerName, missionZeroParam }); // Debug
-            
-            // Check URL parameters first (coming from Mission Zero)
-            if (playerName && missionZeroParam === 'true') {
-                currentPlayerName = decodeURIComponent(playerName);
-                missionZeroCompleted = true;
-                showMainGame();
-                return;
-            }
-            
-            // Check sessionStorage as backup
-            const storedName = sessionStorage.getItem('playerName');
-            const storedMissionZero = sessionStorage.getItem('missionZeroCompleted');
-            
-            if (storedName && storedMissionZero === 'true') {
-                currentPlayerName = storedName;
-                missionZeroCompleted = true;
-                showMainGame();
-                return;
-            }
-            
-            // If we have a name but no Mission Zero completion
-            if (playerName || storedName) {
-                currentPlayerName = playerName ? decodeURIComponent(playerName) : storedName;
-                showNeedMissionZero();
-                return;
-            }
-            
-            // No data at all - this is first time, redirect to Mission Zero
-            console.log('First time visit, redirecting to Mission Zero');
-            redirectToMissionZero();
+        
+        function showAllSteps() {
+            // Hide all main containers
+            document.getElementById('login-screen').classList.add('hidden');
+            document.getElementById('mission-zero-flow').classList.add('hidden');
+            document.getElementById('game-content').classList.add('hidden');
         }
 
-        function showMainGame() {
-            const gameContent = document.getElementById('game-content');
-            const needMissionScreen = document.getElementById('need-mission-zero-screen');
-            const playerNameDisplay = document.getElementById('player-name-display');
-            const welcomePlayerName = document.getElementById('welcome-player-name');
+        function showStep(stepNumber) {
+            showAllSteps();
+            // Show the appropriate container
+            if (stepNumber === 0) {
+                document.getElementById('login-screen').classList.remove('hidden');
+            } else if (stepNumber <= 5) {
+                document.getElementById('mission-zero-flow').classList.remove('hidden');
+                // Hide all mission-zero steps
+                for (let i = 1; i <= totalSteps; i++) {
+                    const step = document.getElementById(`step-${i}`);
+                    if (step) {
+                        step.classList.add('hidden');
+                        step.classList.remove('flex');
+                    }
+                }
+                // Show current mission-zero step
+                const currentStepElement = document.getElementById(`step-${stepNumber}`);
+                if (currentStepElement) {
+                    currentStepElement.classList.remove('hidden');
+                    currentStepElement.classList.add('flex');
+                }
+            } else { // stepNumber > 5, show game-content
+                document.getElementById('game-content').classList.remove('hidden');
+            }
+        }
+
+        function nextStep() {
+            currentStep++;
+            showStep(currentStep);
+        }
+        
+        function showAssemblyStep(stepNumber) {
+            for (let i = 1; i <= totalAssemblySteps; i++) {
+                const step = document.getElementById(`assembly-step-${i}`);
+                if (step) {
+                    step.classList.add('hidden');
+                }
+            }
+            const currentAssemblyStepElement = document.getElementById(`assembly-step-${stepNumber}`);
+            if (currentAssemblyStepElement) {
+                currentAssemblyStepElement.classList.remove('hidden');
+            }
             
-            // Update displays
-            if (playerNameDisplay) playerNameDisplay.textContent = currentPlayerName;
-            if (welcomePlayerName) welcomePlayerName.textContent = currentPlayerName;
+            const stepCounter = document.getElementById('current-step');
+            if (stepCounter) {
+                stepCounter.textContent = stepNumber;
+            }
             
-            // Show main game
-            gameContent.classList.remove('hidden');
-            needMissionScreen.classList.add('hidden');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
             
-            // Hide welcome message after delay
+            if (prevBtn) {
+                prevBtn.disabled = stepNumber === 1;
+                prevBtn.classList.toggle('opacity-50', stepNumber === 1);
+            }
+            
+            if (nextBtn) {
+                if (stepNumber === totalAssemblySteps) {
+                    nextBtn.textContent = 'Completar ✅';
+                    nextBtn.onclick = () => nextStep();
+                } else {
+                    nextBtn.textContent = 'Siguiente →';
+                    nextBtn.onclick = () => nextAssemblyStep();
+                }
+            }
+        }
+
+        function nextAssemblyStep() {
+            if (currentAssemblyStep < totalAssemblySteps) {
+                currentAssemblyStep++;
+                showAssemblyStep(currentAssemblyStep);
+            }
+        }
+
+        function previousAssemblyStep() {
+            if (currentAssemblyStep > 1) {
+                currentAssemblyStep--;
+                showAssemblyStep(currentAssemblyStep);
+            }
+        }
+
+        function activateRobot() {
+            const button = event.target;
+            button.innerHTML = '🔄 Activando...';
+            button.disabled = true;
+            
+            setTimeout(() => {
+                button.innerHTML = '✅ ¡Activado!';
+                button.classList.remove('bg-gradient-to-r', 'from-green-500', 'to-blue-600');
+                button.classList.add('bg-green-600');
+                
+                setTimeout(() => {
+                    nextStep();
+                }, 1500);
+            }, 2000);
+        }
+
+        function goToMissions() {
+            showStep(6); // 6 maps to the game-content screen
             hideWelcomeMessage();
         }
 
-        function showNeedMissionZero() {
-            const gameContent = document.getElementById('game-content');
-            const needMissionScreen = document.getElementById('need-mission-zero-screen');
-            
-            gameContent.classList.add('hidden');
-            needMissionScreen.classList.remove('hidden');
-        }
-
-        function redirectToMissionZero() {
-            window.location.href = 'mission-zero.html';
-        }
-
-        function redirectToMissionZeroWithName() {
-            const playerName = encodeURIComponent(currentPlayerName);
-            window.location.href = `mission-zero.html?name=${playerName}`;
-        }
-
-        function startNewGame() {
-            // Clear all stored data
-            sessionStorage.clear();
-            
-            // Redirect to Mission Zero without parameters
-            window.location.href = 'mission-zero.html';
-        }
-
-        // Hide welcome message after delay
         function hideWelcomeMessage() {
             setTimeout(() => {
                 const welcomeMessage = document.getElementById('welcome-message');
@@ -359,52 +693,79 @@
                         welcomeMessage.style.display = 'none';
                     }, 500);
                 }
-            }, 4000); // Show for 4 seconds
+            }, 4000);
         }
 
-        // Initialize application
+        function resetToInitialState() {
+            const nameInput = document.getElementById('player-name-input');
+            const startButton = document.getElementById('start-game');
+            
+            if (nameInput) {
+                nameInput.value = '';
+                setTimeout(() => nameInput.focus(), 100);
+            }
+            if (startButton) {
+                startButton.disabled = true;
+            }
+            
+            playerName = '';
+            currentStep = 0;
+            currentAssemblyStep = 1;
+            showStep(currentStep);
+            showAssemblyStep(currentAssemblyStep);
+        }
+        
         function initialize() {
             createStars();
             
-            // Check what state we should be in
-            checkGameState();
-            
-            // Set up event listeners
-            const goToMissionZeroBtn = document.getElementById('go-to-mission-zero');
-            const startNewGameBtn = document.getElementById('start-new-game');
-            const newSessionBtn = document.getElementById('new-session-btn');
-            const backToMissionZeroBtn = document.getElementById('back-to-mission-zero');
-            
-            if (goToMissionZeroBtn) {
-                goToMissionZeroBtn.addEventListener('click', redirectToMissionZeroWithName);
+            const nameInput = document.getElementById('player-name-input');
+            const startButton = document.getElementById('start-game');
+            const playerNameDisplay = document.getElementById('player-name-display');
+            const welcomePlayerName = document.getElementById('welcome-player-name');
+            const logoutBtn = document.getElementById('logout-btn');
+
+            if (nameInput && startButton) {
+                nameInput.addEventListener('input', () => {
+                    const name = nameInput.value.trim();
+                    startButton.disabled = name.length < 2;
+                });
+
+                nameInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter' && !startButton.disabled) {
+                        startGame();
+                    }
+                });
+
+                startButton.addEventListener('click', startGame);
+                nameInput.focus();
             }
-            
-            if (startNewGameBtn) {
-                startNewGameBtn.addEventListener('click', startNewGame);
+
+            function startGame() {
+                playerName = nameInput.value.trim();
+                if (playerName.length < 2) return;
+
+                if (playerNameDisplay) playerNameDisplay.textContent = playerName;
+                if (welcomePlayerName) welcomePlayerName.textContent = playerName;
+                
+                currentStep = 1;
+                showStep(currentStep);
+                showAssemblyStep(currentAssemblyStep);
             }
-            
-            if (newSessionBtn) {
-                newSessionBtn.addEventListener('click', function(e) {
+
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', function(e) {
                     e.preventDefault();
                     e.stopPropagation();
-                    
-                    // Add visual feedback
                     this.style.transform = 'scale(0.95)';
                     setTimeout(() => {
                         this.style.transform = 'scale(1)';
-                        startNewGame();
                     }, 150);
-                });
-            }
-            
-            if (backToMissionZeroBtn) {
-                backToMissionZeroBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    redirectToMissionZeroWithName();
+                    resetToInitialState();
                 });
             }
         }
 
-        // Start when page loads
         document.addEventListener('DOMContentLoaded', initialize);
+    </script>
+</body>
+</html>
