@@ -30,206 +30,57 @@
     </style>
 </head>
 <body class="min-h-screen bg-gradient-to-b from-purple-900 via-blue-900 to-black text-white relative overflow-auto">
-    <!-- Space Background -->
     <div class="stars" id="stars"></div>
     
-    <!-- Header -->
-    <header class="relative z-10 bg-gradient-to-r from-pink-400 via-teal-400 to-blue-400 border-4 border-white rounded-b-3xl p-6 m-4">
+    <header class="relative z-10 bg-gradient-to-r from-orange-400 to-orange-600 border-4 border-white rounded-b-3xl p-6 m-4">
         <div class="flex items-center justify-between">
-            <button onclick="volverAMisiones()" class="flex items-center gap-4 hover:scale-105 transition-transform">
-                <div class="text-3xl">🚀</div>
-                <div>
-                    <div class="text-xl font-bold">← Volver a Misiones</div>
-                    <div class="text-sm opacity-90">Exploración de Zython</div>
-                </div>
+            <button onclick="volverAMisiones()" class="px-4 py-2 bg-white text-orange-600 font-bold rounded-full shadow-lg transition-transform transform hover:scale-105">
+                ← Volver a Misiones
             </button>
-            <div class="text-right">
-                <div class="text-lg font-bold" id="player-name-display">Explorador</div>
-                <div class="text-sm opacity-90">Misión 1</div>
+            <div class="flex items-center space-x-4">
+                <div class="text-3xl font-extrabold text-white drop-shadow-lg">MISIÓN 1</div>
+                <div class="text-4xl text-yellow-300">⚙️</div>
             </div>
-            <div id="completion-badge" class="hidden bg-green-500 px-4 py-2 rounded-full border-2 border-white flex items-center gap-2">
-                <span class="text-xl">✅</span>
-                <span class="font-bold">¡Completada!</span>
+            <div id="completion-badge" class="hidden px-4 py-2 bg-green-500 text-white font-bold rounded-full shadow-lg">
+                ✅ Completada
             </div>
         </div>
     </header>
 
-    <!-- Mission Content -->
-    <div class="relative z-10 max-w-4xl mx-auto p-6">
-        <div class="bg-gradient-to-br from-purple-600/20 to-blue-600/20 backdrop-blur-sm border-4 border-white/30 rounded-3xl p-8 mb-8">
-            <h1 class="text-4xl font-bold mb-6 text-center bg-gradient-to-r from-yellow-300 to-orange-400 bg-clip-text text-transparent">
-                Llanura de Vectonia
-            </h1>
-
-            <div class="text-lg leading-relaxed mb-8 text-center text-white/90">
-                En esta primera misión, aprenderás los fundamentos del control de motores y la calibración de tu RoverBot.
-            </div>
-
-            <!-- Objectives -->
-            <div class="bg-white/10 rounded-2xl p-6 mb-8 border-2 border-white/20">
-                <h3 class="text-2xl font-bold mb-4 text-yellow-300 flex items-center gap-2">
-                    🎯 Objetivos de Aprendizaje
-                </h3>
-                <ul class="space-y-3">
-                    <li class="flex items-start gap-3 text-white/90">
-                        <span class="text-xl">🚀</span>
-                        <span class="leading-relaxed">Comprender los principios básicos del control de motores</span>
-                    </li>
-                    <li class="flex items-start gap-3 text-white/90">
-                        <span class="text-xl">🚀</span>
-                        <span class="leading-relaxed">Aprender a calibrar la potencia y el tiempo de activación</span>
-                    </li>
-                    <li class="flex items-start gap-3 text-white/90">
-                        <span class="text-xl">🚀</span>
-                        <span class="leading-relaxed">Desarrollar precisión en el control de distancias</span>
-                    </li>
-                </ul>
-            </div>
-
-            <!-- Mission Content -->
-            <div class="bg-white/10 rounded-2xl p-6 mb-8 border-2 border-white/20">
-                <h3 class="text-2xl font-bold mb-4 text-teal-300 flex items-center gap-2">📚 Contenido de la Misión</h3>
-                <div class="text-white/90 leading-relaxed space-y-4">
-                    <p>En esta primera misión, aprenderás los fundamentos del control de motores y la calibración de tu RoverBot.</p>
-                    <p><strong>Contexto:</strong> Has aterrizado en la superficie del planeta Zython. Tu RoverBot debe salir de la base espacial y recorrer exactamente 50 centímetros hasta el primer punto de control.</p>
-                    <p><strong>Desafío:</strong> Debes encontrar la combinación correcta de potencia del motor y tiempo de activación para lograr la distancia exacta.</p>
+    <main class="relative z-10 p-6 md:p-10 max-w-4xl mx-auto">
+        <section class="bg-white/10 backdrop-blur-sm rounded-3xl p-6 md:p-8 border-4 border-white/30 shadow-2xl mb-8">
+            <h2 class="text-2xl md:text-3xl font-bold text-center mb-4 text-yellow-300">Calibración en la Llanura de Vectonia</h2>
+            <p class="text-lg text-white/90 text-center mb-6">Tu RoverBot ha aterrizado. Su primera tarea es calibrar sus sensores de movimiento en la superficie plana. Utiliza las instrucciones para programar la ruta correcta.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                <div>
+                    <img src="mision1.png" alt="Llanura de Vectonia" class="w-full rounded-2xl border-4 border-white/50 shadow-xl" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-auto aspect-video flex items-center justify-center text-4xl md:text-6xl bg-gradient-to-br from-pink-400 via-teal-400 to-green-400&quot;>🏔️</div>'">
+                </div>
+                <div class="bg-black/40 p-4 rounded-xl border-2 border-white/40">
+                    <h3 class="text-xl md:text-2xl font-semibold mb-3 text-white">Objetivo de la Misión:</h3>
+                    <ul class="list-disc list-inside space-y-2 text-white/90">
+                        <li>Calibrar los motores del RoverBot.</li>
+                        <li>Programar un movimiento en línea recta de 5 metros.</li>
+                        <li>Verificar la precisión del movimiento.</li>
+                    </ul>
                 </div>
             </div>
-
-            <!-- Activities -->
-            <div class="bg-white/10 rounded-2xl p-6 mb-8 border-2 border-white/20">
-                <h3 class="text-2xl font-bold mb-4 text-green-300 flex items-center gap-2">🔧 Actividades Prácticas</h3>
-                <div class="space-y-4">
-                    <div class="bg-black/30 rounded-xl p-4 border border-white/10">
-                        <div class="flex items-center gap-3 mb-2">
-                            <span class="bg-green-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">1</span>
-                            <span class="font-semibold text-white">Medir y registrar la distancia recorrida con diferentes potencias del motor</span>
-                        </div>
-                    </div>
-                    <div class="bg-black/30 rounded-xl p-4 border border-white/10">
-                        <div class="flex items-center gap-3 mb-2">
-                            <span class="bg-green-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">2</span>
-                            <span class="font-semibold text-white">Crear una tabla de datos con tiempo vs distancia</span>
-                        </div>
-                    </div>
-                    <div class="bg-black/30 rounded-xl p-4 border border-white/10">
-                        <div class="flex items-center gap-3 mb-2">
-                            <span class="bg-green-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">3</span>
-                            <span class="font-semibold text-white">Calcular la potencia óptima para recorrer exactamente 50 cm</span>
-                        </div>
-                    </div>
-                    <div class="bg-black/30 rounded-xl p-4 border border-white/10">
-                        <div class="flex items-center gap-3 mb-2">
-                            <span class="bg-green-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">4</span>
-                            <span class="font-semibold text-white">Realizar 3 intentos y registrar los resultados</span>
-                        </div>
-                    </div>
-                    <div class="bg-black/30 rounded-xl p-4 border border-white/10">
-                        <div class="flex items-center gap-3 mb-2">
-                            <span class="bg-green-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">5</span>
-                            <span class="font-semibold text-white">Analizar las diferencias entre los intentos</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Tips -->
-            <div class="bg-white/10 rounded-2xl p-6 mb-8 border-2 border-white/20">
-                <h3 class="text-2xl font-bold mb-4 text-orange-300 flex items-center gap-2">💡 Consejos y Trucos</h3>
-                <div class="space-y-3">
-                    <div class="flex items-start gap-3 text-white/90">
-                        <span class="text-xl">💡</span>
-                        <span class="leading-relaxed">Comienza con potencias bajas para tener mayor control</span>
-                    </div>
-                    <div class="flex items-start gap-3 text-white/90">
-                        <span class="text-xl">💡</span>
-                        <span class="leading-relaxed">Registra todos los datos, incluso los intentos fallidos</span>
-                    </div>
-                    <div class="flex items-start gap-3 text-white/90">
-                        <span class="text-xl">💡</span>
-                        <span class="leading-relaxed">La superficie puede afectar la velocidad del robot</span>
-                    </div>
-                    <div class="flex items-start gap-3 text-white/90">
-                        <span class="text-xl">💡</span>
-                        <span class="leading-relaxed">Usa un cronómetro para medir tiempos exactos</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Action Buttons -->
-            <div class="flex gap-4 justify-center">
-                <button id="complete-btn" onclick="completeMission()" class="bg-gradient-to-r from-green-400 to-green-600 hover:from-green-500 hover:to-green-700 px-8 py-4 rounded-2xl border-3 border-white font-bold text-lg transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(34,197,94,0.5)]">
-                    🏆 Completar Misión
+            
+            <div class="mt-8 flex justify-center">
+                <button id="complete-btn" onclick="completeMission()" class="px-6 py-3 bg-gradient-to-r from-green-500 to-green-700 text-white font-bold text-lg rounded-full shadow-lg transition-transform transform hover:scale-110 hover:shadow-2xl">
+                    Completar Misión
                 </button>
-                <div id="completed-btn" class="hidden bg-gradient-to-r from-green-400 to-green-600 px-8 py-4 rounded-2xl border-3 border-white font-bold text-lg opacity-75">
-                    ✅ Misión Completada
-                </div>
-                <button onclick="volverAMisiones()" class="bg-gradient-to-r from-blue-400 to-blue-600 hover:from-blue-500 hover:to-blue-700 px-8 py-4 rounded-2xl border-3 border-white font-bold text-lg transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(59,130,246,0.5)]">
-                    🚀 Volver a Misiones
-                </button>
+                <a href="index.html" id="completed-btn" class="hidden px-6 py-3 bg-white text-green-600 font-bold text-lg rounded-full shadow-lg transition-transform transform hover:scale-110 hover:shadow-2xl">
+                    Volver a Misiones
+                </a>
             </div>
-        </div>
-    </div>
+        </section>
+    </main>
 
     <script>
-        // Sistema de gestión de jugadores con localStorage
-        function getCurrentPlayer() {
-            try {
-                return localStorage.getItem('zython-current-player');
-            } catch (error) {
-                console.error('Error getting current player:', error);
-                return null;
-            }
-        }
-
-        function loadPlayerProgress(playerName) {
-            try {
-                const players = JSON.parse(localStorage.getItem('zython-players') || '{}');
-                return players[playerName] || {
-                    completedMissions: [],
-                    available: 1,
-                    completed: 0,
-                    badges: 0,
-                    currentMission: 1
-                };
-            } catch (error) {
-                console.error('Error loading progress:', error);
-                return {
-                    completedMissions: [],
-                    available: 1,
-                    completed: 0,
-                    badges: 0,
-                    currentMission: 1
-                };
-            }
-        }
-
-        function savePlayerProgress(playerName, progress) {
-            try {
-                const players = JSON.parse(localStorage.getItem('zython-players') || '{}');
-                players[playerName] = progress;
-                localStorage.setItem('zython-players', JSON.stringify(players));
-                console.log('Progress saved for:', playerName, progress);
-            } catch (error) {
-                console.error('Error saving progress:', error);
-            }
-        }
-
-        // Función para volver a misiones manteniendo la sesión
-        function volverAMisiones() {
-            const currentPlayer = getCurrentPlayer();
-            if (currentPlayer) {
-                // Redirigir directamente al mapa con el jugador como parámetro URL
-                window.location.href = `index.html?player=${encodeURIComponent(currentPlayer)}`;
-            } else {
-                console.warn('No current player found, going to main page');
-                window.location.href = 'index.html';
-            }
-        }
-
-        // Create stars background
         function createStars() {
             const starsContainer = document.getElementById('stars');
+            if (!starsContainer) return;
             for (let i = 0; i < 100; i++) {
                 const star = document.createElement('div');
                 star.className = 'star';
@@ -242,29 +93,44 @@
             }
         }
 
-        // Check if mission is completed and update UI
-        function checkCompletion() {
-            const currentPlayer = getCurrentPlayer();
-            if (!currentPlayer) {
-                console.warn('No current player found, redirecting to main page');
-                // Si no hay jugador, redirigir al inicio
-                window.location.href = 'index.html';
-                return;
-            }
+        // Funciones para guardar y cargar el progreso en localStorage
+        function getCurrentPlayer() {
+            return localStorage.getItem('zython-current-player');
+        }
 
-            // Mostrar nombre del jugador
-            document.getElementById('player-name-display').textContent = currentPlayer;
-
-            // Verificar si la misión está completada
-            const progress = loadPlayerProgress(currentPlayer);
-            if (progress.completedMissions.includes(1)) {
-                document.getElementById('completion-badge').classList.remove('hidden');
-                document.getElementById('complete-btn').classList.add('hidden');
-                document.getElementById('completed-btn').classList.remove('hidden');
+        function loadPlayerProgress(playerName) {
+            try {
+                const players = JSON.parse(localStorage.getItem('zython-players') || '{}');
+                return players[playerName] || { completedMissions: [], completed: 0, currentMission: 1, available: 1, badges: 0 };
+            } catch (error) {
+                console.error('Error loading progress:', error);
+                return { completedMissions: [], completed: 0, currentMission: 1, available: 1, badges: 0 };
             }
         }
 
-        // Complete mission
+        function savePlayerProgress(playerName, progress) {
+            try {
+                const players = JSON.parse(localStorage.getItem('zython-players') || '{}');
+                players[playerName] = progress;
+                localStorage.setItem('zython-players', JSON.stringify(players));
+            } catch (error) {
+                console.error('Error saving progress:', error);
+            }
+        }
+
+        // Función para verificar si la misión ya está completada al cargar la página
+        function checkCompletion() {
+            const currentPlayer = getCurrentPlayer();
+            if (currentPlayer) {
+                const progress = loadPlayerProgress(currentPlayer);
+                if (progress.completedMissions.includes(1)) {
+                    document.getElementById('completion-badge').classList.remove('hidden');
+                    document.getElementById('complete-btn').classList.add('hidden');
+                    document.getElementById('completed-btn').classList.remove('hidden');
+                }
+            }
+        }
+
         function completeMission() {
             const currentPlayer = getCurrentPlayer();
             if (!currentPlayer) {
@@ -297,6 +163,10 @@
             } else {
                 alert('Esta misión ya ha sido completada anteriormente.');
             }
+        }
+
+        function volverAMisiones() {
+            window.location.href = 'index.html';
         }
 
         // Initialize
