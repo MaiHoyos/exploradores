@@ -67,6 +67,18 @@
             text-decoration: none;
             color: inherit;
         }
+
+        .locked {
+            filter: grayscale(100%);
+            pointer-events: none;
+            cursor: not-allowed;
+            opacity: 0.5;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .locked:hover {
+            transform: none !important;
+        }
     </style>
 </head>
 <body class="min-h-screen bg-gradient-to-b from-purple-900 via-blue-900 to-black text-white overflow-hidden relative">
@@ -97,7 +109,7 @@
                 </div>
                 <div>
                     <div class="text-lg md:text-2xl font-bold text-green-600">0</div>
-                    <div class="text-[10px] md:text-xs text-gray-800 font-medium">⭐ En esta sesión</div>
+                    <div class="text-[10px] md:text-xs text-gray-800 font-medium">⭐ Completadas</div>
                 </div>
                 <div>
                     <div class="text-lg md:text-2xl font-bold text-purple-600" id="current-mission">1</div>
@@ -106,17 +118,8 @@
             </div>
         </div>
 
-        <div class="fixed bottom-4 left-4 z-20">
-            <button 
-                id="logout-btn" 
-                class="px-4 py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl transition-all duration-300 hover:scale-105 flex items-center gap-2 shadow-lg"
-            >
-                🚪 <span class="hidden md:inline">Nueva Sesión</span>
-            </button>
-        </div>
-
         <div class="absolute top-[200px] md:top-[180px] left-0 right-0 bottom-0 p-4 md:p-10">
-            <div class="absolute top-[2%] left-[5%] md:top-[5%] md:left-[12%] w-[140px] md:w-[220px] z-10">
+            <div class="absolute top-[2%] left-[5%] md:top-[5%] md:left-[12%] w-[140px] md:w-[220px] z-10" data-mission-id="1">
                 <a href="mision1.html" class="mission-link">
                     <div class="flex flex-col items-center cursor-pointer transition-all duration-400 hover:scale-110 hover:-translate-y-2 animate-planet-bounce">
                         <div class="mobile-planet-large w-[140px] h-[140px] md:w-[220px] md:h-[220px] mb-2 md:mb-4 relative rounded-2xl md:rounded-3xl overflow-hidden transition-all duration-400 hover:scale-105 shadow-2xl">
@@ -128,10 +131,10 @@
                         </div>
                     </div>
                 </a>
-                <div class="absolute -top-1 -right-1 md:-top-2 md:-right-2 w-8 h-8 md:w-11 md:h-11 rounded-full flex items-center justify-center text-sm md:text-xl font-bold border-2 md:border-3 border-white shadow-lg bg-gradient-to-br from-orange-400 to-orange-600 animate-pulse">1</div>
+                <div class="absolute -top-1 -right-1 md:-top-2 md:-right-2 w-8 h-8 md:w-11 md:h-11 rounded-full flex items-center justify-center text-sm md:text-xl font-bold border-2 md:border-3 border-white shadow-lg bg-gradient-to-br from-orange-400 to-orange-600">1</div>
             </div>
 
-            <div class="absolute top-[2%] right-[25%] md:top-[12%] md:right-[25%] w-[120px] md:w-[160px] z-10">
+            <div class="absolute top-[2%] right-[25%] md:top-[12%] md:right-[25%] w-[120px] md:w-[160px] z-10 locked" data-mission-id="2">
                 <a href="mision2.html" class="mission-link">
                     <div class="flex flex-col items-center cursor-pointer transition-all duration-400 hover:scale-110 hover:-translate-y-2 animate-planet-bounce">
                         <div class="mobile-planet-medium w-[120px] h-[120px] md:w-[160px] md:h-[160px] mb-2 md:mb-4 relative rounded-2xl md:rounded-3xl overflow-hidden transition-all duration-400 hover:scale-105 shadow-2xl">
@@ -143,10 +146,10 @@
                         </div>
                     </div>
                 </a>
-                <div class="absolute -top-1 -right-1 md:-top-2 md:-right-2 w-8 h-8 md:w-11 md:h-11 rounded-full flex items-center justify-center text-sm md:text-xl font-bold border-2 md:border-3 border-white shadow-lg bg-gradient-to-br from-blue-400 to-blue-600 animate-pulse">2</div>
+                <div class="absolute -top-1 -right-1 md:-top-2 md:-right-2 w-8 h-8 md:w-11 md:h-11 rounded-full flex items-center justify-center text-sm md:text-xl font-bold border-2 md:border-3 border-white shadow-lg bg-gradient-to-br from-blue-400 to-blue-600">2</div>
             </div>
 
-            <div class="absolute bottom-[40%] left-[10%] md:bottom-[30%] md:left-[28%] w-[100px] md:w-[140px] z-10">
+            <div class="absolute bottom-[40%] left-[10%] md:bottom-[30%] md:left-[28%] w-[100px] md:w-[140px] z-10 locked" data-mission-id="3">
                 <a href="mision3.html" class="mission-link">
                     <div class="flex flex-col items-center cursor-pointer transition-all duration-400 hover:scale-110 hover:-translate-y-2 animate-planet-bounce">
                         <div class="mobile-planet-small w-[100px] h-[100px] md:w-[140px] md:h-[140px] mb-2 md:mb-4 relative rounded-2xl md:rounded-3xl overflow-hidden transition-all duration-400 hover:scale-105 shadow-2xl">
@@ -158,10 +161,10 @@
                         </div>
                     </div>
                 </a>
-                <div class="absolute -top-1 -right-1 md:-top-2 md:-right-2 w-7 h-7 md:w-10 md:h-10 rounded-full flex items-center justify-center text-sm md:text-lg font-bold border-2 md:border-3 border-white shadow-lg bg-gradient-to-br from-purple-400 to-purple-600 animate-pulse">3</div>
+                <div class="absolute -top-1 -right-1 md:-top-2 md:-right-2 w-7 h-7 md:w-10 md:h-10 rounded-full flex items-center justify-center text-sm md:text-lg font-bold border-2 md:border-3 border-white shadow-lg bg-gradient-to-br from-purple-400 to-purple-600">3</div>
             </div>
 
-            <div class="absolute bottom-[25%] right-[25%] md:bottom-[17%] md:right-[35%] w-[120px] md:w-[190px] z-10">
+            <div class="absolute bottom-[25%] right-[25%] md:bottom-[17%] md:right-[35%] w-[120px] md:w-[190px] z-10 locked" data-mission-id="4">
                 <a href="mision4.html" class="mission-link">
                     <div class="flex flex-col items-center cursor-pointer transition-all duration-400 hover:scale-110 hover:-translate-y-2 animate-planet-bounce">
                         <div class="mobile-planet-medium w-[120px] h-[120px] md:w-[190px] md:h-[190px] mb-2 md:mb-4 relative rounded-2xl md:rounded-3xl overflow-hidden transition-all duration-400 hover:scale-105 shadow-2xl">
@@ -169,11 +172,11 @@
                         </div>
                         <div class="text-center bg-black/80 px-2 py-2 md:px-4 md:py-3 rounded-xl md:rounded-2xl border-2 border-white/40 backdrop-blur-sm min-w-[100px] md:min-w-[170px]">
                             <div class="mobile-text-small text-sm md:text-base font-bold mb-1 text-white drop-shadow-lg">Estación de Transferencia</div>
-                            <div class="mobile-text-xs text-[10px] md:text-sm text-white/90 drop-shadow">Transporte en equipo</div>
+                            <div class="mobile-text-xs text-[10px] md:text-xs text-white/90 drop-shadow">Transporte en equipo</div>
                         </div>
                     </div>
                 </a>
-                <div class="absolute -top-1 -right-1 md:-top-2 md:-right-2 w-8 h-8 md:w-11 md:h-11 rounded-full flex items-center justify-center text-sm md:text-xl font-bold border-2 md:border-3 border-white shadow-lg bg-gradient-to-br from-green-400 to-green-600 animate-pulse">4</div>
+                <div class="absolute -top-1 -right-1 md:-top-2 md:-right-2 w-8 h-8 md:w-11 md:h-11 rounded-full flex items-center justify-center text-sm md:text-xl font-bold border-2 md:border-3 border-white shadow-lg bg-gradient-to-br from-green-400 to-green-600">4</div>
             </div>
 
             <div class="absolute bottom-2 right-2 md:bottom-4 md:right-4 w-[120px] h-[120px] md:w-[500px] md:h-[500px] z-10">
@@ -183,6 +186,10 @@
     </div>
 
     <script>
+        // Store the number of completed missions
+        let missionsCompleted = 0;
+        const totalMissions = 4;
+
         // Create stars background
         function createStars() {
             const starsContainer = document.getElementById('stars');
@@ -200,47 +207,60 @@
             }
         }
 
-        // Reset the state to simulate a "new session"
-        function resetState() {
-            // Reset player name display
-            const playerNameDisplay = document.getElementById('player-name-display');
-            if (playerNameDisplay) {
-                playerNameDisplay.textContent = 'Invitado';
+        // Update the visual state of the missions based on progress
+        function updateMissionsState() {
+            const missions = document.querySelectorAll('[data-mission-id]');
+            const completedCountDisplay = document.querySelector('.text-green-600');
+            const currentMissionDisplay = document.getElementById('current-mission');
+
+            if (completedCountDisplay) {
+                completedCountDisplay.textContent = missionsCompleted;
             }
 
-            // You can add more reset logic here if needed for mission progress
-            const currentMission = document.getElementById('current-mission');
-            if(currentMission) {
-                currentMission.textContent = '1';
+            if (currentMissionDisplay) {
+                currentMissionDisplay.textContent = missionsCompleted + 1;
             }
 
-            const missionsCompleted = document.querySelector('.text-green-600');
-            if(missionsCompleted) {
-                missionsCompleted.textContent = '0';
+            missions.forEach(mission => {
+                const missionId = parseInt(mission.dataset.missionId);
+                if (missionId <= missionsCompleted + 1) {
+                    mission.classList.remove('locked');
+                } else {
+                    mission.classList.add('locked');
+                }
+            });
+        }
+
+        // Simulate mission completion
+        // This function would be called after a user completes a task on a mission page.
+        // For this example, we'll call it for demonstration purposes.
+        function simulateMissionCompletion() {
+            if (missionsCompleted < totalMissions) {
+                missionsCompleted++;
+                console.log(`Misión ${missionsCompleted} completada.`);
+                updateMissionsState();
             }
         }
 
         // Initialize application
         function initialize() {
             createStars();
-            
-            const logoutBtn = document.getElementById('logout-btn');
+            updateMissionsState();
 
-            if (logoutBtn) {
-                logoutBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    
-                    // Add visual feedback
-                    this.style.transform = 'scale(0.95)';
-                    setTimeout(() => {
-                        this.style.transform = 'scale(1)';
-                    }, 150);
-                    
-                    // Call the reset function
-                    resetState();
-                });
-            }
+            // Simulate progress for demonstration
+            // You would remove this in a real application
+            // and instead call updateMissionsState() based on user actions.
+            setTimeout(() => {
+                simulateMissionCompletion();
+            }, 3000);
+
+            setTimeout(() => {
+                simulateMissionCompletion();
+            }, 6000);
+
+            setTimeout(() => {
+                simulateMissionCompletion();
+            }, 9000);
         }
 
         // Start when page loads
