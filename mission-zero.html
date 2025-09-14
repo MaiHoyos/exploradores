@@ -491,16 +491,20 @@
             const missionContent = document.getElementById('mission-content');
             const playerNameDisplay = document.getElementById('player-name-display');
             
+            console.log('Starting Mission Zero for:', currentPlayerName); // Debug
+            
             // Update player name display
             if (playerNameDisplay) {
                 playerNameDisplay.textContent = currentPlayerName;
             }
             
             // Hide login, show mission
-            loginScreen.classList.add('hidden');
-            missionContent.classList.remove('hidden');
+            if (loginScreen) loginScreen.style.display = 'none';
+            if (missionContent) missionContent.classList.remove('hidden');
             
             // Start with first step
+            currentStep = 1;
+            currentAssemblyStep = 1;
             showStep(1);
             showAssemblyStep(1);
         }
