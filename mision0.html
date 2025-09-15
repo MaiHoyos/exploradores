@@ -360,7 +360,7 @@
                         <div class="text-lg">"Constructor de Robots" - Has ensamblado exitosamente tu primer RoverBot</div>
                     </div>
                     
-                    <button onclick="window.location.href='index.html'" class="px-12 py-5 bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 hover:from-purple-600 hover:via-pink-600 hover:to-red-600 rounded-xl font-bold text-2xl transition-all duration-300 transform hover:scale-105 animate-pulse-glow">
+                    <button onclick="completeMission0()" class="px-12 py-5 bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 hover:from-purple-600 hover:via-pink-600 hover:to-red-600 rounded-xl font-bold text-2xl transition-all duration-300 transform hover:scale-105 animate-pulse-glow">
                         🚀 Ir a las Misiones
                     </button>
                 </div>
@@ -375,7 +375,6 @@
         let totalSteps = 5;
         let totalAssemblySteps = 6;
 
-        // Create stars background
         function createStars() {
             const starsContainer = document.getElementById('stars');
             if (!starsContainer) return;
@@ -393,7 +392,6 @@
         }
 
         function showStep(stepNumber) {
-            // Hide all steps
             for (let i = 1; i <= totalSteps; i++) {
                 const step = document.getElementById(`step-${i}`);
                 if (step) {
@@ -402,7 +400,6 @@
                 }
             }
             
-            // Show current step
             const currentStepElement = document.getElementById(`step-${stepNumber}`);
             if (currentStepElement) {
                 currentStepElement.classList.remove('hidden');
@@ -418,7 +415,6 @@
         }
 
         function showAssemblyStep(stepNumber) {
-            // Hide all assembly steps
             for (let i = 1; i <= totalAssemblySteps; i++) {
                 const step = document.getElementById(`assembly-step-${i}`);
                 if (step) {
@@ -426,19 +422,16 @@
                 }
             }
             
-            // Show current assembly step
             const currentAssemblyStepElement = document.getElementById(`assembly-step-${stepNumber}`);
             if (currentAssemblyStepElement) {
                 currentAssemblyStepElement.classList.remove('hidden');
             }
             
-            // Update step counter
             const stepCounter = document.getElementById('current-step');
             if (stepCounter) {
                 stepCounter.textContent = stepNumber;
             }
             
-            // Update navigation buttons
             const prevBtn = document.getElementById('prev-btn');
             const nextBtn = document.getElementById('next-btn');
             
@@ -477,7 +470,6 @@
             button.innerHTML = '🔄 Activando...';
             button.disabled = true;
             
-            // Simulate activation process
             setTimeout(() => {
                 button.innerHTML = '✅ ¡Activado!';
                 button.classList.remove('bg-gradient-to-r', 'from-green-500', 'to-blue-600');
@@ -489,7 +481,29 @@
             }, 2000);
         }
 
-        // Initialize
+        function completeMission0() {
+            const currentPlayer = localStorage.getItem('zython-current-player');
+            if (currentPlayer) {
+                let players = JSON.parse(localStorage.getItem('zython-players') || '{}');
+                if (players[currentPlayer]) {
+                    players[currentPlayer].completedMissions.push(0);
+                    players[currentPlayer].completed = 1;
+                    players[currentPlayer].currentMission = 1;
+                } else {
+                    // Si el jugador no existe, lo crea y marca la misión 0 como completada
+                    players[currentPlayer] = {
+                        completedMissions: [0],
+                        available: 1,
+                        completed: 1,
+                        badges: 0,
+                        currentMission: 1
+                    };
+                }
+                localStorage.setItem('zython-players', JSON.stringify(players));
+            }
+            window.location.href = 'index.html';
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             createStars();
             showStep(1);
