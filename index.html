@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ExploraciÃ³n de Zython - Misiones Espaciales</title>
+    <title>Exploración de Zython - Misiones Espaciales</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @keyframes planetBounce {
@@ -88,19 +88,16 @@
         <header class="relative z-10 p-3 md:p-6 m-2 md:m-4">
             <div class="flex items-center justify-center md:justify-between flex-col md:flex-row gap-4">
                 <div class="flex items-center gap-4">
-                    <div class="text-3xl md:text-4xl">ðŸš€</div>
+                    <div class="text-3xl md:text-4xl">🚀</div>
                     <div class="text-center md:text-left">
-                        <div class="neon-text text-lg md:text-2xl">EXPLORACIÃ"N</div>
+                        <div class="neon-text text-lg md:text-2xl">EXPLORACIÓN</div>
                         <div class="pixel-text text-sm md:text-lg">de Zython</div>
-                        <div class="text-xs md:text-sm text-white/70 drop-shadow mt-2">Explorador: <span id="player-name-display" class="text-yellow-300 font-semibold">Invitado</span></div>
+                        <div class="text-xs md:text-sm text-white/70 drop-shadow mt-2">Explorador: <span id="player-name-display" class="text-yellow-300 font-semibold">Explorador 1</span></div>
                     </div>
                     <div class="side-text hidden md:block text-sm">
                         Misiones Con Robots
                     </div>
                 </div>
-                <button onclick="resetDemo()" class="px-4 py-2 bg-red-500 hover:bg-red-600 text-white font-bold rounded-full shadow-lg transition-all duration-300 hover:scale-105 text-sm">
-                    🔄 Reiniciar Demo
-                </button>
             </div>
         </header>
 
@@ -108,15 +105,15 @@
             <div class="grid grid-cols-3 gap-2 md:gap-4 text-center">
                 <div>
                     <div class="text-lg md:text-2xl font-bold text-yellow-600">4</div>
-                    <div class="text-[10px] md:text-xs text-gray-800 font-medium">ðŸŽ¯ Disponibles</div>
+                    <div class="text-[10px] md:text-xs text-gray-800 font-medium">🎯 Disponibles</div>
                 </div>
                 <div>
                     <div class="text-lg md:text-2xl font-bold text-green-600" id="completed-count">0</div>
-                    <div class="text-[10px] md:text-xs text-gray-800 font-medium">â­ Completadas</div>
+                    <div class="text-[10px] md:text-xs text-gray-800 font-medium">⭐ Completadas</div>
                 </div>
                 <div>
                     <div class="text-lg md:text-2xl font-bold text-purple-600" id="current-mission">1</div>
-                    <div class="text-[10px] md:text-xs text-gray-800 font-medium">ðŸš€ MisiÃ³n Actual</div>
+                    <div class="text-[10px] md:text-xs text-gray-800 font-medium">🚀 Misión Actual</div>
                 </div>
             </div>
         </div>
@@ -126,7 +123,7 @@
                 <a href="mision1.html" class="mission-link">
                     <div class="flex flex-col items-center cursor-pointer transition-all duration-400 hover:scale-110 hover:-translate-y-2 animate-planet-bounce">
                         <div class="mobile-planet-large w-[140px] h-[140px] md:w-[220px] md:h-[220px] mb-2 md:mb-4 relative rounded-2xl md:rounded-3xl overflow-hidden transition-all duration-400 hover:scale-105 shadow-2xl">
-                            <img src="mision1.png" alt="Llanura de Vectonia" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex items-center justify-center text-4xl md:text-6xl bg-gradient-to-br from-pink-400 via-teal-400 to-green-400&quot;>ðŸ"ï¸</div>'">
+                            <img src="mision1.png" alt="Llanura de Vectonia" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex items-center justify-center text-4xl md:text-6xl bg-gradient-to-br from-pink-400 via-teal-400 to-green-400&quot;>🏔️</div>'">
                         </div>
                         <div class="text-center bg-black/80 px-2 py-2 md:px-4 md:py-3 rounded-xl md:rounded-2xl border-2 border-white/40 backdrop-blur-sm min-w-[120px] md:min-w-[180px]">
                             <div class="mobile-text-small text-sm md:text-base font-bold mb-1 text-white drop-shadow-lg">Llanura de Vectonia</div>
@@ -141,11 +138,11 @@
                 <a href="mision2.html" class="mission-link">
                     <div class="flex flex-col items-center cursor-pointer transition-all duration-400 hover:scale-110 hover:-translate-y-2 animate-planet-bounce">
                         <div class="mobile-planet-medium w-[120px] h-[120px] md:w-[160px] md:h-[160px] mb-2 md:mb-4 relative rounded-2xl md:rounded-3xl overflow-hidden transition-all duration-400 hover:scale-105 shadow-2xl">
-                            <img src="mision2.png" alt="Paso de Zycurva" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex items-center justify-center text-4xl md:text-6xl bg-gradient-to-br from-pink-400 via-teal-400 to-green-400&quot;>ðŸŒ€</div>'">
+                            <img src="mision2.png" alt="Paso de Zycurva" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex items-center justify-center text-4xl md:text-6xl bg-gradient-to-br from-pink-400 via-teal-400 to-green-400&quot;>🌀</div>'">
                         </div>
                         <div class="text-center bg-black/80 px-2 py-2 md:px-4 md:py-3 rounded-xl md:rounded-2xl border-2 border-white/40 backdrop-blur-sm min-w-[100px] md:min-w-[140px]">
                             <div class="mobile-text-small text-xs md:text-sm font-bold mb-1 text-white drop-shadow-lg">Paso de Zycurva</div>
-                            <div class="mobile-text-xs text-[10px] md:text-xs text-white/90 drop-shadow">Â¡Activa la conexiÃ³n!</div>
+                            <div class="mobile-text-xs text-[10px] md:text-xs text-white/90 drop-shadow">¡Activa la conexión!</div>
                         </div>
                     </div>
                 </a>
@@ -156,11 +153,11 @@
                 <a href="mision3.html" class="mission-link">
                     <div class="flex flex-col items-center cursor-pointer transition-all duration-400 hover:scale-110 hover:-translate-y-2 animate-planet-bounce">
                         <div class="mobile-planet-small w-[100px] h-[100px] md:w-[140px] md:h-[140px] mb-2 md:mb-4 relative rounded-2xl md:rounded-3xl overflow-hidden transition-all duration-400 hover:scale-105 shadow-2xl">
-                            <img src="mision3.png" alt="CrÃ¡ter del Sensorium" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex items-center justify-center text-4xl md:text-6xl bg-gradient-to-br from-pink-400 via-teal-400 to-green-400&quot;>ðŸ•³ï¸</div>'">
+                            <img src="mision3.png" alt="Cráter del Sensorium" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex items-center justify-center text-4xl md:text-6xl bg-gradient-to-br from-pink-400 via-teal-400 to-green-400&quot;>🕳️</div>'">
                         </div>
                         <div class="text-center bg-black/80 px-2 py-2 md:px-4 md:py-3 rounded-xl md:rounded-2xl border-2 border-white/40 backdrop-blur-sm min-w-[80px] md:min-w-[120px]">
-                            <div class="mobile-text-small text-xs md:text-sm font-bold mb-1 text-white drop-shadow-lg">CrÃ¡ter del Sensorium</div>
-                            <div class="mobile-text-xs text-[10px] md:text-xs text-white/90 drop-shadow">Â¡Detente a tiempo!</div>
+                            <div class="mobile-text-small text-xs md:text-sm font-bold mb-1 text-white drop-shadow-lg">Cráter del Sensorium</div>
+                            <div class="mobile-text-xs text-[10px] md:text-xs text-white/90 drop-shadow">¡Detente a tiempo!</div>
                         </div>
                     </div>
                 </a>
@@ -171,10 +168,10 @@
                 <a href="mision4.html" class="mission-link">
                     <div class="flex flex-col items-center cursor-pointer transition-all duration-400 hover:scale-110 hover:-translate-y-2 animate-planet-bounce">
                         <div class="mobile-planet-medium w-[120px] h-[120px] md:w-[190px] md:h-[190px] mb-2 md:mb-4 relative rounded-2xl md:rounded-3xl overflow-hidden transition-all duration-400 hover:scale-105 shadow-2xl">
-                            <img src="mision4.png" alt="EstaciÃ³n de Transferencia" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex items-center justify-center text-4xl md:text-6xl bg-gradient-to-br from-pink-400 via-teal-400 to-green-400&quot;>ðŸš›</div>'">
+                            <img src="mision4.png" alt="Estación de Transferencia" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex items-center justify-center text-4xl md:text-6xl bg-gradient-to-br from-pink-400 via-teal-400 to-green-400&quot;>🚛</div>'">
                         </div>
                         <div class="text-center bg-black/80 px-2 py-2 md:px-4 md:py-3 rounded-xl md:rounded-2xl border-2 border-white/40 backdrop-blur-sm min-w-[100px] md:min-w-[170px]">
-                            <div class="mobile-text-small text-sm md:text-base font-bold mb-1 text-white drop-shadow-lg">EstaciÃ³n de Transferencia</div>
+                            <div class="mobile-text-small text-sm md:text-base font-bold mb-1 text-white drop-shadow-lg">Estación de Transferencia</div>
                             <div class="mobile-text-xs text-[10px] md:text-xs text-white/90 drop-shadow">Transporte en equipo</div>
                         </div>
                     </div>
@@ -183,21 +180,14 @@
             </div>
 
             <div class="absolute bottom-2 right-2 md:bottom-4 md:right-4 w-[120px] h-[120px] md:w-[500px] md:h-[500px] z-10">
-                <img src="robot.png" alt="Robot CompaÃ±ero" class="w-full h-full object-contain" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex items-center justify-center text-6xl md:text-9xl&quot;>ðŸ¤–</div>'">
+                <img src="robot.png" alt="Robot Compañero" class="w-full h-full object-contain" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex items-center justify-center text-6xl md:text-9xl&quot;>🤖</div>'">
             </div>
         </div>
     </div>
     
-    <div id="login-modal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
-        <div class="bg-gradient-to-br from-purple-800 to-blue-800 p-8 rounded-2xl shadow-xl max-w-sm w-full border-4 border-white/50 animate-fadeIn">
-            <h2 class="text-3xl font-bold text-center mb-6 text-yellow-300">Bienvenido, Explorador</h2>
-            <p class="text-center text-white/90 mb-6">Ingresa tu nombre para iniciar tu aventura en Zython.</p>
-            <input type="text" id="player-name-input" placeholder="Tu Nombre de Explorador" class="w-full p-3 rounded-lg bg-white/10 text-white placeholder-white/50 border-2 border-white/30 focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-300">
-            <button id="start-session-btn" class="mt-6 w-full py-3 rounded-lg font-bold text-lg bg-gradient-to-r from-green-400 to-teal-500 hover:from-green-500 hover:to-teal-600 transition-all duration-300 hover:scale-105 shadow-lg">
-                ðŸš€ Iniciar Aventura
-            </button>
-        </div>
-    </div>
+    <button id="reset-button" class="fixed bottom-4 left-4 z-30 px-4 py-2 bg-red-600 text-white rounded-full shadow-lg hover:bg-red-700 transition-colors duration-300">
+        🔄 Reiniciar
+    </button>
 
     <script>
         function createStars() {
@@ -214,10 +204,10 @@
             }
         }
 
-        // Sistema de gestión de jugadores usando sessionStorage para simulación
+        // Sistema de gestión de jugadores con localStorage
         function getPlayerProgress(playerName) {
             try {
-                const players = JSON.parse(sessionStorage.getItem('zython-players') || '{}');
+                const players = JSON.parse(localStorage.getItem('zython-players') || '{}');
                 return players[playerName] || {
                     completedMissions: [],
                     available: 1,
@@ -239,58 +229,13 @@
 
         function savePlayerProgress(playerName, progress) {
             try {
-                const players = JSON.parse(sessionStorage.getItem('zython-players') || '{}');
+                const players = JSON.parse(localStorage.getItem('zython-players') || '{}');
                 players[playerName] = progress;
-                sessionStorage.setItem('zython-players', JSON.stringify(players));
+                localStorage.setItem('zython-players', JSON.stringify(players));
                 console.log('Progress saved for:', playerName, progress);
             } catch (error) {
                 console.error('Error saving progress:', error);
             }
-        }
-
-        function resetDemo() {
-            if (confirm('¿Estás seguro de que quieres reiniciar la demostración? Esto borrará todo el progreso actual.')) {
-                // Clear all session data
-                sessionStorage.clear();
-                // Reload the page
-                window.location.reload();
-            }
-        }
-
-        function checkAndLogin() {
-            // Check if we already have a "logged in" user in this session
-            const currentPlayer = sessionStorage.getItem('zython-current-player');
-            
-            if (currentPlayer) {
-                setupGame(currentPlayer);
-                document.getElementById('login-modal').classList.add('hidden');
-            } else {
-                showLoginModal();
-            }
-        }
-
-        function showLoginModal() {
-            const loginModal = document.getElementById('login-modal');
-            const startBtn = document.getElementById('start-session-btn');
-            const nameInput = document.getElementById('player-name-input');
-            loginModal.classList.remove('hidden');
-
-            startBtn.addEventListener('click', () => {
-                const playerName = nameInput.value.trim();
-                if (playerName) {
-                    sessionStorage.setItem('zython-current-player', playerName);
-                    setupGame(playerName);
-                    loginModal.classList.add('hidden');
-                } else {
-                    alert('Por favor, ingresa tu nombre de explorador.');
-                }
-            });
-
-            nameInput.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    startBtn.click();
-                }
-            });
         }
 
         function setupGame(playerName) {
@@ -322,18 +267,37 @@
                 } else {
                     mission.classList.add('locked');
                     const link = mission.querySelector('.mission-link');
-                    // Previene la navegaciÃ³n
+                    // Previene la navegación
                     if (link) {
                         link.href = '#'; // O link.remove() si quieres deshabilitarlo completamente
                     }
                 }
             });
         }
+        
+        // Función para reiniciar el juego
+        function resetGame() {
+            const currentPlayer = localStorage.getItem('zython-current-player');
+            if (currentPlayer) {
+                let players = JSON.parse(localStorage.getItem('zython-players') || '{}');
+                if (players[currentPlayer]) {
+                    delete players[currentPlayer];
+                    localStorage.setItem('zython-players', JSON.stringify(players));
+                    console.log('Progress for', currentPlayer, 'has been reset.');
+                }
+            }
+            window.location.reload(); // Recarga la página para empezar de nuevo
+        }
 
         // Initialize application
         function initialize() {
             createStars();
-            checkAndLogin();
+            const playerName = "Explorador 1";
+            localStorage.setItem('zython-current-player', playerName);
+            setupGame(playerName);
+            
+            // Asigna el evento de clic al botón de reiniciar
+            document.getElementById('reset-button').addEventListener('click', resetGame);
         }
 
         // Start when page loads
