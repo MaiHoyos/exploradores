@@ -134,31 +134,28 @@
         function completeMission() {
             const currentPlayer = getCurrentPlayer();
             if (!currentPlayer) {
-                console.error('No current player for mission completion');
                 alert('Error: No se encontró información del jugador. Por favor, regresa al menú principal.');
                 return;
             }
             
             const progress = loadPlayerProgress(currentPlayer);
             
-            // Add mission to completed if not already there
             if (!progress.completedMissions.includes(1)) {
                 progress.completedMissions.push(1);
                 progress.completed = progress.completedMissions.length;
                 progress.badges = progress.completedMissions.length;
                 
-                // Unlock next mission (mission 2)
+                // Desbloquea la siguiente misión
                 progress.currentMission = 2;
                 progress.available = Math.max(progress.available, 2);
                 
                 savePlayerProgress(currentPlayer, progress);
                 
-                // Update UI
+                // Actualiza la interfaz
                 document.getElementById('completion-badge').classList.remove('hidden');
                 document.getElementById('complete-btn').classList.add('hidden');
                 document.getElementById('completed-btn').classList.remove('hidden');
                 
-                // Show completion message
                 alert('¡Felicitaciones! Has completado la Misión 1: Llanura de Vectonia. La Misión 2 ahora está disponible.');
             } else {
                 alert('Esta misión ya ha sido completada anteriormente.');
