@@ -44,154 +44,87 @@
         .animate-path-flow {
             animation: pathFlow 3s linear infinite;
         }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.9); }
-            to { opacity: 1; transform: scale(1); }
-        }
-        
-        .animate-fadeIn {
-            animation: fadeIn 0.5s ease-out;
-        }
-        
-        @media (max-width: 768px) {
-            .mobile-planet-small { width: 100px !important; height: 100px !important; }
-            .mobile-planet-medium { width: 120px !important; height: 120px !important; }
-            .mobile-planet-large { width: 140px !important; height: 140px !important; }
-            .mobile-text-small { font-size: 0.75rem !important; }
-            .mobile-text-xs { font-size: 0.625rem !important; }
-        }
 
-        .mission-link {
-            display: block;
-            text-decoration: none;
-            color: inherit;
-        }
-
-        .locked {
-            filter: grayscale(100%);
-            pointer-events: none;
-            cursor: not-allowed;
-            opacity: 0.5;
-            transition: all 0.3s ease-in-out;
-        }
-
-        .locked:hover {
-            transform: none !important;
+        .disabled-path {
+            opacity: 0.3;
         }
     </style>
 </head>
-<body class="min-h-screen bg-gradient-to-b from-purple-900 via-blue-900 to-black text-white overflow-hidden relative">
+<body class="min-h-screen bg-gradient-to-b from-purple-900 via-blue-900 to-black text-white overflow-x-hidden">
     <div class="stars" id="stars"></div>
-    
-    <div id="game-content">
-        <header class="relative z-10 p-3 md:p-6 m-2 md:m-4">
-            <div class="flex items-center justify-center md:justify-between flex-col md:flex-row gap-4">
-                <div class="flex items-center gap-4">
-                    <div class="text-3xl md:text-4xl">🚀</div>
-                    <div class="text-center md:text-left">
-                        <div class="neon-text text-lg md:text-2xl">EXPLORACIÓN</div>
-                        <div class="pixel-text text-sm md:text-lg">de Zython</div>
-                        <div class="text-xs md:text-sm text-white/70 drop-shadow mt-2">Explorador: <span id="player-name-display" class="text-yellow-300 font-semibold">Explorador 1</span></div>
-                    </div>
-                    <div class="side-text hidden md:block text-sm">
-                        Misiones Con Robots
-                    </div>
-                </div>
-            </div>
+
+    <div class="relative z-10 p-6 md:p-12 min-h-screen flex flex-col justify-center">
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-6xl font-extrabold mb-4 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+                Exploración de Zython
+            </h1>
+            <p class="text-xl md:text-2xl text-white/80">Selecciona tu próxima misión para explorar el planeta.</p>
         </header>
 
-        <div class="fixed top-2 right-2 md:top-4 md:right-4 z-20 bg-white/80 backdrop-blur-sm border-2 md:border-4 border-white/40 rounded-xl md:rounded-2xl p-2 md:p-4 min-w-[160px] md:min-w-[200px]">
-            <div class="grid grid-cols-3 gap-2 md:gap-4 text-center">
-                <div>
-                    <div class="text-lg md:text-2xl font-bold text-yellow-600">4</div>
-                    <div class="text-[10px] md:text-xs text-gray-800 font-medium">🎯 Disponibles</div>
+        <main class="relative w-full max-w-4xl mx-auto flex items-center justify-center">
+            
+            <svg class="absolute inset-0 w-full h-full" viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid meet">
+                <defs>
+                    <marker id="arrowhead" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                        <path d="M 0 0 L 10 5 L 0 10 z" fill="white" />
+                    </marker>
+                </defs>
+                <path id="path-1" d="M 400 100 Q 500 250, 600 100" class="stroke-white stroke-2 fill-none transition-opacity duration-500 disabled-path" />
+                <path id="path-2" d="M 600 100 Q 750 250, 750 400" class="stroke-white stroke-2 fill-none transition-opacity duration-500 disabled-path" />
+                <path id="path-3" d="M 400 500 Q 250 400, 250 250" class="stroke-white stroke-2 fill-none transition-opacity duration-500 disabled-path" />
+                <path id="path-4" d="M 750 400 Q 600 500, 400 500" class="stroke-white stroke-2 fill-none transition-opacity duration-500 disabled-path" />
+            </svg>
+
+            <a href="mision1.html" id="mission-1" class="absolute top-[8%] left-[25%] mission-link transition-transform duration-300 hover:scale-110 disabled opacity-50 cursor-not-allowed">
+                <div class="animate-planet-bounce p-4 rounded-full bg-blue-500/30 backdrop-blur-sm border-2 border-blue-400/50">
+                    <div class="text-7xl">🏔️</div>
                 </div>
-                <div>
-                    <div class="text-lg md:text-2xl font-bold text-green-600" id="completed-count">0</div>
-                    <div class="text-[10px] md:text-xs text-gray-800 font-medium">⭐ Completadas</div>
+                <div class="text-center mt-2 text-white font-bold text-lg">Llanura de Vectonia</div>
+            </a>
+            
+            <a href="mision2.html" id="mission-2" class="absolute top-[8%] right-[25%] mission-link transition-transform duration-300 hover:scale-110 disabled opacity-50 cursor-not-allowed">
+                <div class="animate-planet-bounce p-4 rounded-full bg-yellow-500/30 backdrop-blur-sm border-2 border-yellow-400/50">
+                    <div class="text-7xl">🌀</div>
                 </div>
-                <div>
-                    <div class="text-lg md:text-2xl font-bold text-purple-600" id="current-mission">1</div>
-                    <div class="text-[10px] md:text-xs text-gray-800 font-medium">🚀 Misión Actual</div>
+                <div class="text-center mt-2 text-white font-bold text-lg">Paso de Zycurva</div>
+            </a>
+            
+            <a href="mision3.html" id="mission-3" class="absolute bottom-[8%] left-[25%] mission-link transition-transform duration-300 hover:scale-110 disabled opacity-50 cursor-not-allowed">
+                <div class="animate-planet-bounce p-4 rounded-full bg-red-500/30 backdrop-blur-sm border-2 border-red-400/50">
+                    <div class="text-7xl">🕳️</div>
                 </div>
-            </div>
-        </div>
+                <div class="text-center mt-2 text-white font-bold text-lg">Cráter del Sensorium</div>
+            </a>
 
-        <div class="absolute top-[200px] md:top-[180px] left-0 right-0 bottom-0 p-4 md:p-10">
-            <div class="absolute top-[2%] left-[5%] md:top-[5%] md:left-[12%] w-[140px] md:w-[220px] z-10" data-mission-id="1">
-                <a href="mision1.html" class="mission-link">
-                    <div class="flex flex-col items-center cursor-pointer transition-all duration-400 hover:scale-110 hover:-translate-y-2 animate-planet-bounce">
-                        <div class="mobile-planet-large w-[140px] h-[140px] md:w-[220px] md:h-[220px] mb-2 md:mb-4 relative rounded-2xl md:rounded-3xl overflow-hidden transition-all duration-400 hover:scale-105 shadow-2xl">
-                            <img src="mision1.png" alt="Llanura de Vectonia" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex items-center justify-center text-4xl md:text-6xl bg-gradient-to-br from-pink-400 via-teal-400 to-green-400&quot;>🏔️</div>'">
-                        </div>
-                        <div class="text-center bg-black/80 px-2 py-2 md:px-4 md:py-3 rounded-xl md:rounded-2xl border-2 border-white/40 backdrop-blur-sm min-w-[120px] md:min-w-[180px]">
-                            <div class="mobile-text-small text-sm md:text-base font-bold mb-1 text-white drop-shadow-lg">Llanura de Vectonia</div>
-                            <div class="mobile-text-xs text-xs md:text-sm text-white/90 drop-shadow">Calibra tu RoverBot</div>
-                        </div>
-                    </div>
-                </a>
-                <div class="absolute -top-1 -right-1 md:-top-2 md:-right-2 w-8 h-8 md:w-11 md:h-11 rounded-full flex items-center justify-center text-sm md:text-xl font-bold border-2 md:border-3 border-white shadow-lg bg-gradient-to-br from-orange-400 to-orange-600">1</div>
+            <a href="mision4.html" id="mission-4" class="absolute bottom-[8%] right-[25%] mission-link transition-transform duration-300 hover:scale-110 disabled opacity-50 cursor-not-allowed">
+                <div class="animate-planet-bounce p-4 rounded-full bg-green-500/30 backdrop-blur-sm border-2 border-green-400/50">
+                    <div class="text-7xl">🚛</div>
+                </div>
+                <div class="text-center mt-2 text-white font-bold text-lg">Estación de Transferencia</div>
+            </a>
+            
+            <div id="mission-0" class="relative z-20 flex flex-col items-center">
+                <div class="animate-planet-bounce p-6 rounded-full bg-gray-500/30 backdrop-blur-sm border-2 border-gray-400/50">
+                    <div class="text-8xl">🚀</div>
+                </div>
+                <div class="text-center mt-4 text-white font-bold text-2xl">Misión 0</div>
+                <div class="text-center mt-1 text-green-400 font-semibold" id="mission-0-status">Completada</div>
             </div>
+        </main>
 
-            <div class="absolute top-[2%] right-[25%] md:top-[12%] md:right-[25%] w-[120px] md:w-[160px] z-10 locked" data-mission-id="2">
-                <a href="mision2.html" class="mission-link">
-                    <div class="flex flex-col items-center cursor-pointer transition-all duration-400 hover:scale-110 hover:-translate-y-2 animate-planet-bounce">
-                        <div class="mobile-planet-medium w-[120px] h-[120px] md:w-[160px] md:h-[160px] mb-2 md:mb-4 relative rounded-2xl md:rounded-3xl overflow-hidden transition-all duration-400 hover:scale-105 shadow-2xl">
-                            <img src="mision2.png" alt="Paso de Zycurva" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex items-center justify-center text-4xl md:text-6xl bg-gradient-to-br from-pink-400 via-teal-400 to-green-400&quot;>🌀</div>'">
-                        </div>
-                        <div class="text-center bg-black/80 px-2 py-2 md:px-4 md:py-3 rounded-xl md:rounded-2xl border-2 border-white/40 backdrop-blur-sm min-w-[100px] md:min-w-[140px]">
-                            <div class="mobile-text-small text-xs md:text-sm font-bold mb-1 text-white drop-shadow-lg">Paso de Zycurva</div>
-                            <div class="mobile-text-xs text-[10px] md:text-xs text-white/90 drop-shadow">¡Activa la conexión!</div>
-                        </div>
-                    </div>
-                </a>
-                <div class="absolute -top-1 -right-1 md:-top-2 md:-right-2 w-8 h-8 md:w-11 md:h-11 rounded-full flex items-center justify-center text-sm md:text-xl font-bold border-2 md:border-3 border-white shadow-lg bg-gradient-to-br from-blue-400 to-blue-600">2</div>
-            </div>
-
-            <div class="absolute bottom-[40%] left-[10%] md:bottom-[30%] md:left-[28%] w-[100px] md:w-[140px] z-10 locked" data-mission-id="3">
-                <a href="mision3.html" class="mission-link">
-                    <div class="flex flex-col items-center cursor-pointer transition-all duration-400 hover:scale-110 hover:-translate-y-2 animate-planet-bounce">
-                        <div class="mobile-planet-small w-[100px] h-[100px] md:w-[140px] md:h-[140px] mb-2 md:mb-4 relative rounded-2xl md:rounded-3xl overflow-hidden transition-all duration-400 hover:scale-105 shadow-2xl">
-                            <img src="mision3.png" alt="Cráter del Sensorium" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex items-center justify-center text-4xl md:text-6xl bg-gradient-to-br from-pink-400 via-teal-400 to-green-400&quot;>🕳️</div>'">
-                        </div>
-                        <div class="text-center bg-black/80 px-2 py-2 md:px-4 md:py-3 rounded-xl md:rounded-2xl border-2 border-white/40 backdrop-blur-sm min-w-[80px] md:min-w-[120px]">
-                            <div class="mobile-text-small text-xs md:text-sm font-bold mb-1 text-white drop-shadow-lg">Cráter del Sensorium</div>
-                            <div class="mobile-text-xs text-[10px] md:text-xs text-white/90 drop-shadow">¡Detente a tiempo!</div>
-                        </div>
-                    </div>
-                </a>
-                <div class="absolute -top-1 -right-1 md:-top-2 md:-right-2 w-7 h-7 md:w-10 md:h-10 rounded-full flex items-center justify-center text-sm md:text-lg font-bold border-2 md:border-3 border-white shadow-lg bg-gradient-to-br from-purple-400 to-purple-600">3</div>
-            </div>
-
-            <div class="absolute bottom-[25%] right-[25%] md:bottom-[17%] md:right-[35%] w-[120px] md:w-[190px] z-10 locked" data-mission-id="4">
-                <a href="mision4.html" class="mission-link">
-                    <div class="flex flex-col items-center cursor-pointer transition-all duration-400 hover:scale-110 hover:-translate-y-2 animate-planet-bounce">
-                        <div class="mobile-planet-medium w-[120px] h-[120px] md:w-[190px] md:h-[190px] mb-2 md:mb-4 relative rounded-2xl md:rounded-3xl overflow-hidden transition-all duration-400 hover:scale-105 shadow-2xl">
-                            <img src="mision4.png" alt="Estación de Transferencia" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex items-center justify-center text-4xl md:text-6xl bg-gradient-to-br from-pink-400 via-teal-400 to-green-400&quot;>🚛</div>'">
-                        </div>
-                        <div class="text-center bg-black/80 px-2 py-2 md:px-4 md:py-3 rounded-xl md:rounded-2xl border-2 border-white/40 backdrop-blur-sm min-w-[100px] md:min-w-[170px]">
-                            <div class="mobile-text-small text-sm md:text-base font-bold mb-1 text-white drop-shadow-lg">Estación de Transferencia</div>
-                            <div class="mobile-text-xs text-[10px] md:text-xs text-white/90 drop-shadow">Transporte en equipo</div>
-                        </div>
-                    </div>
-                </a>
-                <div class="absolute -top-1 -right-1 md:-top-2 md:-right-2 w-8 h-8 md:w-11 md:h-11 rounded-full flex items-center justify-center text-sm md:text-xl font-bold border-2 md:border-3 border-white shadow-lg bg-gradient-to-br from-green-400 to-green-600">4</div>
-            </div>
-
-            <div class="absolute bottom-2 right-2 md:bottom-4 md:right-4 w-[120px] h-[120px] md:w-[500px] md:h-[500px] z-10">
-                <img src="robot.png" alt="Robot Compañero" class="w-full h-full object-contain" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex items-center justify-center text-6xl md:text-9xl&quot;>🤖</div>'">
-            </div>
-        </div>
+        <footer class="mt-12 text-center">
+            <button id="reset-button" class="mt-8 px-6 py-3 bg-red-600 hover:bg-red-700 rounded-lg text-white font-bold transition-all duration-300">
+                Reiniciar Progreso
+            </button>
+        </footer>
     </div>
-    
-    <button id="reset-button" class="fixed bottom-4 left-4 z-30 px-4 py-2 bg-red-600 text-white rounded-full shadow-lg hover:bg-red-700 transition-colors duration-300">
-        🔄 Reiniciar
-    </button>
 
     <script>
+        // Create stars background
         function createStars() {
             const starsContainer = document.getElementById('stars');
+            if (!starsContainer) return;
+            
             for (let i = 0; i < 100; i++) {
                 const star = document.createElement('div');
                 star.className = 'star';
@@ -204,89 +137,114 @@
             }
         }
 
-        // Sistema de gestión de jugadores con localStorage
-        function getPlayerProgress(playerName) {
-            try {
-                const players = JSON.parse(localStorage.getItem('zython-players') || '{}');
-                return players[playerName] || {
-                    completedMissions: [],
-                    available: 1,
-                    completed: 0,
-                    badges: 0,
-                    currentMission: 1
-                };
-            } catch (error) {
-                console.error('Error loading progress:', error);
-                return {
-                    completedMissions: [],
-                    available: 1,
-                    completed: 0,
-                    badges: 0,
-                    currentMission: 1
-                };
-            }
-        }
-
-        function savePlayerProgress(playerName, progress) {
-            try {
-                const players = JSON.parse(localStorage.getItem('zython-players') || '{}');
-                players[playerName] = progress;
-                localStorage.setItem('zython-players', JSON.stringify(players));
-                console.log('Progress saved for:', playerName, progress);
-            } catch (error) {
-                console.error('Error saving progress:', error);
-            }
-        }
-
+        // Logic to setup the game state based on localStorage
         function setupGame(playerName) {
-            document.getElementById('player-name-display').textContent = playerName;
-            const progress = getPlayerProgress(playerName);
-            updateMissionsState(progress);
+            let players = JSON.parse(localStorage.getItem('zython-players') || '{}');
+            
+            if (!players[playerName]) {
+                // If player doesn't exist, create initial state
+                players[playerName] = {
+                    missions: {
+                        'mission-0': { completed: false, name: 'Misión 0' },
+                        'mission-1': { completed: false, name: 'Llanura de Vectonia' },
+                        'mission-2': { completed: false, name: 'Paso de Zycurva' },
+                        'mission-3': { completed: false, name: 'Cráter del Sensorium' },
+                        'mission-4': { completed: false, name: 'Estación de Transferencia' }
+                    }
+                };
+            }
+            localStorage.setItem('zython-players', JSON.stringify(players));
+            checkMissionStatus(playerName, players[playerName]);
         }
 
-        function updateMissionsState(progress) {
-            const missions = document.querySelectorAll('[data-mission-id]');
-            const completedCountDisplay = document.getElementById('completed-count');
-            const currentMissionDisplay = document.getElementById('current-mission');
+        function checkMissionStatus(playerName, player) {
+            // Logic to check if a mission is unlocked and update its appearance
+            const missionLinks = document.querySelectorAll('.mission-link');
+            const pathElements = document.querySelectorAll('path');
 
-            completedCountDisplay.textContent = progress.completed;
-            currentMissionDisplay.textContent = progress.currentMission;
-
-            missions.forEach(mission => {
-                const missionId = parseInt(mission.dataset.missionId);
-                const isCompleted = progress.completedMissions.includes(missionId);
-                const isAvailable = missionId <= progress.currentMission;
-
-                if (isAvailable || isCompleted) {
-                    mission.classList.remove('locked');
-                    const link = mission.querySelector('.mission-link');
-                    // Actualiza el link para redirigir correctamente
-                    if (link) {
-                        link.href = `mision${missionId}.html`;
-                    }
-                } else {
-                    mission.classList.add('locked');
-                    const link = mission.querySelector('.mission-link');
-                    // Previene la navegación
-                    if (link) {
-                        link.href = '#'; // O link.remove() si quieres deshabilitarlo completamente
-                    }
+            // Misión 0 is unlocked by default for new players, but becomes completed after the intro
+            if (player.missions['mission-0'].completed) {
+                const mission0Status = document.getElementById('mission-0-status');
+                if (mission0Status) {
+                    mission0Status.textContent = 'Completada';
+                    mission0Status.classList.remove('text-red-400');
+                    mission0Status.classList.add('text-green-400');
                 }
-            });
+            } else {
+                // If mission 0 is not completed, disable all other missions
+                missionLinks.forEach(link => {
+                    link.classList.add('disabled', 'opacity-50', 'cursor-not-allowed');
+                    link.href = '#';
+                });
+                pathElements.forEach(path => {
+                    path.classList.add('disabled-path');
+                    path.classList.remove('animate-path-flow');
+                });
+                return;
+            }
+
+            // Misión 1 is unlocked once Misión 0 is completed
+            if (player.missions['mission-0'].completed) {
+                const mission1 = document.getElementById('mission-1');
+                const path1 = document.getElementById('path-1');
+                if (mission1) {
+                    mission1.classList.remove('disabled', 'opacity-50', 'cursor-not-allowed');
+                    mission1.href = 'mision1.html';
+                }
+                if (path1) {
+                    path1.classList.remove('disabled-path');
+                    path1.classList.add('animate-path-flow');
+                }
+            }
+
+            // Logic to unlock other missions based on previous completions
+            if (player.missions['mission-1'].completed) {
+                const mission2 = document.getElementById('mission-2');
+                const path2 = document.getElementById('path-2');
+                if (mission2) {
+                    mission2.classList.remove('disabled', 'opacity-50', 'cursor-not-allowed');
+                    mission2.href = 'mision2.html';
+                }
+                if (path2) {
+                    path2.classList.remove('disabled-path');
+                    path2.classList.add('animate-path-flow');
+                }
+            }
+
+            if (player.missions['mission-2'].completed) {
+                const mission3 = document.getElementById('mission-3');
+                const path3 = document.getElementById('path-3');
+                if (mission3) {
+                    mission3.classList.remove('disabled', 'opacity-50', 'cursor-not-allowed');
+                    mission3.href = 'mision3.html';
+                }
+                if (path3) {
+                    path3.classList.remove('disabled-path');
+                    path3.classList.add('animate-path-flow');
+                }
+            }
+
+            if (player.missions['mission-3'].completed) {
+                const mission4 = document.getElementById('mission-4');
+                const path4 = document.getElementById('path-4');
+                if (mission4) {
+                    mission4.classList.remove('disabled', 'opacity-50', 'cursor-not-allowed');
+                    mission4.href = 'mision4.html';
+                }
+                if (path4) {
+                    path4.classList.remove('disabled-path');
+                    path4.classList.add('animate-path-flow');
+                }
+            }
         }
         
-        // Función para reiniciar el juego
+        // Function to reset the game
         function resetGame() {
             const currentPlayer = localStorage.getItem('zython-current-player');
             if (currentPlayer) {
-                let players = JSON.parse(localStorage.getItem('zython-players') || '{}');
-                if (players[currentPlayer]) {
-                    delete players[currentPlayer];
-                    localStorage.setItem('zython-players', JSON.stringify(players));
-                    console.log('Progress for', currentPlayer, 'has been reset.');
-                }
+                localStorage.removeItem('zython-players');
             }
-            window.location.reload(); // Recarga la página para empezar de nuevo
+            window.location.reload();
         }
 
         // Initialize application
@@ -294,9 +252,21 @@
             createStars();
             const playerName = "Explorador 1";
             localStorage.setItem('zython-current-player', playerName);
+            
+            // Check if Misión 0 has been completed
+            const urlParams = new URLSearchParams(window.location.search);
+            const mission0Completed = urlParams.get('mision0_completed');
+            if (mission0Completed === 'true') {
+                const players = JSON.parse(localStorage.getItem('zython-players') || '{}');
+                if (players[playerName]) {
+                    players[playerName].missions['mission-0'].completed = true;
+                    localStorage.setItem('zython-players', JSON.stringify(players));
+                }
+            }
+
             setupGame(playerName);
             
-            // Asigna el evento de clic al botón de reiniciar
+            // Assign click event to reset button
             document.getElementById('reset-button').addEventListener('click', resetGame);
         }
 
