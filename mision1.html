@@ -131,7 +131,7 @@
                 <div class="bg-white/10 backdrop-blur-sm rounded-3xl p-6 md:p-8 border-4 border-white/30 shadow-2xl mb-8">
                     <div class="text-center mb-6">
                         <div class="text-6xl mb-4">🚀</div>
-                        <h2 class="text-2xl md:text-3xl font-bold mb-4 text-yellow-300">Llanura de Vectonia — Calibra tu RoverBot</h2>
+                        <h2 class="text-2xl md:text-3xl font-bold mb-4 text-yellow-300">Llanura de Vectonia – Calibra tu RoverBot</h2>
                     </div>
                     
                     <div class="bg-black/40 p-6 rounded-xl border-2 border-white/40 mb-6">
@@ -161,7 +161,7 @@
                     <div class="bg-black/40 p-6 rounded-xl border-2 border-white/40 mb-6">
                         <p class="text-lg text-white/90 mb-4">Al completar la misión podrás:</p>
                         <ul class="list-disc list-inside space-y-3 text-white/90">
-                            <li>Entender la relación potencia — tiempo — distancia.</li>
+                            <li>Entender la relación potencia – tiempo – distancia.</li>
                             <li>Medir y registrar datos reales.</li>
                             <li>Ajustar programación para alcanzar una distancia objetivo.</li>
                             <li>Interpretar una tabla de ensayos y sacar conclusiones.</li>
@@ -382,7 +382,7 @@
             <section class="slide" id="slide-8">
                 <div class="bg-white/10 backdrop-blur-sm rounded-3xl p-6 md:p-8 border-4 border-white/30 shadow-2xl mb-8">
                     <div class="text-center mb-6">
-                        <div class="text-4xl mb-4">🔁</div>
+                        <div class="text-4xl mb-4">🔄</div>
                         <h2 class="text-2xl md:text-3xl font-bold mb-4 text-yellow-300">Paso 5: Repetir y confirmar</h2>
                     </div>
                     
@@ -822,7 +822,7 @@
             localStorage.setItem('mision1Data', JSON.stringify(missionData));
         }
         
-        // Completar misión
+        // Completar misión - ESTA ES LA FUNCIÓN CLAVE QUE FIX EL PROBLEMA
         function completeMission() {
             // Marcar todos los checks como completados
             for (let i = 1; i <= 5; i++) {
@@ -840,13 +840,35 @@
             missionData.fechaCompletada = new Date().toISOString();
             localStorage.setItem('mision1Data', JSON.stringify(missionData));
             
+            // AQUÍ ESTÁ EL FIX: Actualizar el progreso del jugador para desbloquear la misión 2
+            const currentPlayer = localStorage.getItem('zython-current-player');
+            if (currentPlayer) {
+                let players = JSON.parse(localStorage.getItem('zython-players') || '{}');
+                if (!players[currentPlayer]) {
+                    players[currentPlayer] = {
+                        completedMissions: [],
+                        completed: 0,
+                        currentMission: 1
+                    };
+                }
+                
+                // Agregar misión 1 como completada si no está ya
+                if (!players[currentPlayer].completedMissions.includes(1)) {
+                    players[currentPlayer].completedMissions.push(1);
+                    players[currentPlayer].completed = players[currentPlayer].completedMissions.length;
+                    players[currentPlayer].currentMission = 2; // Desbloquear misión 2
+                }
+                
+                localStorage.setItem('zython-players', JSON.stringify(players));
+            }
+            
             alert('¡Felicidades! Has completado la Misión 1: Llanura de Vectonia. ¡Eres un auténtico Calibrador Estelar!');
         }
         
-        // Volver al centro de misiones
+        // AQUÍ ESTÁ EL FIX PRINCIPAL: Función que realmente redirige al index
         function volverAMisiones() {
-            alert('Volviendo al Centro de Misiones...');
-            // En una implementación real, aquí redirigiríamos a la página principal
+            // Redirigir al index.html
+            window.location.href = 'index.html';
         }
         
         // Cargar datos guardados al iniciar
@@ -876,10 +898,15 @@
                 if (missionData.attempts) {
                     for (let i = 1; i <= 4; i++) {
                         if (missionData.attempts[i]) {
-                            document.getElementById(`intento${i}-potencia`).value = missionData.attempts[i].potencia;
-                            document.getElementById(`intento${i}-tiempo`).value = missionData.attempts[i].tiempo;
-                            document.getElementById(`intento${i}-distancia`).value = missionData.attempts[i].distancia;
-                            document.getElementById(`intento${i}-resultado`).value = missionData.attempts[i].resultado;
+                            const potenciaInput = document.getElementById(`intento${i}-potencia`);
+                            const tiempoInput = document.getElementById(`intento${i}-tiempo`);
+                            const distanciaInput = document.getElementById(`intento${i}-distancia`);
+                            const resultadoSelect = document.getElementById(`intento${i}-resultado`);
+                            
+                            if (potenciaInput) potenciaInput.value = missionData.attempts[i].potencia;
+                            if (tiempoInput) tiempoInput.value = missionData.attempts[i].tiempo;
+                            if (distanciaInput) distanciaInput.value = missionData.attempts[i].distancia;
+                            if (resultadoSelect) resultadoSelect.value = missionData.attempts[i].resultado;
                         }
                     }
                 }
@@ -915,7 +942,8 @@
                 
                 // Marcar checks como completados
                 for (let i = 1; i <= 5; i++) {
-                    document.getElementById(`check-${i}`).checked = true;
+                    const checkbox = document.getElementById(`check-${i}`);
+                    if (checkbox) checkbox.checked = true;
                 }
             }
         }
