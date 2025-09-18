@@ -21,9 +21,15 @@
             to { opacity: 1; transform: translateY(0); }
         }
         
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
         .animate-float { animation: float 3s ease-in-out infinite; }
         .animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
         .animate-slide-in { animation: slideIn 0.8s ease-out; }
+        .animate-fade-in { animation: fadeIn 1s ease-out; }
         
         .stars {
             position: fixed;
@@ -61,6 +67,33 @@
             from, to { border-color: transparent; }
             50% { border-color: white; }
         }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(59, 130, 246, 0.1), rgba(147, 51, 234, 0.1));
+            border-radius: 20px;
+            pointer-events: none;
+        }
+
+        video {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
     </style>
 </head>
 <body class="min-h-screen bg-gradient-to-b from-purple-900 via-blue-900 to-black text-white overflow-x-hidden">
@@ -68,18 +101,48 @@
     
     <div class="relative z-10 min-h-screen flex flex-col">
         
+        <!-- Paso 1: Video introductorio -->
         <div id="step-1" class="step-container min-h-screen flex flex-col items-center justify-center p-6">
-            <div class="max-w-4xl text-center animate-slide-in">
-                <div class="text-8xl mb-8 animate-float">🌌</div>
-                <h1 class="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+            <div class="max-w-5xl text-center animate-slide-in">
+                <div class="text-6xl mb-6 animate-float">🌌</div>
+                <h1 class="text-4xl md:text-6xl font-bold mb-8 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
                     Bienvenido al Planeta Zython
                 </h1>
-                <div class="text-xl md:text-2xl text-white/90 mb-8 leading-relaxed">
-                    <p class="mb-4">El año es 2157. La humanidad ha expandido su alcance más allá de la Tierra...</p>
-                    <p class="mb-4">Has sido seleccionado como explorador espacial para una misión crítica en <span class="text-yellow-300 font-bold">Zython</span>, un planeta misterioso lleno de terrenos desafiantes y tecnología avanzada.</p>
-                    <p>Tu primera tarea: ensamblar tu compañero robótico que te ayudará en todas las misiones.</p>
+                
+                <!-- Contenedor del video -->
+                <div class="video-container mb-8">
+                    <div class="video-overlay"></div>
+                    <video 
+                        id="intro-video" 
+                        controls 
+                        preload="auto"
+                        onended="onVideoEnd()"
+                        class="rounded-lg">
+                        <source src="intro.mp4" type="video/mp4">
+                        Tu navegador no soporta la reproducción de video.
+                    </video>
                 </div>
-                <button onclick="nextStep()" class="px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 rounded-xl font-bold text-xl transition-all duration-300 transform hover:scale-105 animate-pulse-glow">
+
+                <!-- Mensaje mientras se carga el video -->
+                <div id="loading-message" class="text-lg text-white/70 mb-4">
+                    🎬 Cargando transmisión desde la Estación Espacial...
+                </div>
+
+                <!-- Controles de video -->
+                <div id="video-controls" class="flex justify-center gap-4 mb-8">
+                    <button onclick="playVideo()" class="px-6 py-3 bg-green-600 hover:bg-green-700 rounded-xl font-bold transition-all duration-300 transform hover:scale-105">
+                        ▶️ Reproducir
+                    </button>
+                    <button onclick="pauseVideo()" class="px-6 py-3 bg-yellow-600 hover:bg-yellow-700 rounded-xl font-bold transition-all duration-300 transform hover:scale-105">
+                        ⏸️ Pausar
+                    </button>
+                    <button onclick="skipVideo()" class="px-6 py-3 bg-red-600 hover:bg-red-700 rounded-xl font-bold transition-all duration-300 transform hover:scale-105">
+                        ⏭️ Saltar
+                    </button>
+                </div>
+
+                <!-- Botón para continuar (oculto inicialmente) -->
+                <button id="continue-btn" onclick="nextStep()" class="px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 rounded-xl font-bold text-xl transition-all duration-300 transform hover:scale-105 animate-pulse-glow hidden">
                     🚀 Comenzar Misión
                 </button>
             </div>
@@ -391,6 +454,51 @@
             }
         }
 
+        // Funciones para el video
+        function playVideo() {
+            const video = document.getElementById('intro-video');
+            if (video) {
+                video.play();
+                hideLoadingMessage();
+            }
+        }
+
+        function pauseVideo() {
+            const video = document.getElementById('intro-video');
+            if (video) {
+                video.pause();
+            }
+        }
+
+        function skipVideo() {
+            const video = document.getElementById('intro-video');
+            if (video) {
+                video.currentTime = video.duration;
+                onVideoEnd();
+            }
+        }
+
+        function onVideoEnd() {
+            // Ocultar controles de video y mostrar botón de continuar
+            const videoControls = document.getElementById('video-controls');
+            const continueBtn = document.getElementById('continue-btn');
+            const loadingMessage = document.getElementById('loading-message');
+            
+            if (videoControls) videoControls.style.display = 'none';
+            if (loadingMessage) loadingMessage.style.display = 'none';
+            if (continueBtn) {
+                continueBtn.classList.remove('hidden');
+                continueBtn.classList.add('animate-fade-in');
+            }
+        }
+
+        function hideLoadingMessage() {
+            const loadingMessage = document.getElementById('loading-message');
+            if (loadingMessage) {
+                loadingMessage.style.display = 'none';
+            }
+        }
+
         function showStep(stepNumber) {
             for (let i = 1; i <= totalSteps; i++) {
                 const step = document.getElementById(`step-${i}`);
@@ -504,10 +612,50 @@
             window.location.href = 'index.html';
         }
 
+        // Inicializar eventos del video
+        function initializeVideo() {
+            const video = document.getElementById('intro-video');
+            if (video) {
+                // Manejar errores de carga del video
+                video.onerror = function() {
+                    const loadingMessage = document.getElementById('loading-message');
+                    if (loadingMessage) {
+                        loadingMessage.innerHTML = '⚠️ Error cargando el video. Puedes continuar sin verlo.';
+                        loadingMessage.classList.add('text-red-400');
+                    }
+                    
+                    // Mostrar botón de continuar inmediatamente si hay error
+                    setTimeout(() => {
+                        onVideoEnd();
+                    }, 2000);
+                };
+
+                // Cuando el video esté listo para reproducirse
+                video.oncanplaythrough = function() {
+                    const loadingMessage = document.getElementById('loading-message');
+                    if (loadingMessage) {
+                        loadingMessage.innerHTML = '🎬 Video listo. ¡Presiona reproducir para comenzar!';
+                        loadingMessage.classList.remove('text-red-400');
+                        loadingMessage.classList.add('text-green-400');
+                    }
+                };
+
+                // Auto-reproducir si es posible
+                video.onloadeddata = function() {
+                    // Intentar reproducir automáticamente
+                    video.play().catch(() => {
+                        // Si falla la reproducción automática, mostrar controles
+                        console.log('Auto-play bloqueado, mostrando controles');
+                    });
+                };
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             createStars();
             showStep(1);
             showAssemblyStep(1);
+            initializeVideo();
         });
     </script>
 </body>
