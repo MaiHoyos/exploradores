@@ -109,18 +109,20 @@
                     Bienvenido al Planeta Zython
                 </h1>
                 
-                <!-- Contenedor del video -->
+                <!-- Contenedor del video de YouTube -->
                 <div class="video-container mb-8">
                     <div class="video-overlay"></div>
-                    <video 
-                        id="intro-video" 
-                        controls 
-                        preload="auto"
-                        onended="onVideoEnd()"
+                    <iframe 
+                        id="youtube-video"
+                        width="100%" 
+                        height="450" 
+                        src="https://www.youtube.com/embed/5sJSlfYuTos?autoplay=1&mute=1&enablejsapi=1&rel=0&modestbranding=1&iv_load_policy=3&showinfo=0"
+                        title="Intro Video Zython"
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        allowfullscreen
                         class="rounded-lg">
-                        <source src="intro.mp4" type="video/mp4">
-                        Tu navegador no soporta la reproducción de video.
-                    </video>
+                    </iframe>
                 </div>
 
                 <!-- Mensaje mientras se carga el video -->
@@ -128,16 +130,13 @@
                     🎬 Cargando transmisión desde la Estación Espacial...
                 </div>
 
-                <!-- Controles de video -->
+                <!-- Controles de video personalizados -->
                 <div id="video-controls" class="flex justify-center gap-4 mb-8">
-                    <button onclick="playVideo()" class="px-6 py-3 bg-green-600 hover:bg-green-700 rounded-xl font-bold transition-all duration-300 transform hover:scale-105">
-                        ▶️ Reproducir
-                    </button>
-                    <button onclick="pauseVideo()" class="px-6 py-3 bg-yellow-600 hover:bg-yellow-700 rounded-xl font-bold transition-all duration-300 transform hover:scale-105">
-                        ⏸️ Pausar
+                    <button onclick="restartVideo()" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-xl font-bold transition-all duration-300 transform hover:scale-105">
+                        🔄 Reiniciar
                     </button>
                     <button onclick="skipVideo()" class="px-6 py-3 bg-red-600 hover:bg-red-700 rounded-xl font-bold transition-all duration-300 transform hover:scale-105">
-                        ⏭️ Saltar
+                        ⏭️ Saltar Video
                     </button>
                 </div>
 
