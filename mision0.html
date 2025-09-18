@@ -453,38 +453,76 @@
             }
         }
 
-        // Funciones para el video
-        function playVideo() {
-            const video = document.getElementById('intro-video');
-            if (video) {
-                video.play();
-                hideLoadingMessage();
+        // Variables para YouTube API
+        let player;
+        let videoEnded = false;
+
+        // Cargar API de YouTube
+        function loadYouTubeAPI() {
+            if (typeof YT === 'undefined') {
+                const tag = document.createElement('script');
+                tag.src = "https://www.youtube.com/iframe_api";
+                const firstScriptTag = document.getElementsByTagName('script')[0];
+                firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
             }
         }
 
-        function pauseVideo() {
-            const video = document.getElementById('intro-video');
-            if (video) {
-                video.pause();
-            }
+        // Función llamada cuando la API de YouTube está lista
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('youtube-video', {
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
         }
 
-        function skipVideo() {
-            const video = document.getElementById('intro-video');
-            if (video) {
-                video.currentTime = video.duration;
+        function onPlayerReady(event) {
+            hideLoadingMessage();
+            // El video ya debería empezar automáticamente por el parámetro autoplay=1
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data === YT.PlayerState.ENDED && !videoEnded) {
+                videoEnded = true;
                 onVideoEnd();
             }
         }
 
+        // Funciones para el video de YouTube
+        function restartVideo() {
+            if (player && player.seekTo) {
+                player.seekTo(0);
+                player.playVideo();
+                videoEnded = false;
+                
+                // Ocultar botón de continuar si estaba visible
+                const continueBtn = document.getElementById('continue-btn');
+                if (continueBtn && !continueBtn.classList.contains('hidden')) {
+                    continueBtn.classList.add('hidden');
+                }
+            }
+        }
+
+        function skipVideo() {
+            videoEnded = true;
+            onVideoEnd();
+        }
+
         function onVideoEnd() {
+            // Mostrar mensaje de video completado
+            const loadingMessage = document.getElementById('loading-message');
+            if (loadingMessage) {
+                loadingMessage.innerHTML = '✅ Transmisión completada. ¡Listo para la misión!';
+                loadingMessage.classList.add('text-green-400');
+                loadingMessage.style.display = 'block';
+            }
+            
             // Ocultar controles de video y mostrar botón de continuar
             const videoControls = document.getElementById('video-controls');
             const continueBtn = document.getElementById('continue-btn');
-            const loadingMessage = document.getElementById('loading-message');
             
             if (videoControls) videoControls.style.display = 'none';
-            if (loadingMessage) loadingMessage.style.display = 'none';
             if (continueBtn) {
                 continueBtn.classList.remove('hidden');
                 continueBtn.classList.add('animate-fade-in');
@@ -494,8 +532,17 @@
         function hideLoadingMessage() {
             const loadingMessage = document.getElementById('loading-message');
             if (loadingMessage) {
-                loadingMessage.style.display = 'none';
+                loadingMessage.innerHTML = '🎬 ¡Iniciando transmisión automáticamente!';
+                loadingMessage.classList.add('text-green-400');
             }
+            
+            // Auto-mostrar controles después de unos segundos
+            setTimeout(() => {
+                const videoControls = document.getElementById('video-controls');
+                if (videoControls) {
+                    videoControls.style.display = 'flex';
+                }
+            }, 3000);
         }
 
         function showStep(stepNumber) {
@@ -611,50 +658,33 @@
             window.location.href = 'index.html';
         }
 
-        // Inicializar eventos del video
-        function initializeVideo() {
-            const video = document.getElementById('intro-video');
-            if (video) {
-                // Manejar errores de carga del video
-                video.onerror = function() {
-                    const loadingMessage = document.getElementById('loading-message');
-                    if (loadingMessage) {
-                        loadingMessage.innerHTML = '⚠️ Error cargando el video. Puedes continuar sin verlo.';
-                        loadingMessage.classList.add('text-red-400');
-                    }
-                    
-                    // Mostrar botón de continuar inmediatamente si hay error
-                    setTimeout(() => {
-                        onVideoEnd();
-                    }, 2000);
-                };
-
-                // Cuando el video esté listo para reproducirse
-                video.oncanplaythrough = function() {
-                    const loadingMessage = document.getElementById('loading-message');
-                    if (loadingMessage) {
-                        loadingMessage.innerHTML = '🎬 Video listo. ¡Presiona reproducir para comenzar!';
-                        loadingMessage.classList.remove('text-red-400');
-                        loadingMessage.classList.add('text-green-400');
-                    }
-                };
-
-                // Auto-reproducir si es posible
-                video.onloadeddata = function() {
-                    // Intentar reproducir automáticamente
-                    video.play().catch(() => {
-                        // Si falla la reproducción automática, mostrar controles
-                        console.log('Auto-play bloqueado, mostrando controles');
-                    });
-                };
+        // Inicializar aplicación
+        function initializeApp() {
+            loadYouTubeAPI();
+            
+            // Mostrar mensaje inicial más apropiado
+            const loadingMessage = document.getElementById('loading-message');
+            if (loadingMessage) {
+                loadingMessage.innerHTML = '🛰️ Estableciendo conexión con la Estación Espacial...';
             }
+            
+            // Auto-finalizar video después de cierto tiempo como respaldo
+            setTimeout(() => {
+                if (!videoEnded) {
+                    console.log('Respaldo: mostrando botón de continuar');
+                    onVideoEnd();
+                }
+            }, 180000); // 3 minutos como respaldo
         }
+
+        // Hacer la función global para YouTube API
+        window.onYouTubeIframeAPIReady = onYouTubeIframeAPIReady;
 
         document.addEventListener('DOMContentLoaded', function() {
             createStars();
             showStep(1);
             showAssemblyStep(1);
-            initializeVideo();
+            initializeApp();
         });
     </script>
 </body>
