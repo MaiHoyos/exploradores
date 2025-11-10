@@ -46,7 +46,7 @@
         }
 
         .sheet.active {
-            display: block;
+            display: flex;
         }
     </style>
 </head>
@@ -63,314 +63,278 @@
                 <div class="text-2xl md:text-3xl font-extrabold text-white drop-shadow-lg">MISIÓN 3 · Sensorium</div>
                 <div class="text-3xl md:text-4xl">🌌🤝</div>
             </div>
-            <div id="completion-badge" class="hidden px-4 py-2 bg-green-500 text-white font-bold rounded-full shadow-lg text-sm md:text-base">
+            <div id="completion-badge" class="hidden px-4 py-2 bg-green-500 text-white font-bold rounded-full shadow-lg text-xs md:text-sm">
                 🏅 Insignia: Colaboración en Sensorium
             </div>
         </div>
-        <div class="mt-2 text-xs md:text-sm text-purple-100 text-right">
-            Hoja <span id="sheet-indicator">1</span> de 5
+        <div class="mt-1 text-[10px] md:text-xs text-purple-100 text-right">
+            Hoja <span id="sheet-indicator">1</span> de <span id="sheet-total">9</span>
         </div>
     </header>
 
     <!-- MAIN -->
-    <main class="relative z-10 p-4 md:p-8 max-w-5xl mx-auto">
+    <main class="relative z-10 px-4 md:px-8 max-w-5xl mx-auto">
+        <!-- CONTENEDOR DE HOJAS (pantalla fija) -->
+        <div id="sheet-container" class="h-[calc(100vh-220px)] flex items-center justify-center">
+            <!-- HOJA 1: HISTORIA Y OBJETIVOS -->
+            <section id="sheet-1" class="sheet active w-full max-w-5xl h-full bg-white/10 backdrop-blur-sm rounded-3xl p-4 md:p-6 border-4 border-white/30 shadow-2xl flex-col justify-center space-y-3">
+                <h2 class="sheet-title text-xl md:text-2xl font-bold text-center mb-1 text-yellow-300">
+                    Hoja 1 · Corredor de Cráteres del Sensorium
+                </h2>
+                <p class="text-xs md:text-sm text-white/90 text-center px-2">
+                    En el planeta <span class="font-bold text-teal-300">Sensorium</span>, dos RoverBots deben colaborar para transportar una valiosa muestra de energía
+                    hasta un punto exacto del mapa. El camino está lleno de cráteres y zonas inestables. 
+                    Solo lo lograrán si planifican <span class="font-semibold text-yellow-300">trayectorias con giros y ángulos precisos</span> 
+                    y trabajan como un equipo científico.
+                </p>
 
-        <!-- HOJA 1 -->
-        <section id="sheet-1" class="sheet active bg-white/10 backdrop-blur-sm rounded-3xl p-5 md:p-8 border-4 border-white/30 shadow-2xl space-y-4">
-            <h2 class="sheet-title text-2xl md:text-3xl font-bold text-center mb-2 text-yellow-300">
-                Hoja 1 · Corredor de Cráteres del Sensorium
-            </h2>
-            <p class="text-base md:text-lg text-white/90 text-center">
-                En el planeta <span class="font-bold text-teal-300">Sensorium</span>, dos RoverBots deben colaborar para transportar una valiosa muestra de energía
-                hasta un punto exacto del mapa. El camino está lleno de cráteres y zonas inestables. 
-                Solo lo lograrán si planifican <span class="font-semibold text-yellow-300">trayectorias con giros y ángulos precisos</span>, 
-                mantienen la misma velocidad y se comunican como un verdadero equipo científico.
-            </p>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center mt-4">
-                <div>
-                    <img src="mision3_sensorium.png"
-                         alt="Corredor de cráteres en Sensorium"
-                         class="w-full rounded-2xl border-4 border-white/60 shadow-xl"
-                         onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full aspect-video flex items-center justify-center text-4xl md:text-6xl bg-gradient-to-br from-purple-500 via-blue-500 to-black rounded-2xl border-4 border-white/40&quot;>🌌🕳️🕳️</div>'">
+                <div class="grid grid-cols-2 gap-3 items-center mt-2">
+                    <div>
+                        <img src="mision3_sensorium.png"
+                            alt="Corredor de cráteres en Sensorium"
+                            class="w-full rounded-2xl border-2 border-white/60 shadow-xl"
+                            onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full aspect-video flex items-center justify-center text-3xl bg-gradient-to-br from-purple-500 via-blue-500 to-black rounded-2xl border-2 border-white/40&quot;>🌌🕳️🕳️</div>'">
+                    </div>
+                    <div class="bg-black/40 p-3 rounded-2xl border-2 border-white/40 space-y-1 text-[10px] md:text-xs">
+                        <h3 class="text-sm md:text-base font-semibold text-white mb-1">Objetivo de la misión</h3>
+                        <ul class="list-disc list-inside text-white/90 space-y-1">
+                            <li>Unir dos RoverBots para transportar una misma carga.</li>
+                            <li>Diseñar un recorrido con cambios de dirección y ángulos.</li>
+                            <li>Esquivar cráteres y zonas peligrosas.</li>
+                            <li>Detenerse exactamente en el punto de entrega marcado.</li>
+                        </ul>
+                    </div>
                 </div>
 
-                <div class="bg-black/40 p-4 md:p-5 rounded-2xl border-2 border-white/40 space-y-2">
-                    <h3 class="text-lg md:text-2xl font-semibold text-white mb-2">Objetivo de la misión</h3>
-                    <ul class="list-disc list-inside text-white/90 space-y-1 text-sm md:text-base">
-                        <li>Unir dos RoverBots para transportar una misma carga.</li>
-                        <li>Diseñar un recorrido con <span class="font-semibold">cambios de dirección y ángulos</span>.</li>
-                        <li>Evitar cráteres usando mediciones de distancia y coordinación.</li>
-                        <li>Detenerse exactamente en el punto de entrega marcado.</li>
+                <div class="mt-2 space-y-1 text-[10px] md:text-xs">
+                    <p class="font-semibold text-purple-300">Conceptos matemáticos:</p>
+                    <ul class="list-disc list-inside text-white/90 space-y-1">
+                        <li>Distancias en centímetros o cuadros.</li>
+                        <li>Ángulos (90°, 45°, 135°, 180°).</li>
+                        <li>Relación potencia–tiempo–distancia.</li>
+                        <li>Recorridos en un plano (trayectorias).</li>
                     </ul>
                 </div>
-            </div>
+            </section>
 
-            <div class="mt-4 space-y-2">
-                <p class="font-semibold text-purple-300 text-sm md:text-base">Conceptos matemáticos en juego:</p>
-                <ul class="list-disc list-inside text-white/90 space-y-1 text-sm md:text-base">
-                    <li>Medición de distancias en centímetros o unidades del tablero.</li>
-                    <li>Ángulos rectos (90°), giros de 45°, 135° o 180° para cambiar de dirección.</li>
-                    <li>Relación entre potencia, tiempo y distancia (proporcionalidad).</li>
-                    <li>Representación del recorrido como camino en un plano cuadriculado.</li>
+            <!-- HOJA 2: ESCENARIO + PSEUDOCÓDIGO -->
+            <section id="sheet-2" class="sheet w-full max-w-5xl h-full bg-white/10 backdrop-blur-sm rounded-3xl p-4 md:p-6 border-4 border-indigo-300/40 shadow-2xl flex-col justify-center space-y-3">
+                <h2 class="sheet-title text-xl md:text-2xl font-bold text-yellow-300 text-center mb-1">
+                    Hoja 2 · Diseña tu trayectoria segura en Sensorium
+                </h2>
+                <p class="text-[10px] md:text-xs text-white/90 px-2 text-center">
+                    STEAM Time 🎨: En equipos, <span class="font-semibold text-teal-300">crea el escenario</span> de Sensorium:
+                    dibuja o construye con papel, cartulina o materiales simples los cráteres, montañas, rocas y el terreno.
+                </p>
+                <ul class="list-disc list-inside text-[10px] md:text-xs text-white/90 px-4 space-y-1">
+                    <li>Marca el <span class="font-semibold">Punto A</span>: lugar de partida de los RoverBots.</li>
+                    <li>La profe señalará el <span class="font-semibold">Punto B</span>: lugar exacto donde deben entregar la muestra.</li>
+                    <li>Dibuja al menos <span class="font-semibold">2 cráteres</span> que deben esquivar.</li>
                 </ul>
-            </div>
-        </section>
 
-        <!-- HOJA 2 -->
-        <section id="sheet-2" class="sheet bg-white/10 backdrop-blur-sm rounded-3xl p-5 md:p-8 border-4 border-indigo-300/40 shadow-2xl space-y-4">
-            <h2 class="sheet-title text-2xl md:text-3xl font-bold text-yellow-300 text-center mb-2">
-                Hoja 2 · Diseña tu trayectoria segura
-            </h2>
-            <p class="text-white/90 text-sm md:text-base">
-                Marca en el suelo (o en una hoja cuadriculada) el punto de inicio <span class="font-semibold text-teal-300">A</span>,
-                el punto de entrega <span class="font-semibold text-teal-300">B</span> y al menos 
-                <span class="font-semibold text-yellow-300">2 cráteres</span> que debes esquivar.
-                La ruta debe tener al menos <span class="font-semibold">dos giros</span>.
-            </p>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-3">
-                <div class="space-y-2">
-                    <label class="block text-xs md:text-sm text-purple-200">
-                        Describe tu ruta (ejemplo: 40 cm recto, giro 90°, 30 cm recto, giro 90°, 20 cm recto):
-                    </label>
-                    <textarea class="w-full p-3 rounded-2xl bg-black/60 border border-white/30 text-white text-sm md:text-base"
-                              rows="4"
-                              placeholder="Escribe aquí la secuencia de movimientos con medidas y ángulos..."></textarea>
+                <div class="bg-black/40 rounded-2xl border border-white/30 p-3 space-y-2 text-[10px] md:text-xs">
+                    <p class="font-semibold text-yellow-300">Ahora escribe el plan en tus palabras (pseudocódigo):</p>
+                    <p>1️⃣ Coloca los RoverBots en el Punto A.</p>
+                    <p>2️⃣ Observa el escenario y piensa: ¿cuántos pasos rectos?, ¿dónde girar?, ¿qué ángulos usar?</p>
+                    <p>3️⃣ En un archivo Word (Misión 3 - Sensorium), escribe con tus palabras el pseudocódigo, por ejemplo:</p>
+                    <ul class="list-disc list-inside ml-3">
+                        <li>Ir recto 5 cuadros.</li>
+                        <li>Girar 90° a la derecha.</li>
+                        <li>Ir recto 3 cuadros.</li>
+                        <li>Girar 45° a la izquierda.</li>
+                        <li>Continuar hasta el Punto B.</li>
+                    </ul>
+                    <p>4️⃣ Guarda ese archivo en la carpeta de la Misión 3 en el Drive del curso.</p>
                 </div>
-                <div class="space-y-2">
-                    <label class="block text-xs md:text-sm text-purple-200">
-                        Dibuja o describe dónde están los cráteres:
-                    </label>
-                    <textarea class="w-full p-3 rounded-2xl bg-black/60 border border-white/30 text-white text-sm md:text-base"
-                              rows="4"
-                              placeholder="Ejemplo: Cráter 1 a la derecha del inicio, Cráter 2 cerca del punto medio, etc."></textarea>
-                </div>
-            </div>
+            </section>
 
-            <div class="mt-3 space-y-2">
-                <label class="block text-xs md:text-sm text-purple-200">Predicción matemática:</label>
-                <textarea class="w-full p-3 rounded-2xl bg-black/60 border border-white/30 text-white text-sm md:text-base"
-                          rows="3"
-                          placeholder="¿Qué potencia (%) y tiempo (s) crees que deben usar los RoverBots para llegar juntos al punto B sin caer en los cráteres? Explica."></textarea>
-            </div>
-        </section>
-
-        <!-- HOJA 3 -->
-        <section id="sheet-3" class="sheet bg-white/10 backdrop-blur-sm rounded-3xl p-5 md:p-8 border-4 border-pink-300/40 shadow-2xl space-y-4">
-            <h2 class="sheet-title text-2xl md:text-3xl font-bold text-yellow-300 text-center mb-2">
-                Hoja 3 · Construye el módulo de colaboración
-            </h2>
-            <p class="text-white/90 text-center text-sm md:text-base">
-                Ahora deben <span class="font-semibold text-teal-300">conectar físicamente</span> los dos RoverBots para transportar la misma carga.
-                Sigan los pasos visuales y asegúrense de que la estructura sea estable.
-            </p>
-
-            <!-- Paso 1 -->
-            <div class="mt-3">
-                <h3 class="text-sm md:text-lg font-semibold text-white mb-2">Paso 1: Base de conexión</h3>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <!-- HOJA 3: CONSTRUCCIÓN 1-3 -->
+            <section id="sheet-3" class="sheet w-full max-w-5xl h-full bg-white/10 backdrop-blur-sm rounded-3xl p-4 border-4 border-pink-300/40 shadow-2xl flex-col justify-center space-y-3">
+                <h2 class="sheet-title text-xl md:text-2xl font-bold text-yellow-300 text-center mb-1">
+                    Hoja 3 · Construcción (Pasos 1-3)
+                </h2>
+                <p class="text-[10px] md:text-xs text-center text-white/90">
+                    Sigan las imágenes para iniciar el módulo que une a los dos RoverBots.
+                </p>
+                <div class="grid grid-cols-3 gap-3">
                     <img src="Colaboración/1.jpg" class="w-full rounded-2xl border-2 border-white/40" alt="Paso 1" onerror="this.style.display='none';">
                     <img src="Colaboración/2.jpg" class="w-full rounded-2xl border-2 border-white/40" alt="Paso 2" onerror="this.style.display='none';">
                     <img src="Colaboración/3.jpg" class="w-full rounded-2xl border-2 border-white/40" alt="Paso 3" onerror="this.style.display='none';">
                 </div>
-            </div>
+            </section>
 
-            <!-- Paso 2 -->
-            <div class="mt-3">
-                <h3 class="text-sm md:text-lg font-semibold text-white mb-2">Paso 2: Refuerza la unión</h3>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <!-- HOJA 4: CONSTRUCCIÓN 4-6 -->
+            <section id="sheet-4" class="sheet w-full max-w-5xl h-full bg-white/10 backdrop-blur-sm rounded-3xl p-4 border-4 border-pink-300/40 shadow-2xl flex-col justify-center space-y-3">
+                <h2 class="sheet-title text-xl md:text-2xl font-bold text-yellow-300 text-center mb-1">
+                    Hoja 4 · Construcción (Pasos 4-6)
+                </h2>
+                <p class="text-[10px] md:text-xs text-center text-white/90">
+                    Refuerza la base para que el módulo sea estable.
+                </p>
+                <div class="grid grid-cols-3 gap-3">
                     <img src="Colaboración/4.jpg" class="w-full rounded-2xl border-2 border-white/40" alt="Paso 4" onerror="this.style.display='none';">
                     <img src="Colaboración/5.jpg" class="w-full rounded-2xl border-2 border-white/40" alt="Paso 5" onerror="this.style.display='none';">
                     <img src="Colaboración/6.jpg" class="w-full rounded-2xl border-2 border-white/40" alt="Paso 6" onerror="this.style.display='none';">
                 </div>
-            </div>
+            </section>
 
-            <!-- Paso 3 -->
-            <div class="mt-3">
-                <h3 class="text-sm md:text-lg font-semibold text-white mb-2">Paso 3: Ajusta el soporte de la carga</h3>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <!-- HOJA 5: CONSTRUCCIÓN 7-9 -->
+            <section id="sheet-5" class="sheet w-full max-w-5xl h-full bg-white/10 backdrop-blur-sm rounded-3xl p-4 border-4 border-pink-300/40 shadow-2xl flex-col justify-center space-y-3">
+                <h2 class="sheet-title text-xl md:text-2xl font-bold text-yellow-300 text-center mb-1">
+                    Hoja 5 · Construcción (Pasos 7-9)
+                </h2>
+                <p class="text-[10px] md:text-xs text-center text-white/90">
+                    Ajusta el soporte de la carga compartida.
+                </p>
+                <div class="grid grid-cols-3 gap-3">
                     <img src="Colaboración/7.jpg" class="w-full rounded-2xl border-2 border-white/40" alt="Paso 7" onerror="this.style.display='none';">
                     <img src="Colaboración/8.jpg" class="w-full rounded-2xl border-2 border-white/40" alt="Paso 8" onerror="this.style.display='none';">
                     <img src="Colaboración/9.jpg" class="w-full rounded-2xl border-2 border-white/40" alt="Paso 9" onerror="this.style.display='none';">
                 </div>
-            </div>
+            </section>
 
-            <!-- Paso 4 -->
-            <div class="mt-3">
-                <h3 class="text-sm md:text-lg font-semibold text-white mb-2">Paso 4: Conecta ambos RoverBots</h3>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <!-- HOJA 6: CONSTRUCCIÓN 10-12 -->
+            <section id="sheet-6" class="sheet w-full max-w-5xl h-full bg-white/10 backdrop-blur-sm rounded-3xl p-4 border-4 border-pink-300/40 shadow-2xl flex-col justify-center space-y-3">
+                <h2 class="sheet-title text-xl md:text-2xl font-bold text-yellow-300 text-center mb-1">
+                    Hoja 6 · Construcción (Pasos 10-12)
+                </h2>
+                <p class="text-[10px] md:text-xs text-center text-white/90">
+                    Conecta ambos RoverBots con el módulo central.
+                </p>
+                <div class="grid grid-cols-3 gap-3">
                     <img src="Colaboración/10.jpg" class="w-full rounded-2xl border-2 border-white/40" alt="Paso 10" onerror="this.style.display='none';">
                     <img src="Colaboración/11.jpg" class="w-full rounded-2xl border-2 border-white/40" alt="Paso 11" onerror="this.style.display='none';">
                     <img src="Colaboración/12.jpg" class="w-full rounded-2xl border-2 border-white/40" alt="Paso 12" onerror="this.style.display='none';">
                 </div>
-            </div>
+            </section>
 
-            <!-- Paso 5 -->
-            <div class="mt-3">
-                <h3 class="text-sm md:text-lg font-semibold text-white mb-2">Paso 5: Verifica estabilidad</h3>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <!-- HOJA 7: CONSTRUCCIÓN 13-17 -->
+            <section id="sheet-7" class="sheet w-full max-w-5xl h-full bg-white/10 backdrop-blur-sm rounded-3xl p-4 border-4 border-pink-300/40 shadow-2xl flex-col justify-center space-y-3">
+                <h2 class="sheet-title text-xl md:text-2xl font-bold text-yellow-300 text-center mb-1">
+                    Hoja 7 · Construcción (Pasos 13-17)
+                </h2>
+                <p class="text-[10px] md:text-xs text-center text-white/90">
+                    Revisa detalles finales y estabilidad de la estructura.
+                </p>
+                <div class="grid grid-cols-3 gap-3">
                     <img src="Colaboración/13.jpg" class="w-full rounded-2xl border-2 border-white/40" alt="Paso 13" onerror="this.style.display='none';">
                     <img src="Colaboración/14.jpg" class="w-full rounded-2xl border-2 border-white/40" alt="Paso 14" onerror="this.style.display='none';">
                     <img src="Colaboración/15.jpg" class="w-full rounded-2xl border-2 border-white/40" alt="Paso 15" onerror="this.style.display='none';">
                 </div>
-            </div>
-
-            <!-- Paso 6 -->
-            <div class="mt-3">
-                <h3 class="text-sm md:text-lg font-semibold text-white mb-2">Paso 6: Detalles finales</h3>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="grid grid-cols-2 gap-3">
                     <img src="Colaboración/16.jpg" class="w-full rounded-2xl border-2 border-white/40" alt="Paso 16" onerror="this.style.display='none';">
                     <img src="Colaboración/17.jpg" class="w-full rounded-2xl border-2 border-white/40" alt="Paso 17" onerror="this.style.display='none';">
                 </div>
-            </div>
-
-            <p class="mt-3 text-[10px] md:text-xs text-white/70">
-                Imagen ©2015 The LEGO Group. Usada con fines educativos y sin ánimo de lucro.
-                Fuente: Instrucciones de construcción del set LEGO® Education WeDo 2.0 (45300).
-            </p>
-
-            <div class="mt-3 space-y-2">
-                <label class="block text-xs md:text-sm text-purple-200">Anota aquí mejoras o ajustes que tu equipo hizo al diseño:</label>
-                <textarea class="w-full p-3 rounded-2xl bg-black/60 border border-white/30 text-white text-sm md:text-base"
-                          rows="3"
-                          placeholder="¿Tuvieron que reforzar algo? ¿Mover la carga?"></textarea>
-            </div>
-        </section>
-
-        <!-- HOJA 4 -->
-        <section id="sheet-4" class="sheet bg-white/10 backdrop-blur-sm rounded-3xl p-5 md:p-8 border-4 border-cyan-300/40 shadow-2xl space-y-4">
-            <h2 class="sheet-title text-2xl md:text-3xl font-bold text-yellow-300 text-center mb-2">
-                Hoja 4 · Programa, prueba y calcula
-            </h2>
-            <p class="text-white/90 text-sm md:text-base">
-                Programen ambos RoverBots para que sigan la ruta diseñada (con giros y cambios de dirección)
-                y lleguen juntos al punto de entrega. Hagan al menos <span class="font-semibold">3 ensayos</span>, ajustando cuando sea necesario.
-            </p>
-
-            <p class="text-xs md:text-sm text-purple-200 mt-1">
-                Completa esta tabla en tu cuaderno o en un documento digital (Word/Excel) y súbela luego al Drive del curso como evidencia de la Misión 3.
-            </p>
-
-            <div class="overflow-x-auto mt-3">
-                <table class="min-w-full text-[10px] md:text-sm text-center border border-white/30 rounded-2xl overflow-hidden">
-                    <thead class="bg-black/60 text-purple-200">
-                        <tr>
-                            <th class="px-1 md:px-2 py-1 md:py-2 border border-white/20">Ensayo</th>
-                            <th class="px-1 md:px-2 py-1 md:py-2 border border-white/20">Distancia total (cm)</th>
-                            <th class="px-1 md:px-2 py-1 md:py-2 border border-white/20">Potencia Rover A (%)</th>
-                            <th class="px-1 md:px-2 py-1 md:py-2 border border-white/20">Potencia Rover B (%)</th>
-                            <th class="px-1 md:px-2 py-1 md:py-2 border border-white/20">Tiempo (s)</th>
-                            <th class="px-1 md:px-2 py-1 md:py-2 border border-white/20">Ángulos usados</th>
-                            <th class="px-1 md:px-2 py-1 md:py-2 border border-white/20">¿Llegan juntos?</th>
-                        </tr>
-                    </thead>
-                    <tbody class="bg-black/40 text-white/90">
-                        <tr>
-                            <td class="px-1 md:px-2 py-1 md:py-2 border border-white/10">1</td>
-                            <td class="px-1 md:px-2 py-1 md:py-2 border border-white/10"></td>
-                            <td class="px-1 md:px-2 py-1 md:py-2 border border-white/10"></td>
-                            <td class="px-1 md:px-2 py-1 md:py-2 border border-white/10"></td>
-                            <td class="px-1 md:px-2 py-1 md:py-2 border border-white/10"></td>
-                            <td class="px-1 md:px-2 py-1 md:py-2 border border-white/10"></td>
-                            <td class="px-1 md:px-2 py-1 md:py-2 border border-white/10"></td>
-                        </tr>
-                        <tr>
-                            <td class="px-1 md:px-2 py-1 md:py-2 border border-white/10">2</td>
-                            <td class="px-1 md:px-2 py-1 md:py-2 border border-white/10"></td>
-                            <td class="px-1 md:px-2 py-1 md:py-2 border border-white/10"></td>
-                            <td class="px-1 md:px-2 py-1 md:py-2 border border-white/10"></td>
-                            <td class="px-1 md:px-2 py-1 md:py-2 border border-white/10"></td>
-                            <td class="px-1 md:px-2 py-1 md:py-2 border border-white/10"></td>
-                            <td class="px-1 md:px-2 py-1 md:py-2 border border-white/10"></td>
-                        </tr>
-                        <tr>
-                            <td class="px-1 md:px-2 py-1 md:py-2 border border-white/10">3</td>
-                            <td class="px-1 md:px-2 py-1 md:py-2 border border-white/10"></td>
-                            <td class="px-1 md:px-2 py-1 md:py-2 border border-white/10"></td>
-                            <td class="px-1 md:px-2 py-1 md:py-2 border border-white/10"></td>
-                            <td class="px-1 md:px-2 py-1 md:py-2 border border-white/10"></td>
-                            <td class="px-1 md:px-2 py-1 md:py-2 border border-white/10"></td>
-                            <td class="px-1 md:px-2 py-1 md:py-2 border border-white/10"></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="mt-3 space-y-2">
-                <label class="block text-xs md:text-sm text-purple-200">
-                    Explica un ajuste matemático que ayudó a mejorar el recorrido:
-                </label>
-                <textarea class="w-full p-3 rounded-2xl bg-black/60 border border-white/30 text-white text-sm md:text-base"
-                          rows="3"
-                          placeholder="Por ejemplo: cambiamos la potencia de 70% a 60% para que ambos llegaran al mismo tiempo."></textarea>
-            </div>
-
-            <p class="text-xs md:text-sm text-purple-200 mt-2">
-                ✔ Recuerda: esta información debe aparecer también en tus evidencias (tabla y explicación) que subirás al Drive.
-            </p>
-        </section>
-
-        <!-- HOJA 5 -->
-        <section id="sheet-5" class="sheet bg-white/10 backdrop-blur-sm rounded-3xl p-5 md:p-8 border-4 border-green-300/40 shadow-2xl space-y-4">
-            <h2 class="sheet-title text-2xl md:text-3xl font-bold text-yellow-300 text-center mb-2">
-                Hoja 5 · Reflexiona y sube tus evidencias
-            </h2>
-            <p class="text-white/90 text-center text-sm md:text-base">
-                Completa esta hoja como equipo. Aquí demuestran lo que aprendieron en la misión de colaboración en Sensorium.
-            </p>
-
-            <div class="space-y-3 mt-3">
-                <label class="block text-xs md:text-sm text-purple-200">1. ¿Por qué fue importante coordinar a los dos RoverBots?</label>
-                <textarea class="w-full p-3 rounded-2xl bg-black/60 border border-white/30 text-white text-sm md:text-base" rows="3"></textarea>
-
-                <label class="block text-xs md:text-sm text-purple-200">2. ¿Cómo usaron las matemáticas (distancias, tiempos, ángulos) para tomar decisiones?</label>
-                <textarea class="w-full p-3 rounded-2xl bg-black/60 border border-white/30 text-white text-sm md:text-base" rows="3"></textarea>
-
-                <label class="block text-xs md:text-sm text-purple-200">3. Describe un ejemplo concreto de buena colaboración en tu equipo.</label>
-                <textarea class="w-full p-3 rounded-2xl bg-black/60 border border-white/30 text-white text-sm md:text-base" rows="3"></textarea>
-            </div>
-
-            <div class="mt-4 space-y-2">
-                <p class="text-xs md:text-sm text-purple-200 font-semibold">
-                    Instrucciones de entrega de evidencias:
+                <p class="text-[8px] md:text-[9px] text-white/70">
+                    Imagen ©2015 The LEGO Group. Usada con fines educativos y sin ánimo de lucro.
+                    Fuente: Instrucciones de construcción del set LEGO® Education WeDo 2.0 (45300).
                 </p>
-                <ul class="list-disc list-inside text-white/90 text-xs md:text-sm space-y-1">
-                    <li>Llena la tabla de la <strong>Hoja 4</strong> en papel o en un archivo digital.</li>
-                    <li>Responde estas preguntas en tu cuaderno o en un archivo Word.</li>
-                    <li>Toma fotos de los RoverBots conectados, del recorrido y de la programación.</li>
-                    <li>Sube todos los archivos a la carpeta de la <strong>Misión 3</strong> en el Drive del curso, según las instrucciones del docente.</li>
-                </ul>
-            </div>
+            </section>
 
-            <div class="mt-6 flex flex-wrap justify-center gap-4">
-                <button id="complete-btn"
-                        onclick="completeMission()"
-                        class="px-6 py-3 bg-gradient-to-r from-green-500 to-green-700 text-white font-bold text-base md:text-lg rounded-full shadow-lg transition-transform transform hover:scale-110 hover:shadow-2xl">
-                    Marcar Misión 3 como completada
-                </button>
-                <a href="index.html"
-                   id="completed-btn"
-                   class="hidden px-6 py-3 bg-white text-green-600 font-bold text-base md:text-lg rounded-full shadow-lg transition-transform transform hover:scale-110 hover:shadow-2xl">
-                    Volver a Misiones
-                </a>
-            </div>
-        </section>
+            <!-- HOJA 8: PROGRAMA, PRUEBA Y CALCULA -->
+            <section id="sheet-8" class="sheet w-full max-w-5xl h-full bg-white/10 backdrop-blur-sm rounded-3xl p-4 md:p-6 border-4 border-cyan-300/40 shadow-2xl flex-col justify-center space-y-3">
+                <h2 class="sheet-title text-xl md:text-2xl font-bold text-yellow-300 text-center mb-1">
+                    Hoja 8 · Programa, prueba y calcula
+                </h2>
+                <p class="text-[10px] md:text-xs text-white/90 text-center px-2">
+                    Usando tu pseudocódigo, programa ambos RoverBots para seguir la ruta con giros y esquivar los cráteres.
+                    Realiza al menos <span class="font-semibold">3 ensayos</span>.
+                </p>
+                <p class="text-[9px] md:text-xs text-purple-200 text-center">
+                    Copia y completa esta tabla en tu cuaderno o en un archivo Word/Excel y súbela luego al Drive como evidencia.
+                </p>
+
+                <div class="overflow-x-auto">
+                    <table class="min-w-full text-[8px] md:text-[10px] text-center border border-white/30 rounded-2xl overflow-hidden">
+                        <thead class="bg-black/60 text-purple-200">
+                            <tr>
+                                <th class="px-1 py-1 border border-white/20">Ensayo</th>
+                                <th class="px-1 py-1 border border-white/20">Distancia total (cm)</th>
+                                <th class="px-1 py-1 border border-white/20">Potencia A (%)</th>
+                                <th class="px-1 py-1 border border-white/20">Potencia B (%)</th>
+                                <th class="px-1 py-1 border border-white/20">Tiempo (s)</th>
+                                <th class="px-1 py-1 border border-white/20">Ángulos usados</th>
+                                <th class="px-1 py-1 border border-white/20">¿Llegan juntos?</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-black/40 text-white/90">
+                            <tr>
+                                <td class="border border-white/10">1</td><td class="border border-white/10"></td><td class="border border-white/10"></td>
+                                <td class="border border-white/10"></td><td class="border border-white/10"></td><td class="border border-white/10"></td>
+                                <td class="border border-white/10"></td>
+                            </tr>
+                            <tr>
+                                <td class="border border-white/10">2</td><td class="border border-white/10"></td><td class="border border-white/10"></td>
+                                <td class="border border-white/10"></td><td class="border border-white/10"></td><td class="border border-white/10"></td>
+                                <td class="border border-white/10"></td>
+                            </tr>
+                            <tr>
+                                <td class="border border-white/10">3</td><td class="border border-white/10"></td><td class="border border-white/10"></td>
+                                <td class="border border-white/10"></td><td class="border border-white/10"></td><td class="border border-white/10"></td>
+                                <td class="border border-white/10"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <p class="text-[9px] md:text-xs text-purple-200 text-center">
+                    Escribe también una breve explicación: ¿qué ajuste matemático hizo que los dos RoverBots llegaran coordinados?
+                </p>
+            </section>
+
+            <!-- HOJA 9: REFLEXIÓN + EVIDENCIAS + COMPLETAR -->
+            <section id="sheet-9" class="sheet w-full max-w-5xl h-full bg-white/10 backdrop-blur-sm rounded-3xl p-4 md:p-6 border-4 border-green-300/40 shadow-2xl flex-col justify-center space-y-3">
+                <h2 class="sheet-title text-xl md:text-2xl font-bold text-yellow-300 text-center mb-1">
+                    Hoja 9 · Reflexiona y sube tus evidencias
+                </h2>
+                <p class="text-[10px] md:text-xs text-white/90 text-center">
+                    Completa estas preguntas en tu cuaderno o en un archivo Word (Misión 3 - Reflexión) y súbelo al Drive del curso.
+                </p>
+
+                <ul class="list-decimal list-inside text-[10px] md:text-xs text-white/90 space-y-1 px-4">
+                    <li>¿Por qué fue importante coordinar a los dos RoverBots?</li>
+                    <li>¿Cómo usaron distancias, tiempos y ángulos para mejorar el recorrido?</li>
+                    <li>Describe un ejemplo real de buena colaboración en tu equipo.</li>
+                </ul>
+
+                <div class="mt-1 space-y-1 text-[9px] md:text-xs text-purple-200">
+                    <p class="font-semibold">Evidencias que debes subir al Drive (Misión 3):</p>
+                    <ul class="list-disc list-inside space-y-1 text-white/90">
+                        <li>Archivo Word con el pseudocódigo de la ruta.</li>
+                        <li>Tabla de ensayos (en cuaderno escaneado o archivo digital).</li>
+                        <li>Reflexiones respondidas.</li>
+                        <li>Fotos de los RoverBots conectados, del escenario y de la programación.</li>
+                    </ul>
+                </div>
+
+                <div class="mt-3 flex flex-wrap justify-center gap-3">
+                    <button id="complete-btn"
+                            onclick="completeMission()"
+                            class="px-5 py-2 bg-gradient-to-r from-green-500 to-green-700 text-white font-bold text-xs md:text-sm rounded-full shadow-lg transition-transform transform hover:scale-110 hover:shadow-2xl">
+                        Marcar Misión 3 como completada
+                    </button>
+                    <a href="index.html"
+                    id="completed-btn"
+                    class="hidden px-5 py-2 bg-white text-green-600 font-bold text-xs md:text-sm rounded-full shadow-lg transition-transform transform hover:scale-110 hover:shadow-2xl">
+                        Volver a Misiones
+                    </a>
+                </div>
+            </section>
+        </div>
 
         <!-- NAVEGACIÓN ENTRE HOJAS -->
-        <div class="relative z-20 flex items-center justify-between mt-4 md:mt-6">
+        <div class="relative z-20 flex items-center justify-between mt-2">
             <button id="prev-btn"
                     onclick="prevSheet()"
-                    class="px-4 py-2 bg-white/10 border border-white/40 text-white text-sm md:text-base rounded-full shadow-lg transition-transform transform hover:scale-105 disabled:opacity-30 disabled:hover:scale-100">
+                    class="px-4 py-2 bg-white/10 border border-white/40 text-white text-xs md:text-sm rounded-full shadow-lg transition-transform transform hover:scale-105 disabled:opacity-30 disabled:hover:scale-100">
                 ← Hoja anterior
             </button>
             <button id="next-btn"
                     onclick="nextSheet()"
-                    class="px-4 py-2 bg-purple-500 text-white text-sm md:text-base font-semibold rounded-full shadow-lg transition-transform transform hover:scale-105 disabled:opacity-30 disabled:hover:scale-100">
+                    class="px-4 py-2 bg-purple-500 text-white text-xs md:text-sm font-semibold rounded-full shadow-lg transition-transform transform hover:scale-105 disabled:opacity-30 disabled:hover:scale-100">
                 Siguiente hoja →
             </button>
         </div>
-
     </main>
 
     <script>
@@ -430,7 +394,7 @@
 
         // Navegación entre hojas
         let currentSheet = 1;
-        const totalSheets = 5;
+        const totalSheets = 9;
 
         function showSheet(n) {
             if (n < 1 || n > totalSheets) return;
@@ -446,8 +410,10 @@
             const prevBtn = document.getElementById('prev-btn');
             const nextBtn = document.getElementById('next-btn');
             const sheetIndicator = document.getElementById('sheet-indicator');
+            const sheetTotal = document.getElementById('sheet-total');
 
             if (sheetIndicator) sheetIndicator.textContent = currentSheet;
+            if (sheetTotal) sheetTotal.textContent = totalSheets;
 
             if (prevBtn) prevBtn.disabled = currentSheet === 1;
             if (nextBtn) {
@@ -457,18 +423,14 @@
         }
 
         function nextSheet() {
-            if (currentSheet < totalSheets) {
-                showSheet(currentSheet + 1);
-            }
+            if (currentSheet < totalSheets) showSheet(currentSheet + 1);
         }
 
         function prevSheet() {
-            if (currentSheet > 1) {
-                showSheet(currentSheet - 1);
-            }
+            if (currentSheet > 1) showSheet(currentSheet - 1);
         }
 
-        // Check completion UI
+        // Completar misión
         function checkCompletion() {
             const currentPlayer = getCurrentPlayer();
             if (currentPlayer) {
@@ -484,7 +446,6 @@
             }
         }
 
-        // Completar misión
         function completeMission() {
             const currentPlayer = getCurrentPlayer();
             if (!currentPlayer) {
@@ -500,7 +461,6 @@
                 progress.completed = progress.completedMissions.length;
                 progress.badges = progress.completedMissions.length;
 
-                // Desbloquear misión 4
                 progress.currentMission = Math.max(progress.currentMission, 4);
                 progress.available = Math.max(progress.available, 4);
 
@@ -533,4 +493,3 @@
     </script>
 </body>
 </html>
-
