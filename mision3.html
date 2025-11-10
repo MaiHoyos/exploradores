@@ -41,38 +41,46 @@
             resize: vertical;
         }
 
-        .sheet-label {
-            @apply text-sm text-purple-200 uppercase tracking-wide mb-1;
+        .sheet {
+            display: none;
+        }
+
+        .sheet.active {
+            display: block;
         }
     </style>
 </head>
-<body class="min-h-screen bg-gradient-to-b from-purple-900 via-blue-900 to-black text-white relative overflow-auto">
+<body class="min-h-screen bg-gradient-to-b from-purple-900 via-blue-900 to-black text-white relative overflow-hidden">
     <div class="stars" id="stars"></div>
     
     <!-- HEADER -->
-    <header class="relative z-10 bg-gradient-to-r from-purple-400 to-purple-600 border-4 border-white rounded-b-3xl p-6 m-4">
-        <div class="flex items-center justify-between gap-4">
+    <header class="relative z-20 bg-gradient-to-r from-purple-400 to-purple-600 border-4 border-white rounded-b-3xl p-4 md:p-6 m-3 md:m-4">
+        <div class="flex flex-wrap items-center justify-between gap-4">
             <button onclick="volverAMisiones()" class="px-4 py-2 bg-white text-purple-600 font-bold rounded-full shadow-lg transition-transform transform hover:scale-105">
                 ← Volver a Misiones
             </button>
             <div class="flex items-center gap-3">
-                <div class="text-3xl font-extrabold text-white drop-shadow-lg">MISIÓN 3</div>
-                <div class="text-4xl">🌌🤝</div>
+                <div class="text-2xl md:text-3xl font-extrabold text-white drop-shadow-lg">MISIÓN 3 · Sensorium</div>
+                <div class="text-3xl md:text-4xl">🌌🤝</div>
             </div>
-            <div id="completion-badge" class="hidden px-4 py-2 bg-green-500 text-white font-bold rounded-full shadow-lg">
-                ✅ Completada
+            <div id="completion-badge" class="hidden px-4 py-2 bg-green-500 text-white font-bold rounded-full shadow-lg text-sm md:text-base">
+                🏅 Insignia: Colaboración en Sensorium
             </div>
+        </div>
+        <div class="mt-2 text-xs md:text-sm text-purple-100 text-right">
+            Hoja <span id="sheet-indicator">1</span> de 5
         </div>
     </header>
 
-    <main class="relative z-10 p-6 md:p-10 max-w-5xl mx-auto space-y-8">
+    <!-- MAIN -->
+    <main class="relative z-10 p-4 md:p-8 max-w-5xl mx-auto">
 
-        <!-- HOJA 1: HISTORIA Y OBJETIVO -->
-        <section class="bg-white/10 backdrop-blur-sm rounded-3xl p-6 md:p-8 border-4 border-white/30 shadow-2xl space-y-4">
+        <!-- HOJA 1 -->
+        <section id="sheet-1" class="sheet active bg-white/10 backdrop-blur-sm rounded-3xl p-5 md:p-8 border-4 border-white/30 shadow-2xl space-y-4">
             <h2 class="sheet-title text-2xl md:text-3xl font-bold text-center mb-2 text-yellow-300">
                 Hoja 1 · Corredor de Cráteres del Sensorium
             </h2>
-            <p class="text-lg text-white/90 text-center">
+            <p class="text-base md:text-lg text-white/90 text-center">
                 En el planeta <span class="font-bold text-teal-300">Sensorium</span>, dos RoverBots deben colaborar para transportar una valiosa muestra de energía
                 hasta un punto exacto del mapa. El camino está lleno de cráteres y zonas inestables. 
                 Solo lo lograrán si planifican <span class="font-semibold text-yellow-300">trayectorias con giros y ángulos precisos</span>, 
@@ -88,8 +96,8 @@
                 </div>
 
                 <div class="bg-black/40 p-4 md:p-5 rounded-2xl border-2 border-white/40 space-y-2">
-                    <h3 class="text-xl md:text-2xl font-semibold text-white mb-2">Objetivo de la misión</h3>
-                    <ul class="list-disc list-inside text-white/90 space-y-1">
+                    <h3 class="text-lg md:text-2xl font-semibold text-white mb-2">Objetivo de la misión</h3>
+                    <ul class="list-disc list-inside text-white/90 space-y-1 text-sm md:text-base">
                         <li>Unir dos RoverBots para transportar una misma carga.</li>
                         <li>Diseñar un recorrido con <span class="font-semibold">cambios de dirección y ángulos</span>.</li>
                         <li>Evitar cráteres usando mediciones de distancia y coordinación.</li>
@@ -98,9 +106,9 @@
                 </div>
             </div>
 
-            <div class="mt-6 space-y-2">
-                <p class="font-semibold text-purple-300">Conceptos matemáticos en juego:</p>
-                <ul class="list-disc list-inside text-white/90 space-y-1">
+            <div class="mt-4 space-y-2">
+                <p class="font-semibold text-purple-300 text-sm md:text-base">Conceptos matemáticos en juego:</p>
+                <ul class="list-disc list-inside text-white/90 space-y-1 text-sm md:text-base">
                     <li>Medición de distancias en centímetros o unidades del tablero.</li>
                     <li>Ángulos rectos (90°), giros de 45°, 135° o 180° para cambiar de dirección.</li>
                     <li>Relación entre potencia, tiempo y distancia (proporcionalidad).</li>
@@ -109,249 +117,264 @@
             </div>
         </section>
 
-        <!-- HOJA 2: DISEÑA LA RUTA (ESPACIOS PARA ESCRIBIR) -->
-        <section class="bg-white/10 backdrop-blur-sm rounded-3xl p-6 md:p-8 border-4 border-indigo-300/40 shadow-2xl space-y-4">
+        <!-- HOJA 2 -->
+        <section id="sheet-2" class="sheet bg-white/10 backdrop-blur-sm rounded-3xl p-5 md:p-8 border-4 border-indigo-300/40 shadow-2xl space-y-4">
             <h2 class="sheet-title text-2xl md:text-3xl font-bold text-yellow-300 text-center mb-2">
                 Hoja 2 · Diseña tu trayectoria segura
             </h2>
-            <p class="text-white/90">
+            <p class="text-white/90 text-sm md:text-base">
                 Marca en el suelo (o en una hoja cuadriculada) el punto de inicio <span class="font-semibold text-teal-300">A</span>,
                 el punto de entrega <span class="font-semibold text-teal-300">B</span> y al menos 
                 <span class="font-semibold text-yellow-300">2 cráteres</span> que debes esquivar.
                 La ruta debe tener al menos <span class="font-semibold">dos giros</span>.
             </p>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-3">
                 <div class="space-y-2">
-                    <label class="block text-sm text-purple-200">Describe tu ruta (ejemplo: 40 cm recto, giro 90°, 30 cm recto, giro 90°, 20 cm recto):</label>
-                    <textarea class="w-full p-3 rounded-2xl bg-black/60 border border-white/30 text-white"
+                    <label class="block text-xs md:text-sm text-purple-200">
+                        Describe tu ruta (ejemplo: 40 cm recto, giro 90°, 30 cm recto, giro 90°, 20 cm recto):
+                    </label>
+                    <textarea class="w-full p-3 rounded-2xl bg-black/60 border border-white/30 text-white text-sm md:text-base"
                               rows="4"
                               placeholder="Escribe aquí la secuencia de movimientos con medidas y ángulos..."></textarea>
                 </div>
                 <div class="space-y-2">
-                    <label class="block text-sm text-purple-200">Dibuja o describe dónde están los cráteres:</label>
-                    <textarea class="w-full p-3 rounded-2xl bg-black/60 border border-white/30 text-white"
+                    <label class="block text-xs md:text-sm text-purple-200">
+                        Dibuja o describe dónde están los cráteres:
+                    </label>
+                    <textarea class="w-full p-3 rounded-2xl bg-black/60 border border-white/30 text-white text-sm md:text-base"
                               rows="4"
                               placeholder="Ejemplo: Cráter 1 a la derecha del inicio, Cráter 2 cerca del punto medio, etc."></textarea>
                 </div>
             </div>
 
-            <div class="mt-4 space-y-2">
-                <label class="block text-sm text-purple-200">Predicción matemática:</label>
-                <textarea class="w-full p-3 rounded-2xl bg-black/60 border border-white/30 text-white"
+            <div class="mt-3 space-y-2">
+                <label class="block text-xs md:text-sm text-purple-200">Predicción matemática:</label>
+                <textarea class="w-full p-3 rounded-2xl bg-black/60 border border-white/30 text-white text-sm md:text-base"
                           rows="3"
                           placeholder="¿Qué potencia (%) y tiempo (s) crees que deben usar los RoverBots para llegar juntos al punto B sin caer en los cráteres? Explica."></textarea>
             </div>
         </section>
 
-        <!-- HOJA 3: CONSTRUCCIÓN - UNIR LOS ROBOTS (IMÁGENES COLABORACIÓN) -->
-        <section class="bg-white/10 backdrop-blur-sm rounded-3xl p-6 md:p-8 border-4 border-pink-300/40 shadow-2xl space-y-4">
+        <!-- HOJA 3 -->
+        <section id="sheet-3" class="sheet bg-white/10 backdrop-blur-sm rounded-3xl p-5 md:p-8 border-4 border-pink-300/40 shadow-2xl space-y-4">
             <h2 class="sheet-title text-2xl md:text-3xl font-bold text-yellow-300 text-center mb-2">
                 Hoja 3 · Construye el módulo de colaboración
             </h2>
-            <p class="text-white/90 text-center">
+            <p class="text-white/90 text-center text-sm md:text-base">
                 Ahora deben <span class="font-semibold text-teal-300">conectar físicamente</span> los dos RoverBots para transportar la misma carga.
                 Sigan los pasos visuales y asegúrense de que la estructura sea estable.
             </p>
 
             <!-- Paso 1 -->
-            <div class="mt-4">
-                <h3 class="text-lg font-semibold text-white mb-2">Paso 1: Base de conexión</h3>
+            <div class="mt-3">
+                <h3 class="text-sm md:text-lg font-semibold text-white mb-2">Paso 1: Base de conexión</h3>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <img src="Colaboración/1.jpg" class="w-full rounded-2xl border-2 border-white/40" alt="Paso 1"
-                         onerror="this.style.display='none';">
-                    <img src="Colaboración/2.jpg" class="w-full rounded-2xl border-2 border-white/40" alt="Paso 2"
-                         onerror="this.style.display='none';">
-                    <img src="Colaboración/3.jpg" class="w-full rounded-2xl border-2 border-white/40" alt="Paso 3"
-                         onerror="this.style.display='none';">
+                    <img src="Colaboración/1.jpg" class="w-full rounded-2xl border-2 border-white/40" alt="Paso 1" onerror="this.style.display='none';">
+                    <img src="Colaboración/2.jpg" class="w-full rounded-2xl border-2 border-white/40" alt="Paso 2" onerror="this.style.display='none';">
+                    <img src="Colaboración/3.jpg" class="w-full rounded-2xl border-2 border-white/40" alt="Paso 3" onerror="this.style.display='none';">
                 </div>
             </div>
 
             <!-- Paso 2 -->
-            <div class="mt-4">
-                <h3 class="text-lg font-semibold text-white mb-2">Paso 2: Refuerza la unión</h3>
+            <div class="mt-3">
+                <h3 class="text-sm md:text-lg font-semibold text-white mb-2">Paso 2: Refuerza la unión</h3>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <img src="Colaboración/4.jpg" class="w-full rounded-2xl border-2 border-white/40" alt="Paso 4"
-                         onerror="this.style.display='none';">
-                    <img src="Colaboración/5.jpg" class="w-full rounded-2xl border-2 border-white/40" alt="Paso 5"
-                         onerror="this.style.display='none';">
-                    <img src="Colaboración/6.jpg" class="w-full rounded-2xl border-2 border-white/40" alt="Paso 6"
-                         onerror="this.style.display='none';">
+                    <img src="Colaboración/4.jpg" class="w-full rounded-2xl border-2 border-white/40" alt="Paso 4" onerror="this.style.display='none';">
+                    <img src="Colaboración/5.jpg" class="w-full rounded-2xl border-2 border-white/40" alt="Paso 5" onerror="this.style.display='none';">
+                    <img src="Colaboración/6.jpg" class="w-full rounded-2xl border-2 border-white/40" alt="Paso 6" onerror="this.style.display='none';">
                 </div>
             </div>
 
             <!-- Paso 3 -->
-            <div class="mt-4">
-                <h3 class="text-lg font-semibold text-white mb-2">Paso 3: Ajusta el soporte de la carga</h3>
+            <div class="mt-3">
+                <h3 class="text-sm md:text-lg font-semibold text-white mb-2">Paso 3: Ajusta el soporte de la carga</h3>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <img src="Colaboración/7.jpg" class="w-full rounded-2xl border-2 border-white/40" alt="Paso 7"
-                         onerror="this.style.display='none';">
-                    <img src="Colaboración/8.jpg" class="w-full rounded-2xl border-2 border-white/40" alt="Paso 8"
-                         onerror="this.style.display='none';">
-                    <img src="Colaboración/9.jpg" class="w-full rounded-2xl border-2 border-white/40" alt="Paso 9"
-                         onerror="this.style.display='none';">
+                    <img src="Colaboración/7.jpg" class="w-full rounded-2xl border-2 border-white/40" alt="Paso 7" onerror="this.style.display='none';">
+                    <img src="Colaboración/8.jpg" class="w-full rounded-2xl border-2 border-white/40" alt="Paso 8" onerror="this.style.display='none';">
+                    <img src="Colaboración/9.jpg" class="w-full rounded-2xl border-2 border-white/40" alt="Paso 9" onerror="this.style.display='none';">
                 </div>
             </div>
 
             <!-- Paso 4 -->
-            <div class="mt-4">
-                <h3 class="text-lg font-semibold text-white mb-2">Paso 4: Conecta ambos RoverBots</h3>
+            <div class="mt-3">
+                <h3 class="text-sm md:text-lg font-semibold text-white mb-2">Paso 4: Conecta ambos RoverBots</h3>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <img src="Colaboración/10.jpg" class="w-full rounded-2xl border-2 border-white/40" alt="Paso 10"
-                         onerror="this.style.display='none';">
-                    <img src="Colaboración/11.jpg" class="w-full rounded-2xl border-2 border-white/40" alt="Paso 11"
-                         onerror="this.style.display='none';">
-                    <img src="Colaboración/12.jpg" class="w-full rounded-2xl border-2 border-white/40" alt="Paso 12"
-                         onerror="this.style.display='none';">
+                    <img src="Colaboración/10.jpg" class="w-full rounded-2xl border-2 border-white/40" alt="Paso 10" onerror="this.style.display='none';">
+                    <img src="Colaboración/11.jpg" class="w-full rounded-2xl border-2 border-white/40" alt="Paso 11" onerror="this.style.display='none';">
+                    <img src="Colaboración/12.jpg" class="w-full rounded-2xl border-2 border-white/40" alt="Paso 12" onerror="this.style.display='none';">
                 </div>
             </div>
 
             <!-- Paso 5 -->
-            <div class="mt-4">
-                <h3 class="text-lg font-semibold text-white mb-2">Paso 5: Verifica estabilidad</h3>
+            <div class="mt-3">
+                <h3 class="text-sm md:text-lg font-semibold text-white mb-2">Paso 5: Verifica estabilidad</h3>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <img src="Colaboración/13.jpg" class="w-full rounded-2xl border-2 border-white/40" alt="Paso 13"
-                         onerror="this.style.display='none';">
-                    <img src="Colaboración/14.jpg" class="w-full rounded-2xl border-2 border-white/40" alt="Paso 14"
-                         onerror="this.style.display='none';">
-                    <img src="Colaboración/15.jpg" class="w-full rounded-2xl border-2 border-white/40" alt="Paso 15"
-                         onerror="this.style.display='none';">
+                    <img src="Colaboración/13.jpg" class="w-full rounded-2xl border-2 border-white/40" alt="Paso 13" onerror="this.style.display='none';">
+                    <img src="Colaboración/14.jpg" class="w-full rounded-2xl border-2 border-white/40" alt="Paso 14" onerror="this.style.display='none';">
+                    <img src="Colaboración/15.jpg" class="w-full rounded-2xl border-2 border-white/40" alt="Paso 15" onerror="this.style.display='none';">
                 </div>
             </div>
 
             <!-- Paso 6 -->
-            <div class="mt-4">
-                <h3 class="text-lg font-semibold text-white mb-2">Paso 6: Detalles finales</h3>
+            <div class="mt-3">
+                <h3 class="text-sm md:text-lg font-semibold text-white mb-2">Paso 6: Detalles finales</h3>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <img src="Colaboración/16.jpg" class="w-full rounded-2xl border-2 border-white/40" alt="Paso 16"
-                         onerror="this.style.display='none';">
-                    <img src="Colaboración/17.jpg" class="w-full rounded-2xl border-2 border-white/40" alt="Paso 17"
-                         onerror="this.style.display='none';">
+                    <img src="Colaboración/16.jpg" class="w-full rounded-2xl border-2 border-white/40" alt="Paso 16" onerror="this.style.display='none';">
+                    <img src="Colaboración/17.jpg" class="w-full rounded-2xl border-2 border-white/40" alt="Paso 17" onerror="this.style.display='none';">
                 </div>
             </div>
 
-            <p class="mt-4 text-xs text-white/70">
+            <p class="mt-3 text-[10px] md:text-xs text-white/70">
                 Imagen ©2015 The LEGO Group. Usada con fines educativos y sin ánimo de lucro.
                 Fuente: Instrucciones de construcción del set LEGO® Education WeDo 2.0 (45300).
             </p>
 
-            <div class="mt-4 space-y-2">
-                <label class="block text-sm text-purple-200">Anota aquí mejoras o ajustes que tu equipo hizo al diseño:</label>
-                <textarea class="w-full p-3 rounded-2xl bg-black/60 border border-white/30 text-white"
+            <div class="mt-3 space-y-2">
+                <label class="block text-xs md:text-sm text-purple-200">Anota aquí mejoras o ajustes que tu equipo hizo al diseño:</label>
+                <textarea class="w-full p-3 rounded-2xl bg-black/60 border border-white/30 text-white text-sm md:text-base"
                           rows="3"
                           placeholder="¿Tuvieron que reforzar algo? ¿Mover la carga?"></textarea>
             </div>
         </section>
 
-        <!-- HOJA 4: PROGRAMACIÓN, DATOS Y ÁNGULOS -->
-        <section class="bg-white/10 backdrop-blur-sm rounded-3xl p-6 md:p-8 border-4 border-cyan-300/40 shadow-2xl space-y-4">
+        <!-- HOJA 4 -->
+        <section id="sheet-4" class="sheet bg-white/10 backdrop-blur-sm rounded-3xl p-5 md:p-8 border-4 border-cyan-300/40 shadow-2xl space-y-4">
             <h2 class="sheet-title text-2xl md:text-3xl font-bold text-yellow-300 text-center mb-2">
                 Hoja 4 · Programa, prueba y calcula
             </h2>
-            <p class="text-white/90">
+            <p class="text-white/90 text-sm md:text-base">
                 Programen ambos RoverBots para que sigan la ruta diseñada (con giros y cambios de dirección)
                 y lleguen juntos al punto de entrega. Hagan al menos <span class="font-semibold">3 ensayos</span>, ajustando cuando sea necesario.
             </p>
 
-            <div class="overflow-x-auto mt-4">
-                <table class="min-w-full text-sm text-center border border-white/30 rounded-2xl overflow-hidden">
+            <p class="text-xs md:text-sm text-purple-200 mt-1">
+                Completa esta tabla en tu cuaderno o en un documento digital (Word/Excel) y súbela luego al Drive del curso como evidencia de la Misión 3.
+            </p>
+
+            <div class="overflow-x-auto mt-3">
+                <table class="min-w-full text-[10px] md:text-sm text-center border border-white/30 rounded-2xl overflow-hidden">
                     <thead class="bg-black/60 text-purple-200">
                         <tr>
-                            <th class="px-2 py-2 border border-white/20">Ensayo</th>
-                            <th class="px-2 py-2 border border-white/20">Distancia total (cm)</th>
-                            <th class="px-2 py-2 border border-white/20">Potencia Rover A (%)</th>
-                            <th class="px-2 py-2 border border-white/20">Potencia Rover B (%)</th>
-                            <th class="px-2 py-2 border border-white/20">Tiempo (s)</th>
-                            <th class="px-2 py-2 border border-white/20">Ángulos usados</th>
-                            <th class="px-2 py-2 border border-white/20">¿Llegan juntos?</th>
+                            <th class="px-1 md:px-2 py-1 md:py-2 border border-white/20">Ensayo</th>
+                            <th class="px-1 md:px-2 py-1 md:py-2 border border-white/20">Distancia total (cm)</th>
+                            <th class="px-1 md:px-2 py-1 md:py-2 border border-white/20">Potencia Rover A (%)</th>
+                            <th class="px-1 md:px-2 py-1 md:py-2 border border-white/20">Potencia Rover B (%)</th>
+                            <th class="px-1 md:px-2 py-1 md:py-2 border border-white/20">Tiempo (s)</th>
+                            <th class="px-1 md:px-2 py-1 md:py-2 border border-white/20">Ángulos usados</th>
+                            <th class="px-1 md:px-2 py-1 md:py-2 border border-white/20">¿Llegan juntos?</th>
                         </tr>
                     </thead>
                     <tbody class="bg-black/40 text-white/90">
                         <tr>
-                            <td class="px-2 py-2 border border-white/10">1</td>
-                            <td class="px-2 py-2 border border-white/10"></td>
-                            <td class="px-2 py-2 border border-white/10"></td>
-                            <td class="px-2 py-2 border border-white/10"></td>
-                            <td class="px-2 py-2 border border-white/10"></td>
-                            <td class="px-2 py-2 border border-white/10"></td>
-                            <td class="px-2 py-2 border border-white/10"></td>
+                            <td class="px-1 md:px-2 py-1 md:py-2 border border-white/10">1</td>
+                            <td class="px-1 md:px-2 py-1 md:py-2 border border-white/10"></td>
+                            <td class="px-1 md:px-2 py-1 md:py-2 border border-white/10"></td>
+                            <td class="px-1 md:px-2 py-1 md:py-2 border border-white/10"></td>
+                            <td class="px-1 md:px-2 py-1 md:py-2 border border-white/10"></td>
+                            <td class="px-1 md:px-2 py-1 md:py-2 border border-white/10"></td>
+                            <td class="px-1 md:px-2 py-1 md:py-2 border border-white/10"></td>
                         </tr>
                         <tr>
-                            <td class="px-2 py-2 border border-white/10">2</td>
-                            <td class="px-2 py-2 border border-white/10"></td>
-                            <td class="px-2 py-2 border border-white/10"></td>
-                            <td class="px-2 py-2 border border-white/10"></td>
-                            <td class="px-2 py-2 border border-white/10"></td>
-                            <td class="px-2 py-2 border border-white/10"></td>
-                            <td class="px-2 py-2 border border-white/10"></td>
+                            <td class="px-1 md:px-2 py-1 md:py-2 border border-white/10">2</td>
+                            <td class="px-1 md:px-2 py-1 md:py-2 border border-white/10"></td>
+                            <td class="px-1 md:px-2 py-1 md:py-2 border border-white/10"></td>
+                            <td class="px-1 md:px-2 py-1 md:py-2 border border-white/10"></td>
+                            <td class="px-1 md:px-2 py-1 md:py-2 border border-white/10"></td>
+                            <td class="px-1 md:px-2 py-1 md:py-2 border border-white/10"></td>
+                            <td class="px-1 md:px-2 py-1 md:py-2 border border-white/10"></td>
                         </tr>
                         <tr>
-                            <td class="px-2 py-2 border border-white/10">3</td>
-                            <td class="px-2 py-2 border border-white/10"></td>
-                            <td class="px-2 py-2 border border-white/10"></td>
-                            <td class="px-2 py-2 border border-white/10"></td>
-                            <td class="px-2 py-2 border border-white/10"></td>
-                            <td class="px-2 py-2 border border-white/10"></td>
-                            <td class="px-2 py-2 border border-white/10"></td>
+                            <td class="px-1 md:px-2 py-1 md:py-2 border border-white/10">3</td>
+                            <td class="px-1 md:px-2 py-1 md:py-2 border border-white/10"></td>
+                            <td class="px-1 md:px-2 py-1 md:py-2 border border-white/10"></td>
+                            <td class="px-1 md:px-2 py-1 md:py-2 border border-white/10"></td>
+                            <td class="px-1 md:px-2 py-1 md:py-2 border border-white/10"></td>
+                            <td class="px-1 md:px-2 py-1 md:py-2 border border-white/10"></td>
+                            <td class="px-1 md:px-2 py-1 md:py-2 border border-white/10"></td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
-            <div class="mt-4 space-y-2">
-                <label class="block text-sm text-purple-200">Explica un ajuste matemático que ayudó a mejorar el recorrido:</label>
-                <textarea class="w-full p-3 rounded-2xl bg-black/60 border border-white/30 text-white"
+            <div class="mt-3 space-y-2">
+                <label class="block text-xs md:text-sm text-purple-200">
+                    Explica un ajuste matemático que ayudó a mejorar el recorrido:
+                </label>
+                <textarea class="w-full p-3 rounded-2xl bg-black/60 border border-white/30 text-white text-sm md:text-base"
                           rows="3"
                           placeholder="Por ejemplo: cambiamos la potencia de 70% a 60% para que ambos llegaran al mismo tiempo."></textarea>
             </div>
+
+            <p class="text-xs md:text-sm text-purple-200 mt-2">
+                ✔ Recuerda: esta información debe aparecer también en tus evidencias (tabla y explicación) que subirás al Drive.
+            </p>
         </section>
 
-        <!-- HOJA 5: REFLEXIÓN Y EVIDENCIAS -->
-        <section class="bg-white/10 backdrop-blur-sm rounded-3xl p-6 md:p-8 border-4 border-green-300/40 shadow-2xl space-y-4">
+        <!-- HOJA 5 -->
+        <section id="sheet-5" class="sheet bg-white/10 backdrop-blur-sm rounded-3xl p-5 md:p-8 border-4 border-green-300/40 shadow-2xl space-y-4">
             <h2 class="sheet-title text-2xl md:text-3xl font-bold text-yellow-300 text-center mb-2">
-                Hoja 5 · Reflexiona y comparte tus evidencias
+                Hoja 5 · Reflexiona y sube tus evidencias
             </h2>
-            <p class="text-white/90 text-center">
+            <p class="text-white/90 text-center text-sm md:text-base">
                 Completa esta hoja como equipo. Aquí demuestran lo que aprendieron en la misión de colaboración en Sensorium.
             </p>
 
-            <div class="space-y-3 mt-4">
-                <label class="block text-sm text-purple-200">1. ¿Por qué fue importante coordinar a los dos RoverBots?</label>
-                <textarea class="w-full p-3 rounded-2xl bg-black/60 border border-white/30 text-white" rows="3"></textarea>
+            <div class="space-y-3 mt-3">
+                <label class="block text-xs md:text-sm text-purple-200">1. ¿Por qué fue importante coordinar a los dos RoverBots?</label>
+                <textarea class="w-full p-3 rounded-2xl bg-black/60 border border-white/30 text-white text-sm md:text-base" rows="3"></textarea>
 
-                <label class="block text-sm text-purple-200">2. ¿Cómo usaron las matemáticas (distancias, tiempos, ángulos) para tomar decisiones?</label>
-                <textarea class="w-full p-3 rounded-2xl bg-black/60 border border-white/30 text-white" rows="3"></textarea>
+                <label class="block text-xs md:text-sm text-purple-200">2. ¿Cómo usaron las matemáticas (distancias, tiempos, ángulos) para tomar decisiones?</label>
+                <textarea class="w-full p-3 rounded-2xl bg-black/60 border border-white/30 text-white text-sm md:text-base" rows="3"></textarea>
 
-                <label class="block text-sm text-purple-200">3. Describe un ejemplo concreto de buena colaboración en tu equipo.</label>
-                <textarea class="w-full p-3 rounded-2xl bg-black/60 border border-white/30 text-white" rows="3"></textarea>
+                <label class="block text-xs md:text-sm text-purple-200">3. Describe un ejemplo concreto de buena colaboración en tu equipo.</label>
+                <textarea class="w-full p-3 rounded-2xl bg-black/60 border border-white/30 text-white text-sm md:text-base" rows="3"></textarea>
             </div>
 
             <div class="mt-4 space-y-2">
-                <p class="text-sm text-purple-200">
-                    Sube al Drive del curso tus evidencias (fotos, videos, capturas de pantalla de la programación) 
-                    y pega aquí el enlace:
+                <p class="text-xs md:text-sm text-purple-200 font-semibold">
+                    Instrucciones de entrega de evidencias:
                 </p>
-                <input type="text"
-                       class="w-full p-3 rounded-2xl bg-black/60 border border-white/30 text-white text-sm"
-                       placeholder="Pega aquí el enlace a tu carpeta de evidencias en Drive">
+                <ul class="list-disc list-inside text-white/90 text-xs md:text-sm space-y-1">
+                    <li>Llena la tabla de la <strong>Hoja 4</strong> en papel o en un archivo digital.</li>
+                    <li>Responde estas preguntas en tu cuaderno o en un archivo Word.</li>
+                    <li>Toma fotos de los RoverBots conectados, del recorrido y de la programación.</li>
+                    <li>Sube todos los archivos a la carpeta de la <strong>Misión 3</strong> en el Drive del curso, según las instrucciones del docente.</li>
+                </ul>
             </div>
 
-            <div class="mt-6 flex justify-center gap-4">
+            <div class="mt-6 flex flex-wrap justify-center gap-4">
                 <button id="complete-btn"
                         onclick="completeMission()"
-                        class="px-6 py-3 bg-gradient-to-r from-green-500 to-green-700 text-white font-bold text-lg rounded-full shadow-lg transition-transform transform hover:scale-110 hover:shadow-2xl">
+                        class="px-6 py-3 bg-gradient-to-r from-green-500 to-green-700 text-white font-bold text-base md:text-lg rounded-full shadow-lg transition-transform transform hover:scale-110 hover:shadow-2xl">
                     Marcar Misión 3 como completada
                 </button>
                 <a href="index.html"
                    id="completed-btn"
-                   class="hidden px-6 py-3 bg-white text-green-600 font-bold text-lg rounded-full shadow-lg transition-transform transform hover:scale-110 hover:shadow-2xl">
+                   class="hidden px-6 py-3 bg-white text-green-600 font-bold text-base md:text-lg rounded-full shadow-lg transition-transform transform hover:scale-110 hover:shadow-2xl">
                     Volver a Misiones
                 </a>
             </div>
         </section>
+
+        <!-- NAVEGACIÓN ENTRE HOJAS -->
+        <div class="relative z-20 flex items-center justify-between mt-4 md:mt-6">
+            <button id="prev-btn"
+                    onclick="prevSheet()"
+                    class="px-4 py-2 bg-white/10 border border-white/40 text-white text-sm md:text-base rounded-full shadow-lg transition-transform transform hover:scale-105 disabled:opacity-30 disabled:hover:scale-100">
+                ← Hoja anterior
+            </button>
+            <button id="next-btn"
+                    onclick="nextSheet()"
+                    class="px-4 py-2 bg-purple-500 text-white text-sm md:text-base font-semibold rounded-full shadow-lg transition-transform transform hover:scale-105 disabled:opacity-30 disabled:hover:scale-100">
+                Siguiente hoja →
+            </button>
+        </div>
+
     </main>
 
     <script>
+        // Estrellas
         function createStars() {
             const starsContainer = document.getElementById('stars');
             if (!starsContainer) return;
@@ -368,7 +391,7 @@
             }
         }
 
-        // Progreso en localStorage
+        // Progreso
         function getCurrentPlayer() {
             return localStorage.getItem('zython-current-player');
         }
@@ -405,20 +428,63 @@
             }
         }
 
+        // Navegación entre hojas
+        let currentSheet = 1;
+        const totalSheets = 5;
+
+        function showSheet(n) {
+            if (n < 1 || n > totalSheets) return;
+            currentSheet = n;
+
+            for (let i = 1; i <= totalSheets; i++) {
+                const sheet = document.getElementById(`sheet-${i}`);
+                if (sheet) {
+                    sheet.classList.toggle('active', i === currentSheet);
+                }
+            }
+
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const sheetIndicator = document.getElementById('sheet-indicator');
+
+            if (sheetIndicator) sheetIndicator.textContent = currentSheet;
+
+            if (prevBtn) prevBtn.disabled = currentSheet === 1;
+            if (nextBtn) {
+                nextBtn.disabled = currentSheet === totalSheets;
+                nextBtn.textContent = currentSheet === totalSheets ? 'Última hoja' : 'Siguiente hoja →';
+            }
+        }
+
+        function nextSheet() {
+            if (currentSheet < totalSheets) {
+                showSheet(currentSheet + 1);
+            }
+        }
+
+        function prevSheet() {
+            if (currentSheet > 1) {
+                showSheet(currentSheet - 1);
+            }
+        }
+
+        // Check completion UI
         function checkCompletion() {
             const currentPlayer = getCurrentPlayer();
             if (currentPlayer) {
                 const progress = loadPlayerProgress(currentPlayer);
                 if (progress.completedMissions.includes(3)) {
-                    document.getElementById('completion-badge').classList.remove('hidden');
+                    const badge = document.getElementById('completion-badge');
                     const completeBtn = document.getElementById('complete-btn');
                     const completedBtn = document.getElementById('completed-btn');
+                    if (badge) badge.classList.remove('hidden');
                     if (completeBtn) completeBtn.classList.add('hidden');
                     if (completedBtn) completedBtn.classList.remove('hidden');
                 }
             }
         }
 
+        // Completar misión
         function completeMission() {
             const currentPlayer = getCurrentPlayer();
             if (!currentPlayer) {
@@ -440,13 +506,14 @@
 
                 savePlayerProgress(currentPlayer, progress);
 
-                document.getElementById('completion-badge').classList.remove('hidden');
+                const badge = document.getElementById('completion-badge');
                 const completeBtn = document.getElementById('complete-btn');
                 const completedBtn = document.getElementById('completed-btn');
+                if (badge) badge.classList.remove('hidden');
                 if (completeBtn) completeBtn.classList.add('hidden');
                 if (completedBtn) completedBtn.classList.remove('hidden');
 
-                alert('¡Felicitaciones! Has completado la Misión 3 en Sensorium. La Misión 4 ahora está disponible.');
+                alert('¡Felicitaciones! Has obtenido la Insignia "Colaboración en Sensorium". La Misión 4 ahora está disponible.');
             } else {
                 alert('Esta misión ya ha sido completada anteriormente.');
             }
@@ -458,6 +525,7 @@
 
         function initialize() {
             createStars();
+            showSheet(1);
             checkCompletion();
         }
 
