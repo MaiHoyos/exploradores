@@ -73,7 +73,7 @@
 
         iframe {
             width: 100%;
-            height: 450px; /* vuelve al alto “grande” */
+            height: 450px; /* tamaño grande como pediste */
             display: block;
         }
     </style>
@@ -179,8 +179,7 @@
                 </div>
 
                 <div class="bg-white/10 backdrop-blur-md border-2 border-white/30 rounded-3xl p-6 md:p-8">
-                    <!-- (mismos grupos Milo/1.jpg ... Milo/29.jpg que ya teníamos) -->
-                    <!-- Grupo 1: 1-3 -->
+                    <!-- Grupos Milo -->
                     <div id="assembly-step-1" class="assembly-step">
                         <div class="mb-4 text-xl font-bold text-yellow-300 text-center">Pasos 1 a 3</div>
                         <div class="grid md:grid-cols-3 gap-4 items-start">
@@ -193,7 +192,6 @@
                         </p>
                     </div>
 
-                    <!-- Grupo 2: 4-6 -->
                     <div id="assembly-step-2" class="assembly-step hidden">
                         <div class="mb-4 text-xl font-bold text-yellow-300 text-center">Pasos 4 a 6</div>
                         <div class="grid md:grid-cols-3 gap-4">
@@ -206,7 +204,6 @@
                         </p>
                     </div>
 
-                    <!-- Grupo 3: 7-9 -->
                     <div id="assembly-step-3" class="assembly-step hidden">
                         <div class="mb-4 text-xl font-bold text-yellow-300 text-center">Pasos 7 a 9</div>
                         <div class="grid md:grid-cols-3 gap-4">
@@ -219,7 +216,6 @@
                         </p>
                     </div>
 
-                    <!-- Grupo 4: 10-12 -->
                     <div id="assembly-step-4" class="assembly-step hidden">
                         <div class="mb-4 text-xl font-bold text-yellow-300 text-center">Pasos 10 a 12</div>
                         <div class="grid md:grid-cols-3 gap-4">
@@ -232,7 +228,6 @@
                         </p>
                     </div>
 
-                    <!-- Grupo 5: 13-15 -->
                     <div id="assembly-step-5" class="assembly-step hidden">
                         <div class="mb-4 text-xl font-bold text-yellow-300 text-center">Pasos 13 a 15</div>
                         <div class="grid md:grid-cols-3 gap-4">
@@ -245,7 +240,6 @@
                         </p>
                     </div>
 
-                    <!-- Grupo 6: 16-18 -->
                     <div id="assembly-step-6" class="assembly-step hidden">
                         <div class="mb-4 text-xl font-bold text-yellow-300 text-center">Pasos 16 a 18</div>
                         <div class="grid md:grid-cols-3 gap-4">
@@ -258,7 +252,6 @@
                         </p>
                     </div>
 
-                    <!-- Grupo 7: 19-21 -->
                     <div id="assembly-step-7" class="assembly-step hidden">
                         <div class="mb-4 text-xl font-bold text-yellow-300 text-center">Pasos 19 a 21</div>
                         <div class="grid md:grid-cols-3 gap-4">
@@ -271,7 +264,6 @@
                         </p>
                     </div>
 
-                    <!-- Grupo 8: 22-24 -->
                     <div id="assembly-step-8" class="assembly-step hidden">
                         <div class="mb-4 text-xl font-bold text-yellow-300 text-center">Pasos 22 a 24</div>
                         <div class="grid md:grid-cols-3 gap-4">
@@ -284,7 +276,6 @@
                         </p>
                     </div>
 
-                    <!-- Grupo 9: 25-27 -->
                     <div id="assembly-step-9" class="assembly-step hidden">
                         <div class="mb-4 text-xl font-bold text-yellow-300 text-center">Pasos 25 a 27</div>
                         <div class="grid md:grid-cols-3 gap-4">
@@ -297,7 +288,6 @@
                         </p>
                     </div>
 
-                    <!-- Grupo 10: 28-29 -->
                     <div id="assembly-step-10" class="assembly-step hidden">
                         <div class="mb-4 text-xl font-bold text-yellow-300 text-center">Pasos 28 y 29 - Modelo completo</div>
                         <div class="grid md:grid-cols-2 gap-4">
@@ -321,7 +311,7 @@
             </div>
         </div>
 
-        <!-- Paso 4: Robot ensamblado -->
+        <!-- Paso 4: Robot ensamblado (verificación previa a conexión) -->
         <div id="step-4" class="step-container min-h-screen flex-col items-center justify-center p-6 hidden">
             <div class="max-w-4xl text-center animate-slide-in">
                 <div class="text-8xl mb-8 animate-float">🔄</div>
@@ -332,11 +322,11 @@
                     <div class="text-xl md:text-2xl text-white/90 mb-6 leading-relaxed">
                         <p class="mb-4">🎉 <span class="text-green-400 font-bold">¡Excelente trabajo, explorador!</span></p>
                         <p class="mb-4">Tu modelo ha sido ensamblado siguiendo las instrucciones oficiales.</p>
-                        <p>Ahora realizaremos una prueba de activación para verificar que todos los sistemas funcionen correctamente.</p>
+                        <p>Antes de continuar con las misiones, activaremos el set en Scratch.</p>
                     </div>
                     
                     <div class="bg-green-600/30 rounded-2xl p-6 mb-6">
-                        <div class="text-xl font-bold mb-4 text-green-300">🔧 Verificación de Sistemas</div>
+                        <div class="text-xl font-bold mb-4 text-green-300">🔧 Verificación rápida</div>
                         <div class="grid md:grid-cols-2 gap-4 text-left">
                             <div class="space-y-2">
                                 <div class="flex items-center gap-2"><span class="text-green-400">✅</span><span>Estructura estable</span></div>
@@ -344,22 +334,51 @@
                                 <div class="flex items-center gap-2"><span class="text-green-400">✅</span><span>Sensor instalado</span></div>
                             </div>
                             <div class="space-y-2">
-                                <div class="flex items-center gap-2"><span class="text-green-400">✅</span><span>Hub listo</span></div>
+                                <div class="flex items-center gap-2"><span class="text-green-400">✅</span><span>Hub encaja correctamente</span></div>
                                 <div class="flex items-center gap-2"><span class="text-green-400">✅</span><span>Cables asegurados</span></div>
-                                <div class="flex items-center gap-2"><span class="text-green-400">✅</span><span>Listo para programar</span></div>
+                                <div class="flex items-center gap-2"><span class="text-green-400">✅</span><span>Listo para conectar en Scratch</span></div>
                             </div>
                         </div>
                     </div>
                     
                     <button onclick="activateRobot(event)" class="px-8 py-4 bg-gradient-to-r from-green-500 to-blue-600 hover:from-green-600 hover:to-blue-700 rounded-xl font-bold text-xl transition-all duration-300 transform hover:scale-105 animate-pulse-glow">
-                        🚀 Activar Robot
+                        🚀 Activar Robot en Scratch
                     </button>
                 </div>
             </div>
         </div>
 
-        <!-- Paso 5: Misión 0 completada -->
+        <!-- Paso 5: Ir a Scratch y conectar WeDo 2.0 -->
         <div id="step-5" class="step-container min-h-screen flex-col items-center justify-center p-6 hidden">
+            <div class="max-w-3xl text-center animate-slide-in">
+                <div class="text-7xl mb-6 animate-float">🧩</div>
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 text-cyan-300">
+                    Conecta tu LEGO Education WeDo 2.0 en Scratch
+                </h2>
+                <p class="text-lg text-white/90 mb-6">
+                    Ahora vamos a vincular tu robot con Scratch para que puedas controlarlo en las próximas misiones.
+                </p>
+                <div class="bg-white/10 backdrop-blur-md border-2 border-white/30 rounded-3xl p-6 text-left space-y-4">
+                    <ol class="list-decimal list-inside space-y-3 text-white/90">
+                        <li>Abre Scratch en tu navegador o la app utilizada en el aula.</li>
+                        <li>Inicia sesión con tu usuario (o el de tu aula).</li>
+                        <li>Haz clic en el botón de <span class="font-bold text-cyan-300">Extensiones</span> (abajo a la izquierda).</li>
+                        <li>Selecciona la extensión <span class="font-bold text-green-300">LEGO Education WeDo 2.0</span>.</li>
+                        <li>Enciende tu Hub WeDo 2.0 y presiona su botón.</li>
+                        <li>En la ventana que aparece, haz clic en <span class="font-bold text-purple-300">“Inicia la búsqueda”</span> y espera a que tu dispositivo se conecte.</li>
+                    </ol>
+                    <p class="text-sm text-white/70">
+                        Si la conexión falla, verifica que el Bluetooth esté activado y vuelve a intentarlo.
+                    </p>
+                </div>
+                <button onclick="nextStep()" class="mt-8 px-10 py-4 bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 hover:from-purple-600 hover:via-pink-600 hover:to-red-600 rounded-xl font-bold text-xl transition-all duration-300 transform hover:scale-105">
+                    ✅ Ya conectamos el set
+                </button>
+            </div>
+        </div>
+
+        <!-- Paso 6: Misión 0 completada -->
+        <div id="step-6" class="step-container min-h-screen flex-col items-center justify-center p-6 hidden">
             <div class="max-w-4xl text-center animate-slide-in">
                 <div class="text-8xl mb-8 animate-float">🌟</div>
                 <h2 class="text-3xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-yellow-400 via-orange-400 to-red-400 bg-clip-text text-transparent">
@@ -367,9 +386,9 @@
                 </h2>
                 <div class="bg-white/10 backdrop-blur-md border-2 border-white/30 rounded-3xl p-8 mb-8">
                     <div class="text-xl md:text-2xl text-white/90 mb-8 leading-relaxed">
-                        <p class="mb-4">🎯 <span class="text-yellow-400 font-bold">¡Felicitaciones!</span></p>
-                        <p class="mb-4">Tu robot está listo para comenzar las misiones en Zython.</p>
-                        <p class="mb-6">Ahora tienes acceso a las <span class="text-cyan-400 font-bold">4 zonas principales</span> del planeta:</p>
+                        <p class="mb-4">🎯 <span class="text-yellow-400 font-bold">¡Increíble trabajo!</span></p>
+                        <p class="mb-4">Has ensamblado tu robot y lo has conectado correctamente en Scratch.</p>
+                        <p class="mb-6">Ahora tienes acceso a las <span class="text-cyan-400 font-bold">4 zonas principales</span> del planeta Zython.</p>
                     </div>
                     
                     <div class="grid md:grid-cols-2 gap-4 mb-8">
@@ -397,7 +416,7 @@
                     
                     <div class="bg-yellow-600/30 rounded-2xl p-6 mb-8">
                         <div class="text-xl font-bold mb-2 text-yellow-300">🎖️ Logro Desbloqueado</div>
-                        <div class="text-lg">"Constructor de Robots" - Has ensamblado exitosamente tu primer modelo</div>
+                        <div class="text-lg">"Constructor de Robots" - Has dejado tu RoverBot listo para explorar Zython</div>
                     </div>
                     
                     <button onclick="completeMission0()" class="px-12 py-5 bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 hover:from-purple-600 hover:via-pink-600 hover:to-red-600 rounded-xl font-bold text-2xl transition-all duration-300 transform hover:scale-105 animate-pulse-glow">
@@ -414,7 +433,7 @@
 
         let currentStep = 1;
         let currentAssemblyStep = 1;
-        const totalSteps = 5;
+        const totalSteps = 6;      // ahora hay 6 pantallas generales
         const totalAssemblySteps = 10;
 
         function createStars() {
@@ -457,8 +476,7 @@
 
         function onPlayerReady(event) {
             hideLoadingMessage();
-
-            // Intento de pantalla completa automática (puede ser bloqueado por el navegador)
+            // Intento de fullscreen automático (puede ser bloqueado por el navegador)
             try {
                 const iframe = event.target.getIframe();
                 if (iframe && iframe.requestFullscreen) {
@@ -468,9 +486,7 @@
                 } else if (iframe && iframe.msRequestFullscreen) {
                     iframe.msRequestFullscreen();
                 }
-            } catch (e) {
-                // Silencioso si el navegador lo bloquea
-            }
+            } catch (e) {}
         }
 
         function onPlayerStateChange(event) {
@@ -548,6 +564,7 @@
             }
         }
 
+        // Ensamblaje Milo
         function showAssemblyStep(stepNumber) {
             for (let i = 1; i <= totalAssemblySteps; i++) {
                 const step = document.getElementById(`assembly-step-${i}`);
@@ -595,19 +612,21 @@
             }
         }
 
+        // Botón "Activar Robot en Scratch" -> muestra pantalla Scratch (step-5)
         function activateRobot(e) {
             const button = e?.target;
-            if (!button) return;
-            button.innerHTML = '🔄 Activando...';
-            button.disabled = true;
+            if (button) {
+                button.innerHTML = '🔄 Abriendo instrucciones...';
+                button.disabled = true;
+            }
             setTimeout(() => {
-                button.innerHTML = '✅ ¡Activado!';
-                button.classList.remove('bg-gradient-to-r', 'from-green-500', 'to-blue-600');
-                button.classList.add('bg-green-600');
-                setTimeout(() => {
-                    nextStep();
-                }, 1500);
-            }, 2000);
+                if (button) {
+                    button.innerHTML = '🚀 Activar Robot en Scratch';
+                    button.disabled = false;
+                }
+                currentStep = 5;
+                showStep(currentStep);
+            }, 800);
         }
 
         function completeMission0() {
