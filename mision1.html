@@ -15,14 +15,12 @@
             height: 100%;
             pointer-events: none;
         }
-        
         .star {
             position: absolute;
             background: white;
             border-radius: 50%;
             animation: twinkle 3s infinite;
         }
-        
         @keyframes twinkle {
             0%, 100% { opacity: 0.3; }
             50% { opacity: 1; }
@@ -32,37 +30,32 @@
             display: none;
             animation: fadeIn 0.5s ease-in-out;
         }
-        
         .slide.active {
             display: block;
         }
-        
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        
+
         .progress-bar {
             height: 10px;
             border-radius: 5px;
             background: rgba(255, 255, 255, 0.2);
         }
-        
         .progress-fill {
             height: 100%;
             border-radius: 5px;
             background: linear-gradient(90deg, #4ade80, #22d3ee);
             transition: width 0.5s ease;
         }
-        
         .mission-badge {
             transition: transform 0.3s ease;
         }
-        
         .mission-badge:hover {
             transform: scale(1.1) rotate(5deg);
         }
-        
+
         input[type="number"], input[type="text"] {
             background: rgba(255, 255, 255, 0.1);
             border: 2px solid rgba(255, 255, 255, 0.3);
@@ -71,39 +64,43 @@
             border-radius: 8px;
             width: 100%;
         }
-        
         input:focus {
             outline: none;
             border-color: #fbbf24;
         }
-        
+
         table {
             width: 100%;
             border-collapse: collapse;
             background: rgba(0, 0, 0, 0.3);
         }
-        
         th, td {
             border: 1px solid rgba(255, 255, 255, 0.2);
             padding: 8px;
             text-align: center;
         }
-        
         th {
             background: rgba(255, 165, 0, 0.3);
+        }
+        select {
+            background: #111827;
+            border-radius: 6px;
+            padding: 4px 6px;
         }
     </style>
 </head>
 <body class="min-h-screen bg-gradient-to-b from-purple-900 via-blue-900 to-black text-white relative overflow-auto">
     <div class="stars" id="stars"></div>
-    
+
     <header class="relative z-10 bg-gradient-to-r from-orange-400 to-orange-600 border-4 border-white rounded-b-3xl p-6 m-4">
-        <div class="flex items-center justify-between">
+        <div class="flex items-center justify-between gap-4">
             <button onclick="volverAMisiones()" class="px-4 py-2 bg-white text-orange-600 font-bold rounded-full shadow-lg transition-transform transform hover:scale-105">
                 ← Volver a Misiones
             </button>
-            <div class="flex items-center space-x-4">
-                <div class="text-3xl font-extrabold text-white drop-shadow-lg">MISIÓN 1: LLANURA DE VECTONIA</div>
+            <div class="flex-1 flex items-center justify-center gap-3 text-center">
+                <div class="text-3xl md:text-4xl font-extrabold text-white drop-shadow-lg leading-tight">
+                    MISIÓN 1: LLANURA DE VECTONIA
+                </div>
                 <div class="text-4xl text-yellow-300">⚙️</div>
             </div>
             <div id="completion-badge" class="hidden px-4 py-2 bg-green-500 text-white font-bold rounded-full shadow-lg">
@@ -117,28 +114,32 @@
         <div class="mb-8">
             <div class="flex justify-between items-center mb-2">
                 <span class="text-sm font-semibold">Progreso de la misión</span>
-                <span id="progress-text" class="text-sm font-semibold">1/14</span>
+                <span id="progress-text" class="text-sm font-semibold">1/11</span>
             </div>
             <div class="progress-bar">
-                <div id="progress-fill" class="progress-fill" style="width: 7%;"></div>
+                <div id="progress-fill" class="progress-fill" style="width: 9%;"></div>
             </div>
         </div>
-        
-        <!-- Diapositivas de la misión -->
+
         <div class="slides-container">
-            <!-- Diapositiva 1 - Portada -->
+            <!-- 1. Portada -->
             <section class="slide active" id="slide-1">
                 <div class="bg-white/10 backdrop-blur-sm rounded-3xl p-6 md:p-8 border-4 border-white/30 shadow-2xl mb-8">
                     <div class="text-center mb-6">
                         <div class="text-6xl mb-4">🚀</div>
-                        <h2 class="text-2xl md:text-3xl font-bold mb-4 text-yellow-300">Llanura de Vectonia – Calibra tu RoverBot</h2>
+                        <h2 class="text-2xl md:text-3xl font-bold mb-4 text-yellow-300">
+                            Llanura de Vectonia – Calibra tu RoverBot
+                        </h2>
                     </div>
-                    
-                    <div class="bg-black/40 p-6 rounded-xl border-2 border-white/40 mb-6">
-                        <p class="text-lg text-white/90 mb-4">Acabas de aterrizar en Zython. Tu RoverBot debe recorrer exactamente la distancia hasta el primer punto de control. Calibra, prueba y registra como un auténtico explorador.</p>
-                        <p class="text-lg font-semibold text-yellow-300">Instrucción: Lee toda la guía antes de empezar. Reúne los materiales listados en la siguiente diapositiva.</p>
+                    <div class="bg-black/40 p-6 rounded-xl border-2 border-white/40">
+                        <p class="text-lg text-white/90 mb-4">
+                            Acabas de aterrizar en Zython. Tu RoverBot debe recorrer exactamente la distancia hasta el primer punto de control.
+                            Calibra, prueba y registra como un auténtico explorador.
+                        </p>
+                        <p class="text-lg font-semibold text-yellow-300">
+                            Lee toda la guía antes de empezar. Esta misión se trabaja en equipo y con registro de evidencias.
+                        </p>
                     </div>
-                    
                     <div class="flex justify-between mt-8">
                         <button class="px-4 py-2 bg-gray-500 text-white font-bold rounded-full opacity-50 cursor-not-allowed">
                             Anterior
@@ -149,25 +150,23 @@
                     </div>
                 </div>
             </section>
-            
-            <!-- Diapositiva 2 - Objetivos de aprendizaje -->
+
+            <!-- 2. Objetivos de aprendizaje -->
             <section class="slide" id="slide-2">
                 <div class="bg-white/10 backdrop-blur-sm rounded-3xl p-6 md:p-8 border-4 border-white/30 shadow-2xl mb-8">
                     <div class="text-center mb-6">
                         <div class="text-4xl mb-4">🎯</div>
                         <h2 class="text-2xl md:text-3xl font-bold mb-4 text-yellow-300">Objetivos de aprendizaje</h2>
                     </div>
-                    
-                    <div class="bg-black/40 p-6 rounded-xl border-2 border-white/40 mb-6">
+                    <div class="bg-black/40 p-6 rounded-xl border-2 border-white/40">
                         <p class="text-lg text-white/90 mb-4">Al completar la misión podrás:</p>
                         <ul class="list-disc list-inside space-y-3 text-white/90">
-                            <li>Entender la relación potencia – tiempo – distancia.</li>
-                            <li>Medir y registrar datos reales.</li>
-                            <li>Ajustar programación para alcanzar una distancia objetivo.</li>
+                            <li>Entender la relación <span class="font-semibold">potencia – tiempo – distancia</span>.</li>
+                            <li>Medir y registrar datos reales de movimiento.</li>
+                            <li>Ajustar tu programación para alcanzar una distancia objetivo.</li>
                             <li>Interpretar una tabla de ensayos y sacar conclusiones.</li>
                         </ul>
                     </div>
-                    
                     <div class="flex justify-between mt-8">
                         <button onclick="prevSlide(2)" class="px-4 py-2 bg-gray-600 text-white font-bold rounded-full shadow-lg transition-transform transform hover:scale-105">
                             ← Anterior
@@ -178,34 +177,33 @@
                     </div>
                 </div>
             </section>
-            
-            <!-- Diapositiva 3 - Materiales y preparación -->
+
+            <!-- 3. Materiales y preparación -->
             <section class="slide" id="slide-3">
                 <div class="bg-white/10 backdrop-blur-sm rounded-3xl p-6 md:p-8 border-4 border-white/30 shadow-2xl mb-8">
                     <div class="text-center mb-6">
                         <div class="text-4xl mb-4">🔧</div>
                         <h2 class="text-2xl md:text-3xl font-bold mb-4 text-yellow-300">Materiales y preparación</h2>
                     </div>
-                    
-                    <div class="bg-black/40 p-6 rounded-xl border-2 border-white/40 mb-6">
-                        <p class="text-lg font-semibold text-white mb-3">Necesitas:</p>
-                        <ul class="list-disc list-inside space-y-2 text-white/90 mb-6">
-                            <li>RoverBot (1 motor)</li>
-                            <li>Cinta métrica</li>
-                            <li>Cinta adhesiva</li>
-                            <li>Plantilla de tabla (impresa/digital)</li>
-                            <li>Dispositivo con LEGO WeDo 2.0</li>
-                            <li>Superficie plana ≥1 m</li>
-                        </ul>
-                        
-                        <p class="text-lg font-semibold text-white mb-3">Preparación (pasos):</p>
-                        <ol class="list-decimal list-inside space-y-2 text-white/90">
-                            <li>Marca la línea de salida con cinta.</li>
-                            <li>Marca el objetivo (ej. 50 cm desde la salida).</li>
-                            <li>Conecta RoverBot y abre la app. Revisa batería y que la llanta no resbale.</li>
-                        </ol>
+                    <div class="bg-black/40 p-6 rounded-xl border-2 border-white/40 space-y-4">
+                        <div>
+                            <p class="text-lg font-semibold text-white mb-2">Necesitas:</p>
+                            <ul class="list-disc list-inside space-y-2 text-white/90">
+                                <li>RoverBot armado.</li>
+                                <li>Cinta métrica.</li>
+                                <li>Cinta adhesiva para marcar el suelo.</li>
+                                <li>Computador o tablet con <span class="font-semibold">Scratch</span>.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <p class="text-lg font-semibold text-white mb-2">Preparación:</p>
+                            <ol class="list-decimal list-inside space-y-2 text-white/90">
+                                <li>Marca la línea de salida con cinta.</li>
+                                <li>Marca el objetivo (ejemplo: 50 cm desde la salida).</li>
+                                <li>Conecta el set a Scratch y verifica que el motor responda correctamente.</li>
+                            </ol>
+                        </div>
                     </div>
-                    
                     <div class="flex justify-between mt-8">
                         <button onclick="prevSlide(3)" class="px-4 py-2 bg-gray-600 text-white font-bold rounded-full shadow-lg transition-transform transform hover:scale-105">
                             ← Anterior
@@ -216,43 +214,39 @@
                     </div>
                 </div>
             </section>
-            
-            <!-- Diapositiva 4 - Paso 1: Predicción -->
+
+            <!-- 4. Paso 1: Predicción -->
             <section class="slide" id="slide-4">
                 <div class="bg-white/10 backdrop-blur-sm rounded-3xl p-6 md:p-8 border-4 border-white/30 shadow-2xl mb-8">
                     <div class="text-center mb-6">
                         <div class="text-4xl mb-4">📝</div>
                         <h2 class="text-2xl md:text-3xl font-bold mb-4 text-yellow-300">Paso 1: Predicción</h2>
                     </div>
-                    
-                    <div class="bg-black/40 p-6 rounded-xl border-2 border-white/40 mb-6">
-                        <p class="text-lg text-white/90 mb-4">Qué hacer (paso a paso):</p>
+                    <div class="bg-black/40 p-6 rounded-xl border-2 border-white/40">
+                        <p class="text-lg text-white/90 mb-4">Qué hacer:</p>
                         <ol class="list-decimal list-inside space-y-2 text-white/90 mb-6">
-                            <li>Escribe la distancia objetivo (por defecto: 50 cm).</li>
+                            <li>Escribe la distancia objetivo.</li>
                             <li>Haz una predicción: ¿qué potencia (%) y qué tiempo (s) crees necesitar?</li>
                         </ol>
-                        
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
                             <div>
                                 <label class="block mb-2">Distancia objetivo (cm):</label>
-                                <input type="number" id="distancia-objetivo" value="50" min="1" max="100">
+                                <input type="number" id="distancia-objetivo" value="50" min="1" max="300">
                             </div>
                             <div>
                                 <label class="block mb-2">Predicción - Potencia (%):</label>
-                                <input type="number" id="prediccion-potencia" min="0" max="100" placeholder="Ej: 50">
+                                <input type="number" id="prediccion-potencia" min="0" max="100" placeholder="Ej: 10">
                             </div>
                             <div>
                                 <label class="block mb-2">Predicción - Tiempo (s):</label>
-                                <input type="number" id="prediccion-tiempo" min="0.1" step="0.1" placeholder="Ej: 2.0">
+                                <input type="number" id="prediccion-tiempo" min="0.1" step="0.1" placeholder="Ej: 2">
                             </div>
                         </div>
-                        
                         <div class="mt-4">
                             <label class="block mb-2">Razón breve:</label>
                             <input type="text" id="razon-prediccion" placeholder="Creo esto porque...">
                         </div>
                     </div>
-                    
                     <div class="flex justify-between mt-8">
                         <button onclick="prevSlide(4)" class="px-4 py-2 bg-gray-600 text-white font-bold rounded-full shadow-lg transition-transform transform hover:scale-105">
                             ← Anterior
@@ -263,28 +257,34 @@
                     </div>
                 </div>
             </section>
-            
-            <!-- Diapositiva 5 - Paso 2: Programación inicial -->
+
+            <!-- 5. Paso 2: Programación inicial -->
             <section class="slide" id="slide-5">
                 <div class="bg-white/10 backdrop-blur-sm rounded-3xl p-6 md:p-8 border-4 border-white/30 shadow-2xl mb-8">
-                    <div class="text-center mb-6">
-                        <div class="text-4xl mb-4">🧩</div>
-                        <h2 class="text-2xl md:text-3xl font-bold mb-4 text-yellow-300">Paso 2: Programación inicial</h2>
+                    <div class="text-center mb-4">
+                        <div class="text-4xl mb-2">🧩</div>
+                        <h2 class="text-2xl md:text-3xl font-bold mb-2 text-yellow-300">Paso 2: Programación inicial</h2>
                     </div>
-                    
-                    <div class="bg-black/40 p-6 rounded-xl border-2 border-white/40 mb-6">
-                        <p class="text-lg text-white/90 mb-4">Instrucciones:</p>
-                        <ol class="list-decimal list-inside space-y-2 text-white/90 mb-6">
-                            <li>Crea un programa simple: Motor ON a <span id="potencia-predicha"></span>% durante <span id="tiempo-predicho"></span> s. (Bloques en WeDo).</li>
-                            <li>Coloca RoverBot en la línea de salida. Comprueba que nada obstruye su avance.</li>
-                            <li>Ejecuta 1 vez y observa. Graba en video (opcional pero recomendado).</li>
+                    <div class="bg-black/40 p-6 rounded-xl border-2 border-white/40 space-y-4">
+                        <p class="text-lg text-white/90">
+                            Crea el programa como aparece en la imagen. Usa los valores de potencia y tiempo que predijiste.
+                        </p>
+                        <div class="text-sm text-white/70">
+                            Imagen tomada como referencia de programación inicial del motor.
+                        </div>
+                        <img src="programacion/1.png" alt="Programa inicial RoverBot" class="mx-auto my-4 max-w-full rounded-xl border-2 border-white/40 shadow-lg">
+                        <ol class="list-decimal list-inside space-y-2 text-white/90">
+                            <li>En Scratch, arma el bloque para encender el motor con tu potencia y tiempo predichos.</li>
+                            <li>Coloca el RoverBot en la línea de salida.</li>
+                            <li>Ejecuta una vez y observa el recorrido.</li>
+                            <li>Graba un video del intento como evidencia y guárdalo en el drive de evidencias del equipo.</li>
                         </ol>
-                        
-                        <div class="bg-yellow-900/30 p-4 rounded-lg border border-yellow-600 mt-4">
-                            <p class="text-yellow-200 font-semibold">⚠️ Nota de seguridad: Mantén manos fuera del camino del robot mientras corre.</p>
+                        <div class="bg-yellow-900/30 p-4 rounded-lg border border-yellow-600 mt-2">
+                            <p class="text-yellow-200 font-semibold">
+                                ⚠️ Nota de seguridad: Mantén manos y objetos fuera del camino del RoverBot mientras se mueve.
+                            </p>
                         </div>
                     </div>
-                    
                     <div class="flex justify-between mt-8">
                         <button onclick="prevSlide(5)" class="px-4 py-2 bg-gray-600 text-white font-bold rounded-full shadow-lg transition-transform transform hover:scale-105">
                             ← Anterior
@@ -295,20 +295,20 @@
                     </div>
                 </div>
             </section>
-            
-            <!-- Diapositiva 6 - Paso 3: Medición y registro -->
+
+            <!-- 6. Paso 3: Medición y registro -->
             <section class="slide" id="slide-6">
                 <div class="bg-white/10 backdrop-blur-sm rounded-3xl p-6 md:p-8 border-4 border-white/30 shadow-2xl mb-8">
                     <div class="text-center mb-6">
                         <div class="text-4xl mb-4">📏</div>
                         <h2 class="text-2xl md:text-3xl font-bold mb-4 text-yellow-300">Paso 3: Medición y registro</h2>
                     </div>
-                    
-                    <div class="bg-black/40 p-6 rounded-xl border-2 border-white/40 mb-6">
-                        <p class="text-lg text-white/90 mb-4">Medir: Usa la cinta métrica desde la línea de salida hasta el punto donde se detuvo la rueda delantera. Anota la distancia en cm.</p>
-                        
-                        <p class="text-lg font-semibold text-white mt-6 mb-3">Registra tu primer intento:</p>
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                    <div class="bg-black/40 p-6 rounded-xl border-2 border-white/40 space-y-4">
+                        <p class="text-lg text-white/90">
+                            Mide desde la línea de salida hasta donde se detuvo la rueda delantera del RoverBot. Registra el resultado.
+                        </p>
+                        <p class="text-lg font-semibold text-white mt-4 mb-2">Registra tu primer intento:</p>
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
                             <div>
                                 <label class="block mb-2">Potencia (%):</label>
                                 <input type="number" id="intento1-potencia" min="0" max="100">
@@ -321,18 +321,15 @@
                                 <label class="block mb-2">Distancia (cm):</label>
                                 <input type="number" id="intento1-distancia" min="0" step="0.1">
                             </div>
-                        </div>
-                        
-                        <div class="mt-4">
-                            <label class="block mb-2">¿Llegó al objetivo?</label>
-                            <select id="intento1-resultado" class="bg-gray-800 text-white p-2 rounded w-full">
-                                <option value="no">No</option>
-                                <option value="casi">Casi</option>
-                                <option value="si">Sí</option>
-                            </select>
+                            <div>
+                                <label class="block mb-2">¿Llegó al objetivo?</label>
+                                <select id="intento1-resultado">
+                                    <option value="no">No</option>
+                                    <option value="si">Sí</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
-                    
                     <div class="flex justify-between mt-8">
                         <button onclick="prevSlide(6)" class="px-4 py-2 bg-gray-600 text-white font-bold rounded-full shadow-lg transition-transform transform hover:scale-105">
                             ← Anterior
@@ -343,30 +340,28 @@
                     </div>
                 </div>
             </section>
-            
-            <!-- Diapositiva 7 - Paso 4: Analiza y decide ajustes -->
+
+            <!-- 7. Paso 4: Analiza y decide ajustes -->
             <section class="slide" id="slide-7">
                 <div class="bg-white/10 backdrop-blur-sm rounded-3xl p-6 md:p-8 border-4 border-white/30 shadow-2xl mb-8">
                     <div class="text-center mb-6">
                         <div class="text-4xl mb-4">🔍</div>
                         <h2 class="text-2xl md:text-3xl font-bold mb-4 text-yellow-300">Paso 4: Analiza y decide ajustes</h2>
                     </div>
-                    
-                    <div class="bg-black/40 p-6 rounded-xl border-2 border-white/40 mb-6">
-                        <p class="text-lg text-white/90 mb-4">Cómo decidir qué cambiar:</p>
-                        <ul class="list-disc list-inside space-y-2 text-white/90 mb-6">
-                            <li>Si distancia < objetivo → aumentar potencia o tiempo.</li>
-                            <li>Si distancia > objetivo → reducir potencia o tiempo.</li>
+                    <div class="bg-black/40 p-6 rounded-xl border-2 border-white/40 space-y-4">
+                        <p class="text-lg text-white/90">Cómo decidir qué cambiar:</p>
+                        <ul class="list-disc list-inside space-y-2 text-white/90">
+                            <li>Si distancia &lt; objetivo → aumentar potencia o tiempo.</li>
+                            <li>Si distancia &gt; objetivo → reducir potencia o tiempo.</li>
                         </ul>
-                        
-                        <p class="text-lg text-white/90 mb-4">Estrategia simple: cambia solo una variable por intento (p. ej. +10% potencia o +0.2 s) para ver el efecto.</p>
-                        
-                        <div class="mt-6">
+                        <p class="text-lg text-white/90">
+                            Estrategia: cambia solo una variable por intento (por ejemplo, +10% potencia o +0.2 s) para ver claramente el efecto.
+                        </p>
+                        <div class="mt-4">
                             <label class="block mb-2">Registro de la decisión:</label>
                             <input type="text" id="decision-ajuste" placeholder="Cambié ____ porque ____ (esperaba ____).">
                         </div>
                     </div>
-                    
                     <div class="flex justify-between mt-8">
                         <button onclick="prevSlide(7)" class="px-4 py-2 bg-gray-600 text-white font-bold rounded-full shadow-lg transition-transform transform hover:scale-105">
                             ← Anterior
@@ -377,22 +372,20 @@
                     </div>
                 </div>
             </section>
-            
-            <!-- Diapositiva 8 - Paso 5: Repetir y confirmar -->
+
+            <!-- 8. Paso 5: Repetir y confirmar -->
             <section class="slide" id="slide-8">
                 <div class="bg-white/10 backdrop-blur-sm rounded-3xl p-6 md:p-8 border-4 border-white/30 shadow-2xl mb-8">
                     <div class="text-center mb-6">
                         <div class="text-4xl mb-4">🔄</div>
                         <h2 class="text-2xl md:text-3xl font-bold mb-4 text-yellow-300">Paso 5: Repetir y confirmar</h2>
                     </div>
-                    
-                    <div class="bg-black/40 p-6 rounded-xl border-2 border-white/40 mb-6">
-                        <p class="text-lg text-white/90 mb-4">Meta: Tener al menos 3 intentos documentados y 1 intento exitoso.</p>
-                        
-                        <p class="text-lg font-semibold text-white mt-6 mb-3">Registra tus intentos adicionales:</p>
-                        
+                    <div class="bg-black/40 p-6 rounded-xl border-2 border-white/40 space-y-4">
+                        <p class="text-lg text-white/90">
+                            Meta: tener al menos 3 intentos documentados y 1 intento exitoso.
+                        </p>
                         <div class="overflow-x-auto">
-                            <table class="w-full mb-4">
+                            <table>
                                 <thead>
                                     <tr>
                                         <th>Intento</th>
@@ -409,9 +402,8 @@
                                         <td><input type="number" id="intento2-tiempo" min="0.1" step="0.1" class="w-full bg-transparent border-none text-center"></td>
                                         <td><input type="number" id="intento2-distancia" min="0" step="0.1" class="w-full bg-transparent border-none text-center"></td>
                                         <td>
-                                            <select id="intento2-resultado" class="bg-transparent border-none text-center w-full">
+                                            <select id="intento2-resultado" class="w-full bg-transparent border-none text-center">
                                                 <option value="no">No</option>
-                                                <option value="casi">Casi</option>
                                                 <option value="si">Sí</option>
                                             </select>
                                         </td>
@@ -422,9 +414,8 @@
                                         <td><input type="number" id="intento3-tiempo" min="0.1" step="0.1" class="w-full bg-transparent border-none text-center"></td>
                                         <td><input type="number" id="intento3-distancia" min="0" step="0.1" class="w-full bg-transparent border-none text-center"></td>
                                         <td>
-                                            <select id="intento3-resultado" class="bg-transparent border-none text-center w-full">
+                                            <select id="intento3-resultado" class="w-full bg-transparent border-none text-center">
                                                 <option value="no">No</option>
-                                                <option value="casi">Casi</option>
                                                 <option value="si">Sí</option>
                                             </select>
                                         </td>
@@ -435,9 +426,8 @@
                                         <td><input type="number" id="intento4-tiempo" min="0.1" step="0.1" class="w-full bg-transparent border-none text-center"></td>
                                         <td><input type="number" id="intento4-distancia" min="0" step="0.1" class="w-full bg-transparent border-none text-center"></td>
                                         <td>
-                                            <select id="intento4-resultado" class="bg-transparent border-none text-center w-full">
+                                            <select id="intento4-resultado" class="w-full bg-transparent border-none text-center">
                                                 <option value="no">No</option>
-                                                <option value="casi">Casi</option>
                                                 <option value="si">Sí</option>
                                             </select>
                                         </td>
@@ -445,15 +435,14 @@
                                 </tbody>
                             </table>
                         </div>
-                        
-                        <div class="mt-4">
-                            <label class="inline-flex items-center">
-                                <input type="checkbox" id="video-check" class="form-checkbox h-5 w-5 text-blue-600">
-                                <span class="ml-2">He grabado un video del intento exitoso</span>
-                            </label>
-                        </div>
+                        <p class="text-white/90 mt-4">
+                            Recuerda grabar un video del intento exitoso y guardarlo en el drive de evidencias del equipo.
+                        </p>
+                        <label class="inline-flex items-center mt-2">
+                            <input type="checkbox" id="video-check" class="form-checkbox h-5 w-5 text-blue-600">
+                            <span class="ml-2">Ya guardamos el video del intento exitoso.</span>
+                        </label>
                     </div>
-                    
                     <div class="flex justify-between mt-8">
                         <button onclick="prevSlide(8)" class="px-4 py-2 bg-gray-600 text-white font-bold rounded-full shadow-lg transition-transform transform hover:scale-105">
                             ← Anterior
@@ -464,39 +453,34 @@
                     </div>
                 </div>
             </section>
-            
-            <!-- Diapositiva 9 - Paso 6: Conclusión y reflexión -->
+
+            <!-- 9. Paso 6: Conclusión y reflexión -->
             <section class="slide" id="slide-9">
                 <div class="bg-white/10 backdrop-blur-sm rounded-3xl p-6 md:p-8 border-4 border-white/30 shadow-2xl mb-8">
                     <div class="text-center mb-6">
                         <div class="text-4xl mb-4">🧾</div>
                         <h2 class="text-2xl md:text-3xl font-bold mb-4 text-yellow-300">Paso 6: Conclusión y reflexión</h2>
                     </div>
-                    
-                    <div class="bg-black/40 p-6 rounded-xl border-2 border-white/40 mb-6">
-                        <div class="mb-6">
-                            <label class="block mb-2">Completa la frase:</label>
-                            <input type="text" id="conclusion-frase" placeholder="Para llegar a 50 cm, nuestro RoverBot debe tener una potencia de ___% y un tiempo de ___ s." class="w-full">
+                    <div class="bg-black/40 p-6 rounded-xl border-2 border-white/40 space-y-4">
+                        <div>
+                            <label class="block mb-2">
+                                Completa la frase:
+                            </label>
+                            <input type="text" id="conclusion-frase" placeholder="Para llegar a 50 cm, nuestro RoverBot debe tener una potencia de ___% y un tiempo de ___ s.">
                         </div>
-                        
-                        <div class="space-y-4">
-                            <div>
-                                <label class="block mb-2">¿Qué pasó cuando aumentamos la potencia sin cambiar el tiempo?</label>
-                                <textarea id="reflexion-1" rows="2" class="w-full bg-gray-800 text-white p-2 rounded" placeholder="Escribe tu respuesta aquí..."></textarea>
-                            </div>
-                            
-                            <div>
-                                <label class="block mb-2">¿Pudimos lograr 50 cm con varias combinaciones? Da un ejemplo.</label>
-                                <textarea id="reflexion-2" rows="2" class="w-full bg-gray-800 text-white p-2 rounded" placeholder="Escribe tu respuesta aquí..."></textarea>
-                            </div>
-                            
-                            <div>
-                                <label class="block mb-2">¿Cómo usarías estos datos en la próxima misión?</label>
-                                <textarea id="reflexion-3" rows="2" class="w-full bg-gray-800 text-white p-2 rounded" placeholder="Escribe tu respuesta aquí..."></textarea>
-                            </div>
+                        <div>
+                            <label class="block mb-2">¿Qué pasó cuando aumentamos la potencia sin cambiar el tiempo?</label>
+                            <textarea id="reflexion-1" rows="2" class="w-full bg-gray-800 text-white p-2 rounded" placeholder="Escribe tu respuesta aquí..."></textarea>
+                        </div>
+                        <div>
+                            <label class="block mb-2">¿Pudimos lograr 50 cm con varias combinaciones? Da un ejemplo.</label>
+                            <textarea id="reflexion-2" rows="2" class="w-full bg-gray-800 text-white p-2 rounded" placeholder="Escribe tu respuesta aquí..."></textarea>
+                        </div>
+                        <div>
+                            <label class="block mb-2">¿Cómo usarías estos datos en la próxima misión?</label>
+                            <textarea id="reflexion-3" rows="2" class="w-full bg-gray-800 text-white p-2 rounded" placeholder="Escribe tu respuesta aquí..."></textarea>
                         </div>
                     </div>
-                    
                     <div class="flex justify-between mt-8">
                         <button onclick="prevSlide(9)" class="px-4 py-2 bg-gray-600 text-white font-bold rounded-full shadow-lg transition-transform transform hover:scale-105">
                             ← Anterior
@@ -507,183 +491,77 @@
                     </div>
                 </div>
             </section>
-            
-            <!-- Diapositiva 10 - Producto final y rúbrica -->
+
+            <!-- 10. Autoevaluación -->
             <section class="slide" id="slide-10">
-                <div class="bg-white/10 backdrop-blur-sm rounded-3xl p-6 md:p-8 border-4 border-white/30 shadow-2xl mb-8">
-                    <div class="text-center mb-6">
-                        <div class="text-4xl mb-4">📦</div>
-                        <h2 class="text-2xl md:text-3xl font-bold mb-4 text-yellow-300">Producto final y rúbrica de evidencias</h2>
-                    </div>
-                    
-                    <div class="bg-black/40 p-6 rounded-xl border-2 border-white/40 mb-6">
-                        <p class="text-lg font-semibold text-white mb-3">Entregable: carpeta con:</p>
-                        <ul class="list-disc list-inside space-y-2 text-white/90 mb-6">
-                            <li>Tabla completa (mín. 3 intentos)</li>
-                            <li>Video del intento exitoso (30–60 s)</li>
-                            <li>Reflexión (escrita o audio)</li>
-                            <li>(Opcional) Gráfica de barras: distancia vs intento</li>
-                        </ul>
-                        
-                        <p class="text-lg font-semibold text-white mb-3">Rúbrica rápida (3 niveles):</p>
-                        <ul class="space-y-2 text-white/90">
-                            <li><span class="font-semibold text-green-400">Logrado:</span> Tabla completa + video con evidencia clara + reflexión coherente.</li>
-                            <li><span class="font-semibold text-yellow-400">En proceso:</span> Tabla incompleta o video poco claro; reflexión limitada.</li>
-                            <li><span class="font-semibold text-red-400">No logrado:</span> Falta la mayoría de evidencias.</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="flex justify-between mt-8">
-                        <button onclick="prevSlide(10)" class="px-4 py-2 bg-gray-600 text-white font-bold rounded-full shadow-lg transition-transform transform hover:scale-105">
-                            ← Anterior
-                        </button>
-                        <button onclick="nextSlide(10)" class="px-6 py-2 bg-gradient-to-r from-blue-500 to-blue-700 text-white font-bold rounded-full shadow-lg transition-transform transform hover:scale-105">
-                            Siguiente →
-                        </button>
-                    </div>
-                </div>
-            </section>
-            
-            <!-- Diapositiva 11 - Diferenciación y extensión -->
-            <section class="slide" id="slide-11">
-                <div class="bg-white/10 backdrop-blur-sm rounded-3xl p-6 md:p-8 border-4 border-white/30 shadow-2xl mb-8">
-                    <div class="text-center mb-6">
-                        <div class="text-4xl mb-4">🌟</div>
-                        <h2 class="text-2xl md:text-3xl font-bold mb-4 text-yellow-300">Diferenciación y extensión</h2>
-                    </div>
-                    
-                    <div class="bg-black/40 p-6 rounded-xl border-2 border-white/40 mb-6">
-                        <div class="mb-6">
-                            <p class="text-lg font-semibold text-white mb-2">Niveles de dificultad:</p>
-                            <ul class="space-y-3 text-white/90">
-                                <li><span class="font-semibold text-green-400">🟢 Básico:</span> fija la potencia y solo ajusta tiempo.</li>
-                                <li><span class="font-semibold text-yellow-400">🟡 Medio:</span> ajusta libremente potencia y tiempo; busca 2 combinaciones que funcionen.</li>
-                                <li><span class="font-semibold text-blue-400">🔵 Avanzado:</span> predice la distancia para un valor nuevo (ej. 60% / 1.5 s), prueba y compara; calcula velocidad promedio (cm/s) y discute proporcionalidad.</li>
-                            </ul>
-                        </div>
-                        
-                        <div>
-                            <p class="text-lg font-semibold text-white mb-2">Extensión:</p>
-                            <p class="text-white/90">Crea una gráfica (distancia vs potencia) y escribe 2 conclusiones.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="flex justify-between mt-8">
-                        <button onclick="prevSlide(11)" class="px-4 py-2 bg-gray-600 text-white font-bold rounded-full shadow-lg transition-transform transform hover:scale-105">
-                            ← Anterior
-                        </button>
-                        <button onclick="nextSlide(11)" class="px-6 py-2 bg-gradient-to-r from-blue-500 to-blue-700 text-white font-bold rounded-full shadow-lg transition-transform transform hover:scale-105">
-                            Siguiente →
-                        </button>
-                    </div>
-                </div>
-            </section>
-            
-            <!-- Diapositiva 12 - Autoevaluación -->
-            <section class="slide" id="slide-12">
                 <div class="bg-white/10 backdrop-blur-sm rounded-3xl p-6 md:p-8 border-4 border-white/30 shadow-2xl mb-8">
                     <div class="text-center mb-6">
                         <div class="text-4xl mb-4">✅</div>
                         <h2 class="text-2xl md:text-3xl font-bold mb-4 text-yellow-300">Autoevaluación y checklist final</h2>
                     </div>
-                    
-                    <div class="bg-black/40 p-6 rounded-xl border-2 border-white/40 mb-6">
+                    <div class="bg-black/40 p-6 rounded-xl border-2 border-white/40">
                         <div class="space-y-4">
                             <label class="flex items-start">
                                 <input type="checkbox" id="check-1" class="form-checkbox h-5 w-5 text-blue-600 mt-1">
-                                <span class="ml-2">Preparé el área y marqué 50 cm.</span>
+                                <span class="ml-2">Preparamos el área y marcamos la distancia objetivo.</span>
                             </label>
-                            
                             <label class="flex items-start">
                                 <input type="checkbox" id="check-2" class="form-checkbox h-5 w-5 text-blue-600 mt-1">
-                                <span class="ml-2">Registré al menos 3 intentos en la tabla.</span>
+                                <span class="ml-2">Registramos al menos 3 intentos en la tabla.</span>
                             </label>
-                            
                             <label class="flex items-start">
                                 <input type="checkbox" id="check-3" class="form-checkbox h-5 w-5 text-blue-600 mt-1">
-                                <span class="ml-2">Tengo video del intento exitoso.</span>
+                                <span class="ml-2">Guardamos el video del intento exitoso.</span>
                             </label>
-                            
                             <label class="flex items-start">
                                 <input type="checkbox" id="check-4" class="form-checkbox h-5 w-5 text-blue-600 mt-1">
-                                <span class="ml-2">Guardé el proyecto en la app.</span>
+                                <span class="ml-2">Guardamos el proyecto en Scratch.</span>
                             </label>
-                            
                             <label class="flex items-start">
                                 <input type="checkbox" id="check-5" class="form-checkbox h-5 w-5 text-blue-600 mt-1">
-                                <span class="ml-2">Entregué reflexión.</span>
+                                <span class="ml-2">Completamos la reflexión final.</span>
                             </label>
                         </div>
-                        
                         <div class="mt-6 text-center">
-                            <p class="text-lg font-semibold text-yellow-300">Al completar todo: reclama tu Insignia 🛠️ Calibrador Estelar.</p>
+                            <p class="text-lg font-semibold text-yellow-300">
+                                Al completar todo, reclamas tu Insignia 🛠️ Calibrador Estelar.
+                            </p>
                             <div class="mission-badge inline-block mt-4 p-4 bg-gradient-to-b from-yellow-400 to-orange-500 rounded-full text-4xl">
                                 🛠️
                             </div>
                         </div>
                     </div>
-                    
                     <div class="flex justify-between mt-8">
-                        <button onclick="prevSlide(12)" class="px-4 py-2 bg-gray-600 text-white font-bold rounded-full shadow-lg transition-transform transform hover:scale-105">
+                        <button onclick="prevSlide(10)" class="px-4 py-2 bg-gray-600 text-white font-bold rounded-full shadow-lg transition-transform transform hover:scale-105">
                             ← Anterior
                         </button>
-                        <button onclick="completeMission(); nextSlide(12)" class="px-6 py-2 bg-gradient-to-r from-green-500 to-green-700 text-white font-bold rounded-full shadow-lg transition-transform transform hover:scale-105">
-                            Completar Misión
+                        <button onclick="completeMission(); nextSlide(10)" class="px-6 py-2 bg-gradient-to-r from-green-500 to-green-700 text-white font-bold rounded-full shadow-lg transition-transform transform hover:scale-105">
+                            Completar misión
                         </button>
                     </div>
                 </div>
             </section>
-            
-            <!-- Diapositiva 13 - Consejos rápidos -->
-            <section class="slide" id="slide-13">
-                <div class="bg-white/10 backdrop-blur-sm rounded-3xl p-6 md:p-8 border-4 border-white/30 shadow-2xl mb-8">
-                    <div class="text-center mb-6">
-                        <div class="text-4xl mb-4">⚙️</div>
-                        <h2 class="text-2xl md:text-3xl font-bold mb-4 text-yellow-300">Consejos rápidos y solución de problemas</h2>
-                    </div>
-                    
-                    <div class="bg-black/40 p-6 rounded-xl border-2 border-white/40 mb-6">
-                        <ul class="space-y-3 text-white/90">
-                            <li><span class="font-semibold">Si el robot gira:</span> revisa que las ruedas estén alineadas.</li>
-                            <li><span class="font-semibold">Si recorre menos cada intento:</span> revisa batería o superficie irregular.</li>
-                            <li><span class="font-semibold">Si salta o patina:</span> usa una superficie con fricción moderada.</li>
-                            <li><span class="font-semibold">Consejo para precisión:</span> haz cambios pequeños (±5–15% potencia o ±0.1–0.3 s) hasta afinar.</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="flex justify-between mt-8">
-                        <button onclick="prevSlide(13)" class="px-4 py-2 bg-gray-600 text-white font-bold rounded-full shadow-lg transition-transform transform hover:scale-105">
-                            ← Anterior
-                        </button>
-                        <button onclick="nextSlide(13)" class="px-6 py-2 bg-gradient-to-r from-blue-500 to-blue-700 text-white font-bold rounded-full shadow-lg transition-transform transform hover:scale-105">
-                            Siguiente →
-                        </button>
-                    </div>
-                </div>
-            </section>
-            
-            <!-- Diapositiva 14 - Siguiente misión -->
-            <section class="slide" id="slide-14">
-                <div class="bg-white/10 backdrop-blur-sm rounded-3xl p-6 md:p-8 border-4 border-white/30 shadow-2xl mb-8">
-                    <div class="text-center mb-6">
-                        <div class="text-4xl mb-4">✨</div>
-                        <h2 class="text-2xl md:text-3xl font-bold mb-4 text-yellow-300">Siguiente misión / Ideas para continuar</h2>
-                    </div>
-                    
-                    <div class="bg-black/40 p-6 rounded-xl border-2 border-white/40 mb-6">
-                        <ul class="list-disc list-inside space-y-3 text-white/90">
-                            <li>Repite la actividad con otra distancia (ej. 30 cm o 80 cm) y compara.</li>
+
+            <!-- 11. Siguiente misión / cierre -->
+            <section class="slide" id="slide-11">
+                <div class="bg-white/10 backdrop-blur-sm rounded-3xl p-6 md:p-8 border-4 border-white/30 shadow-2xl mb-8 text-center space-y-6">
+                    <div class="text-4xl mb-2">✨</div>
+                    <h2 class="text-2xl md:text-3xl font-bold text-yellow-300">
+                        Siguiente misión / Ideas para continuar
+                    </h2>
+                    <div class="bg-black/40 p-6 rounded-xl border-2 border-white/40 text-left inline-block text-white/90 space-y-2">
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>Repite la actividad con diferentes combinaciones y compara los resultados.</li>
                             <li>Diseña un desafío de equipo: ¿qué combinación logra exactamente 1 m con menor energía total?</li>
-                            <li>(Opcional) Registra tus datos en una hoja de cálculo y crea la gráfica.</li>
+                            <li>Registra tus datos en una hoja de cálculo y crea la gráfica.</li>
                         </ul>
                     </div>
-                    
-                    <div class="text-center mt-8">
-                        <p class="text-lg font-semibold text-yellow-300 mb-4">¡Felicidades! Has completado la Misión 1: Llanura de Vectonia</p>
-                        <button onclick="volverAMisiones()" class="px-6 py-3 bg-gradient-to-r from-purple-500 to-purple-700 text-white font-bold rounded-full shadow-lg transition-transform transform hover:scale-105 text-xl">
-                            Volver al Centro de Misiones
-                        </button>
-                    </div>
+                    <p class="text-lg font-semibold text-yellow-300">
+                        ¡Felicidades! Has completado la Misión 1: Llanura de Vectonia.
+                    </p>
+                    <button onclick="volverAMisiones()" class="px-6 py-3 bg-gradient-to-r from-purple-500 to-purple-700 text-white font-bold rounded-full shadow-lg transition-transform transform hover:scale-105 text-xl">
+                        Volver al Centro de Misiones
+                    </button>
                 </div>
             </section>
         </div>
@@ -692,155 +570,136 @@
     <script>
         // Variables globales
         let currentSlide = 1;
-        const totalSlides = 14;
+        const totalSlides = 11;
         let missionData = {};
-        
+
         // Crear estrellas de fondo
         function createStars() {
             const starsContainer = document.getElementById('stars');
             const starsCount = 150;
-            
             for (let i = 0; i < starsCount; i++) {
                 const star = document.createElement('div');
                 star.classList.add('star');
-                
-                // Posición aleatoria
                 const x = Math.random() * 100;
                 const y = Math.random() * 100;
-                
-                // Tamaño aleatorio
                 const size = Math.random() * 3;
-                
-                // Establecer estilos
                 star.style.left = `${x}%`;
                 star.style.top = `${y}%`;
                 star.style.width = `${size}px`;
                 star.style.height = `${size}px`;
-                
-                // Retraso de animación aleatorio
                 star.style.animationDelay = `${Math.random() * 3}s`;
-                
                 starsContainer.appendChild(star);
             }
         }
-        
-        // Navegación entre diapositivas
+
+        // Mostrar diapositiva
         function showSlide(slideNumber) {
-            // Ocultar todas las diapositivas
             document.querySelectorAll('.slide').forEach(slide => {
                 slide.classList.remove('active');
             });
-            
-            // Mostrar la diapositiva actual
-            document.getElementById(`slide-${slideNumber}`).classList.add('active');
-            
-            // Actualizar barra de progreso
+            const target = document.getElementById(`slide-${slideNumber}`);
+            if (target) {
+                target.classList.add('active');
+            }
+
             const progressPercentage = (slideNumber / totalSlides) * 100;
             document.getElementById('progress-fill').style.width = `${progressPercentage}%`;
             document.getElementById('progress-text').textContent = `${slideNumber}/${totalSlides}`;
-            
-            // Actualizar slide actual
             currentSlide = slideNumber;
-            
-            // Si estamos en la diapositiva 5, mostrar los valores predichos
+
+            // Mostrar valores predichos en la explicación si queremos
             if (slideNumber === 5) {
-                document.getElementById('potencia-predicha').textContent = missionData.prediccionPotencia || '___';
-                document.getElementById('tiempo-predicho').textContent = missionData.prediccionTiempo || '___';
+                // (Solo referencia visual si quieres usarlo en texto)
             }
-            
-            // Si estamos en la última diapositiva y la misión está completada, mostrar la insignia
-            if (slideNumber === 14 && localStorage.getItem('mision1Completada')) {
+
+            // Mostrar badge si ya está completada y estamos en la última
+            if (slideNumber === totalSlides && localStorage.getItem('mision1Completada')) {
                 document.getElementById('completion-badge').classList.remove('hidden');
             }
         }
-        
+
         function nextSlide(current) {
             if (current < totalSlides) {
                 showSlide(current + 1);
             }
         }
-        
+
         function prevSlide(current) {
             if (current > 1) {
                 showSlide(current - 1);
             }
         }
-        
+
         // Guardar predicción
         function savePrediction() {
             missionData.distanciaObjetivo = document.getElementById('distancia-objetivo').value;
             missionData.prediccionPotencia = document.getElementById('prediccion-potencia').value;
             missionData.prediccionTiempo = document.getElementById('prediccion-tiempo').value;
             missionData.razonPrediccion = document.getElementById('razon-prediccion').value;
-            
-            // Guardar en localStorage
             localStorage.setItem('mision1Data', JSON.stringify(missionData));
         }
-        
+
         // Guardar intento
         function saveAttempt(attemptNumber) {
-            if (!missionData.attempts) {
-                missionData.attempts = {};
-            }
-            
+            if (!missionData.attempts) missionData.attempts = {};
             missionData.attempts[attemptNumber] = {
-                potencia: document.getElementById(`intento${attemptNumber}-potencia`).value,
-                tiempo: document.getElementById(`intento${attemptNumber}-tiempo`).value,
-                distancia: document.getElementById(`intento${attemptNumber}-distancia`).value,
-                resultado: document.getElementById(`intento${attemptNumber}-resultado`).value
+                potencia: getValue(`intento${attemptNumber}-potencia`),
+                tiempo: getValue(`intento${attemptNumber}-tiempo`),
+                distancia: getValue(`intento${attemptNumber}-distancia`),
+                resultado: getValue(`intento${attemptNumber}-resultado`)
             };
-            
             localStorage.setItem('mision1Data', JSON.stringify(missionData));
         }
-        
+
+        function getValue(id) {
+            const el = document.getElementById(id);
+            return el ? el.value : '';
+        }
+
         // Guardar ajuste
         function saveAdjustment() {
             missionData.decisionAjuste = document.getElementById('decision-ajuste').value;
             localStorage.setItem('mision1Data', JSON.stringify(missionData));
         }
-        
+
         // Guardar intentos adicionales
         function saveAdditionalAttempts() {
             for (let i = 2; i <= 4; i++) {
-                const potencia = document.getElementById(`intento${i}-potencia`).value;
-                if (potencia) {
+                const potencia = getValue(`intento${i}-potencia`);
+                const tiempo = getValue(`intento${i}-tiempo`);
+                const distancia = getValue(`intento${i}-distancia`);
+                const resultado = getValue(`intento${i}-resultado`);
+                if (potencia || tiempo || distancia || resultado) {
                     saveAttempt(i);
                 }
             }
-            
             missionData.videoGrabado = document.getElementById('video-check').checked;
             localStorage.setItem('mision1Data', JSON.stringify(missionData));
         }
-        
+
         // Guardar reflexión
         function saveReflection() {
             missionData.conclusion = document.getElementById('conclusion-frase').value;
             missionData.reflexion1 = document.getElementById('reflexion-1').value;
             missionData.reflexion2 = document.getElementById('reflexion-2').value;
             missionData.reflexion3 = document.getElementById('reflexion-3').value;
-            
             localStorage.setItem('mision1Data', JSON.stringify(missionData));
         }
-        
-        // Completar misión - ESTA ES LA FUNCIÓN CLAVE QUE FIX EL PROBLEMA
+
+        // Completar misión
         function completeMission() {
-            // Marcar todos los checks como completados
             for (let i = 1; i <= 5; i++) {
-                document.getElementById(`check-${i}`).checked = true;
+                const checkbox = document.getElementById(`check-${i}`);
+                if (checkbox) checkbox.checked = true;
             }
-            
-            // Guardar en localStorage que la misión está completada
+
             localStorage.setItem('mision1Completada', 'true');
-            
-            // Mostrar badge de completado
             document.getElementById('completion-badge').classList.remove('hidden');
-            
-            // Guardar datos finales
+
             missionData.completada = true;
             missionData.fechaCompletada = new Date().toISOString();
             localStorage.setItem('mision1Data', JSON.stringify(missionData));
-            
-            // AQUÍ ESTÁ EL FIX: Actualizar el progreso del jugador para desbloquear la misión 2
+
             const currentPlayer = localStorage.getItem('zython-current-player');
             if (currentPlayer) {
                 let players = JSON.parse(localStorage.getItem('zython-players') || '{}');
@@ -851,105 +710,80 @@
                         currentMission: 1
                     };
                 }
-                
-                // Agregar misión 1 como completada si no está ya
                 if (!players[currentPlayer].completedMissions.includes(1)) {
                     players[currentPlayer].completedMissions.push(1);
                     players[currentPlayer].completed = players[currentPlayer].completedMissions.length;
-                    players[currentPlayer].currentMission = 2; // Desbloquear misión 2
+                    players[currentPlayer].currentMission = 2;
                 }
-                
                 localStorage.setItem('zython-players', JSON.stringify(players));
             }
-            
+
             alert('¡Felicidades! Has completado la Misión 1: Llanura de Vectonia. ¡Eres un auténtico Calibrador Estelar!');
         }
-        
-        // AQUÍ ESTÁ EL FIX PRINCIPAL: Función que realmente redirige al index
+
+        // Volver al índice
         function volverAMisiones() {
-            // Redirigir al index.html
             window.location.href = 'index.html';
         }
-        
-        // Cargar datos guardados al iniciar
+
+        // Cargar datos guardados
         function loadSavedData() {
             const savedData = localStorage.getItem('mision1Data');
             if (savedData) {
                 missionData = JSON.parse(savedData);
-                
-                // Rellenar campos con datos guardados
-                if (missionData.distanciaObjetivo) {
+
+                if (missionData.distanciaObjetivo)
                     document.getElementById('distancia-objetivo').value = missionData.distanciaObjetivo;
-                }
-                
-                if (missionData.prediccionPotencia) {
+                if (missionData.prediccionPotencia)
                     document.getElementById('prediccion-potencia').value = missionData.prediccionPotencia;
-                }
-                
-                if (missionData.prediccionTiempo) {
+                if (missionData.prediccionTiempo)
                     document.getElementById('prediccion-tiempo').value = missionData.prediccionTiempo;
-                }
-                
-                if (missionData.razonPrediccion) {
+                if (missionData.razonPrediccion)
                     document.getElementById('razon-prediccion').value = missionData.razonPrediccion;
-                }
-                
-                // Cargar intentos
+
                 if (missionData.attempts) {
                     for (let i = 1; i <= 4; i++) {
-                        if (missionData.attempts[i]) {
-                            const potenciaInput = document.getElementById(`intento${i}-potencia`);
-                            const tiempoInput = document.getElementById(`intento${i}-tiempo`);
-                            const distanciaInput = document.getElementById(`intento${i}-distancia`);
-                            const resultadoSelect = document.getElementById(`intento${i}-resultado`);
-                            
-                            if (potenciaInput) potenciaInput.value = missionData.attempts[i].potencia;
-                            if (tiempoInput) tiempoInput.value = missionData.attempts[i].tiempo;
-                            if (distanciaInput) distanciaInput.value = missionData.attempts[i].distancia;
-                            if (resultadoSelect) resultadoSelect.value = missionData.attempts[i].resultado;
+                        const a = missionData.attempts[i];
+                        if (a) {
+                            const p = document.getElementById(`intento${i}-potencia`);
+                            const t = document.getElementById(`intento${i}-tiempo`);
+                            const d = document.getElementById(`intento${i}-distancia`);
+                            const r = document.getElementById(`intento${i}-resultado`);
+                            if (p) p.value = a.potencia || '';
+                            if (t) t.value = a.tiempo || '';
+                            if (d) d.value = a.distancia || '';
+                            if (r && a.resultado !== undefined) r.value = a.resultado;
                         }
                     }
                 }
-                
-                if (missionData.decisionAjuste) {
+
+                if (missionData.decisionAjuste)
                     document.getElementById('decision-ajuste').value = missionData.decisionAjuste;
-                }
-                
-                if (missionData.videoGrabado) {
-                    document.getElementById('video-check').checked = missionData.videoGrabado;
-                }
-                
-                if (missionData.conclusion) {
+
+                if (missionData.videoGrabado)
+                    document.getElementById('video-check').checked = true;
+
+                if (missionData.conclusion)
                     document.getElementById('conclusion-frase').value = missionData.conclusion;
-                }
-                
-                if (missionData.reflexion1) {
+                if (missionData.reflexion1)
                     document.getElementById('reflexion-1').value = missionData.reflexion1;
-                }
-                
-                if (missionData.reflexion2) {
+                if (missionData.reflexion2)
                     document.getElementById('reflexion-2').value = missionData.reflexion2;
-                }
-                
-                if (missionData.reflexion3) {
+                if (missionData.reflexion3)
                     document.getElementById('reflexion-3').value = missionData.reflexion3;
-                }
             }
-            
-            // Comprobar si la misión ya estaba completada
+
             if (localStorage.getItem('mision1Completada')) {
                 document.getElementById('completion-badge').classList.remove('hidden');
-                
-                // Marcar checks como completados
                 for (let i = 1; i <= 5; i++) {
                     const checkbox = document.getElementById(`check-${i}`);
                     if (checkbox) checkbox.checked = true;
                 }
             }
         }
-        
-        // Inicializar cuando se carga la página
-        window.onload = function() {
+
+        // Inicializar
+        window.onload = function () {
             createStars();
             showSlide(1);
             loadSavedData();
