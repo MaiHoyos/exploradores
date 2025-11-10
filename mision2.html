@@ -88,7 +88,7 @@
                     RoverBot en Zycurva: Evita el Abismo
                 </h2>
                 <div id="slide-indicator" class="text-sm text-white/80">
-                    Diapositiva <span id="current-slide">1</span> de <span id="total-slides">6</span>
+                    Diapositiva <span id="current-slide">1</span> de <span id="total-slides">10</span>
                 </div>
             </div>
 
@@ -104,16 +104,16 @@
                     Para lograrlo, tendrás que pensar como científico, programador y matemático al mismo tiempo.
                 </p>
 
-                <!-- ESPACIO PARA IMAGEN: Portada de la misión -->
+                <!-- Espacio para ilustración de portada -->
                 <div class="mt-6">
-                    <!-- <img src="roverbot_zycurva_portada.png" class="w-full rounded-2xl border-4 border-white/40 shadow-xl" alt="RoverBot observando el abismo en Zycurva"> -->
+                    <!-- <img src="RoverBot_Zycurva_Portada.png" ...> -->
                     <div class="w-full aspect-video flex items-center justify-center rounded-2xl border-2 border-dashed border-white/40 text-white/60 text-center text-sm">
-                        Espacio para ilustración de portada de la misión (RoverBot frente al abismo en Zycurva).
+                        Espacio para ilustración de portada (RoverBot frente al abismo en Zycurva).
                     </div>
                 </div>
             </div>
 
-            <!-- SLIDE 2: Preparación -->
+            <!-- SLIDE 2: Preparación + Sensor/1 -->
             <div class="slide" data-slide="2">
                 <h3 class="text-xl font-semibold text-yellow-300 mb-3">1. Preparación en Zycurva</h3>
                 <p class="text-white/90 mb-3">
@@ -122,25 +122,132 @@
                 <ul class="list-disc list-inside space-y-2 text-white/85 mb-4">
                     <li>Marca una <span class="font-semibold">línea de inicio</span> desde donde partirá RoverBot.</li>
                     <li>Delimita el <span class="font-semibold">“abismo”</span> con cinta negra, cartulina oscura o el borde de la mesa (sin riesgo real).</li>
-                    <li>Asegúrate de que RoverBot solo recorra una línea recta: adelante y atrás.</li>
+                    <li>Asegúrate de que RoverBot solo se mueva en línea recta: adelante y atrás.</li>
                     <li>Conecta el hub y verifica el funcionamiento del motor y del sensor de movimiento.</li>
-                    <li>Abre el entorno de programación por bloques listo para crear el programa.</li>
+                    <li>Asegúrate de tener la carpeta <span class="font-semibold">“Sensor”</span> con las imágenes de construcción.</li>
+                    <li>Abre el entorno de programación por bloques listo para programar.</li>
                 </ul>
 
-                <!-- ESPACIO PARA IMAGEN: Setup del escenario -->
+                <!-- Imagen 1 del sensor en Preparación -->
                 <div class="mt-4">
-                    <!-- <img src="setup_zycurva.png" class="w-full rounded-2xl border-4 border-white/40 shadow-xl" alt="Escenario con línea de inicio y abismo marcado"> -->
-                    <div class="w-full aspect-video flex items-center justify-center rounded-2xl border-2 border-dashed border-white/40 text-white/60 text-center text-sm">
-                        Espacio para imagen del escenario: línea de inicio, zona segura y abismo marcado.
-                    </div>
+                    <img src="Sensor/1.jpg"
+                         class="w-full rounded-2xl border-4 border-white/40 shadow-xl"
+                         alt="Paso 1 construcción del sensor de RoverBot"
+                         onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full aspect-video flex items-center justify-center rounded-2xl border-2 border-dashed border-white/40 text-white/60 text-center text-sm&quot;>Espacio para la imagen Sensor/1 (inicio construcción del sensor).</div>'">
                 </div>
             </div>
 
-            <!-- SLIDE 3: Explorar (preguntas + Word en Drive) -->
+            <!-- SLIDE 3: Construcción del sensor – Parte 1 (1-3) -->
             <div class="slide" data-slide="3">
-                <h3 class="text-xl font-semibold text-yellow-300 mb-3">2. Fase Explorar</h3>
+                <h3 class="text-xl font-semibold text-yellow-300 mb-3">2. Construcción del Sensor – Parte 1</h3>
                 <p class="text-white/90 mb-3">
-                    Reúne a tu equipo de exploradores y reflexionen juntos:
+                    Vas a construir el <span class="font-semibold">brazo con sensor de movimiento</span> que permitirá a RoverBot detectar el borde del abismo.
+                    Sigue los pasos en orden.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                    <div class="flex flex-col items-center text-xs text-white/70">
+                        <img src="Sensor/1.jpg" class="w-full rounded-xl border border-white/30 mb-1" alt="Paso 1 Sensor">
+                        <span>Paso 1</span>
+                    </div>
+                    <div class="flex flex-col items-center text-xs text-white/70">
+                        <img src="Sensor/2.jpg" class="w-full rounded-xl border border-white/30 mb-1" alt="Paso 2 Sensor">
+                        <span>Paso 2</span>
+                    </div>
+                    <div class="flex flex-col items-center text-xs text-white/70">
+                        <img src="Sensor/3.jpg" class="w-full rounded-xl border border-white/30 mb-1" alt="Paso 3 Sensor">
+                        <span>Paso 3</span>
+                    </div>
+                </div>
+
+                <p class="mt-4 text-white/80 text-sm">
+                    ✔ Asegúrate de que las piezas encajen bien. El sensor debe ir firme para poder “ver” el peligro.
+                </p>
+            </div>
+
+            <!-- SLIDE 4: Construcción del sensor – Parte 2 (4-6) -->
+            <div class="slide" data-slide="4">
+                <h3 class="text-xl font-semibold text-yellow-300 mb-3">2. Construcción del Sensor – Parte 2</h3>
+                <p class="text-white/90 mb-3">
+                    Continúa reforzando la estructura del brazo sensor. Observa cómo se asegura la base.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                    <div class="flex flex-col items-center text-xs text-white/70">
+                        <img src="Sensor/4.jpg" class="w-full rounded-xl border border-white/30 mb-1" alt="Paso 4 Sensor">
+                        <span>Paso 4</span>
+                    </div>
+                    <div class="flex flex-col items-center text-xs text-white/70">
+                        <img src="Sensor/5.jpg" class="w-full rounded-xl border border-white/30 mb-1" alt="Paso 5 Sensor">
+                        <span>Paso 5</span>
+                    </div>
+                    <div class="flex flex-col items-center text-xs text-white/70">
+                        <img src="Sensor/6.jpg" class="w-full rounded-xl border border-white/30 mb-1" alt="Paso 6 Sensor">
+                        <span>Paso 6</span>
+                    </div>
+                </div>
+
+                <p class="mt-4 text-white/80 text-sm">
+                    🔍 Revisa que el brazo quede estable y que el sensor no se mueva suelto.
+                </p>
+            </div>
+
+            <!-- SLIDE 5: Construcción del sensor – Parte 3 (7-9) -->
+            <div class="slide" data-slide="5">
+                <h3 class="text-xl font-semibold text-yellow-300 mb-3">2. Construcción del Sensor – Parte 3</h3>
+                <p class="text-white/90 mb-3">
+                    Termina de armar el brazo. Aquí defines la posición donde el sensor mirará hacia adelante.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                    <div class="flex flex-col items-center text-xs text-white/70">
+                        <img src="Sensor/7.jpg" class="w-full rounded-xl border border-white/30 mb-1" alt="Paso 7 Sensor">
+                        <span>Paso 7</span>
+                    </div>
+                    <div class="flex flex-col items-center text-xs text-white/70">
+                        <img src="Sensor/8.jpg" class="w-full rounded-xl border border-white/30 mb-1" alt="Paso 8 Sensor">
+                        <span>Paso 8</span>
+                    </div>
+                    <div class="flex flex-col items-center text-xs text-white/70">
+                        <img src="Sensor/9.jpg" class="w-full rounded-xl border border-white/30 mb-1" alt="Paso 9 Sensor">
+                        <span>Paso 9</span>
+                    </div>
+                </div>
+
+                <p class="mt-4 text-white/80 text-sm">
+                    💡 Verifica que el sensor “apunte” hacia el frente, listo para detectar el borde.
+                </p>
+            </div>
+
+            <!-- SLIDE 6: Construcción del sensor – Final (10-11) -->
+            <div class="slide" data-slide="6">
+                <h3 class="text-xl font-semibold text-yellow-300 mb-3">2. Construcción del Sensor – Final</h3>
+                <p class="text-white/90 mb-3">
+                    Añade las últimas piezas y conecta el sensor al hub. El sistema de seguridad de RoverBot está casi listo.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <div class="flex flex-col items-center text-xs text-white/70">
+                        <img src="Sensor/10.jpg" class="w-full rounded-xl border border-white/30 mb-1" alt="Paso 10 Sensor">
+                        <span>Paso 10</span>
+                    </div>
+                    <div class="flex flex-col items-center text-xs text-white/70">
+                        <img src="Sensor/11.jpg" class="w-full rounded-xl border border-white/30 mb-1" alt="Paso 11 Sensor">
+                        <span>Paso 11</span>
+                    </div>
+                </div>
+
+                <p class="mt-4 text-white/75 text-xs">
+                    Imagen ©2015 The LEGO Group. Usada con fines educativos y sin ánimo de lucro.  
+                    Fuente: Instrucciones de construcción del set LEGO® Education WeDo 2.0 (45300).
+                </p>
+            </div>
+
+            <!-- SLIDE 7: Fase Explorar -->
+            <div class="slide" data-slide="7">
+                <h3 class="text-xl font-semibold text-yellow-300 mb-3">3. Fase Explorar</h3>
+                <p class="text-white/90 mb-3">
+                    Con RoverBot listo, tu equipo reflexiona:
                 </p>
                 <ul class="list-disc list-inside space-y-2 text-white/85 mb-4">
                     <li>Si un robot no ve como nosotros, ¿cómo puede saber que está cerca de un lugar peligroso?</li>
@@ -152,41 +259,37 @@
                     <span class="font-semibold">algoritmo</span>: una lista ordenada de instrucciones que RoverBot debe seguir sin saltarse pasos.
                 </p>
                 <p class="text-white/80 font-semibold">
-                    💾 Tarea del equipo: escriban sus respuestas en un documento de Word con el título
-                    “M2_Zycurva_FaseExplorar_NombreEquipo” y guárdenlo en nuestra carpeta compartida de Drive.
+                    💾 Tarea del equipo: escriban sus respuestas en un documento Word titulado
+                    <span class="italic">“M2_Zycurva_FaseExplorar_NombreEquipo”</span> y guárdenlo en la carpeta de la misión en Drive.
                 </p>
 
-                <!-- ESPACIO PARA IMAGEN: diálogo/reflexión -->
                 <div class="mt-4">
-                    <!-- <img src="exploradores_preguntas.png" class="w-full rounded-2xl border-4 border-white/40 shadow-xl" alt="Estudiantes pensando frente al mapa de Zycurva"> -->
                     <div class="w-full h-40 flex items-center justify-center rounded-2xl border-2 border-dashed border-white/40 text-white/60 text-center text-sm">
-                        Espacio para viñeta o ilustración de estudiantes pensando sobre cómo ayudar a RoverBot.
+                        Espacio para ilustración del equipo reflexionando sobre cómo ayudar a RoverBot.
                     </div>
                 </div>
             </div>
 
-            <!-- SLIDE 4: Crear (pseudocódigo) -->
-            <div class="slide" data-slide="4">
-                <h3 class="text-xl font-semibold text-yellow-300 mb-3">3. Fase Crear: Algoritmo de Seguridad</h3>
+            <!-- SLIDE 8: Fase Crear (pseudocódigo) -->
+            <div class="slide" data-slide="8">
+                <h3 class="text-xl font-semibold text-yellow-300 mb-3">4. Fase Crear: Algoritmo de Seguridad</h3>
                 <p class="text-white/90 mb-3">
-                    Antes de usar bloques, el equipo diseña el <span class="font-semibold">pseudocódigo</span>:
-                    una versión escrita, sencilla, de lo que quieren que haga RoverBot.
+                    Antes de programar con bloques, tu equipo escribe el <span class="font-semibold">pseudocódigo</span>:
+                    lo que quieren que haga RoverBot paso a paso.
                 </p>
                 <ol class="list-decimal list-inside space-y-2 text-white/85 mb-3">
                     <li>RoverBot avanza desde la línea de inicio hacia el abismo.</li>
-                    <li>El sensor de movimiento “vigila” el frente mientras se mueve.</li>
+                    <li>El sensor de movimiento observa mientras se mueve.</li>
                     <li>Cuando detecta que está demasiado cerca del borde:
                         <ul class="list-disc list-inside ml-5 space-y-1">
-                            <li>El motor se detiene de inmediato.</li>
+                            <li>El motor se detiene.</li>
                             <li>RoverBot emite un sonido de alerta.</li>
                             <li>Retrocede durante un tiempo corto para ponerse a salvo.</li>
                         </ul>
                     </li>
                 </ol>
 
-                <p class="text-white/80 mb-2">
-                    Ejemplo de pseudocódigo (modelo para ellos):
-                </p>
+                <p class="text-white/80 mb-2">Ejemplo de pseudocódigo:</p>
                 <pre class="bg-black/70 text-xs md:text-sm p-3 rounded-xl border border-white/10 whitespace-pre-wrap text-white/90">
 AL INICIAR:
   MIENTRAS RoverBot ESTÉ LEJOS DEL BORDE:
@@ -198,23 +301,21 @@ AL INICIAR:
       RETROCEDER 2 SEGUNDOS
                 </pre>
 
-                <p class="text-white/80 mb-2 font-semibold">
-                    ✍️ Tarea del equipo: escriban su propio pseudocódigo en el mismo documento de la misión
-                    (debajo de las respuestas de la Fase Explorar) antes de pasar a la programación por bloques.
+                <p class="text-white/80 font-semibold mb-2">
+                    ✍️ Tarea: escriban su propio pseudocódigo en el mismo documento de la misión en Drive,
+                    antes de pasar a la programación por bloques.
                 </p>
 
-                <!-- ESPACIO PARA IMAGEN: bloques o esquema del algoritmo -->
                 <div class="mt-4">
-                    <!-- <img src="bloques_roverbot_zycurva.png" class="w-full rounded-2xl border-4 border-white/40 shadow-xl" alt="Esquema del algoritmo de RoverBot evitando el abismo"> -->
                     <div class="w-full aspect-video flex items-center justify-center rounded-2xl border-2 border-dashed border-white/40 text-white/60 text-center text-sm">
-                        Espacio para imagen/captura del pseudocódigo o diagrama de flujo de RoverBot.
+                        Espacio para diagrama de flujo o captura del pseudocódigo del equipo.
                     </div>
                 </div>
             </div>
 
-            <!-- SLIDE 5: Registrar y Analizar (tabla editable) -->
-            <div class="slide" data-slide="5">
-                <h3 class="text-xl font-semibold text-yellow-300 mb-3">4. Registrar y Analizar: ¿Es un programa seguro?</h3>
+            <!-- SLIDE 9: Registrar y Analizar (tabla editable) -->
+            <div class="slide" data-slide="9">
+                <h3 class="text-xl font-semibold text-yellow-300 mb-3">5. Registrar y Analizar: ¿Es un programa seguro?</h3>
                 <p class="text-white/90 mb-3">
                     Ahora deben comprobar con datos si el programa realmente protege a RoverBot:
                 </p>
@@ -222,7 +323,7 @@ AL INICIAR:
                     <li>Midan la distancia desde la línea de inicio hasta el abismo (ejemplo: 40 cm).</li>
                     <li>Ejecuten el programa varias veces.</li>
                     <li>En cada ensayo, midan a cuántos centímetros del borde se detuvo RoverBot.</li>
-                    <li>Regístrenlo en la siguiente tabla y analicen los resultados.</li>
+                    <li>Regístrenlo en la tabla y analicen los resultados.</li>
                 </ul>
 
                 <div class="overflow-x-auto mb-3">
@@ -239,51 +340,27 @@ AL INICIAR:
                             <!-- Filas con inputs para que puedan introducir datos -->
                             <tr>
                                 <td class="px-2 py-1 border-b border-white/10">1</td>
-                                <td class="px-2 py-1 border-b border-white/10">
-                                    <input type="number" min="0" step="1" placeholder="40">
-                                </td>
-                                <td class="px-2 py-1 border-b border-white/10">
-                                    <input type="number" min="0" step="1" placeholder="">
-                                </td>
-                                <td class="px-2 py-1 border-b border-white/10">
-                                    <input type="text" placeholder="Sí / No">
-                                </td>
+                                <td class="px-2 py-1 border-b border-white/10"><input type="number" min="0" step="1" placeholder="40"></td>
+                                <td class="px-2 py-1 border-b border-white/10"><input type="number" min="0" step="1"></td>
+                                <td class="px-2 py-1 border-b border-white/10"><input type="text" placeholder="Sí / No"></td>
                             </tr>
                             <tr>
                                 <td class="px-2 py-1 border-b border-white/10">2</td>
-                                <td class="px-2 py-1 border-b border-white/10">
-                                    <input type="number" min="0" step="1" placeholder="40">
-                                </td>
-                                <td class="px-2 py-1 border-b border-white/10">
-                                    <input type="number" min="0" step="1" placeholder="">
-                                </td>
-                                <td class="px-2 py-1 border-b border-white/10">
-                                    <input type="text" placeholder="Sí / No">
-                                </td>
+                                <td class="px-2 py-1 border-b border-white/10"><input type="number" min="0" step="1" placeholder="40"></td>
+                                <td class="px-2 py-1 border-b border-white/10"><input type="number" min="0" step="1"></td>
+                                <td class="px-2 py-1 border-b border-white/10"><input type="text" placeholder="Sí / No"></td>
                             </tr>
                             <tr>
                                 <td class="px-2 py-1 border-b border-white/10">3</td>
-                                <td class="px-2 py-1 border-b border-white/10">
-                                    <input type="number" min="0" step="1" placeholder="40">
-                                </td>
-                                <td class="px-2 py-1 border-b border-white/10">
-                                    <input type="number" min="0" step="1" placeholder="">
-                                </td>
-                                <td class="px-2 py-1 border-b border-white/10">
-                                    <input type="text" placeholder="Sí / No">
-                                </td>
+                                <td class="px-2 py-1 border-b border-white/10"><input type="number" min="0" step="1" placeholder="40"></td>
+                                <td class="px-2 py-1 border-b border-white/10"><input type="number" min="0" step="1"></td>
+                                <td class="px-2 py-1 border-b border-white/10"><input type="text" placeholder="Sí / No"></td>
                             </tr>
                             <tr>
                                 <td class="px-2 py-1 border-b border-white/10">4</td>
-                                <td class="px-2 py-1 border-b border-white/10">
-                                    <input type="number" min="0" step="1" placeholder="40">
-                                </td>
-                                <td class="px-2 py-1 border-b border-white/10">
-                                    <input type="number" min="0" step="1" placeholder="">
-                                </td>
-                                <td class="px-2 py-1 border-b border-white/10">
-                                    <input type="text" placeholder="Sí / No">
-                                </td>
+                                <td class="px-2 py-1 border-b border-white/10"><input type="number" min="0" step="1" placeholder="40"></td>
+                                <td class="px-2 py-1 border-b border-white/10"><input type="number" min="0" step="1"></td>
+                                <td class="px-2 py-1 border-b border-white/10"><input type="text" placeholder="Sí / No"></td>
                             </tr>
                         </tbody>
                     </table>
@@ -291,45 +368,41 @@ AL INICIAR:
 
                 <p class="text-white/80 font-semibold">
                     Analicen si RoverBot siempre se detiene a una distancia segura.
-                    Si en algún ensayo queda demasiado cerca del borde, ajusten su programa.
-                    Registren sus conclusiones en el documento de la misión en Drive.
+                    Si en algún ensayo queda demasiado cerca del borde, ajusten el programa
+                    y registren sus conclusiones en el documento de la misión en Drive.
                 </p>
 
-                <!-- ESPACIO PARA IMAGEN: gráfica o análisis -->
                 <div class="mt-4">
-                    <!-- <img src="grafica_resultados_roverbot.png" class="w-full rounded-2xl border-4 border-white/40 shadow-xl" alt="Gráfica de distancias de frenado de RoverBot"> -->
                     <div class="w-full h-40 flex items-center justify-center rounded-2xl border-2 border-dashed border-white/40 text-white/60 text-center text-sm">
-                        Espacio para imagen de tabla o gráfica con resultados de los ensayos de RoverBot.
+                        Espacio para imagen o gráfica con los resultados de los ensayos.
                     </div>
                 </div>
             </div>
 
-            <!-- SLIDE 6: Compartir + insignia + volver -->
-            <div class="slide" data-slide="6">
-                <h3 class="text-xl font-semibold text-yellow-300 mb-3">5. Fase Compartir: Informe de la Misión</h3>
+            <!-- SLIDE 10: Compartir + insignia + volver -->
+            <div class="slide" data-slide="10">
+                <h3 class="text-xl font-semibold text-yellow-300 mb-3">6. Fase Compartir: Informe de la Misión</h3>
                 <ul class="list-disc list-inside space-y-2 text-white/85 mb-4">
                     <li>Graben un vídeo corto donde se vea a RoverBot acercándose al abismo y deteniéndose a tiempo.</li>
-                    <li>En el vídeo, un integrante del equipo explica:
+                    <li>En el vídeo, un integrante explica:
                         <ul class="list-disc list-inside ml-5 space-y-1">
                             <li>Cómo usa RoverBot el sensor de movimiento para evitar el abismo.</li>
                             <li>Qué instrucciones del algoritmo lo protegen.</li>
-                            <li>Qué midieron en la tabla y qué ajustes realizaron.</li>
+                            <li>Qué observaron en la tabla de datos y qué ajustes realizaron.</li>
                         </ul>
                     </li>
                     <li>Suban el vídeo y el documento con respuestas, pseudocódigo y tabla a la carpeta de la misión en Drive.</li>
                 </ul>
 
-                <!-- ESPACIO PARA IMAGEN: storyboard o ícono -->
                 <div class="mt-2 mb-6">
-                    <!-- <img src="compartir_mision_roverbot.png" class="w-full rounded-2xl border-4 border-white/40 shadow-xl" alt="Equipo presentando la misión de RoverBot"> -->
                     <div class="w-full h-32 flex items-center justify-center rounded-2xl border-2 border-dashed border-white/40 text-white/60 text-center text-sm">
-                        Espacio para imagen del equipo presentando su misión completa.
+                        Espacio para imagen del equipo presentando la misión completa.
                     </div>
                 </div>
 
                 <p class="text-white/80 font-semibold mb-4">
-                    ✅ Cuando terminen todas las tareas, hagan clic en <span class="underline">“Completar Misión”</span> para ganar su
-                    insignia de <span class="text-yellow-300">Guardianes del Abismo de Zycurva</span> y regresar al mapa de misiones.
+                    ✅ Cuando terminen todas las tareas, hagan clic en <span class="underline">“Completar Misión”</span> para ganar la
+                    insignia <span class="text-yellow-300">"Guardianes del Abismo de Zycurva"</span> y regresar al mapa de misiones.
                 </p>
 
                 <!-- Botones de misión -->
@@ -343,7 +416,7 @@ AL INICIAR:
                 </div>
             </div>
 
-            <!-- CONTROLES DE NAVEGACIÓN ENTRE DIAPOSITIVAS -->
+            <!-- CONTROLES DE NAVEGACIÓN -->
             <div class="mt-8 flex justify-between items-center">
                 <button id="prev-slide" class="px-4 py-2 bg-white/10 border border-white/40 rounded-full text-white/80 text-sm hover:bg-white/20 hover:scale-105 transition" onclick="changeSlide(-1)">
                     ← Anterior
@@ -357,7 +430,7 @@ AL INICIAR:
     </main>
 
     <script>
-        // Estrellas
+        // Estrellas de fondo
         function createStars() {
             const starsContainer = document.getElementById('stars');
             if (!starsContainer) return;
@@ -456,16 +529,19 @@ AL INICIAR:
         function updateSlideVisibility() {
             const slides = document.querySelectorAll('.slide');
             const total = slides.length;
+
             slides.forEach(slide => {
                 const n = parseInt(slide.getAttribute('data-slide'));
                 slide.classList.toggle('active', n === currentSlide);
             });
 
             // Actualizar indicador
-            document.getElementById('current-slide').textContent = currentSlide;
-            document.getElementById('total-slides').textContent = total;
+            const currentSpan = document.getElementById('current-slide');
+            const totalSpan = document.getElementById('total-slides');
+            if (currentSpan) currentSpan.textContent = currentSlide;
+            if (totalSpan) totalSpan.textContent = total;
 
-            // Mostrar/ocultar botones según posición
+            // Mostrar/ocultar botones
             const prevBtn = document.getElementById('prev-slide');
             const nextBtn = document.getElementById('next-slide');
 
