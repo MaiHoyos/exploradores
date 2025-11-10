@@ -7,6 +7,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
+        body {
+            font-family: 'Exo 2', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
         .stars {
             position: fixed;
             top: 0;
@@ -14,6 +18,7 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
+            z-index: 0;
         }
         
         .star {
@@ -27,160 +32,275 @@
             0%, 100% { opacity: 0.3; }
             50% { opacity: 1; }
         }
+
+        .slide {
+            display: none;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        .orbitron {
+            font-family: 'Orbitron', sans-serif;
+        }
     </style>
 </head>
 <body class="min-h-screen bg-gradient-to-b from-purple-900 via-blue-900 to-black text-white relative overflow-auto">
     <div class="stars" id="stars"></div>
     
+    <!-- ENCABEZADO -->
     <header class="relative z-10 bg-gradient-to-r from-blue-400 to-blue-600 border-4 border-white rounded-b-3xl p-6 m-4">
         <div class="flex items-center justify-between">
             <button onclick="volverAMisiones()" class="px-4 py-2 bg-white text-blue-600 font-bold rounded-full shadow-lg transition-transform transform hover:scale-105">
                 ← Volver a Misiones
             </button>
             <div class="flex items-center space-x-4">
-                <div class="text-3xl font-extrabold text-white drop-shadow-lg">MISIÓN 2</div>
+                <div class="text-3xl font-extrabold text-white drop-shadow-lg orbitron">MISIÓN 2</div>
                 <div class="text-4xl text-yellow-300">⚠️</div>
             </div>
             <div id="completion-badge" class="hidden px-4 py-2 bg-green-500 text-white font-bold rounded-full shadow-lg">
                 ✅ Completada
             </div>
         </div>
+        <p class="mt-3 text-sm md:text-base text-white/90 text-right">
+            Planeta Zycurva · Uso del sensor de movimiento · Pensamiento matemático y computacional
+        </p>
     </header>
 
+    <!-- CONTENIDO PRINCIPAL -->
     <main class="relative z-10 p-6 md:p-10 max-w-4xl mx-auto">
         <section class="bg-white/10 backdrop-blur-sm rounded-3xl p-6 md:p-8 border-4 border-white/30 shadow-2xl mb-8">
-            <h2 class="text-2xl md:text-3xl font-bold text-center mb-4 text-yellow-300">
-                Milo en Zycurva: Evita el Abismo
-            </h2>
-            <p class="text-lg text-white/90 text-center mb-6">
-                En el planeta Zycurva, la superficie está llena de grietas y abismos energéticos.
-                Tu misión es programar a <span class="font-semibold text-yellow-300">Milo</span> para avanzar en línea recta y
-                usar su sensor de movimiento como un escudo inteligente que le avise cuando está demasiado cerca del vacío.
-                Si el sensor no funciona bien, Milo podría caer. Si lo programas con precisión… se convertirá en un verdadero explorador espacial.
-            </p>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
-                <div>
-                    <img src="mision2.png" alt="Milo explorando el borde del abismo en Zycurva" 
-                         class="w-full rounded-2xl border-4 border-white/50 shadow-xl"
-                         onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-auto aspect-video flex items-center justify-center text-4xl md:text-6xl bg-gradient-to-br from-pink-400 via-teal-400 to-green-400&quot;>🛰️</div>'">
-                </div>
-                <div class="bg-black/40 p-4 rounded-xl border-2 border-white/40">
-                    <h3 class="text-xl md:text-2xl font-semibold mb-3 text-white">Objetivo de la misión</h3>
-                    <ul class="list-disc list-inside space-y-2 text-white/90">
-                        <li>Usar el sensor de movimiento de Milo para detectar el borde del abismo.</li>
-                        <li>Programar un algoritmo que detenga y haga retroceder a Milo antes de caer.</li>
-                        <li>Medir y registrar distancias para comprobar si la programación es segura.</li>
-                        <li>Explicar, con lenguaje sencillo, cómo el sensor “toma decisiones” para proteger a Milo.</li>
-                    </ul>
+
+            <!-- Indicador de diapositivas -->
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-2xl md:text-3xl font-bold text-yellow-300">
+                    Milo en Zycurva: Evita el Abismo
+                </h2>
+                <div id="slide-indicator" class="text-sm text-white/80">
+                    Diapositiva <span id="current-slide">1</span> de <span id="total-slides">6</span>
                 </div>
             </div>
 
-            <!-- Fase Preparación -->
-            <div class="mt-8 bg-black/40 p-5 rounded-2xl border border-white/20">
-                <h3 class="text-xl font-semibold text-yellow-300 mb-2">1. Preparación (Docente)</h3>
-                <p class="text-white/90 mb-2">
-                    Antes de comenzar, organiza el escenario de Zycurva:
+            <!-- SLIDE 1: Introducción narrativa -->
+            <div class="slide active" data-slide="1">
+                <p class="text-lg text-white/90 mb-4">
+                    Has llegado al <span class="font-semibold text-yellow-300">Planeta Zycurva</span>, una superficie inestable llena de grietas profundas y abismos energéticos.
+                    Tu explorador, <span class="font-semibold">Milo</span>, solo puede avanzar y retroceder en línea recta, pero un paso en falso puede hacerlo caer al vacío.
                 </p>
-                <ul class="list-disc list-inside space-y-1 text-white/80">
-                    <li>Marca una <span class="font-semibold">línea de inicio</span> para Milo.</li>
-                    <li>Delimita el <span class="font-semibold">“abismo”</span> con cinta negra, una cartulina o el borde de la mesa (sin riesgo real).</li>
-                    <li>Asegúrate de que Milo solo pueda avanzar y retroceder en línea recta.</li>
-                    <li>Ten lista la conexión con el software de programación (WeDo / Scratch según corresponda).</li>
-                </ul>
+                <p class="text-white/90 mb-4">
+                    Tu misión es convertir el <span class="font-semibold">sensor de movimiento</span> de Milo en su mejor aliado:
+                    un sistema de alerta inteligente que le indique cuándo detenerse antes del borde.
+                    Para lograrlo, tendrás que pensar como científico, programador y matemático al mismo tiempo.
+                </p>
+
+                <!-- ESPACIO PARA IMAGEN: Portada de la misión -->
+                <div class="mt-6">
+                    <!-- Reemplaza este div por tu imagen -->
+                    <!-- <img src="milo_zycurva_portada.png" class="w-full rounded-2xl border-4 border-white/40 shadow-xl" alt="Milo observando el abismo en Zycurva"> -->
+                    <div class="w-full aspect-video flex items-center justify-center rounded-2xl border-2 border-dashed border-white/40 text-white/60 text-center text-sm">
+                        Espacio para ilustración de portada de la misión (Milo frente al abismo en Zycurva).
+                    </div>
+                </div>
             </div>
 
-            <!-- Fase Explorar -->
-            <div class="mt-6 bg-black/30 p-5 rounded-2xl border border-white/10">
-                <h3 class="text-xl font-semibold text-yellow-300 mb-2">2. Fase Explorar (Preguntas iniciales)</h3>
-                <p class="text-white/90 mb-2">
-                    Conversa brevemente con tu equipo de exploradores:
-                </p>
-                <ul class="list-disc list-inside space-y-1 text-white/80">
-                    <li>¿Cómo sabe un robot que está cerca de un lugar peligroso si nadie le avisa?</li>
-                    <li>Si Milo no puede ver, ¿qué puede usar en su lugar para decidir cuándo detenerse?</li>
-                    <li>¿Por qué es importante medir bien la distancia hasta el borde?</li>
-                </ul>
-                <p class="mt-2 text-white/80">
-                    Aquí introducimos la idea de que un sensor entrega información y que el programa sigue
-                    <span class="font-semibold">instrucciones claras (algoritmo)</span> para actuar a tiempo.
-                </p>
-            </div>
-
-            <!-- Fase Crear -->
-            <div class="mt-6 bg-black/40 p-5 rounded-2xl border border-blue-300/30">
-                <h3 class="text-xl font-semibold text-yellow-300 mb-2">3. Fase Crear (Programar a Milo)</h3>
+            <!-- SLIDE 2: Preparación -->
+            <div class="slide" data-slide="2">
+                <h3 class="text-xl font-semibold text-yellow-300 mb-3">1. Preparación en Zycurva</h3>
                 <p class="text-white/90 mb-3">
-                    Los estudiantes construyen a Milo con el sensor de movimiento apuntando hacia adelante
-                    (o ligeramente hacia abajo) y programan esta misión:
+                    Antes de enviar a Milo hacia el borde, prepara el escenario de forma segura:
                 </p>
-                <ol class="list-decimal list-inside space-y-1 text-white/80 mb-3">
-                    <li>Milo avanza en línea recta hacia el abismo.</li>
-                    <li>El sensor detecta cuando está demasiado cerca del borde.</li>
-                    <li>Al detectar el borde:
+                <ul class="list-disc list-inside space-y-2 text-white/85 mb-4">
+                    <li>Marca una <span class="font-semibold">línea de inicio</span> desde donde partirá Milo.</li>
+                    <li>Delimita el <span class="font-semibold">“abismo”</span> con cinta negra, cartulina oscura o el borde de la mesa (sin riesgo real).</li>
+                    <li>Asegúrate de que Milo solo recorra una línea recta: adelante y atrás.</li>
+                    <li>Conecta el hub y verifica el funcionamiento del motor y el sensor de movimiento.</li>
+                    <li>Abre el entorno de programación (WeDo / Scratch) listo para crear el programa.</li>
+                </ul>
+
+                <!-- ESPACIO PARA IMAGEN: Setup del escenario -->
+                <div class="mt-4">
+                    <!-- <img src="setup_zycurva.png" class="w-full rounded-2xl border-4 border-white/40 shadow-xl" alt="Escenario con línea de inicio y abismo marcado"> -->
+                    <div class="w-full aspect-video flex items-center justify-center rounded-2xl border-2 border-dashed border-white/40 text-white/60 text-center text-sm">
+                        Espacio para imagen del escenario: línea de inicio, zona segura y abismo marcado.
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 3: Explorar (preguntas + conexión PC) -->
+            <div class="slide" data-slide="3">
+                <h3 class="text-xl font-semibold text-yellow-300 mb-3">2. Fase Explorar</h3>
+                <p class="text-white/90 mb-3">
+                    Reúne a tu equipo de exploradores y plantea estas preguntas:
+                </p>
+                <ul class="list-disc list-inside space-y-2 text-white/85 mb-4">
+                    <li>Si un robot no ve como nosotros, ¿cómo puede saber que está cerca de un lugar peligroso?</li>
+                    <li>¿Qué pasaría si Milo no se detiene a tiempo antes del abismo?</li>
+                    <li>¿Por qué los científicos necesitan medir con precisión para tomar decisiones seguras?</li>
+                </ul>
+                <p class="text-white/80 mb-2">
+                    Aquí introduces que el sensor es un “ojo científico” que envía información, y que el programa es un
+                    <span class="font-semibold">algoritmo</span>: una lista ordenada de instrucciones que Milo debe seguir sin saltarse pasos.
+                </p>
+
+                <!-- ESPACIO PARA IMAGEN: diálogo/reflexión -->
+                <div class="mt-4">
+                    <!-- <img src="exploradores_preguntas.png" class="w-full rounded-2xl border-4 border-white/40 shadow-xl" alt="Estudiantes pensando frente al mapa de Zycurva"> -->
+                    <div class="w-full h-40 flex items-center justify-center rounded-2xl border-2 border-dashed border-white/40 text-white/60 text-center text-sm">
+                        Espacio para viñeta o ilustración de estudiantes pensando/preguntando sobre el peligro del abismo.
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 4: Crear (programar algoritmo de seguridad) -->
+            <div class="slide" data-slide="4">
+                <h3 class="text-xl font-semibold text-yellow-300 mb-3">3. Fase Crear: Algoritmo de Seguridad</h3>
+                <p class="text-white/90 mb-3">
+                    Ahora los exploradores programan a Milo para que avance en línea recta y use el sensor para decidir cuándo detenerse:
+                </p>
+                <ol class="list-decimal list-inside space-y-2 text-white/85 mb-3">
+                    <li>Milo avanza desde la línea de inicio hacia el abismo.</li>
+                    <li>El sensor de movimiento “vigila” el frente mientras se mueve.</li>
+                    <li>Cuando detecta que está demasiado cerca del borde:
                         <ul class="list-disc list-inside ml-5 space-y-1">
-                            <li>Se detiene inmediatamente.</li>
-                            <li>Emite un sonido de alerta.</li>
+                            <li>El motor se detiene de inmediato.</li>
+                            <li>Milo emite un sonido de alerta.</li>
                             <li>Retrocede durante un tiempo corto para ponerse a salvo.</li>
                         </ul>
                     </li>
                 </ol>
+
                 <p class="text-white/80 mb-2">
-                    Para guiar su pensamiento computacional, explícales que están creando un
-                    <span class="font-semibold">algoritmo de seguridad</span>:
+                    Puedes presentar el algoritmo en lenguaje natural antes de ir a bloques:
                 </p>
                 <pre class="bg-black/70 text-xs md:text-sm p-3 rounded-xl border border-white/10 whitespace-pre-wrap text-white/90">
-Al presionar inicio:
-1. Repetir mientras sea seguro:
-   - Avanzar
-   - Leer el sensor
-2. Si el sensor detecta que está cerca del borde:
-   - Detenerse
-   - Hacer sonido de alerta
-   - Retroceder
+Al iniciar:
+- Repetir mientras sea seguro:
+    • Avanzar
+    • Leer el sensor
+- Si el sensor detecta el borde:
+    • Detener motor
+    • Sonido de alerta
+    • Retroceder unos segundos
                 </pre>
-                <p class="mt-3 text-white/80">
-                    Integra pensamiento matemático:
-                </p>
-                <ul class="list-disc list-inside space-y-1 text-white/80">
-                    <li>Marcar y medir la distancia desde la salida hasta el borde (por ejemplo: 30 cm, 40 cm).</li>
-                    <li>Registrar cuántos centímetros antes del borde se detiene Milo en cada intento.</li>
-                    <li>Comparar ensayos y decidir si el programa es seguro o necesita ajustes.</li>
-                </ul>
+
+                <!-- ESPACIO PARA IMAGEN: captura de bloques o esquema de algoritmo -->
+                <div class="mt-4">
+                    <!-- <img src="bloques_milo_zycurva.png" class="w-full rounded-2xl border-4 border-white/40 shadow-xl" alt="Bloques de programación de Milo evitando el abismo"> -->
+                    <div class="w-full aspect-video flex items-center justify-center rounded-2xl border-2 border-dashed border-white/40 text-white/60 text-center text-sm">
+                        Espacio para imagen/captura de los bloques del programa de Milo evitando el abismo.
+                    </div>
+                </div>
             </div>
 
-            <!-- Fase Compartir -->
-            <div class="mt-6 bg-black/30 p-5 rounded-2xl border border-green-300/20">
-                <h3 class="text-xl font-semibold text-yellow-300 mb-2">4. Fase Compartir (Evidencia de misión)</h3>
-                <ul class="list-disc list-inside space-y-1 text-white/80">
-                    <li>Grabar un vídeo corto donde se vea a Milo acercándose al abismo y deteniéndose a tiempo.</li>
-                    <li>Que un integrante explique:
-                        <ul class="list-disc list-inside ml-5">
-                            <li>Qué hace el sensor.</li>
-                            <li>Qué instrucciones usaron para proteger a Milo.</li>
-                            <li>Qué midieron (distancia) y cómo mejoraron su programa.</li>
+            <!-- SLIDE 5: Registrar y analizar (matemáticas) -->
+            <div class="slide" data-slide="5">
+                <h3 class="text-xl font-semibold text-yellow-300 mb-3">4. Registrar y Analizar: ¿Es un programa seguro?</h3>
+                <p class="text-white/90 mb-3">
+                    Ahora entra el equipo matemático. Su tarea es comprobar con datos si el programa protege a Milo:
+                </p>
+                <ul class="list-disc list-inside space-y-2 text-white/85 mb-4">
+                    <li>Midan la distancia desde la línea de inicio hasta el abismo (ej: 40 cm).</li>
+                    <li>Ejecuten el programa varias veces.</li>
+                    <li>En cada ensayo, midan a cuántos centímetros del borde se detuvo Milo.</li>
+                    <li>Registren sus resultados en una tabla.</li>
+                </ul>
+
+                <div class="overflow-x-auto mb-3">
+                    <table class="w-full text-xs md:text-sm text-left border border-white/20">
+                        <thead class="bg-white/10">
+                            <tr>
+                                <th class="px-2 py-1 border-b border-white/20">Ensayo</th>
+                                <th class="px-2 py-1 border-b border-white/20">Distancia al borde (cm)</th>
+                                <th class="px-2 py-1 border-b border-white/20">Distancia donde se detuvo Milo (cm)</th>
+                                <th class="px-2 py-1 border-b border-white/20">¿Se detuvo a tiempo?</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="px-2 py-1 border-b border-white/10">1</td>
+                                <td class="px-2 py-1 border-b border-white/10">40</td>
+                                <td class="px-2 py-1 border-b border-white/10"></td>
+                                <td class="px-2 py-1 border-b border-white/10"></td>
+                            </tr>
+                            <tr>
+                                <td class="px-2 py-1 border-b border-white/10">2</td>
+                                <td class="px-2 py-1 border-b border-white/10">40</td>
+                                <td class="px-2 py-1 border-b border-white/10"></td>
+                                <td class="px-2 py-1 border-b border-white/10"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <p class="text-white/80">
+                    Pídeles que:
+                    <span class="font-semibold">comparen</span> los datos,
+                    <span class="font-semibold">calculen si siempre queda una distancia segura</span>
+                    y <span class="font-semibold">propongan ajustes</span> si Milo se detiene demasiado cerca del borde.
+                </p>
+
+                <!-- ESPACIO PARA IMAGEN: gráfica o tabla de datos -->
+                <div class="mt-4">
+                    <!-- <img src="grafica_resultados_milo.png" class="w-full rounded-2xl border-4 border-white/40 shadow-xl" alt="Gráfica de distancias de frenado de Milo"> -->
+                    <div class="w-full h-40 flex items-center justify-center rounded-2xl border-2 border-dashed border-white/40 text-white/60 text-center text-sm">
+                        Espacio para imagen de tabla o gráfica con resultados de los ensayos.
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 6: Compartir -->
+            <div class="slide" data-slide="6">
+                <h3 class="text-xl font-semibold text-yellow-300 mb-3">5. Fase Compartir: Informe de la Misión</h3>
+                <ul class="list-disc list-inside space-y-2 text-white/85 mb-4">
+                    <li>Graben un vídeo donde se vea a Milo acercándose al abismo y deteniéndose a tiempo.</li>
+                    <li>Un integrante del equipo explica:
+                        <ul class="list-disc list-inside ml-5 space-y-1">
+                            <li>Cómo usa Milo el sensor de movimiento.</li>
+                            <li>Qué instrucciones del programa lo protegen.</li>
+                            <li>Qué midieron y cómo ajustaron el algoritmo.</li>
                         </ul>
                     </li>
-                    <li>Opcional: mostrar una tabla sencilla con sus ensayos (distancia medida vs. distancia real de frenado).</li>
+                    <li>Opcional: mostrar su tabla o gráfica como evidencia de que el programa es confiable.</li>
                 </ul>
-                <p class="mt-3 text-white/70 text-sm">
-                    Así conectan ciencia, tecnología, matemáticas y toma de decisiones como verdaderos equipos de exploración espacial.
+                <p class="text-white/75 text-sm mb-4">
+                    De esta forma conectan tecnología, datos y decisiones responsables como verdaderos exploradores de Zycurva.
                 </p>
+
+                <!-- ESPACIO PARA IMAGEN: mini storyboard o ícono de compartir -->
+                <div class="mt-2 mb-6">
+                    <!-- <img src="compartir_mision_milo.png" class="w-full rounded-2xl border-4 border-white/40 shadow-xl" alt="Equipo presentando la misión completa"> -->
+                    <div class="w-full h-32 flex items-center justify-center rounded-2xl border-2 border-dashed border-white/40 text-white/60 text-center text-sm">
+                        Espacio para imagen del equipo presentando la misión o un ícono de grabación de video.
+                    </div>
+                </div>
+
+                <!-- Botones de misión SOLO en la última diapositiva -->
+                <div class="flex justify-center gap-4">
+                    <button id="complete-btn" onclick="completeMission()" class="px-6 py-3 bg-gradient-to-r from-green-500 to-green-700 text-white font-bold text-lg rounded-full shadow-lg transition-transform transform hover:scale-110 hover:shadow-2xl">
+                        Completar Misión
+                    </button>
+                    <a href="index.html" id="completed-btn" class="hidden px-6 py-3 bg-white text-green-600 font-bold text-lg rounded-full shadow-lg transition-transform transform hover:scale-110 hover:shadow-2xl">
+                        Volver a Misiones
+                    </a>
+                </div>
             </div>
 
-            <!-- Botones de misión -->
-            <div class="mt-8 flex justify-center gap-4">
-                <button id="complete-btn" onclick="completeMission()" class="px-6 py-3 bg-gradient-to-r from-green-500 to-green-700 text-white font-bold text-lg rounded-full shadow-lg transition-transform transform hover:scale-110 hover:shadow-2xl">
-                    Completar Misión
+            <!-- CONTROLES DE NAVEGACIÓN ENTRE DIAPOSITIVAS -->
+            <div class="mt-8 flex justify-between items-center">
+                <button id="prev-slide" class="px-4 py-2 bg-white/10 border border-white/40 rounded-full text-white/80 text-sm hover:bg-white/20 hover:scale-105 transition" onclick="changeSlide(-1)">
+                    ← Anterior
                 </button>
-                <a href="index.html" id="completed-btn" class="hidden px-6 py-3 bg-white text-green-600 font-bold text-lg rounded-full shadow-lg transition-transform transform hover:scale-110 hover:shadow-2xl">
-                    Volver a Misiones
-                </a>
+                <button id="next-slide" class="px-4 py-2 bg-blue-500 rounded-full text-white font-semibold text-sm hover:bg-blue-600 hover:scale-105 transition" onclick="changeSlide(1)">
+                    Siguiente →
+                </button>
             </div>
+
         </section>
     </main>
 
     <script>
+        // Estrellas
         function createStars() {
             const starsContainer = document.getElementById('stars');
             if (!starsContainer) return;
@@ -196,6 +316,7 @@ Al presionar inicio:
             }
         }
 
+        // Progreso por jugador
         function getCurrentPlayer() {
             return localStorage.getItem('zython-current-player');
         }
@@ -226,12 +347,15 @@ Al presionar inicio:
                 const progress = loadPlayerProgress(currentPlayer);
                 if (progress.completedMissions.includes(2)) {
                     document.getElementById('completion-badge').classList.remove('hidden');
-                    document.getElementById('complete-btn').classList.add('hidden');
-                    document.getElementById('completed-btn').classList.remove('hidden');
+                    const completeBtn = document.getElementById('complete-btn');
+                    const completedBtn = document.getElementById('completed-btn');
+                    if (completeBtn) completeBtn.classList.add('hidden');
+                    if (completedBtn) completedBtn.classList.remove('hidden');
                 }
             }
         }
 
+        // Completar misión
         function completeMission() {
             const currentPlayer = getCurrentPlayer();
             if (!currentPlayer) {
@@ -246,16 +370,16 @@ Al presionar inicio:
                 progress.completedMissions.push(2);
                 progress.completed = progress.completedMissions.length;
                 progress.badges = progress.completedMissions.length;
-                
-                // Desbloquear Misión 3
                 progress.currentMission = 3;
                 progress.available = Math.max(progress.available, 3);
                 
                 savePlayerProgress(currentPlayer, progress);
                 
                 document.getElementById('completion-badge').classList.remove('hidden');
-                document.getElementById('complete-btn').classList.add('hidden');
-                document.getElementById('completed-btn').classList.remove('hidden');
+                const completeBtn = document.getElementById('complete-btn');
+                const completedBtn = document.getElementById('completed-btn');
+                if (completeBtn) completeBtn.classList.add('hidden');
+                if (completedBtn) completedBtn.classList.remove('hidden');
                 
                 alert('¡Felicitaciones! Has completado la Misión 2: Milo en Zycurva – Evita el Abismo. La Misión 3 ahora está disponible.');
             } else {
@@ -267,9 +391,51 @@ Al presionar inicio:
             window.location.href = 'index.html';
         }
 
+        // Navegación entre diapositivas
+        let currentSlide = 1;
+
+        function updateSlideVisibility() {
+            const slides = document.querySelectorAll('.slide');
+            const total = slides.length;
+            slides.forEach(slide => {
+                const n = parseInt(slide.getAttribute('data-slide'));
+                slide.classList.toggle('active', n === currentSlide);
+            });
+
+            // Actualizar indicador
+            document.getElementById('current-slide').textContent = currentSlide;
+            document.getElementById('total-slides').textContent = total;
+
+            // Mostrar/ocultar botones según posición
+            const prevBtn = document.getElementById('prev-slide');
+            const nextBtn = document.getElementById('next-slide');
+
+            if (currentSlide === 1) {
+                prevBtn.classList.add('invisible');
+            } else {
+                prevBtn.classList.remove('invisible');
+            }
+
+            if (currentSlide === total) {
+                nextBtn.classList.add('hidden');
+            } else {
+                nextBtn.classList.remove('hidden');
+            }
+        }
+
+        function changeSlide(delta) {
+            const slides = document.querySelectorAll('.slide');
+            const total = slides.length;
+            currentSlide += delta;
+            if (currentSlide < 1) currentSlide = 1;
+            if (currentSlide > total) currentSlide = total;
+            updateSlideVisibility();
+        }
+
         function initialize() {
             createStars();
             checkCompletion();
+            updateSlideVisibility();
         }
 
         document.addEventListener('DOMContentLoaded', initialize);
