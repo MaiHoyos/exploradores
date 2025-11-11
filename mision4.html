@@ -3,10 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Misión 4: Estación de Transferencia</title>
+    <title>Misión 4: El Enigma de Zython</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
+        body {
+            font-family: 'Exo 2', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        .title-font {
+            font-family: 'Orbitron', system-ui, sans-serif;
+            letter-spacing: 0.12em;
+        }
+
         .stars {
             position: fixed;
             top: 0;
@@ -14,91 +23,377 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
+            z-index: 0;
         }
-        
+
         .star {
             position: absolute;
             background: white;
             border-radius: 50%;
             animation: twinkle 3s infinite;
         }
-        
+
         @keyframes twinkle {
-            0%, 100% { opacity: 0.3; }
+            0%, 100% { opacity: 0.2; }
             50% { opacity: 1; }
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .sheet-nav-btn {
+            @apply px-4 py-2 md:px-6 md:py-3 bg-white/5 border border-cyan-400/60 text-cyan-300 rounded-full text-xs md:text-sm font-semibold tracking-wide hover:bg-cyan-400/10 hover:scale-105 transition-all;
+        }
+
+        .answer-box {
+            border: 2px dashed rgba(148, 163, 253, 0.65);
+            border-radius: 1rem;
+            padding: 0.75rem;
+            min-height: 4rem;
+            margin-top: 0.35rem;
+            background: radial-gradient(circle at top left, rgba(79, 70, 229, 0.16), transparent);
+            font-size: 0.95rem;
+        }
+
+        .image-slot {
+            border: 2px dashed rgba(248, 250, 252, 0.65);
+            border-radius: 1.5rem;
+            padding: 1rem;
+            min-height: 6rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: rgba(226, 232, 240, 0.85);
+            background: linear-gradient(to bottom right, rgba(15,23,42,0.9), rgba(30,64,175,0.25));
+        }
+
+        .label-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.15rem 0.6rem;
+            border-radius: 999px;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            background-color: rgba(15,23,42,0.85);
+            border: 1px solid rgba(148, 163, 253, 0.6);
+            color: #bfdbfe;
         }
     </style>
 </head>
-<body class="min-h-screen bg-gradient-to-b from-purple-900 via-blue-900 to-black text-white relative overflow-auto">
+<body class="min-h-screen bg-gradient-to-b from-slate-950 via-indigo-950 to-black text-white relative overflow-auto">
     <div class="stars" id="stars"></div>
-    
-    <header class="relative z-10 bg-gradient-to-r from-green-400 to-green-600 border-4 border-white rounded-b-3xl p-6 m-4">
-        <div class="flex items-center justify-between">
-            <button onclick="volverAMisiones()" class="px-4 py-2 bg-white text-green-600 font-bold rounded-full shadow-lg transition-transform transform hover:scale-105">
+
+    <!-- HEADER -->
+    <header class="relative z-10 bg-gradient-to-r from-indigo-500 via-cyan-400 to-emerald-400 border-4 border-white/90 rounded-b-3xl p-4 md:p-6 m-3 md:m-4 shadow-2xl">
+        <div class="flex items-center justify-between gap-3 md:gap-6">
+            <button onclick="volverAMisiones()" class="px-3 md:px-4 py-2 bg-black/80 text-cyan-300 font-bold rounded-full shadow-lg text-xs md:text-sm transition-transform transform hover:scale-105 border border-cyan-300/70">
                 ← Volver a Misiones
             </button>
-            <div class="flex items-center space-x-4">
-                <div class="text-3xl font-extrabold text-white drop-shadow-lg">MISIÓN 4</div>
-                <div class="text-4xl text-yellow-300">🚛</div>
+            <div class="flex flex-col items-center justify-center text-center flex-1">
+                <div class="title-font text-xs md:text-sm text-slate-900 font-semibold tracking-[0.22em] uppercase">Exploración de Zython</div>
+                <div class="flex items-center gap-2 md:gap-4 mt-1">
+                    <div class="text-2xl md:text-4xl">🛰️</div>
+                    <div class="title-font text-xl md:text-3xl lg:text-4xl font-extrabold text-white drop-shadow-[0_4px_14px_rgba(15,23,42,0.9)]">
+                        MISIÓN 4 · EL ENIGMA DE ZYTHON
+                    </div>
+                    <div class="text-2xl md:text-4xl">🏛️</div>
+                </div>
+                <div class="mt-1 text-[0.6rem] md:text-xs text-slate-900/90 font-semibold bg-white/70 px-3 py-1 rounded-full inline-flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    Reto final · Civilización perdida · Aplicación de todo lo aprendido
+                </div>
             </div>
-            <div id="completion-badge" class="hidden px-4 py-2 bg-green-500 text-white font-bold rounded-full shadow-lg">
-                ✅ Completada
+            <div id="completion-badge" class="hidden px-2 md:px-4 py-2 bg-emerald-500 text-white font-bold rounded-full shadow-lg text-[0.6rem] md:text-xs">
+                ✅ Misión completada
             </div>
         </div>
     </header>
 
-    <main class="relative z-10 p-6 md:p-10 max-w-4xl mx-auto">
-        <section class="bg-white/10 backdrop-blur-sm rounded-3xl p-6 md:p-8 border-4 border-white/30 shadow-2xl mb-8">
-            <h2 class="text-2xl md:text-3xl font-bold text-center mb-4 text-yellow-300">Transporte en la Estación de Transferencia</h2>
-            <p class="text-lg text-white/90 text-center mb-6">Esta es tu prueba final. Debes coordinar dos RoverBots para que trabajen en equipo, moviendo un contenedor de carga desde el punto A al punto B sin colisionar.</p>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
-                <div>
-                    <img src="mision4.png" alt="Estación de Transferencia" class="w-full rounded-2xl border-4 border-white/50 shadow-xl" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-auto aspect-video flex items-center justify-center text-4xl md:text-6xl bg-gradient-to-br from-pink-400 via-teal-400 to-green-400&quot;>🚛</div>'">
+    <!-- MAIN -->
+    <main class="relative z-10 p-3 md:p-6 max-w-5xl mx-auto pb-16">
+        <!-- NAV ENTRE HOJAS -->
+        <div class="flex items-center justify-between mb-3 md:mb-4">
+            <button id="prev-page-btn" class="sheet-nav-btn" onclick="changePage(-1)">← Hoja anterior</button>
+            <div class="flex items-center gap-2">
+                <span class="label-chip">
+                    <span>Misiones completadas impactan tu leyenda</span>
+                </span>
+                <span id="page-indicator" class="text-[0.6rem] md:text-xs text-cyan-200/80">
+                    Hoja 1 de 6
+                </span>
+            </div>
+            <button id="next-page-btn" class="sheet-nav-btn" onclick="changePage(1)">Siguiente hoja →</button>
+        </div>
+
+        <!-- HOJA 1: INTRO CINEMÁTICA -->
+        <section class="page active bg-white/10 backdrop-blur-md rounded-3xl p-5 md:p-8 border-4 border-indigo-300/50 shadow-[0_25px_80px_rgba(15,23,42,0.95)]">
+            <h2 class="title-font text-2xl md:text-3xl lg:text-4xl font-extrabold text-center mb-4 md:mb-6 text-cyan-300 drop-shadow-lg">
+                Señal en la Oscuridad: La Ciudad Perdida de Zython
+            </h2>
+            <p class="text-base md:text-lg text-slate-50/95 text-center mb-4">
+                Tras completar todas las pruebas, los sensores de la base detectan <span class="text-cyan-300 font-semibold">un patrón de energía desconocido</span> en el hemisferio sur de Zython.
+                Las lecturas muestran formas geométricas perfectas y caminos que no pueden ser obra del azar.
+            </p>
+            <p class="text-base md:text-lg text-slate-100/90 text-center mb-4">
+                Tu misión legendaria: <span class="font-semibold text-emerald-300">diseñar, calibrar y programar un RoverBot autónomo</span> capaz de viajar desde la Base Central
+                hasta el corazón de una posible <span class="text-yellow-300 font-semibold">civilización antigua zythoniana</span>, navegando por calles, giros y obstáculos con precisión matemática.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mt-4 items-center">
+                <div class="image-slot">
+                    ESPACIO PARA ILUSTRACIÓN / FOTO:
+                    <span class="ml-1 text-cyan-300">Señal misteriosa sobre Zython</span>
                 </div>
-                <div class="bg-black/40 p-4 rounded-xl border-2 border-white/40">
-                    <h3 class="text-xl md:text-2xl font-semibold mb-3 text-white">Objetivo de la Misión:</h3>
-                    <ul class="list-disc list-inside space-y-2 text-white/90">
-                        <li>Sincronizar el movimiento de dos RoverBots.</li>
-                        <li>Transportar un objeto pesado.</li>
-                        <li>Coordinar las acciones para evitar obstáculos.</li>
+                <div class="bg-black/40 p-4 md:p-5 rounded-2xl border border-cyan-300/50 shadow-xl">
+                    <h3 class="text-lg md:text-2xl font-semibold mb-2 text-cyan-300">Objetivo épico de la misión</h3>
+                    <ul class="list-disc list-inside space-y-1 text-sm md:text-base text-slate-100/95">
+                        <li>Aplicar todo lo aprendido sobre <span class="font-semibold text-emerald-300">movimiento, giros, sensores y rutas seguras</span>.</li>
+                        <li>Usar <span class="font-semibold text-yellow-300">medidas, ángulos, datos y proporciones</span> para tomar decisiones reales.</li>
+                        <li>Demostrar trabajo en equipo como auténticos <span class="font-semibold text-cyan-300">Exploradores Maestros de Zython</span>.</li>
                     </ul>
                 </div>
             </div>
-            
-            <div class="mt-8 flex justify-center">
-                <button id="complete-btn" onclick="completeMission()" class="px-6 py-3 bg-gradient-to-r from-green-500 to-green-700 text-white font-bold text-lg rounded-full shadow-lg transition-transform transform hover:scale-110 hover:shadow-2xl">
-                    Completar Misión
-                </button>
-                <a href="index.html" id="completed-btn" class="hidden px-6 py-3 bg-white text-green-600 font-bold text-lg rounded-full shadow-lg transition-transform transform hover:scale-110 hover:shadow-2xl">
-                    Volver a Misiones
-                </a>
+        </section>
+
+        <!-- HOJA 2: OBJETIVOS + MATERIALES -->
+        <section class="page bg-white/10 backdrop-blur-md rounded-3xl p-5 md:p-8 border-4 border-cyan-300/50 shadow-2xl">
+            <h2 class="title-font text-2xl md:text-3xl font-extrabold text-cyan-300 mb-4 text-center">
+                ¿Qué vas a demostrar en este reto final?
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div>
+                    <h3 class="text-lg md:text-xl font-semibold text-emerald-300 mb-2">Objetivos de aprendizaje</h3>
+                    <ul class="list-disc list-inside text-sm md:text-base space-y-1 text-slate-100/95">
+                        <li>Diseñar y construir un RoverBot capaz de avanzar y girar con autonomía.</li>
+                        <li>Relacionar <span class="font-semibold">potencia, tiempo y ángulo</span> para describir movimientos.</li>
+                        <li>Crear trayectorias usando <span class="font-semibold">ángulos y distancias</span> en un mapa urbano.</li>
+                        <li>Registrar y analizar datos de ensayos para mejorar la precisión.</li>
+                        <li>Subir la evidencia de tu trabajo a un repositorio compartido (Drive).</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg md:text-xl font-semibold text-yellow-300 mb-2">Materiales</h3>
+                    <ul class="list-disc list-inside text-sm md:text-base space-y-1 text-slate-100/95">
+                        <li>Kit <span class="font-semibold">LEGO® Education WeDo 2.0 o similares</span> (1–2 motores, sensor).</li>
+                        <li>Cinta métrica, cronómetro, cinta adhesiva.</li>
+                        <li>Cartón, cartulina o base para la maqueta urbana.</li>
+                        <li>Regla, transportador, lápices, marcadores.</li>
+                        <li>Computador con <span class="font-semibold">Scratch u otro entorno compatible</span>.</li>
+                        <li>Cuenta para subir archivos a <span class="font-semibold">Drive</span>.</li>
+                    </ul>
+                    <p class="mt-3 text-[0.7rem] md:text-xs text-slate-300/90 leading-snug">
+                        Imágenes de construcción:
+                        <span class="italic">
+                            “Imagen ©2015 The LEGO Group. Usada con fines educativos y sin ánimo de lucro.
+                            Fuente: Instrucciones de construcción del set LEGO® Education WeDo 2.0 (45300) o similares.”
+                        </span>
+                    </p>
+                </div>
             </div>
         </section>
-        
-        <section id="final-celebration" class="hidden mt-8 text-center animate-fadeIn">
-            <h2 class="text-4xl md:text-5xl font-extrabold text-yellow-400 drop-shadow-xl">¡Felicitaciones, Explorador Maestro!</h2>
-            <p class="text-lg md:text-xl text-white/90 mt-4">Has completado con éxito todas las misiones. Tu RoverBot ahora es un experto en la exploración de Zython.</p>
+
+        <!-- HOJA 3: ETAPA 1 - DISEÑO ROBOT + ESPACIOS -->
+        <section class="page bg-white/10 backdrop-blur-md rounded-3xl p-5 md:p-8 border-4 border-indigo-300/40 shadow-2xl">
+            <h2 class="title-font text-2xl md:text-3xl font-extrabold text-emerald-300 mb-3 text-center">
+                Etapa 1 · Diseña tu RoverBot Navegador
+            </h2>
+            <p class="text-sm md:text-base text-slate-100/95 mb-3 text-center">
+                Crea un RoverBot estable que pueda <span class="font-semibold text-cyan-300">avanzar recto, girar y reaccionar</span> con uno o dos motores
+                y, si lo decides, con sensor para detenerse o cambiar de dirección.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mt-3">
+                <div class="image-slot">
+                    ESPACIO PARA DIBUJO / FOTO DEL ROVERBOT NAVEGADOR
+                </div>
+                <div>
+                    <h3 class="text-sm md:text-base font-semibold text-yellow-300 mb-1">
+                        1. Describe el diseño de tu RoverBot:
+                    </h3>
+                    <div class="answer-box">
+                        Escribe aquí cómo está construido tu RoverBot, qué motores usa, dónde va el sensor, cómo girará...
+                    </div>
+
+                    <h3 class="text-sm md:text-base font-semibold text-yellow-300 mt-3 mb-1">
+                        2. ¿Qué decisiones tomaste para que sea estable?
+                    </h3>
+                    <div class="answer-box">
+                        Explica qué cambios hiciste para que no se voltee, se deslice bien y pueda recorrer la ciudad con seguridad.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- HOJA 4: ETAPA 2 - CALIBRACIÓN + TABLA (INSTRUCCIÓN EXCEL/WORD) -->
+        <section class="page bg-white/10 backdrop-blur-md rounded-3xl p-5 md:p-8 border-4 border-cyan-400/40 shadow-2xl">
+            <h2 class="title-font text-2xl md:text-3xl font-extrabold text-cyan-300 mb-3 text-center">
+                Etapa 2 · Calibra tus Giros: Tiempo → Ángulo
+            </h2>
+            <p class="text-sm md:text-base text-slate-100/95 mb-3">
+                Ahora debes descubrir cómo se transforman los valores del programa en giros reales.
+                Dibuja en el suelo un gran semicírculo graduado o usa un transportador grande.
+            </p>
+            <ol class="list-decimal list-inside text-sm md:text-base space-y-1 text-slate-100/95 mb-3">
+                <li>Programa tu RoverBot para girar usando distintas combinaciones de potencia y tiempo.</li>
+                <li>Observa el ángulo real que gira.</li>
+                <li>Registra los datos en una tabla digital.</li>
+            </ol>
+
+            <div class="bg-black/50 rounded-2xl border border-indigo-300/50 p-3 md:p-4 mb-3">
+                <p class="text-xs md:text-sm text-cyan-200/95 font-semibold mb-1">
+                    Tarea digital obligatoria:
+                </p>
+                <p class="text-[0.7rem] md:text-xs text-slate-100/90 leading-relaxed">
+                    Crea una tabla en <span class="font-semibold">Excel o Word</span> con las columnas:
+                    <span class="font-semibold">Potencia (%) · Tiempo (s) · Ángulo aproximado (°)</span>.
+                    Guarda el archivo con el nombre <span class="font-semibold">"M4_Apellido_Grupo_CalibraciónGiros"</span>
+                    y súbelo a la carpeta de <span class="font-semibold">Drive</span> indicada por tu docente.
+                </p>
+            </div>
+
+            <div class="image-slot mb-3">
+                ESPACIO PARA CAPTURA / ESQUEMA DE TABLA DE GIROS
+            </div>
+
+            <h3 class="text-xs md:text-sm font-semibold text-yellow-300 mb-1">
+                Escribe aquí tus primeras conclusiones (resumen breve):
+            </h3>
+            <div class="answer-box">
+                ¿Qué patrones observas entre tiempo, potencia y ángulo? ¿Alguna combinación que funcione bien para 90°, 180°...?
+            </div>
+        </section>
+
+        <!-- HOJA 5: ETAPA 3 - MAQUETA CIUDAD + PLAN RUTA -->
+        <section class="page bg-white/10 backdrop-blur-md rounded-3xl p-5 md:p-8 border-4 border-indigo-400/40 shadow-2xl">
+            <h2 class="title-font text-2xl md:text-3xl font-extrabold text-emerald-300 mb-3 text-center">
+                Etapa 3 · La Ciudad Perdida de Zython
+            </h2>
+            <p class="text-sm md:text-base text-slate-100/95 mb-2">
+                Construyan una maqueta que represente una zona de la posible ciudad zythoniana:
+                calles, giros, pasillos, plazas, obstáculos y el <span class="text-yellow-300 font-semibold">Templo de los Antiguos</span>.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mt-2">
+                <div class="image-slot">
+                    ESPACIO PARA FOTO / DIBUJO DE LA MAQUETA URBANA
+                </div>
+                <div>
+                    <h3 class="text-xs md:text-sm font-semibold text-cyan-300 mb-1">
+                        1. Marca el punto de inicio (Base) y el punto final (Templo de los Antiguos).
+                    </h3>
+                    <div class="answer-box">
+                        Describe aquí dónde está la Base, dónde está el Templo y qué obstáculos hay en el camino.
+                    </div>
+
+                    <h3 class="text-xs md:text-sm font-semibold text-cyan-300 mt-3 mb-1">
+                        2. Diseña tu ruta:
+                    </h3>
+                    <div class="answer-box">
+                        Escribe la secuencia de movimientos usando distancias y ángulos (ejemplo:
+                        40 cm recto → giro 90° derecha → 30 cm recto → giro 45° izquierda...).
+                    </div>
+                </div>
+            </div>
+
+            <p class="mt-3 text-[0.7rem] md:text-xs text-slate-200/90">
+                Si lo prefieres, dibuja la ruta en un documento Word, marca los giros y súbelo junto con la foto de la maqueta al Drive.
+            </p>
+        </section>
+
+        <!-- HOJA 6: ETAPA 4 - PROGRAMA, REFLEXIÓN + COMPLETAR MISIÓN -->
+        <section class="page bg-white/10 backdrop-blur-md rounded-3xl p-5 md:p-8 border-4 border-emerald-400/40 shadow-2xl">
+            <h2 class="title-font text-2xl md:text-3xl font-extrabold text-yellow-300 mb-3 text-center">
+                Etapa 4 · Ejecuta la Misión y Descubre el Enigma
+            </h2>
+            <ol class="list-decimal list-inside text-sm md:text-base space-y-1 text-slate-100/95 mb-3">
+                <li>Programa tu RoverBot con la secuencia completa de movimientos para ir desde la Base hasta el Templo.</li>
+                <li>Prueba el recorrido sin tocar el robot. Si falla, ajusta tus valores.</li>
+                <li>Cuenta cuántos intentos necesitaste y qué cambios hiciste.</li>
+            </ol>
+
+            <h3 class="text-xs md:text-sm font-semibold text-cyan-300 mb-1">
+                1. Registra tus resultados:
+            </h3>
+            <div class="answer-box">
+                Número de intentos, tiempo total, si llegó al punto correcto, qué tuviste que corregir en tu programa.
+            </div>
+
+            <h3 class="text-xs md:text-sm font-semibold text-cyan-300 mt-3 mb-1">
+                2. En tu documento digital (Word o Excel), añade:
+            </h3>
+            <ul class="list-disc list-inside text-[0.7rem] md:text-xs text-slate-100/90 mb-3">
+                <li>Foto del RoverBot y de la maqueta.</li>
+                <li>Tabla de calibración de giros.</li>
+                <li>Ruta escrita o dibujada.</li>
+                <li>Breve explicación: ¿cómo te ayudó la matemática a lograr la misión?</li>
+                <li>Sube el archivo final a la carpeta de <span class="font-semibold">Drive</span> indicada.</li>
+            </ul>
+
+            <div class="bg-black/60 rounded-2xl border border-yellow-300/70 p-4 mt-2">
+                <p class="text-sm md:text-base text-yellow-300 font-semibold mb-1">
+                    Mensaje de la Civilización de Zython:
+                </p>
+                <p class="text-xs md:text-sm text-slate-100/95">
+                    “La precisión es la huella de quienes piensan antes de avanzar.
+                    Has unido construcción, programación y matemáticas para descifrar nuestro legado.
+                    Desde hoy, eres un <span class="font-semibold text-emerald-300">Maestro Explorador de Zython</span>.”
+                </p>
+            </div>
+
+            <!-- BOTONES DE COMPLETAR MISIÓN -->
+            <div class="mt-6 flex flex-col md:flex-row justify-center items-center gap-3">
+                <button id="complete-btn"
+                        onclick="completeMission()"
+                        class="px-6 md:px-8 py-3 bg-gradient-to-r from-emerald-400 via-cyan-400 to-indigo-500 text-black font-extrabold text-base md:text-lg rounded-full shadow-[0_12px_40px_rgba(8,47,73,0.9)] transition-transform transform hover:scale-110 hover:shadow-[0_18px_60px_rgba(8,47,73,1)]">
+                    🏁 He completado el Enigma de Zython
+                </button>
+                <a href="index.html"
+                   id="completed-btn"
+                   class="hidden px-6 md:px-8 py-3 bg-white text-emerald-700 font-extrabold text-base md:text-lg rounded-full shadow-lg transition-transform transform hover:scale-110 hover:shadow-2xl text-center">
+                    🏆 ¡Todas las Misiones Completadas!
+                </a>
+            </div>
+
+            <section id="final-celebration" class="hidden mt-6 text-center">
+                <h2 class="title-font text-3xl md:text-4xl font-extrabold text-emerald-300 drop-shadow-xl">
+                    ¡Felicitaciones, Maestro Explorador!
+                </h2>
+                <p class="text-sm md:text-base text-slate-100/95 mt-2">
+                    Has completado el viaje por Zython. Tu RoverBot no solo se mueve: <span class="font-semibold text-cyan-300">piensa con matemáticas</span>.
+                </p>
+            </section>
         </section>
     </main>
 
     <script>
+        /* FONDO ESTRELLAS */
         function createStars() {
             const starsContainer = document.getElementById('stars');
             if (!starsContainer) return;
-            for (let i = 0; i < 100; i++) {
+            for (let i = 0; i < 120; i++) {
                 const star = document.createElement('div');
                 star.className = 'star';
                 star.style.left = Math.random() * 100 + '%';
                 star.style.top = Math.random() * 100 + '%';
-                star.style.width = Math.random() * 3 + 1 + 'px';
-                star.style.height = star.style.width;
+                const size = Math.random() * 2.5 + 0.8;
+                star.style.width = size + 'px';
+                star.style.height = size + 'px';
+                star.style.opacity = Math.random() * 0.8 + 0.2;
                 star.style.animationDelay = Math.random() * 3 + 's';
                 starsContainer.appendChild(star);
             }
         }
 
-        // Funciones para guardar y cargar el progreso en localStorage
+        /* PROGRESO JUGADOR */
         function getCurrentPlayer() {
             return localStorage.getItem('zython-current-player');
         }
@@ -106,10 +401,22 @@
         function loadPlayerProgress(playerName) {
             try {
                 const players = JSON.parse(localStorage.getItem('zython-players') || '{}');
-                return players[playerName] || { completedMissions: [], completed: 0, currentMission: 1, available: 1, badges: 0 };
+                return players[playerName] || {
+                    completedMissions: [],
+                    completed: 0,
+                    currentMission: 1,
+                    available: 1,
+                    badges: 0
+                };
             } catch (error) {
                 console.error('Error loading progress:', error);
-                return { completedMissions: [], completed: 0, currentMission: 1, available: 1, badges: 0 };
+                return {
+                    completedMissions: [],
+                    completed: 0,
+                    currentMission: 1,
+                    available: 1,
+                    badges: 0
+                };
             }
         }
 
@@ -123,7 +430,6 @@
             }
         }
 
-        // Función para verificar si la misión ya está completada al cargar la página
         function checkCompletion() {
             const currentPlayer = getCurrentPlayer();
             if (currentPlayer) {
@@ -132,7 +438,8 @@
                     document.getElementById('completion-badge').classList.remove('hidden');
                     document.getElementById('complete-btn').classList.add('hidden');
                     document.getElementById('completed-btn').classList.remove('hidden');
-                    document.getElementById('final-celebration').classList.remove('hidden');
+                    const celebration = document.getElementById('final-celebration');
+                    if (celebration) celebration.classList.remove('hidden');
                 }
             }
         }
@@ -140,37 +447,30 @@
         function completeMission() {
             const currentPlayer = getCurrentPlayer();
             if (!currentPlayer) {
-                console.error('No current player for mission completion');
-                alert('Error: No se encontró información del jugador. Por favor, regresa al menú principal.');
+                alert('Error: No se encontró información del jugador. Regresa al menú principal e ingresa tu nombre de explorador.');
                 return;
             }
-            
+
             const progress = loadPlayerProgress(currentPlayer);
-            
+
             if (!progress.completedMissions.includes(4)) {
                 progress.completedMissions.push(4);
                 progress.completed = progress.completedMissions.length;
                 progress.badges = progress.completedMissions.length;
-                
-                // This is the last mission, no more to unlock
-                progress.currentMission = 4;
-                
+                progress.currentMission = 4; // última misión
+
                 savePlayerProgress(currentPlayer, progress);
-                
-                // Update UI
+
                 document.getElementById('completion-badge').classList.remove('hidden');
                 document.getElementById('complete-btn').classList.add('hidden');
                 document.getElementById('completed-btn').classList.remove('hidden');
-                document.getElementById('final-celebration').classList.remove('hidden');
-                
-                // Change button text for the final mission
-                const completeBtn = document.getElementById('completed-btn');
-                completeBtn.innerHTML = '🏆 ¡Todas las Misiones Completadas!';
-                
-                // Show special completion message for final mission
-                alert('🎉 ¡FELICITACIONES! 🎉\n\nHas completado todas las misiones de Exploración de Zython. Eres oficialmente un Maestro Explorador Espacial.\n\n¡Tu RoverBot ahora domina todos los aspectos de la robótica educativa!');
+
+                const celebration = document.getElementById('final-celebration');
+                if (celebration) celebration.classList.remove('hidden');
+
+                alert('🎉 ¡FELICITACIONES! 🎉\n\nHas resuelto el Enigma de Zython y completado todas las misiones.\nEres oficialmente un Maestro Explorador Espacial.\n\nTu RoverBot ahora aplica la matemática para explorar nuevos mundos.');
             } else {
-                alert('Esta misión ya ha sido completada anteriormente. ¡Ya eres un Maestro Explorador de Zython!');
+                alert('Esta misión ya fue completada. ¡Ya eres Maestro Explorador de Zython!');
             }
         }
 
@@ -178,13 +478,44 @@
             window.location.href = 'index.html';
         }
 
-        // Initialize
+        /* NAVEGACIÓN ENTRE HOJAS */
+        let currentPage = 0;
+
+        function showPage(index) {
+            const pages = document.querySelectorAll('.page');
+            if (pages.length === 0) return;
+
+            if (index < 0) index = 0;
+            if (index >= pages.length) index = pages.length - 1;
+
+            pages.forEach((page, i) => {
+                page.classList.toggle('active', i === index);
+            });
+
+            currentPage = index;
+
+            const prevBtn = document.getElementById('prev-page-btn');
+            const nextBtn = document.getElementById('next-page-btn');
+            if (prevBtn) prevBtn.disabled = currentPage === 0;
+            if (nextBtn) nextBtn.disabled = currentPage === pages.length - 1;
+
+            const indicator = document.getElementById('page-indicator');
+            if (indicator) {
+                indicator.textContent = `Hoja ${currentPage + 1} de ${pages.length}`;
+            }
+        }
+
+        function changePage(step) {
+            showPage(currentPage + step);
+        }
+
+        /* INIT */
         function initialize() {
             createStars();
+            showPage(0);
             checkCompletion();
         }
 
-        // Start when page loads
         document.addEventListener('DOMContentLoaded', initialize);
     </script>
 </body>
