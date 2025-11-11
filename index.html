@@ -309,11 +309,11 @@
         }
     </style>
 </head>
-<body class="min-h-screen animated-gradient text-white overflow-hidden relative">
+<body class="min-h-screen animated-gradient text-white overflow-x-hidden relative">
     <!-- Capa de estrellas con z-index mejorado -->
     <div class="stars" id="stars"></div>
     
-    <div id="game-content" class="relative z-10">
+    <div id="game-content" class="relative z-10 min-h-screen">
         <!-- Header mejorado con efecto de vidrio esmerilado -->
         <header class="relative z-10 p-3 md:p-6 m-2 md:m-4">
             <div class="glass-card rounded-2xl md:rounded-3xl p-4 md:p-6">
@@ -350,9 +350,10 @@
             </div>
         </div>
 
-        <!-- Planetas con clases de animación escalonada -->
-        <div class="absolute top-[200px] md:top-[180px] left-0 right-0 bottom-0 p-4 md:p-10">
-            <div class="absolute top-[2%] left-[5%] md:top-[5%] md:left-[12%] w-[140px] md:w-[220px] z-10 animate-fadeIn mission-1" data-mission-id="1">
+        <!-- Contenedor de planetas con posicionamiento relativo para que quede dentro del viewport -->
+        <div class="relative w-full px-4 md:px-10 pb-32 pt-4" style="min-height: calc(100vh - 180px);">
+            <!-- Planeta 1 - Llanura de Vectonia -->
+            <div class="absolute top-[5%] left-[8%] md:top-[8%] md:left-[12%] w-[140px] md:w-[220px] z-10 animate-fadeIn mission-1" data-mission-id="1">
                 <a href="mision1.html" class="mission-link">
                     <div class="flex flex-col items-center cursor-pointer planet-card">
                         <div class="mobile-planet-large w-[140px] h-[140px] md:w-[220px] md:h-[220px] mb-2 md:mb-4 relative rounded-3xl overflow-hidden planet-image shadow-2xl">
@@ -367,7 +368,8 @@
                 <div class="mission-badge absolute -top-1 -right-1 md:-top-2 md:-right-2 w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center text-base md:text-xl font-bold border-3 border-white shadow-xl bg-gradient-to-br from-orange-400 to-orange-600">1</div>
             </div>
 
-            <div class="absolute top-[2%] right-[25%] md:top-[12%] md:right-[25%] w-[120px] md:w-[160px] z-10 animate-fadeIn mission-2 locked" data-mission-id="2">
+            <!-- Planeta 2 - Paso de Zycurva -->
+            <div class="absolute top-[5%] right-[10%] md:top-[12%] md:right-[25%] w-[120px] md:w-[160px] z-10 animate-fadeIn mission-2 locked" data-mission-id="2">
                 <a href="mision2.html" class="mission-link">
                     <div class="flex flex-col items-center cursor-pointer planet-card">
                         <div class="mobile-planet-medium w-[120px] h-[120px] md:w-[160px] md:h-[160px] mb-2 md:mb-4 relative rounded-3xl overflow-hidden planet-image shadow-2xl">
@@ -382,7 +384,8 @@
                 <div class="mission-badge absolute -top-1 -right-1 md:-top-2 md:-right-2 w-9 h-9 md:w-12 md:h-12 rounded-full flex items-center justify-center text-base md:text-xl font-bold border-3 border-white shadow-xl bg-gradient-to-br from-blue-400 to-blue-600">2</div>
             </div>
 
-            <div class="absolute bottom-[40%] left-[10%] md:bottom-[30%] md:left-[28%] w-[100px] md:w-[140px] z-10 animate-fadeIn mission-3 locked" data-mission-id="3">
+            <!-- Planeta 3 - Cráter del Sensorium -->
+            <div class="absolute top-[45%] left-[15%] md:top-[50%] md:left-[28%] w-[100px] md:w-[140px] z-10 animate-fadeIn mission-3 locked" data-mission-id="3">
                 <a href="mision3.html" class="mission-link">
                     <div class="flex flex-col items-center cursor-pointer planet-card">
                         <div class="mobile-planet-small w-[100px] h-[100px] md:w-[140px] md:h-[140px] mb-2 md:mb-4 relative rounded-3xl overflow-hidden planet-image shadow-2xl">
@@ -397,7 +400,8 @@
                 <div class="mission-badge absolute -top-1 -right-1 md:-top-2 md:-right-2 w-8 h-8 md:w-11 md:h-11 rounded-full flex items-center justify-center text-sm md:text-lg font-bold border-3 border-white shadow-xl bg-gradient-to-br from-purple-400 to-purple-600">3</div>
             </div>
 
-            <div class="absolute bottom-[25%] right-[25%] md:bottom-[17%] md:right-[35%] w-[120px] md:w-[190px] z-10 animate-fadeIn mission-4 locked" data-mission-id="4">
+            <!-- Planeta 4 - Estación de Transferencia -->
+            <div class="absolute top-[45%] right-[8%] md:top-[48%] md:right-[20%] w-[120px] md:w-[190px] z-10 animate-fadeIn mission-4 locked" data-mission-id="4">
                 <a href="mision4.html" class="mission-link">
                     <div class="flex flex-col items-center cursor-pointer planet-card">
                         <div class="mobile-planet-medium w-[120px] h-[120px] md:w-[190px] md:h-[190px] mb-2 md:mb-4 relative rounded-3xl overflow-hidden planet-image shadow-2xl">
@@ -413,8 +417,8 @@
             </div>
 
             <!-- Robot con animación de flotación -->
-            <div class="absolute bottom-2 right-2 md:bottom-4 md:right-4 w-[120px] h-[120px] md:w-[500px] md:h-[500px] z-10 floating-robot">
-                <img src="robot.png" alt="Robot Compañero" class="w-full h-full object-contain drop-shadow-2xl" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex items-center justify-center text-6xl md:text-9xl&quot;>🤖</div>'">
+            <div class="hidden md:block absolute bottom-0 right-4 w-[300px] h-[300px] lg:w-[400px] lg:h-[400px] z-5 floating-robot opacity-60">
+                <img src="robot.png" alt="Robot Compañero" class="w-full h-full object-contain drop-shadow-2xl" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex items-center justify-center text-9xl&quot;>🤖</div>'">
             </div>
         </div>
     </div>
@@ -466,6 +470,18 @@
             }, 3000);
         }
 
+        function resetGame() {
+            if (confirm('¿Estás seguro de que quieres reiniciar el progreso? Se perderán todas las misiones completadas.')) {
+                localStorage.removeItem('zython-mission-1');
+                localStorage.removeItem('zython-mission-2');
+                localStorage.removeItem('zython-mission-3');
+                localStorage.removeItem('zython-mission-4');
+                localStorage.setItem('zython-current-mission', '0');
+                
+                // Redirigir a mision0.html
+                window.location.href = 'mision0.html';
+            }
+        }
 
         function initialize() {
             createStars();
