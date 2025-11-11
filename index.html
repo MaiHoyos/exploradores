@@ -476,11 +476,72 @@
                 localStorage.removeItem('zython-mission-2');
                 localStorage.removeItem('zython-mission-3');
                 localStorage.removeItem('zython-mission-4');
+                localStorage.removeItem('mision1Completada');
+                localStorage.removeItem('mision2Completada');
+                localStorage.removeItem('mision3Completada');
+                localStorage.removeItem('mision4Completada');
+                localStorage.removeItem('mision1Data');
+                localStorage.removeItem('mision2Data');
+                localStorage.removeItem('mision3Data');
+                localStorage.removeItem('mision4Data');
+                localStorage.removeItem('zython-players');
                 localStorage.setItem('zython-current-mission', '0');
                 
                 // Redirigir a mision0.html
                 window.location.href = 'mision0.html';
             }
+        }
+
+        function setupGame(playerName) {
+            // Obtener el progreso del jugador desde localStorage
+            const players = JSON.parse(localStorage.getItem('zython-players') || '{}');
+            const playerData = players[playerName] || {
+                completedMissions: [],
+                completed: 0,
+                currentMission: 1
+            };
+
+            // Actualizar contador de misiones completadas
+            const completedCount = playerData.completedMissions.length;
+            document.getElementById('completed-count').textContent = completedCount;
+
+            // Actualizar misión actual
+            let currentMissionNumber = 1;
+            if (completedCount > 0) {
+                currentMissionNumber = Math.max(...playerData.completedMissions) + 1;
+                if (currentMissionNumber > 4) currentMissionNumber = 4;
+            }
+            document.getElementById('current-mission').textContent = currentMissionNumber;
+
+            // Desbloquear misiones completadas y la siguiente
+            playerData.completedMissions.forEach(missionId => {
+                const missionElement = document.querySelector(`[data-mission-id="${missionId}"]`);
+                if (missionElement) {
+                    missionElement.classList.remove('locked');
+                    // Agregar indicador visual de completada
+                    const badge = missionElement.querySelector('.mission-badge');
+                    if (badge && !badge.textContent.includes('✓')) {
+                        badge.innerHTML = `${missionId}<br><span style="font-size: 0.7em;">✓</span>`;
+                        badge.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+                    }
+                }
+            });
+
+            // Desbloquear la siguiente misión disponible
+            const nextMissionId = completedCount + 1;
+            if (nextMissionId <= 4) {
+                const nextMissionElement = document.querySelector(`[data-mission-id="${nextMissionId}"]`);
+                if (nextMissionElement) {
+                    nextMissionElement.classList.remove('locked');
+                }
+            }
+
+            console.log('[v0] Progreso cargado:', {
+                player: playerName,
+                completed: completedCount,
+                currentMission: currentMissionNumber,
+                completedMissions: playerData.completedMissions
+            });
         }
 
         function initialize() {
