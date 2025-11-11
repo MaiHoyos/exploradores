@@ -277,6 +277,122 @@
             .mobile-text-xs { font-size: 0.625rem !important; }
         }
 
+        @media (max-width: 640px) {
+            /* Header más compacto */
+            header {
+                padding: 0.75rem !important;
+                margin: 0.5rem !important;
+            }
+            
+            /* Título principal responsive */
+            .neon-text {
+                font-size: 1.25rem !important;
+                line-height: 1.2;
+            }
+            
+            .text-yellow-300.drop-shadow-lg {
+                font-size: 1rem !important;
+            }
+            
+            /* Card de estadísticas más pequeña y accesible */
+            .info-card {
+                min-width: 150px !important;
+                padding: 0.5rem !important;
+                top: 0.5rem !important;
+                right: 0.5rem !important;
+            }
+            
+            .info-card .grid {
+                gap: 0.5rem !important;
+            }
+            
+            .info-card div:first-child {
+                font-size: 1.25rem !important;
+            }
+            
+            .info-card .text-xs {
+                font-size: 0.625rem !important;
+            }
+            
+            /* Planetas optimizados para móvil */
+            .planet-card {
+                width: 110px !important;
+            }
+            
+            .mobile-planet-large {
+                width: 110px !important;
+                height: 110px !important;
+            }
+            
+            .mobile-planet-medium {
+                width: 95px !important;
+                height: 95px !important;
+            }
+            
+            .mobile-planet-small {
+                width: 80px !important;
+                height: 80px !important;
+            }
+            
+            /* Posiciones ajustadas para 360px de ancho */
+            [data-mission-id="1"] {
+                top: 8% !important;
+                left: 5% !important;
+            }
+            
+            [data-mission-id="2"] {
+                top: 8% !important;
+                right: 5% !important;
+            }
+            
+            [data-mission-id="3"] {
+                top: 42% !important;
+                left: 8% !important;
+            }
+            
+            [data-mission-id="4"] {
+                top: 42% !important;
+                right: 8% !important;
+            }
+            
+            /* Planet info más compacto */
+            .planet-info {
+                min-width: 100px !important;
+                padding: 0.5rem !important;
+            }
+            
+            .mobile-text-small {
+                font-size: 0.7rem !important;
+            }
+            
+            .mobile-text-xs {
+                font-size: 0.6rem !important;
+            }
+            
+            /* Badges más pequeños */
+            .mission-badge {
+                width: 2rem !important;
+                height: 2rem !important;
+                font-size: 0.875rem !important;
+            }
+            
+            /* Botones más accesibles */
+            .reset-button, .sound-toggle {
+                padding: 0.5rem 0.75rem !important;
+                font-size: 0.75rem !important;
+                bottom: 0.75rem !important;
+            }
+            
+            .reset-button {
+                left: 0.5rem !important;
+            }
+            
+            .sound-toggle {
+                left: 5.5rem !important;
+                right: auto !important;
+            }
+        }
+
         .mission-link {
             display: block;
             text-decoration: none;
@@ -653,11 +769,10 @@
             const completedCount = playerData.completedMissions.length;
             document.getElementById('completed-count').textContent = completedCount;
 
-            // Actualizar misión actual
             let currentMissionNumber = 1;
             if (completedCount > 0) {
-                currentMissionNumber = Math.max(...playerData.completedMissions) + 1;
-                if (currentMissionNumber > 4) currentMissionNumber = 4;
+                const maxCompletedMission = Math.max(...playerData.completedMissions);
+                currentMissionNumber = Math.min(maxCompletedMission + 1, 4);
             }
             document.getElementById('current-mission').textContent = currentMissionNumber;
 
@@ -675,8 +790,11 @@
                 }
             });
 
-            // Desbloquear la siguiente misión disponible
-            const nextMissionId = completedCount + 1;
+            const maxCompletedMission = playerData.completedMissions.length > 0 
+                ? Math.max(...playerData.completedMissions) 
+                : 0;
+            const nextMissionId = maxCompletedMission + 1;
+            
             if (nextMissionId <= 4) {
                 const nextMissionElement = document.querySelector(`[data-mission-id="${nextMissionId}"]`);
                 if (nextMissionElement) {
@@ -688,7 +806,8 @@
                 player: playerName,
                 completed: completedCount,
                 currentMission: currentMissionNumber,
-                completedMissions: playerData.completedMissions
+                completedMissions: playerData.completedMissions,
+                nextToUnlock: nextMissionId
             });
         }
 
