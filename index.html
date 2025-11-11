@@ -454,7 +454,7 @@
         class RetroAudioSystem {
             constructor() {
                 this.audioContext = null;
-                this.isEnabled = false;
+                this.isEnabled = true;
                 this.isMusicPlaying = false;
                 this.musicInterval = null;
             }
@@ -535,7 +535,6 @@
                 ];
                 
                 let noteIndex = 0;
-                let time = 0;
                 
                 const playNextNote = () => {
                     if (!this.isMusicPlaying) return;
@@ -544,7 +543,6 @@
                     this.playTone(note.freq, note.dur, 0.03, 'triangle');
                     
                     noteIndex = (noteIndex + 1) % melodyNotes.length;
-                    time += note.dur * 1000;
                     
                     this.musicInterval = setTimeout(playNextNote, note.dur * 1000);
                 };
@@ -721,10 +719,20 @@
             localStorage.setItem('zython-current-player', playerName);
             setupGame(playerName);
             
+            audioSystem.init();
+            
+            document.body.addEventListener('click', function initAudio() {
+                audioSystem.startBackgroundMusic();
+                document.body.removeEventListener('click', initAudio);
+            }, { once: true });
+            
             document.getElementById('reset-button').addEventListener('click', resetGame);
             
             // Botón de control de sonido
             const soundToggle = document.getElementById('sound-toggle');
+            soundToggle.textContent = '🔊 Sonido';
+            soundToggle.classList.add('active');
+            
             soundToggle.addEventListener('click', () => {
                 const isEnabled = audioSystem.toggle();
                 soundToggle.textContent = isEnabled ? '🔊 Sonido' : '🔇 Sonido';
