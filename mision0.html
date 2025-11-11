@@ -13,7 +13,6 @@
             font-family: 'Fredoka', sans-serif;
         }
         
-        /* Agregado fondo con gradiente animado y efectos profesionales */
         @keyframes gradientShift {
             0%, 100% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
@@ -61,13 +60,39 @@
             100% { background-position: 1000px 0; }
         }
         
+        /* Agregando animación especial para el título de la portada */
+        @keyframes titleGlow {
+            0%, 100% { 
+                text-shadow: 0 0 20px rgba(59, 130, 246, 0.8),
+                             0 0 40px rgba(147, 51, 234, 0.6),
+                             0 0 60px rgba(236, 72, 153, 0.4);
+            }
+            50% { 
+                text-shadow: 0 0 30px rgba(59, 130, 246, 1),
+                             0 0 60px rgba(147, 51, 234, 0.8),
+                             0 0 90px rgba(236, 72, 153, 0.6);
+            }
+        }
+        
+        .title-hero {
+            animation: titleGlow 3s ease-in-out infinite;
+        }
+        
+        @keyframes floatRocket {
+            0%, 100% { transform: translateY(0px) rotate(-5deg); }
+            50% { transform: translateY(-30px) rotate(5deg); }
+        }
+        
+        .float-rocket {
+            animation: floatRocket 3s ease-in-out infinite;
+        }
+        
         .animate-float { animation: float 4s ease-in-out infinite; }
         .animate-pulse-glow { animation: pulse-glow 3s ease-in-out infinite; }
         .animate-fade-in-scale { animation: fadeInScale 0.8s ease-out; }
         .animate-fade-in { animation: fadeIn 1.2s ease-out; }
         .animate-bounce { animation: bounce 2s ease-in-out infinite; }
         
-        /* Estrellas mejoradas con brillo */
         .stars {
             position: fixed;
             top: 0;
@@ -91,7 +116,6 @@
             50% { opacity: 1; transform: scale(1.2); }
         }
         
-        /* Estrellas fugaces */
         @keyframes shootingStar {
             0% {
                 transform: translateX(0) translateY(0);
@@ -114,7 +138,6 @@
             z-index: 1;
         }
 
-        /* Video con efectos de vidrio y sombras profesionales */
         .video-container {
             position: relative;
             width: 100%;
@@ -141,7 +164,6 @@
             display: block;
         }
         
-        /* Cards con efecto de vidrio esmerilado */
         .glass-card {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(20px);
@@ -149,7 +171,6 @@
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
         
-        /* Botones 3D con sombras y efectos hover mejorados */
         .btn-3d {
             transition: all 0.3s ease;
             box-shadow: 0 6px 0 rgba(0, 0, 0, 0.3), 0 10px 20px rgba(0, 0, 0, 0.2);
@@ -165,7 +186,6 @@
             box-shadow: 0 2px 0 rgba(0, 0, 0, 0.3), 0 5px 10px rgba(0, 0, 0, 0.2);
         }
         
-        /* Imágenes con hover effect mejorado */
         .image-hover {
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
@@ -175,12 +195,10 @@
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
         }
         
-        /* Texto con efecto de brillo sutil */
         .text-glow {
             text-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
         }
         
-        /* Audio button styling */
         .audio-toggle {
             position: fixed;
             bottom: 1.5rem;
@@ -223,8 +241,24 @@
     
     <div class="relative z-10 min-h-screen flex flex-col">
         
+        <!-- Agregando Paso 0: Portada inicial -->
+        <div id="step-0" class="step-container min-h-screen flex flex-col items-center justify-center p-6">
+            <div class="max-w-6xl text-center animate-fade-in-scale">
+                <div class="text-9xl mb-12 float-rocket">🚀</div>
+                <h1 class="text-7xl md:text-9xl font-bold mb-8 bg-gradient-to-r from-cyan-300 via-blue-400 to-purple-500 bg-clip-text text-transparent title-hero leading-tight">
+                    EXPLORACIÓN<br/>DE ZYTHON
+                </h1>
+                <p class="text-2xl md:text-3xl text-white/90 mb-12 animate-float">
+                    Prepárate para una aventura increíble en el espacio
+                </p>
+                <button onclick="startMission()" class="px-16 py-8 bg-gradient-to-r from-green-500 via-blue-500 to-purple-600 hover:from-green-600 hover:via-blue-600 hover:to-purple-700 rounded-3xl font-bold text-4xl transition-all duration-300 transform hover:scale-110 animate-pulse-glow btn-3d">
+                    ¡VAMOS! 🌟
+                </button>
+            </div>
+        </div>
+        
         <!-- Paso 1: Video introductorio -->
-        <div id="step-1" class="step-container min-h-screen flex flex-col items-center justify-center p-6">
+        <div id="step-1" class="step-container min-h-screen flex flex-col items-center justify-center p-6 hidden">
             <div class="max-w-5xl text-center animate-fade-in-scale">
                 <div class="text-7xl mb-6 animate-float">🌌</div>
                 <h1 class="text-5xl md:text-7xl font-bold mb-8 bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent text-glow">
@@ -660,10 +694,17 @@
             document.removeEventListener('click', initOnFirstClick);
         }, { once: true });
 
-        let currentStep = 1;
+        let currentStep = 0;
         let currentAssemblyStep = 1;
         const totalSteps = 6;
         const totalAssemblySteps = 10;
+        
+        function startMission() {
+            playTone(880, 0.2);
+            setTimeout(() => playTone(1047, 0.3), 150);
+            currentStep = 1;
+            showStep(currentStep);
+        }
 
         function createStars() {
             const starsContainer = document.getElementById('stars');
@@ -791,7 +832,7 @@
         }
 
         function showStep(stepNumber) {
-            for (let i = 1; i <= totalSteps; i++) {
+            for (let i = 0; i <= totalSteps; i++) {
                 const step = document.getElementById(`step-${i}`);
                 if (!step) continue;
                 step.classList.add('hidden');
@@ -904,7 +945,7 @@
 
         function initializeApp() {
             createStars();
-            showStep(1);
+            showStep(0);
             showAssemblyStep(1);
             loadYouTubeAPI();
             setTimeout(() => {
