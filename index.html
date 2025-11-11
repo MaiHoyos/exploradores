@@ -6,15 +6,48 @@
     <title>Exploración de Zython - Misiones Espaciales</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
+        /* Agregando fuente personalizada más moderna y legible para niños */
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+        
+        * {
+            font-family: 'Fredoka', sans-serif;
+        }
+        
+        /* Animaciones mejoradas con efectos más fluidos y profesionales */
         @keyframes planetBounce {
-            0%, 100% { transform: translateY(0px) scale(1); }
-            50% { transform: translateY(-15px) scale(1.05); }
+            0%, 100% { 
+                transform: translateY(0px) scale(1) rotate(0deg); 
+            }
+            25% { 
+                transform: translateY(-8px) scale(1.02) rotate(1deg); 
+            }
+            50% { 
+                transform: translateY(-15px) scale(1.05) rotate(-1deg); 
+            }
+            75% { 
+                transform: translateY(-8px) scale(1.02) rotate(1deg); 
+            }
         }
         
         .animate-planet-bounce {
-            animation: planetBounce 4s ease-in-out infinite;
+            animation: planetBounce 5s ease-in-out infinite;
         }
         
+        /* Efecto de brillo pulsante para las cards */
+        @keyframes glow {
+            0%, 100% { 
+                box-shadow: 0 0 20px rgba(99, 102, 241, 0.4),
+                           0 0 40px rgba(99, 102, 241, 0.2),
+                           0 10px 50px rgba(0, 0, 0, 0.5);
+            }
+            50% { 
+                box-shadow: 0 0 30px rgba(99, 102, 241, 0.6),
+                           0 0 60px rgba(99, 102, 241, 0.4),
+                           0 15px 60px rgba(0, 0, 0, 0.6);
+            }
+        }
+        
+        /* Sistema de estrellas mejorado con múltiples capas y colores */
         .stars {
             position: fixed;
             top: 0;
@@ -22,6 +55,7 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
+            z-index: 1;
         }
         
         .star {
@@ -31,28 +65,209 @@
             animation: twinkle 3s infinite;
         }
         
+        /* Efecto de centelleo mejorado con variaciones */
         @keyframes twinkle {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 1; }
+            0%, 100% { 
+                opacity: 0.2; 
+                transform: scale(1);
+            }
+            50% { 
+                opacity: 1; 
+                transform: scale(1.2);
+            }
         }
         
-        @keyframes pathFlow {
-            0% { stroke-dashoffset: 20; }
-            100% { stroke-dashoffset: 0; }
+        /* Animación de estrella fugaz */
+        @keyframes shootingStar {
+            0% {
+                transform: translateX(0) translateY(0) rotate(-45deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(-500px) translateY(500px) rotate(-45deg);
+                opacity: 0;
+            }
         }
         
-        .animate-path-flow {
-            animation: pathFlow 3s linear infinite;
+        .shooting-star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            box-shadow: 0 0 4px 2px rgba(255, 255, 255, 0.8);
         }
         
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.9); }
-            to { opacity: 1; transform: scale(1); }
+        .shooting-star::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 80px;
+            height: 1px;
+            background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.8) 100%);
+        }
+        
+        /* Efecto de gradiente animado en el fondo */
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        
+        .animated-gradient {
+            background: linear-gradient(
+                135deg,
+                #1e1b4b 0%, 
+                #312e81 15%,
+                #1e3a8a 30%,
+                #1e40af 45%,
+                #1e1b4b 60%,
+                #581c87 75%,
+                #6b21a8 90%,
+                #000000 100%
+            );
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+        
+        /* Efecto hover mejorado para planetas con transformación 3D */
+        .planet-card {
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transform-style: preserve-3d;
+        }
+        
+        .planet-card:hover {
+            transform: translateY(-20px) scale(1.1) rotateX(5deg);
+            animation: glow 2s ease-in-out infinite;
+        }
+        
+        .planet-image {
+            transition: all 0.4s ease;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .planet-card:hover .planet-image {
+            border-color: rgba(255, 255, 255, 0.8);
+            transform: rotate(2deg) scale(1.05);
+        }
+        
+        /* Animación de entrada escalonada para los planetas */
+        @keyframes fadeInScale {
+            from { 
+                opacity: 0; 
+                transform: scale(0.5) translateY(50px);
+            }
+            to { 
+                opacity: 1; 
+                transform: scale(1) translateY(0);
+            }
         }
         
         .animate-fadeIn {
-            animation: fadeIn 0.5s ease-out;
+            animation: fadeInScale 0.6s ease-out forwards;
         }
+        
+        .mission-1 { animation-delay: 0.1s; }
+        .mission-2 { animation-delay: 0.2s; }
+        .mission-3 { animation-delay: 0.3s; }
+        .mission-4 { animation-delay: 0.4s; }
+        
+        /* Badge de número de misión con efecto de pulso */
+        @keyframes pulse {
+            0%, 100% { 
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+            }
+            50% { 
+                transform: scale(1.1);
+                box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
+            }
+        }
+        
+        .mission-badge {
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        /* Header con efecto de vidrio esmerilado mejorado */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3),
+                       inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Texto con efecto neón mejorado */
+        .neon-text {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            text-shadow: 
+                0 0 10px rgba(147, 197, 253, 0.8),
+                0 0 20px rgba(147, 197, 253, 0.6),
+                0 0 30px rgba(147, 197, 253, 0.4),
+                0 0 40px rgba(59, 130, 246, 0.3);
+            animation: neonFlicker 3s ease-in-out infinite;
+        }
+        
+        @keyframes neonFlicker {
+            0%, 100% { opacity: 1; }
+            45%, 55% { opacity: 0.9; }
+            50% { opacity: 0.95; }
+        }
+        
+        /* Info card con mejor contraste y efectos */
+        .info-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.85));
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4),
+                       0 0 20px rgba(99, 102, 241, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5),
+                       0 0 30px rgba(99, 102, 241, 0.5);
+        }
+        
+        /* Planet info card mejorada */
+        .planet-info {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.8));
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6),
+                       inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Botón de reset mejorado */
+        .reset-button {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
+            transition: all 0.3s ease;
+        }
+        
+        .reset-button:hover {
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+            box-shadow: 0 6px 25px rgba(239, 68, 68, 0.6);
+            transform: translateY(-2px) scale(1.05);
+        }
+        
+        /* Robot con animación de flotación */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(2deg); }
+        }
+        
+        .floating-robot {
+            animation: float 4s ease-in-out infinite;
+        }
+
         
         @media (max-width: 768px) {
             .mobile-planet-small { width: 100px !important; height: 100px !important; }
@@ -68,12 +283,25 @@
             color: inherit;
         }
 
+        /* Estado bloqueado mejorado con efecto visual claro */
         .locked {
-            filter: grayscale(100%);
+            filter: grayscale(100%) brightness(0.6);
             pointer-events: none;
             cursor: not-allowed;
-            opacity: 0.5;
+            opacity: 0.4;
             transition: all 0.3s ease-in-out;
+            position: relative;
+        }
+        
+        .locked::after {
+            content: '🔒';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3rem;
+            opacity: 0.8;
+            pointer-events: none;
         }
 
         .locked:hover {
@@ -81,217 +309,167 @@
         }
     </style>
 </head>
-<body class="min-h-screen bg-gradient-to-b from-purple-900 via-blue-900 to-black text-white overflow-hidden relative">
+<body class="min-h-screen animated-gradient text-white overflow-hidden relative">
+    <!-- Capa de estrellas con z-index mejorado -->
     <div class="stars" id="stars"></div>
     
-    <div id="game-content">
+    <div id="game-content" class="relative z-10">
+        <!-- Header mejorado con efecto de vidrio esmerilado -->
         <header class="relative z-10 p-3 md:p-6 m-2 md:m-4">
-            <div class="flex items-center justify-center md:justify-between flex-col md:flex-row gap-4">
-                <div class="flex items-center gap-4">
-                    <div class="text-3xl md:text-4xl">🚀</div>
-                    <div class="text-center md:text-left">
-                        <div class="neon-text text-lg md:text-2xl">EXPLORACIÓN</div>
-                        <div class="pixel-text text-sm md:text-lg">de Zython</div>
-                        <div class="text-xs md:text-sm text-white/70 drop-shadow mt-2">Explorador: <span id="player-name-display" class="text-yellow-300 font-semibold">Explorador 1</span></div>
-                    </div>
-                    <div class="side-text hidden md:block text-sm">
-                        Misiones Con Robots
+            <div class="glass-card rounded-2xl md:rounded-3xl p-4 md:p-6">
+                <div class="flex items-center justify-center md:justify-between flex-col md:flex-row gap-4">
+                    <div class="flex items-center gap-4">
+                        <div class="text-4xl md:text-5xl animate-planet-bounce">🚀</div>
+                        <div class="text-center md:text-left">
+                            <div class="neon-text text-2xl md:text-3xl tracking-wider">EXPLORACIÓN</div>
+                            <div class="text-lg md:text-2xl font-bold text-yellow-300 drop-shadow-lg">de Zython</div>
+                            <div class="text-xs md:text-sm text-white/90 drop-shadow mt-2 bg-black/40 px-3 py-1 rounded-full inline-block">
+                                Explorador: <span id="player-name-display" class="text-yellow-300 font-bold">Explorador 1</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </header>
 
-        <div class="fixed top-2 right-2 md:top-4 md:right-4 z-20 bg-white/80 backdrop-blur-sm border-2 md:border-4 border-white/40 rounded-xl md:rounded-2xl p-2 md:p-4 min-w-[160px] md:min-w-[200px]">
-            <div class="grid grid-cols-3 gap-2 md:gap-4 text-center">
-                <div>
-                    <div class="text-lg md:text-2xl font-bold text-yellow-600">4</div>
-                    <div class="text-[10px] md:text-xs text-gray-800 font-medium">🎯 Disponibles</div>
+        <!-- Card de estadísticas mejorada con gradientes y sombras -->
+        <div class="fixed top-2 right-2 md:top-4 md:right-4 z-20 info-card rounded-xl md:rounded-2xl p-3 md:p-5 min-w-[180px] md:min-w-[220px]">
+            <div class="grid grid-cols-3 gap-3 md:gap-4 text-center">
+                <div class="transform transition-all hover:scale-110">
+                    <div class="text-2xl md:text-3xl font-bold text-yellow-600 drop-shadow-lg">4</div>
+                    <div class="text-[10px] md:text-xs text-gray-800 font-semibold">🎯 Disponibles</div>
                 </div>
-                <div>
-                    <div class="text-lg md:text-2xl font-bold text-green-600" id="completed-count">0</div>
-                    <div class="text-[10px] md:text-xs text-gray-800 font-medium">⭐ Completadas</div>
+                <div class="transform transition-all hover:scale-110">
+                    <div class="text-2xl md:text-3xl font-bold text-green-600 drop-shadow-lg" id="completed-count">0</div>
+                    <div class="text-[10px] md:text-xs text-gray-800 font-semibold">⭐ Completadas</div>
                 </div>
-                <div>
-                    <div class="text-lg md:text-2xl font-bold text-purple-600" id="current-mission">1</div>
-                    <div class="text-[10px] md:text-xs text-gray-800 font-medium">🚀 Misión Actual</div>
+                <div class="transform transition-all hover:scale-110">
+                    <div class="text-2xl md:text-3xl font-bold text-purple-600 drop-shadow-lg" id="current-mission">1</div>
+                    <div class="text-[10px] md:text-xs text-gray-800 font-semibold">🚀 Misión Actual</div>
                 </div>
             </div>
         </div>
 
+        <!-- Planetas con clases de animación escalonada -->
         <div class="absolute top-[200px] md:top-[180px] left-0 right-0 bottom-0 p-4 md:p-10">
-            <div class="absolute top-[2%] left-[5%] md:top-[5%] md:left-[12%] w-[140px] md:w-[220px] z-10" data-mission-id="1">
+            <div class="absolute top-[2%] left-[5%] md:top-[5%] md:left-[12%] w-[140px] md:w-[220px] z-10 animate-fadeIn mission-1" data-mission-id="1">
                 <a href="mision1.html" class="mission-link">
-                    <div class="flex flex-col items-center cursor-pointer transition-all duration-400 hover:scale-110 hover:-translate-y-2 animate-planet-bounce">
-                        <div class="mobile-planet-large w-[140px] h-[140px] md:w-[220px] md:h-[220px] mb-2 md:mb-4 relative rounded-2xl md:rounded-3xl overflow-hidden transition-all duration-400 hover:scale-105 shadow-2xl">
-                            <img src="mision1.png" alt="Llanura de Vectonia" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex items-center justify-center text-4xl md:text-6xl bg-gradient-to-br from-pink-400 via-teal-400 to-green-400&quot;>🏔️</div>'">
+                    <div class="flex flex-col items-center cursor-pointer planet-card">
+                        <div class="mobile-planet-large w-[140px] h-[140px] md:w-[220px] md:h-[220px] mb-2 md:mb-4 relative rounded-3xl overflow-hidden planet-image shadow-2xl">
+                            <img src="mision1.png" alt="Llanura de Vectonia" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex items-center justify-center text-5xl md:text-7xl bg-gradient-to-br from-pink-500 via-teal-400 to-green-500&quot;>🏔️</div>'">
                         </div>
-                        <div class="text-center bg-black/80 px-2 py-2 md:px-4 md:py-3 rounded-xl md:rounded-2xl border-2 border-white/40 backdrop-blur-sm min-w-[120px] md:min-w-[180px]">
-                            <div class="mobile-text-small text-sm md:text-base font-bold mb-1 text-white drop-shadow-lg">Llanura de Vectonia</div>
-                            <div class="mobile-text-xs text-xs md:text-sm text-white/90 drop-shadow">Calibra tu RoverBot</div>
+                        <div class="text-center planet-info px-3 py-3 md:px-5 md:py-4 rounded-xl md:rounded-2xl min-w-[130px] md:min-w-[200px]">
+                            <div class="mobile-text-small text-sm md:text-lg font-bold mb-1 text-white drop-shadow-lg">Llanura de Vectonia</div>
+                            <div class="mobile-text-xs text-xs md:text-sm text-cyan-300 drop-shadow font-medium">Calibra tu RoverBot</div>
                         </div>
                     </div>
                 </a>
-                <div class="absolute -top-1 -right-1 md:-top-2 md:-right-2 w-8 h-8 md:w-11 md:h-11 rounded-full flex items-center justify-center text-sm md:text-xl font-bold border-2 md:border-3 border-white shadow-lg bg-gradient-to-br from-orange-400 to-orange-600">1</div>
+                <div class="mission-badge absolute -top-1 -right-1 md:-top-2 md:-right-2 w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center text-base md:text-xl font-bold border-3 border-white shadow-xl bg-gradient-to-br from-orange-400 to-orange-600">1</div>
             </div>
 
-            <div class="absolute top-[2%] right-[25%] md:top-[12%] md:right-[25%] w-[120px] md:w-[160px] z-10 locked" data-mission-id="2">
+            <div class="absolute top-[2%] right-[25%] md:top-[12%] md:right-[25%] w-[120px] md:w-[160px] z-10 animate-fadeIn mission-2 locked" data-mission-id="2">
                 <a href="mision2.html" class="mission-link">
-                    <div class="flex flex-col items-center cursor-pointer transition-all duration-400 hover:scale-110 hover:-translate-y-2 animate-planet-bounce">
-                        <div class="mobile-planet-medium w-[120px] h-[120px] md:w-[160px] md:h-[160px] mb-2 md:mb-4 relative rounded-2xl md:rounded-3xl overflow-hidden transition-all duration-400 hover:scale-105 shadow-2xl">
-                            <img src="mision2.png" alt="Paso de Zycurva" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex items-center justify-center text-4xl md:text-6xl bg-gradient-to-br from-pink-400 via-teal-400 to-green-400&quot;>🌀</div>'">
+                    <div class="flex flex-col items-center cursor-pointer planet-card">
+                        <div class="mobile-planet-medium w-[120px] h-[120px] md:w-[160px] md:h-[160px] mb-2 md:mb-4 relative rounded-3xl overflow-hidden planet-image shadow-2xl">
+                            <img src="mision2.png" alt="Paso de Zycurva" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex items-center justify-center text-4xl md:text-6xl bg-gradient-to-br from-blue-500 via-purple-400 to-pink-500&quot;>🌀</div>'">
                         </div>
-                        <div class="text-center bg-black/80 px-2 py-2 md:px-4 md:py-3 rounded-xl md:rounded-2xl border-2 border-white/40 backdrop-blur-sm min-w-[100px] md:min-w-[140px]">
-                            <div class="mobile-text-small text-xs md:text-sm font-bold mb-1 text-white drop-shadow-lg">Paso de Zycurva</div>
-                            <div class="mobile-text-xs text-[10px] md:text-xs text-white/90 drop-shadow">¡Activa la conexión!</div>
+                        <div class="text-center planet-info px-3 py-2 md:px-4 md:py-3 rounded-xl md:rounded-2xl min-w-[110px] md:min-w-[150px]">
+                            <div class="mobile-text-small text-xs md:text-base font-bold mb-1 text-white drop-shadow-lg">Paso de Zycurva</div>
+                            <div class="mobile-text-xs text-[10px] md:text-xs text-cyan-300 drop-shadow font-medium">¡Activa la conexión!</div>
                         </div>
                     </div>
                 </a>
-                <div class="absolute -top-1 -right-1 md:-top-2 md:-right-2 w-8 h-8 md:w-11 md:h-11 rounded-full flex items-center justify-center text-sm md:text-xl font-bold border-2 md:border-3 border-white shadow-lg bg-gradient-to-br from-blue-400 to-blue-600">2</div>
+                <div class="mission-badge absolute -top-1 -right-1 md:-top-2 md:-right-2 w-9 h-9 md:w-12 md:h-12 rounded-full flex items-center justify-center text-base md:text-xl font-bold border-3 border-white shadow-xl bg-gradient-to-br from-blue-400 to-blue-600">2</div>
             </div>
 
-            <div class="absolute bottom-[40%] left-[10%] md:bottom-[30%] md:left-[28%] w-[100px] md:w-[140px] z-10 locked" data-mission-id="3">
+            <div class="absolute bottom-[40%] left-[10%] md:bottom-[30%] md:left-[28%] w-[100px] md:w-[140px] z-10 animate-fadeIn mission-3 locked" data-mission-id="3">
                 <a href="mision3.html" class="mission-link">
-                    <div class="flex flex-col items-center cursor-pointer transition-all duration-400 hover:scale-110 hover:-translate-y-2 animate-planet-bounce">
-                        <div class="mobile-planet-small w-[100px] h-[100px] md:w-[140px] md:h-[140px] mb-2 md:mb-4 relative rounded-2xl md:rounded-3xl overflow-hidden transition-all duration-400 hover:scale-105 shadow-2xl">
-                            <img src="mision3.png" alt="Cráter del Sensorium" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex items-center justify-center text-4xl md:text-6xl bg-gradient-to-br from-pink-400 via-teal-400 to-green-400&quot;>🕳️</div>'">
+                    <div class="flex flex-col items-center cursor-pointer planet-card">
+                        <div class="mobile-planet-small w-[100px] h-[100px] md:w-[140px] md:h-[140px] mb-2 md:mb-4 relative rounded-3xl overflow-hidden planet-image shadow-2xl">
+                            <img src="mision3.png" alt="Cráter del Sensorium" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex items-center justify-center text-4xl md:text-6xl bg-gradient-to-br from-purple-500 via-pink-400 to-red-500&quot;>🕳️</div>'">
                         </div>
-                        <div class="text-center bg-black/80 px-2 py-2 md:px-4 md:py-3 rounded-xl md:rounded-2xl border-2 border-white/40 backdrop-blur-sm min-w-[80px] md:min-w-[120px]">
+                        <div class="text-center planet-info px-2 py-2 md:px-4 md:py-3 rounded-xl md:rounded-2xl min-w-[90px] md:min-w-[130px]">
                             <div class="mobile-text-small text-xs md:text-sm font-bold mb-1 text-white drop-shadow-lg">Cráter del Sensorium</div>
-                            <div class="mobile-text-xs text-[10px] md:text-xs text-white/90 drop-shadow">¡Detente a tiempo!</div>
+                            <div class="mobile-text-xs text-[10px] md:text-xs text-cyan-300 drop-shadow font-medium">¡Detente a tiempo!</div>
                         </div>
                     </div>
                 </a>
-                <div class="absolute -top-1 -right-1 md:-top-2 md:-right-2 w-7 h-7 md:w-10 md:h-10 rounded-full flex items-center justify-center text-sm md:text-lg font-bold border-2 md:border-3 border-white shadow-lg bg-gradient-to-br from-purple-400 to-purple-600">3</div>
+                <div class="mission-badge absolute -top-1 -right-1 md:-top-2 md:-right-2 w-8 h-8 md:w-11 md:h-11 rounded-full flex items-center justify-center text-sm md:text-lg font-bold border-3 border-white shadow-xl bg-gradient-to-br from-purple-400 to-purple-600">3</div>
             </div>
 
-            <div class="absolute bottom-[25%] right-[25%] md:bottom-[17%] md:right-[35%] w-[120px] md:w-[190px] z-10 locked" data-mission-id="4">
+            <div class="absolute bottom-[25%] right-[25%] md:bottom-[17%] md:right-[35%] w-[120px] md:w-[190px] z-10 animate-fadeIn mission-4 locked" data-mission-id="4">
                 <a href="mision4.html" class="mission-link">
-                    <div class="flex flex-col items-center cursor-pointer transition-all duration-400 hover:scale-110 hover:-translate-y-2 animate-planet-bounce">
-                        <div class="mobile-planet-medium w-[120px] h-[120px] md:w-[190px] md:h-[190px] mb-2 md:mb-4 relative rounded-2xl md:rounded-3xl overflow-hidden transition-all duration-400 hover:scale-105 shadow-2xl">
-                            <img src="mision4.png" alt="Estación de Transferencia" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex items-center justify-center text-4xl md:text-6xl bg-gradient-to-br from-pink-400 via-teal-400 to-green-400&quot;>🚛</div>'">
+                    <div class="flex flex-col items-center cursor-pointer planet-card">
+                        <div class="mobile-planet-medium w-[120px] h-[120px] md:w-[190px] md:h-[190px] mb-2 md:mb-4 relative rounded-3xl overflow-hidden planet-image shadow-2xl">
+                            <img src="mision4.png" alt="Estación de Transferencia" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex items-center justify-center text-5xl md:text-7xl bg-gradient-to-br from-green-500 via-emerald-400 to-teal-500&quot;>🚛</div>'">
                         </div>
-                        <div class="text-center bg-black/80 px-2 py-2 md:px-4 md:py-3 rounded-xl md:rounded-2xl border-2 border-white/40 backdrop-blur-sm min-w-[100px] md:min-w-[170px]">
+                        <div class="text-center planet-info px-3 py-2 md:px-4 md:py-3 rounded-xl md:rounded-2xl min-w-[110px] md:min-w-[180px]">
                             <div class="mobile-text-small text-sm md:text-base font-bold mb-1 text-white drop-shadow-lg">Estación de Transferencia</div>
-                            <div class="mobile-text-xs text-[10px] md:text-xs text-white/90 drop-shadow">Transporte en equipo</div>
+                            <div class="mobile-text-xs text-[10px] md:text-xs text-cyan-300 drop-shadow font-medium">Transporte en equipo</div>
                         </div>
                     </div>
                 </a>
-                <div class="absolute -top-1 -right-1 md:-top-2 md:-right-2 w-8 h-8 md:w-11 md:h-11 rounded-full flex items-center justify-center text-sm md:text-xl font-bold border-2 md:border-3 border-white shadow-lg bg-gradient-to-br from-green-400 to-green-600">4</div>
+                <div class="mission-badge absolute -top-1 -right-1 md:-top-2 md:-right-2 w-9 h-9 md:w-12 md:h-12 rounded-full flex items-center justify-center text-base md:text-xl font-bold border-3 border-white shadow-xl bg-gradient-to-br from-green-400 to-green-600">4</div>
             </div>
 
-            <div class="absolute bottom-2 right-2 md:bottom-4 md:right-4 w-[120px] h-[120px] md:w-[500px] md:h-[500px] z-10">
-                <img src="robot.png" alt="Robot Compañero" class="w-full h-full object-contain" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex items-center justify-center text-6xl md:text-9xl&quot;>🤖</div>'">
+            <!-- Robot con animación de flotación -->
+            <div class="absolute bottom-2 right-2 md:bottom-4 md:right-4 w-[120px] h-[120px] md:w-[500px] md:h-[500px] z-10 floating-robot">
+                <img src="robot.png" alt="Robot Compañero" class="w-full h-full object-contain drop-shadow-2xl" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex items-center justify-center text-6xl md:text-9xl&quot;>🤖</div>'">
             </div>
         </div>
     </div>
     
-    <button id="reset-button" class="fixed bottom-4 left-4 z-30 px-4 py-2 bg-red-600 text-white rounded-full shadow-lg hover:bg-red-700 transition-colors duration-300">
+    <!-- Botón de reset mejorado con clases personalizadas -->
+    <button id="reset-button" class="reset-button fixed bottom-4 left-4 z-30 px-5 py-3 text-white rounded-full font-bold text-sm md:text-base">
         🔄 Reiniciar
     </button>
 
     <script>
         function createStars() {
             const starsContainer = document.getElementById('stars');
-            for (let i = 0; i < 100; i++) {
+            const colors = ['#ffffff', '#ffe9c4', '#d4f1f9', '#ffd9e8'];
+            
+            for (let i = 0; i < 150; i++) {
                 const star = document.createElement('div');
                 star.className = 'star';
                 star.style.left = Math.random() * 100 + '%';
                 star.style.top = Math.random() * 100 + '%';
-                star.style.width = Math.random() * 3 + 1 + 'px';
-                star.style.height = star.style.width;
+                const size = Math.random() * 3 + 1;
+                star.style.width = size + 'px';
+                star.style.height = size + 'px';
                 star.style.animationDelay = Math.random() * 3 + 's';
+                star.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                star.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
                 starsContainer.appendChild(star);
             }
         }
-
-        function getPlayerProgress(playerName) {
-            try {
-                const players = JSON.parse(localStorage.getItem('zython-players') || '{}');
-                const progress = players[playerName];
-                if (progress) {
-                    return progress;
-                }
-                
-                // Si el jugador no existe, crea un nuevo progreso inicial
-                return {
-                    completedMissions: [],
-                    completed: 0,
-                    currentMission: 0 // Inicia en 0 para que la Misión 0 esté disponible
-                };
-            } catch (error) {
-                console.error('Error loading progress:', error);
-                return {
-                    completedMissions: [],
-                    completed: 0,
-                    currentMission: 0
-                };
-            }
-        }
-
-        function savePlayerProgress(playerName, progress) {
-            try {
-                const players = JSON.parse(localStorage.getItem('zython-players') || '{}');
-                players[playerName] = progress;
-                localStorage.setItem('zython-players', JSON.stringify(players));
-            } catch (error) {
-                console.error('Error saving progress:', error);
-            }
-        }
-
-        function setupGame(playerName) {
-            document.getElementById('player-name-display').textContent = playerName;
+        
+        function createShootingStar() {
+            const starsContainer = document.getElementById('stars');
+            const shootingStar = document.createElement('div');
+            shootingStar.className = 'shooting-star';
+            shootingStar.style.left = Math.random() * 100 + '%';
+            shootingStar.style.top = Math.random() * 50 + '%';
+            shootingStar.style.animation = 'shootingStar 1s ease-out forwards';
+            starsContainer.appendChild(shootingStar);
             
-            // Carga el progreso del jugador
-            const progress = getPlayerProgress(playerName);
-            
-            // Si el jugador es nuevo, lo redirige a la Misión 0
-            if (progress.completedMissions.length === 0) {
-                window.location.href = 'mision0.html';
-                return;
-            }
-            
-            updateMissionsState(progress);
-        }
-
-        function updateMissionsState(progress) {
-            const missions = document.querySelectorAll('[data-mission-id]');
-            const completedCountDisplay = document.getElementById('completed-count');
-            const currentMissionDisplay = document.getElementById('current-mission');
-
-            completedCountDisplay.textContent = progress.completed;
-            currentMissionDisplay.textContent = progress.currentMission;
-
-            missions.forEach(mission => {
-                const missionId = parseInt(mission.dataset.missionId);
-                const isCompleted = progress.completedMissions.includes(missionId);
-                const isAvailable = missionId <= progress.currentMission;
-
-                if (isAvailable || isCompleted) {
-                    mission.classList.remove('locked');
-                    const link = mission.querySelector('.mission-link');
-                    if (link) {
-                        link.href = `mision${missionId}.html`;
-                    }
-                } else {
-                    mission.classList.add('locked');
-                    const link = mission.querySelector('.mission-link');
-                    if (link) {
-                        link.href = '#';
-                    }
-                }
-            });
+            setTimeout(() => {
+                shootingStar.remove();
+            }, 1000);
         }
         
-        function resetGame() {
-            const currentPlayer = localStorage.getItem('zython-current-player');
-            if (currentPlayer) {
-                localStorage.removeItem('zython-players');
-            }
-            window.location.reload();
+        function startShootingStars() {
+            setInterval(() => {
+                if (Math.random() > 0.7) {
+                    createShootingStar();
+                }
+            }, 3000);
         }
+
 
         function initialize() {
             createStars();
+            startShootingStars();
             const playerName = "Explorador 1";
             localStorage.setItem('zython-current-player', playerName);
             setupGame(playerName);
