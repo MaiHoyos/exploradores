@@ -307,6 +307,23 @@
         .locked:hover {
             transform: none !important;
         }
+
+        /* Estilos para el botón de control de sonido */
+        .sound-toggle {
+            background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+            transition: all 0.3s ease;
+        }
+        
+        .sound-toggle:hover {
+            background: linear-gradient(135deg, #7c3aed, #5b21b6);
+            box-shadow: 0 6px 25px rgba(139, 92, 246, 0.6);
+            transform: translateY(-2px) scale(1.05);
+        }
+
+        .sound-toggle.active {
+            background: linear-gradient(135deg, #10b981, #059669);
+        }
     </style>
 </head>
 <body class="min-h-screen animated-gradient text-white overflow-x-hidden relative">
@@ -428,7 +445,138 @@
         🔄 Reiniciar
     </button>
 
+    <!-- Botón para activar/desactivar sonido -->
+    <button id="sound-toggle" class="sound-toggle fixed bottom-4 left-24 md:left-32 z-30 px-5 py-3 text-white rounded-full font-bold text-sm md:text-base">
+        🔇 Sonido
+    </button>
+
     <script>
+        class RetroAudioSystem {
+            constructor() {
+                this.audioContext = null;
+                this.isEnabled = false;
+                this.isMusicPlaying = false;
+                this.musicInterval = null;
+            }
+
+            init() {
+                if (!this.audioContext) {
+                    this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                }
+                this.isEnabled = true;
+                return this.audioContext;
+            }
+
+            playTone(frequency, duration, volume = 0.1, type = 'square') {
+                if (!this.isEnabled || !this.audioContext) return;
+
+                const oscillator = this.audioContext.createOscillator();
+                const gainNode = this.audioContext.createGain();
+                
+                oscillator.type = type;
+                oscillator.frequency.setValueAtTime(frequency, this.audioContext.currentTime);
+                
+                gainNode.gain.setValueAtTime(volume, this.audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.001, this.audioContext.currentTime + duration);
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(this.audioContext.destination);
+                
+                oscillator.start(this.audioContext.currentTime);
+                oscillator.stop(this.audioContext.currentTime + duration);
+            }
+
+            // Sonido de hover sobre planetas
+            playHoverSound() {
+                this.playTone(800, 0.1, 0.08);
+            }
+
+            // Sonido de clic en planeta
+            playClickSound() {
+                this.playTone(1200, 0.05, 0.12);
+                setTimeout(() => this.playTone(1500, 0.08, 0.1), 50);
+            }
+
+            // Sonido de estrella fugaz
+            playShootingStarSound() {
+                if (!this.isEnabled || !this.audioContext) return;
+                
+                const now = this.audioContext.currentTime;
+                const oscillator = this.audioContext.createOscillator();
+                const gainNode = this.audioContext.createGain();
+                
+                oscillator.type = 'sine';
+                oscillator.frequency.setValueAtTime(1000, now);
+                oscillator.frequency.exponentialRampToValueAtTime(200, now + 0.5);
+                
+                gainNode.gain.setValueAtTime(0.05, now);
+                gainNode.gain.exponentialRampToValueAtTime(0.001, now + 0.5);
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(this.audioContext.destination);
+                
+                oscillator.start(now);
+                oscillator.stop(now + 0.5);
+            }
+
+            // Música de fondo estilo espacial 8-bit
+            startBackgroundMusic() {
+                if (!this.isEnabled || this.isMusicPlaying) return;
+                
+                this.isMusicPlaying = true;
+                const melodyNotes = [
+                    { freq: 523, dur: 0.3 },  // C5
+                    { freq: 587, dur: 0.3 },  // D5
+                    { freq: 659, dur: 0.3 },  // E5
+                    { freq: 784, dur: 0.3 },  // G5
+                    { freq: 659, dur: 0.3 },  // E5
+                    { freq: 587, dur: 0.3 },  // D5
+                    { freq: 523, dur: 0.6 },  // C5
+                ];
+                
+                let noteIndex = 0;
+                let time = 0;
+                
+                const playNextNote = () => {
+                    if (!this.isMusicPlaying) return;
+                    
+                    const note = melodyNotes[noteIndex];
+                    this.playTone(note.freq, note.dur, 0.03, 'triangle');
+                    
+                    noteIndex = (noteIndex + 1) % melodyNotes.length;
+                    time += note.dur * 1000;
+                    
+                    this.musicInterval = setTimeout(playNextNote, note.dur * 1000);
+                };
+                
+                playNextNote();
+            }
+
+            stopBackgroundMusic() {
+                this.isMusicPlaying = false;
+                if (this.musicInterval) {
+                    clearTimeout(this.musicInterval);
+                    this.musicInterval = null;
+                }
+            }
+
+            toggle() {
+                this.isEnabled = !this.isEnabled;
+                
+                if (this.isEnabled) {
+                    this.init();
+                    this.startBackgroundMusic();
+                } else {
+                    this.stopBackgroundMusic();
+                }
+                
+                return this.isEnabled;
+            }
+        }
+
+        // Crear instancia del sistema de audio
+        const audioSystem = new RetroAudioSystem();
+        
         function createStars() {
             const starsContainer = document.getElementById('stars');
             const colors = ['#ffffff', '#ffe9c4', '#d4f1f9', '#ffd9e8'];
@@ -456,6 +604,8 @@
             shootingStar.style.top = Math.random() * 50 + '%';
             shootingStar.style.animation = 'shootingStar 1s ease-out forwards';
             starsContainer.appendChild(shootingStar);
+            
+            audioSystem.playShootingStarSound();
             
             setTimeout(() => {
                 shootingStar.remove();
@@ -544,6 +694,26 @@
             });
         }
 
+        function addSoundEffectsToPlanets() {
+            const planetCards = document.querySelectorAll('.planet-card');
+            
+            planetCards.forEach(card => {
+                // Sonido al pasar el mouse
+                card.addEventListener('mouseenter', () => {
+                    if (!card.closest('.locked')) {
+                        audioSystem.playHoverSound();
+                    }
+                });
+                
+                // Sonido al hacer clic
+                card.addEventListener('click', (e) => {
+                    if (!card.closest('.locked')) {
+                        audioSystem.playClickSound();
+                    }
+                });
+            });
+        }
+
         function initialize() {
             createStars();
             startShootingStars();
@@ -552,6 +722,21 @@
             setupGame(playerName);
             
             document.getElementById('reset-button').addEventListener('click', resetGame);
+            
+            // Botón de control de sonido
+            const soundToggle = document.getElementById('sound-toggle');
+            soundToggle.addEventListener('click', () => {
+                const isEnabled = audioSystem.toggle();
+                soundToggle.textContent = isEnabled ? '🔊 Sonido' : '🔇 Sonido';
+                soundToggle.classList.toggle('active', isEnabled);
+                
+                // Reproducir sonido de confirmación
+                if (isEnabled) {
+                    audioSystem.playClickSound();
+                }
+            });
+            
+            addSoundEffectsToPlanets();
         }
 
         document.addEventListener('DOMContentLoaded', initialize);
