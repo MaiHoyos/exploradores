@@ -5,20 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Misión 0: Ensamblaje del Robot - Zython</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        * {
+            font-family: 'Fredoka', sans-serif;
+        }
+        
+        /* Agregado fondo con gradiente animado y efectos profesionales */
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        body {
+            background: linear-gradient(-45deg, #1a0b2e, #16213e, #0f3460, #533483);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+        
         @keyframes float {
             0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
+            50% { transform: translateY(-20px); }
         }
         
         @keyframes pulse-glow {
-            0%, 100% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.5); }
-            50% { box-shadow: 0 0 30px rgba(59, 130, 246, 0.8); }
+            0%, 100% { box-shadow: 0 0 30px rgba(59, 130, 246, 0.6), 0 0 60px rgba(147, 51, 234, 0.4); }
+            50% { box-shadow: 0 0 50px rgba(59, 130, 246, 0.9), 0 0 90px rgba(147, 51, 234, 0.6); }
         }
         
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes fadeInScale {
+            from { 
+                opacity: 0; 
+                transform: translateY(30px) scale(0.95); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0) scale(1); 
+            }
         }
         
         @keyframes fadeIn {
@@ -26,11 +51,23 @@
             to { opacity: 1; }
         }
         
-        .animate-float { animation: float 3s ease-in-out infinite; }
-        .animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
-        .animate-slide-in { animation: slideIn 0.8s ease-out; }
-        .animate-fade-in { animation: fadeIn 1s ease-out; }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
         
+        @keyframes shimmer {
+            0% { background-position: -1000px 0; }
+            100% { background-position: 1000px 0; }
+        }
+        
+        .animate-float { animation: float 4s ease-in-out infinite; }
+        .animate-pulse-glow { animation: pulse-glow 3s ease-in-out infinite; }
+        .animate-fade-in-scale { animation: fadeInScale 0.8s ease-out; }
+        .animate-fade-in { animation: fadeIn 1.2s ease-out; }
+        .animate-bounce { animation: bounce 2s ease-in-out infinite; }
+        
+        /* Estrellas mejoradas con brillo */
         .stars {
             position: fixed;
             top: 0;
@@ -46,48 +83,120 @@
             background: white;
             border-radius: 50%;
             animation: twinkle 3s infinite;
+            box-shadow: 0 0 4px rgba(255, 255, 255, 0.8);
         }
         
         @keyframes twinkle {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 1; }
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+        
+        /* Estrellas fugaces */
+        @keyframes shootingStar {
+            0% {
+                transform: translateX(0) translateY(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(-300px) translateY(300px);
+                opacity: 0;
+            }
+        }
+        
+        .shooting-star {
+            position: fixed;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.8);
+            animation: shootingStar 1s linear;
+            z-index: 1;
         }
 
+        /* Video con efectos de vidrio y sombras profesionales */
         .video-container {
             position: relative;
             width: 100%;
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
-            border-radius: 20px;
+            border-radius: 24px;
             overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
         }
 
         .video-overlay {
             position: absolute;
             inset: 0;
-            background: linear-gradient(45deg, rgba(59, 130, 246, 0.1), rgba(147, 51, 234, 0.1));
-            border-radius: 20px;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(147, 51, 234, 0.1));
+            border-radius: 24px;
             pointer-events: none;
         }
 
         iframe {
             width: 100%;
-            height: 450px; /* tamaño grande como pediste */
+            height: 500px;
             display: block;
+        }
+        
+        /* Cards con efecto de vidrio esmerilado */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Botones 3D con sombras y efectos hover mejorados */
+        .btn-3d {
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 0 rgba(0, 0, 0, 0.3), 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn-3d:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 0 rgba(0, 0, 0, 0.3), 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn-3d:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 rgba(0, 0, 0, 0.3), 0 5px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Imágenes con hover effect mejorado */
+        .image-hover {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .image-hover:hover {
+            transform: scale(1.05) translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+        
+        /* Texto con efecto de brillo sutil */
+        .text-glow {
+            text-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+        }
+        
+        @media (max-width: 768px) {
+            iframe {
+                height: 300px;
+            }
         }
     </style>
 </head>
-<body class="min-h-screen bg-gradient-to-b from-purple-900 via-blue-900 to-black text-white overflow-x-hidden">
+<body class="min-h-screen text-white overflow-x-hidden">
     <div class="stars" id="stars"></div>
     
     <div class="relative z-10 min-h-screen flex flex-col">
         
         <!-- Paso 1: Video introductorio -->
         <div id="step-1" class="step-container min-h-screen flex flex-col items-center justify-center p-6">
-            <div class="max-w-5xl text-center animate-slide-in">
-                <div class="text-6xl mb-6 animate-float">🌌</div>
-                <h1 class="text-4xl md:text-6xl font-bold mb-8 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+            <div class="max-w-5xl text-center animate-fade-in-scale">
+                <div class="text-7xl mb-6 animate-float">🌌</div>
+                <h1 class="text-5xl md:text-7xl font-bold mb-8 bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent text-glow">
                     Bienvenido a Zython
                 </h1>
                 
@@ -104,20 +213,20 @@
                     </iframe>
                 </div>
 
-                <div id="loading-message" class="text-lg text-white/70 mb-4">
+                <div id="loading-message" class="text-xl text-white/80 mb-6 animate-bounce">
                     🛰️ Estableciendo conexión con la Estación Espacial...
                 </div>
 
                 <div id="video-controls" class="flex justify-center gap-4 mb-8 hidden">
-                    <button onclick="restartVideo()" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-xl font-bold transition-all duration-300 transform hover:scale-105">
+                    <button onclick="restartVideo()" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-xl font-bold transition-all duration-300 transform hover:scale-105 btn-3d">
                         🔄 Reiniciar
                     </button>
-                    <button onclick="skipVideo()" class="px-6 py-3 bg-red-600 hover:bg-red-700 rounded-xl font-bold transition-all duration-300 transform hover:scale-105">
+                    <button onclick="skipVideo()" class="px-6 py-3 bg-red-600 hover:bg-red-700 rounded-xl font-bold transition-all duration-300 transform hover:scale-105 btn-3d">
                         ⏭️ Saltar Video
                     </button>
                 </div>
 
-                <button id="continue-btn" onclick="nextStep()" class="px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 rounded-xl font-bold text-xl transition-all duration-300 transform hover:scale-105 animate-pulse-glow hidden">
+                <button id="continue-btn" onclick="nextStep()" class="px-10 py-5 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 rounded-2xl font-bold text-2xl transition-all duration-300 transform hover:scale-105 animate-pulse-glow hidden btn-3d">
                     🚀 Comenzar Misión
                 </button>
             </div>
@@ -125,29 +234,29 @@
 
         <!-- Paso 2: Briefing misión -->
         <div id="step-2" class="step-container min-h-screen flex-col items-center justify-center p-6 hidden">
-            <div class="max-w-4xl text-center animate-slide-in">
-                <div class="text-6xl mb-6 animate-float">🎯</div>
-                <h2 class="text-3xl md:text-5xl font-bold mb-6 text-yellow-300">
+            <div class="max-w-4xl text-center animate-fade-in-scale">
+                <div class="text-7xl mb-6 animate-float">🎯</div>
+                <h2 class="text-4xl md:text-6xl font-bold mb-6 text-yellow-300 text-glow">
                     MISIÓN 0: Ensamblaje del Robot
                 </h2>
-                <div class="bg-white/10 backdrop-blur-md border-2 border-white/30 rounded-3xl p-8 mb-8">
+                <div class="glass-card rounded-3xl p-8 mb-8">
                     <div class="text-lg md:text-xl text-white/90 mb-6 leading-relaxed">
-                        <p class="mb-4"><span class="text-red-400 font-bold">⚠️ CRÍTICO:</span> Sin tu robot compañero, las misiones en Zython son imposibles.</p>
+                        <p class="mb-4"><span class="text-red-400 font-bold text-2xl">⚠️ CRÍTICO:</span> Sin tu robot compañero, las misiones en Zython son imposibles.</p>
                         <p class="mb-4">Tu RoverBot debe ser ensamblado siguiendo las instrucciones oficiales de construcción.</p>
                         <p>Una vez ensamblado, podrás explorar los cuatro territorios principales de Zython.</p>
                     </div>
                     <div class="grid md:grid-cols-2 gap-6 text-left">
-                        <div class="bg-blue-600/30 rounded-2xl p-4">
-                            <div class="text-xl font-bold mb-2">📋 Especificaciones</div>
-                            <ul class="text-white/80 space-y-1">
+                        <div class="glass-card rounded-2xl p-6 hover:scale-105 transition-transform duration-300">
+                            <div class="text-2xl font-bold mb-3 text-cyan-300">📋 Especificaciones</div>
+                            <ul class="text-white/80 space-y-2 text-lg">
                                 <li>• Estructura estable para exploración</li>
                                 <li>• Motores correctamente conectados</li>
                                 <li>• Hub listo para programación</li>
                             </ul>
                         </div>
-                        <div class="bg-purple-600/30 rounded-2xl p-4">
-                            <div class="text-xl font-bold mb-2">🎯 Objetivo</div>
-                            <ul class="text-white/80 space-y-1">
+                        <div class="glass-card rounded-2xl p-6 hover:scale-105 transition-transform duration-300">
+                            <div class="text-2xl font-bold mb-3 text-purple-300">🎯 Objetivo</div>
+                            <ul class="text-white/80 space-y-2 text-lg">
                                 <li>• Seguir imágenes paso a paso</li>
                                 <li>• Verificar cada conexión</li>
                                 <li>• Finalizar el modelo Milo correctamente</li>
@@ -156,7 +265,7 @@
                         </div>
                     </div>
                 </div>
-                <button onclick="nextStep()" class="px-8 py-4 bg-gradient-to-r from-green-500 to-blue-600 hover:from-green-600 hover:to-blue-700 rounded-xl font-bold text-xl transition-all duration-300 transform hover:scale-105">
+                <button onclick="nextStep()" class="px-10 py-5 bg-gradient-to-r from-green-500 to-blue-600 hover:from-green-600 hover:to-blue-700 rounded-2xl font-bold text-2xl transition-all duration-300 transform hover:scale-105 btn-3d">
                     🔧 Iniciar Ensamblaje
                 </button>
             </div>
@@ -164,176 +273,176 @@
 
         <!-- Paso 3: Instrucciones con imágenes Milo -->
         <div id="step-3" class="step-container min-h-screen flex-col items-center justify-center p-6 hidden">
-            <div class="max-w-6xl w-full animate-slide-in">
+            <div class="max-w-6xl w-full animate-fade-in-scale">
                 <div class="text-center mb-8">
-                    <div class="text-5xl mb-4 animate-float">🤖</div>
-                    <h2 class="text-3xl md:text-4xl font-bold mb-4 text-cyan-300">
+                    <div class="text-6xl mb-4 animate-float">🤖</div>
+                    <h2 class="text-4xl md:text-5xl font-bold mb-4 text-cyan-300 text-glow">
                         Construye tu robot siguiendo las imágenes
                     </h2>
-                    <div class="text-lg text-white/80">
+                    <div class="text-2xl text-white/90 mb-2">
                         Paso <span id="current-step" class="text-yellow-300 font-bold">1</span> de <span class="text-yellow-300 font-bold">10</span>
                     </div>
-                    <p class="mt-2 text-sm text-white/60">
+                    <p class="mt-2 text-lg text-white/70">
                         Usa los botones para avanzar. Cada pantalla muestra 2 o 3 pasos oficiales de construcción.
                     </p>
                 </div>
 
-                <div class="bg-white/10 backdrop-blur-md border-2 border-white/30 rounded-3xl p-6 md:p-8">
+                <div class="glass-card rounded-3xl p-8">
                     <!-- Grupos Milo -->
                     <div id="assembly-step-1" class="assembly-step">
-                        <div class="mb-4 text-xl font-bold text-yellow-300 text-center">Pasos 1 a 3</div>
-                        <div class="grid md:grid-cols-3 gap-4 items-start">
-                            <img src="Milo/1.jpg" class="w-full rounded-xl shadow-lg mx-auto" alt="Milo Paso 1">
-                            <img src="Milo/2.jpg" class="w-full rounded-xl shadow-lg mx-auto" alt="Milo Paso 2">
-                            <img src="Milo/3.jpg" class="w-full rounded-xl shadow-lg mx-auto" alt="Milo Paso 3">
+                        <div class="mb-6 text-2xl font-bold text-yellow-300 text-center">Pasos 1 a 3</div>
+                        <div class="grid md:grid-cols-3 gap-6 items-start">
+                            <img src="Milo/1.jpg" class="w-full rounded-2xl shadow-lg mx-auto image-hover" alt="Milo Paso 1">
+                            <img src="Milo/2.jpg" class="w-full rounded-2xl shadow-lg mx-auto image-hover" alt="Milo Paso 2">
+                            <img src="Milo/3.jpg" class="w-full rounded-2xl shadow-lg mx-auto image-hover" alt="Milo Paso 3">
                         </div>
-                        <p class="mt-4 text-[10px] md:text-xs text-white/60 text-center">
+                        <p class="mt-6 text-xs md:text-sm text-white/60 text-center leading-relaxed">
                             Imagen ©2015 The LEGO Group. Usada con fines educativos y sin ánimo de lucro. Fuente: Instrucciones de construcción del set LEGO® Education WeDo 2.0 (45300)
                         </p>
                     </div>
 
                     <div id="assembly-step-2" class="assembly-step hidden">
-                        <div class="mb-4 text-xl font-bold text-yellow-300 text-center">Pasos 4 a 6</div>
-                        <div class="grid md:grid-cols-3 gap-4">
-                            <img src="Milo/4.jpg" class="w-full rounded-xl shadow-lg mx-auto" alt="Milo Paso 4">
-                            <img src="Milo/5.jpg" class="w-full rounded-xl shadow-lg mx-auto" alt="Milo Paso 5">
-                            <img src="Milo/6.jpg" class="w-full rounded-xl shadow-lg mx-auto" alt="Milo Paso 6">
+                        <div class="mb-6 text-2xl font-bold text-yellow-300 text-center">Pasos 4 a 6</div>
+                        <div class="grid md:grid-cols-3 gap-6">
+                            <img src="Milo/4.jpg" class="w-full rounded-2xl shadow-lg mx-auto image-hover" alt="Milo Paso 4">
+                            <img src="Milo/5.jpg" class="w-full rounded-2xl shadow-lg mx-auto image-hover" alt="Milo Paso 5">
+                            <img src="Milo/6.jpg" class="w-full rounded-2xl shadow-lg mx-auto image-hover" alt="Milo Paso 6">
                         </div>
-                        <p class="mt-4 text-[10px] md:text-xs text-white/60 text-center">
+                        <p class="mt-6 text-xs md:text-sm text-white/60 text-center leading-relaxed">
                             Imagen ©2015 The LEGO Group. Usada con fines educativos y sin ánimo de lucro. Fuente: Instrucciones de construcción del set LEGO® Education WeDo 2.0 (45300)
                         </p>
                     </div>
 
                     <div id="assembly-step-3" class="assembly-step hidden">
-                        <div class="mb-4 text-xl font-bold text-yellow-300 text-center">Pasos 7 a 9</div>
-                        <div class="grid md:grid-cols-3 gap-4">
-                            <img src="Milo/7.jpg" class="w-full rounded-xl shadow-lg mx-auto" alt="Milo Paso 7">
-                            <img src="Milo/8.jpg" class="w-full rounded-xl shadow-lg mx-auto" alt="Milo Paso 8">
-                            <img src="Milo/9.jpg" class="w-full rounded-xl shadow-lg mx-auto" alt="Milo Paso 9">
+                        <div class="mb-6 text-2xl font-bold text-yellow-300 text-center">Pasos 7 a 9</div>
+                        <div class="grid md:grid-cols-3 gap-6">
+                            <img src="Milo/7.jpg" class="w-full rounded-2xl shadow-lg mx-auto image-hover" alt="Milo Paso 7">
+                            <img src="Milo/8.jpg" class="w-full rounded-2xl shadow-lg mx-auto image-hover" alt="Milo Paso 8">
+                            <img src="Milo/9.jpg" class="w-full rounded-2xl shadow-lg mx-auto image-hover" alt="Milo Paso 9">
                         </div>
-                        <p class="mt-4 text-[10px] md:text-xs text-white/60 text-center">
+                        <p class="mt-6 text-xs md:text-sm text-white/60 text-center leading-relaxed">
                             Imagen ©2015 The LEGO Group. Usada con fines educativos y sin ánimo de lucro. Fuente: Instrucciones de construcción del set LEGO® Education WeDo 2.0 (45300)
                         </p>
                     </div>
 
                     <div id="assembly-step-4" class="assembly-step hidden">
-                        <div class="mb-4 text-xl font-bold text-yellow-300 text-center">Pasos 10 a 12</div>
-                        <div class="grid md:grid-cols-3 gap-4">
-                            <img src="Milo/10.jpg" class="w-full rounded-xl shadow-lg mx-auto" alt="Milo Paso 10">
-                            <img src="Milo/11.jpg" class="w-full rounded-xl shadow-lg mx-auto" alt="Milo Paso 11">
-                            <img src="Milo/12.jpg" class="w-full rounded-xl shadow-lg mx-auto" alt="Milo Paso 12">
+                        <div class="mb-6 text-2xl font-bold text-yellow-300 text-center">Pasos 10 a 12</div>
+                        <div class="grid md:grid-cols-3 gap-6">
+                            <img src="Milo/10.jpg" class="w-full rounded-2xl shadow-lg mx-auto image-hover" alt="Milo Paso 10">
+                            <img src="Milo/11.jpg" class="w-full rounded-2xl shadow-lg mx-auto image-hover" alt="Milo Paso 11">
+                            <img src="Milo/12.jpg" class="w-full rounded-2xl shadow-lg mx-auto image-hover" alt="Milo Paso 12">
                         </div>
-                        <p class="mt-4 text-[10px] md:text-xs text-white/60 text-center">
+                        <p class="mt-6 text-xs md:text-sm text-white/60 text-center leading-relaxed">
                             Imagen ©2015 The LEGO Group. Usada con fines educativos y sin ánimo de lucro. Fuente: Instrucciones de construcción del set LEGO® Education WeDo 2.0 (45300)
                         </p>
                     </div>
 
                     <div id="assembly-step-5" class="assembly-step hidden">
-                        <div class="mb-4 text-xl font-bold text-yellow-300 text-center">Pasos 13 a 15</div>
-                        <div class="grid md:grid-cols-3 gap-4">
-                            <img src="Milo/13.jpg" class="w-full rounded-xl shadow-lg mx-auto" alt="Milo Paso 13">
-                            <img src="Milo/14.jpg" class="w-full rounded-xl shadow-lg mx-auto" alt="Milo Paso 14">
-                            <img src="Milo/15.jpg" class="w-full rounded-xl shadow-lg mx-auto" alt="Milo Paso 15">
+                        <div class="mb-6 text-2xl font-bold text-yellow-300 text-center">Pasos 13 a 15</div>
+                        <div class="grid md:grid-cols-3 gap-6">
+                            <img src="Milo/13.jpg" class="w-full rounded-2xl shadow-lg mx-auto image-hover" alt="Milo Paso 13">
+                            <img src="Milo/14.jpg" class="w-full rounded-2xl shadow-lg mx-auto image-hover" alt="Milo Paso 14">
+                            <img src="Milo/15.jpg" class="w-full rounded-2xl shadow-lg mx-auto image-hover" alt="Milo Paso 15">
                         </div>
-                        <p class="mt-4 text-[10px] md:text-xs text-white/60 text-center">
+                        <p class="mt-6 text-xs md:text-sm text-white/60 text-center leading-relaxed">
                             Imagen ©2015 The LEGO Group. Usada con fines educativos y sin ánimo de lucro. Fuente: Instrucciones de construcción del set LEGO® Education WeDo 2.0 (45300)
                         </p>
                     </div>
 
                     <div id="assembly-step-6" class="assembly-step hidden">
-                        <div class="mb-4 text-xl font-bold text-yellow-300 text-center">Pasos 16 a 18</div>
-                        <div class="grid md:grid-cols-3 gap-4">
-                            <img src="Milo/16.jpg" class="w-full rounded-xl shadow-lg mx-auto" alt="Milo Paso 16">
-                            <img src="Milo/17.jpg" class="w-full rounded-xl shadow-lg mx-auto" alt="Milo Paso 17">
-                            <img src="Milo/18.jpg" class="w-full rounded-xl shadow-lg mx-auto" alt="Milo Paso 18">
+                        <div class="mb-6 text-2xl font-bold text-yellow-300 text-center">Pasos 16 a 18</div>
+                        <div class="grid md:grid-cols-3 gap-6">
+                            <img src="Milo/16.jpg" class="w-full rounded-2xl shadow-lg mx-auto image-hover" alt="Milo Paso 16">
+                            <img src="Milo/17.jpg" class="w-full rounded-2xl shadow-lg mx-auto image-hover" alt="Milo Paso 17">
+                            <img src="Milo/18.jpg" class="w-full rounded-2xl shadow-lg mx-auto image-hover" alt="Milo Paso 18">
                         </div>
-                        <p class="mt-4 text-[10px] md:text-xs text-white/60 text-center">
+                        <p class="mt-6 text-xs md:text-sm text-white/60 text-center leading-relaxed">
                             Imagen ©2015 The LEGO Group. Usada con fines educativos y sin ánimo de lucro. Fuente: Instrucciones de construcción del set LEGO® Education WeDo 2.0 (45300)
                         </p>
                     </div>
 
                     <div id="assembly-step-7" class="assembly-step hidden">
-                        <div class="mb-4 text-xl font-bold text-yellow-300 text-center">Pasos 19 a 21</div>
-                        <div class="grid md:grid-cols-3 gap-4">
-                            <img src="Milo/19.jpg" class="w-full rounded-xl shadow-lg mx-auto" alt="Milo Paso 19">
-                            <img src="Milo/20.jpg" class="w-full rounded-xl shadow-lg mx-auto" alt="Milo Paso 20">
-                            <img src="Milo/21.jpg" class="w-full rounded-xl shadow-lg mx-auto" alt="Milo Paso 21">
+                        <div class="mb-6 text-2xl font-bold text-yellow-300 text-center">Pasos 19 a 21</div>
+                        <div class="grid md:grid-cols-3 gap-6">
+                            <img src="Milo/19.jpg" class="w-full rounded-2xl shadow-lg mx-auto image-hover" alt="Milo Paso 19">
+                            <img src="Milo/20.jpg" class="w-full rounded-2xl shadow-lg mx-auto image-hover" alt="Milo Paso 20">
+                            <img src="Milo/21.jpg" class="w-full rounded-2xl shadow-lg mx-auto image-hover" alt="Milo Paso 21">
                         </div>
-                        <p class="mt-4 text-[10px] md:text-xs text-white/60 text-center">
+                        <p class="mt-6 text-xs md:text-sm text-white/60 text-center leading-relaxed">
                             Imagen ©2015 The LEGO Group. Usada con fines educativos y sin ánimo de lucro. Fuente: Instrucciones de construcción del set LEGO® Education WeDo 2.0 (45300)
                         </p>
                     </div>
 
                     <div id="assembly-step-8" class="assembly-step hidden">
-                        <div class="mb-4 text-xl font-bold text-yellow-300 text-center">Pasos 22 a 24</div>
-                        <div class="grid md:grid-cols-3 gap-4">
-                            <img src="Milo/22.jpg" class="w-full rounded-xl shadow-lg mx-auto" alt="Milo Paso 22">
-                            <img src="Milo/23.jpg" class="w-full rounded-xl shadow-lg mx-auto" alt="Milo Paso 23">
-                            <img src="Milo/24.jpg" class="w-full rounded-xl shadow-lg mx-auto" alt="Milo Paso 24">
+                        <div class="mb-6 text-2xl font-bold text-yellow-300 text-center">Pasos 22 a 24</div>
+                        <div class="grid md:grid-cols-3 gap-6">
+                            <img src="Milo/22.jpg" class="w-full rounded-2xl shadow-lg mx-auto image-hover" alt="Milo Paso 22">
+                            <img src="Milo/23.jpg" class="w-full rounded-2xl shadow-lg mx-auto image-hover" alt="Milo Paso 23">
+                            <img src="Milo/24.jpg" class="w-full rounded-2xl shadow-lg mx-auto image-hover" alt="Milo Paso 24">
                         </div>
-                        <p class="mt-4 text-[10px] md:text-xs text-white/60 text-center">
+                        <p class="mt-6 text-xs md:text-sm text-white/60 text-center leading-relaxed">
                             Imagen ©2015 The LEGO Group. Usada con fines educativos y sin ánimo de lucro. Fuente: Instrucciones de construcción del set LEGO® Education WeDo 2.0 (45300)
                         </p>
                     </div>
 
                     <div id="assembly-step-9" class="assembly-step hidden">
-                        <div class="mb-4 text-xl font-bold text-yellow-300 text-center">Pasos 25 a 27</div>
-                        <div class="grid md:grid-cols-3 gap-4">
-                            <img src="Milo/25.jpg" class="w-full rounded-xl shadow-lg mx-auto" alt="Milo Paso 25">
-                            <img src="Milo/26.jpg" class="w-full rounded-xl shadow-lg mx-auto" alt="Milo Paso 26">
-                            <img src="Milo/27.jpg" class="w-full rounded-xl shadow-lg mx-auto" alt="Milo Paso 27">
+                        <div class="mb-6 text-2xl font-bold text-yellow-300 text-center">Pasos 25 a 27</div>
+                        <div class="grid md:grid-cols-3 gap-6">
+                            <img src="Milo/25.jpg" class="w-full rounded-2xl shadow-lg mx-auto image-hover" alt="Milo Paso 25">
+                            <img src="Milo/26.jpg" class="w-full rounded-2xl shadow-lg mx-auto image-hover" alt="Milo Paso 26">
+                            <img src="Milo/27.jpg" class="w-full rounded-2xl shadow-lg mx-auto image-hover" alt="Milo Paso 27">
                         </div>
-                        <p class="mt-4 text-[10px] md:text-xs text-white/60 text-center">
+                        <p class="mt-6 text-xs md:text-sm text-white/60 text-center leading-relaxed">
                             Imagen ©2015 The LEGO Group. Usada con fines educativos y sin ánimo de lucro. Fuente: Instrucciones de construcción del set LEGO® Education WeDo 2.0 (45300)
                         </p>
                     </div>
 
                     <div id="assembly-step-10" class="assembly-step hidden">
-                        <div class="mb-4 text-xl font-bold text-yellow-300 text-center">Pasos 28 y 29 - Modelo completo</div>
-                        <div class="grid md:grid-cols-2 gap-4">
-                            <img src="Milo/28.jpg" class="w-full rounded-xl shadow-lg mx-auto" alt="Milo Paso 28">
-                            <img src="Milo/29.jpg" class="w-full rounded-xl shadow-lg mx-auto" alt="Milo Paso 29">
+                        <div class="mb-6 text-2xl font-bold text-yellow-300 text-center">Pasos 28 y 29 - Modelo completo</div>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <img src="Milo/28.jpg" class="w-full rounded-2xl shadow-lg mx-auto image-hover" alt="Milo Paso 28">
+                            <img src="Milo/29.jpg" class="w-full rounded-2xl shadow-lg mx-auto image-hover" alt="Milo Paso 29">
                         </div>
-                        <p class="mt-4 text-[10px] md:text-xs text-white/60 text-center">
+                        <p class="mt-6 text-xs md:text-sm text-white/60 text-center leading-relaxed">
                             Imagen ©2015 The LEGO Group. Usada con fines educativos y sin ánimo de lucro. Fuente: Instrucciones de construcción del set LEGO® Education WeDo 2.0 (45300)
                         </p>
                     </div>
                 </div>
 
                 <div class="flex justify-between mt-8">
-                    <button id="prev-btn" onclick="previousAssemblyStep()" class="px-6 py-3 bg-gray-600 hover:bg-gray-700 rounded-xl font-bold transition-all duration-300 opacity-50" disabled>
+                    <button id="prev-btn" onclick="previousAssemblyStep()" class="px-8 py-4 bg-gray-600 hover:bg-gray-700 rounded-2xl font-bold text-xl transition-all duration-300 opacity-50 btn-3d" disabled>
                         ← Anterior
                     </button>
-                    <button id="next-btn" onclick="nextAssemblyStep()" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-xl font-bold transition-all duration-300">
+                    <button id="next-btn" onclick="nextAssemblyStep()" class="px-8 py-4 bg-blue-600 hover:bg-blue-700 rounded-2xl font-bold text-xl transition-all duration-300 btn-3d">
                         Siguiente →
                     </button>
                 </div>
             </div>
         </div>
 
-        <!-- Paso 4: Robot ensamblado (verificación previa a conexión) -->
+        <!-- Paso 4: Robot ensamblado -->
         <div id="step-4" class="step-container min-h-screen flex-col items-center justify-center p-6 hidden">
-            <div class="max-w-4xl text-center animate-slide-in">
+            <div class="max-w-4xl text-center animate-fade-in-scale">
                 <div class="text-8xl mb-8 animate-float">🔄</div>
-                <h2 class="text-3xl md:text-5xl font-bold mb-6 text-green-400">
+                <h2 class="text-4xl md:text-6xl font-bold mb-6 text-green-400 text-glow">
                     ¡Robot Ensamblado!
                 </h2>
-                <div class="bg-white/10 backdrop-blur-md border-2 border-white/30 rounded-3xl p-8 mb-8">
-                    <div class="text-xl md:text-2xl text-white/90 mb-6 leading-relaxed">
+                <div class="glass-card rounded-3xl p-8 mb-8">
+                    <div class="text-xl md:text-2xl text-white/90 mb-8 leading-relaxed">
                         <p class="mb-4">🎉 <span class="text-green-400 font-bold">¡Excelente trabajo, explorador!</span></p>
                         <p class="mb-4">Tu modelo ha sido ensamblado siguiendo las instrucciones oficiales.</p>
-                        <p>Antes de continuar con las misiones, activaremos el set en Scratch.</p>
+                        <p class="mb-6">Antes de continuar con las misiones, activaremos el set en Scratch.</p>
                     </div>
                     
-                    <div class="bg-green-600/30 rounded-2xl p-6 mb-6">
-                        <div class="text-xl font-bold mb-4 text-green-300">🔧 Verificación rápida</div>
+                    <div class="glass-card rounded-2xl p-6 mb-6">
+                        <div class="text-2xl font-bold mb-4 text-green-300">🔧 Verificación rápida</div>
                         <div class="grid md:grid-cols-2 gap-4 text-left">
-                            <div class="space-y-2">
+                            <div class="space-y-2 text-lg">
                                 <div class="flex items-center gap-2"><span class="text-green-400">✅</span><span>Estructura estable</span></div>
                                 <div class="flex items-center gap-2"><span class="text-green-400">✅</span><span>Motores conectados</span></div>
                                 <div class="flex items-center gap-2"><span class="text-green-400">✅</span><span>Sensor instalado</span></div>
                             </div>
-                            <div class="space-y-2">
+                            <div class="space-y-2 text-lg">
                                 <div class="flex items-center gap-2"><span class="text-green-400">✅</span><span>Hub encaja correctamente</span></div>
                                 <div class="flex items-center gap-2"><span class="text-green-400">✅</span><span>Cables asegurados</span></div>
                                 <div class="flex items-center gap-2"><span class="text-green-400">✅</span><span>Listo para conectar en Scratch</span></div>
@@ -341,50 +450,50 @@
                         </div>
                     </div>
                     
-                    <button onclick="activateRobot(event)" class="px-8 py-4 bg-gradient-to-r from-green-500 to-blue-600 hover:from-green-600 hover:to-blue-700 rounded-xl font-bold text-xl transition-all duration-300 transform hover:scale-105 animate-pulse-glow">
+                    <button onclick="activateRobot(event)" class="px-10 py-5 bg-gradient-to-r from-green-500 to-blue-600 hover:from-green-600 hover:to-blue-700 rounded-2xl font-bold text-2xl transition-all duration-300 transform hover:scale-105 animate-pulse-glow btn-3d">
                         🚀 Activar Robot en Scratch
                     </button>
                 </div>
             </div>
         </div>
 
-        <!-- Paso 5: Ir a Scratch y conectar WeDo 2.0 -->
+        <!-- Paso 5: Ir a Scratch -->
         <div id="step-5" class="step-container min-h-screen flex-col items-center justify-center p-6 hidden">
-            <div class="max-w-3xl text-center animate-slide-in">
+            <div class="max-w-4xl text-center animate-fade-in-scale">
                 <div class="text-7xl mb-6 animate-float">🧩</div>
-                <h2 class="text-3xl md:text-4xl font-bold mb-4 text-cyan-300">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 text-cyan-300 text-glow">
                     Conecta tu LEGO Education WeDo 2.0 en Scratch
                 </h2>
-                <p class="text-lg text-white/90 mb-6">
+                <p class="text-xl text-white/90 mb-6">
                     Ahora vamos a vincular tu robot con Scratch para que puedas controlarlo en las próximas misiones.
                 </p>
-                <div class="bg-white/10 backdrop-blur-md border-2 border-white/30 rounded-3xl p-6 text-left space-y-4">
-                    <ol class="list-decimal list-inside space-y-3 text-white/90">
+                <div class="glass-card rounded-3xl p-8 text-left space-y-4">
+                    <ol class="list-decimal list-inside space-y-3 text-white/90 text-lg">
                         <li>Abre Scratch en tu navegador o la app utilizada en el aula.</li>
                         <li>Inicia sesión con tu usuario (o el de tu aula).</li>
                         <li>Haz clic en el botón de <span class="font-bold text-cyan-300">Extensiones</span> (abajo a la izquierda).</li>
                         <li>Selecciona la extensión <span class="font-bold text-green-300">LEGO Education WeDo 2.0</span>.</li>
                         <li>Enciende tu Hub WeDo 2.0 y presiona su botón.</li>
-                        <li>En la ventana que aparece, haz clic en <span class="font-bold text-purple-300">“Inicia la búsqueda”</span> y espera a que tu dispositivo se conecte.</li>
+                        <li>En la ventana que aparece, haz clic en <span class="font-bold text-purple-300">"Inicia la búsqueda"</span> y espera a que tu dispositivo se conecte.</li>
                     </ol>
-                    <p class="text-sm text-white/70">
+                    <p class="text-base text-white/70 mt-4">
                         Si la conexión falla, verifica que el Bluetooth esté activado y vuelve a intentarlo.
                     </p>
                 </div>
-                <button onclick="nextStep()" class="mt-8 px-10 py-4 bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 hover:from-purple-600 hover:via-pink-600 hover:to-red-600 rounded-xl font-bold text-xl transition-all duration-300 transform hover:scale-105">
+                <button onclick="nextStep()" class="mt-8 px-12 py-5 bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 hover:from-purple-600 hover:via-pink-600 hover:to-red-600 rounded-2xl font-bold text-2xl transition-all duration-300 transform hover:scale-105 btn-3d">
                     ✅ Ya conectamos el set
                 </button>
             </div>
         </div>
 
-        <!-- Paso 6: Misión 0 completada -->
+        <!-- Paso 6: Misión completada -->
         <div id="step-6" class="step-container min-h-screen flex-col items-center justify-center p-6 hidden">
-            <div class="max-w-4xl text-center animate-slide-in">
-                <div class="text-8xl mb-8 animate-float">🌟</div>
-                <h2 class="text-3xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-yellow-400 via-orange-400 to-red-400 bg-clip-text text-transparent">
+            <div class="max-w-4xl text-center animate-fade-in-scale">
+                <div class="text-8xl mb-8 animate-bounce">🌟</div>
+                <h2 class="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-yellow-400 via-orange-400 to-red-400 bg-clip-text text-transparent text-glow">
                     ¡Misión 0 Completada!
                 </h2>
-                <div class="bg-white/10 backdrop-blur-md border-2 border-white/30 rounded-3xl p-8 mb-8">
+                <div class="glass-card rounded-3xl p-8 mb-8">
                     <div class="text-xl md:text-2xl text-white/90 mb-8 leading-relaxed">
                         <p class="mb-4">🎯 <span class="text-yellow-400 font-bold">¡Increíble trabajo!</span></p>
                         <p class="mb-4">Has ensamblado tu robot y lo has conectado correctamente en Scratch.</p>
@@ -392,34 +501,34 @@
                     </div>
                     
                     <div class="grid md:grid-cols-2 gap-4 mb-8">
-                        <div class="bg-orange-600/30 rounded-2xl p-4">
-                            <div class="text-4xl mb-2">🏔️</div>
-                            <div class="font-bold text-orange-300">Llanura de Vectonia</div>
-                            <div class="text-sm text-white/80">Calibra tu RoverBot</div>
+                        <div class="glass-card rounded-2xl p-6 hover:scale-105 transition-transform duration-300">
+                            <div class="text-5xl mb-2">🏔️</div>
+                            <div class="font-bold text-orange-300 text-xl">Llanura de Vectonia</div>
+                            <div class="text-base text-white/80">Calibra tu RoverBot</div>
                         </div>
-                        <div class="bg-blue-600/30 rounded-2xl p-4">
-                            <div class="text-4xl mb-2">🌀</div>
-                            <div class="font-bold text-blue-300">Paso de Zycurva</div>
-                            <div class="text-sm text-white/80">¡Activa la conexión!</div>
+                        <div class="glass-card rounded-2xl p-6 hover:scale-105 transition-transform duration-300">
+                            <div class="text-5xl mb-2">🌀</div>
+                            <div class="font-bold text-blue-300 text-xl">Paso de Zycurva</div>
+                            <div class="text-base text-white/80">¡Activa la conexión!</div>
                         </div>
-                        <div class="bg-purple-600/30 rounded-2xl p-4">
-                            <div class="text-4xl mb-2">🕳️</div>
-                            <div class="font-bold text-purple-300">Cráter del Sensorium</div>
-                            <div class="text-sm text-white/80">¡Detente a tiempo!</div>
+                        <div class="glass-card rounded-2xl p-6 hover:scale-105 transition-transform duration-300">
+                            <div class="text-5xl mb-2">🕳️</div>
+                            <div class="font-bold text-purple-300 text-xl">Cráter del Sensorium</div>
+                            <div class="text-base text-white/80">¡Detente a tiempo!</div>
                         </div>
-                        <div class="bg-green-600/30 rounded-2xl p-4">
-                            <div class="text-4xl mb-2">🚛</div>
-                            <div class="font-bold text-green-300">Estación de Transferencia</div>
-                            <div class="text-sm text-white/80">Transporte en equipo</div>
+                        <div class="glass-card rounded-2xl p-6 hover:scale-105 transition-transform duration-300">
+                            <div class="text-5xl mb-2">🚛</div>
+                            <div class="font-bold text-green-300 text-xl">Estación de Transferencia</div>
+                            <div class="text-base text-white/80">Transporte en equipo</div>
                         </div>
                     </div>
                     
-                    <div class="bg-yellow-600/30 rounded-2xl p-6 mb-8">
-                        <div class="text-xl font-bold mb-2 text-yellow-300">🎖️ Logro Desbloqueado</div>
-                        <div class="text-lg">"Constructor de Robots" - Has dejado tu RoverBot listo para explorar Zython</div>
+                    <div class="glass-card rounded-2xl p-6 mb-8">
+                        <div class="text-2xl font-bold mb-2 text-yellow-300">🎖️ Logro Desbloqueado</div>
+                        <div class="text-xl">"Constructor de Robots" - Has dejado tu RoverBot listo para explorar Zython</div>
                     </div>
                     
-                    <button onclick="completeMission0()" class="px-12 py-5 bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 hover:from-purple-600 hover:via-pink-600 hover:to-red-600 rounded-xl font-bold text-2xl transition-all duration-300 transform hover:scale-105 animate-pulse-glow">
+                    <button onclick="completeMission0()" class="px-12 py-6 bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 hover:from-purple-600 hover:via-pink-600 hover:to-red-600 rounded-2xl font-bold text-2xl transition-all duration-300 transform hover:scale-105 animate-pulse-glow btn-3d">
                         🚀 Ir a las Misiones
                     </button>
                 </div>
@@ -433,13 +542,13 @@
 
         let currentStep = 1;
         let currentAssemblyStep = 1;
-        const totalSteps = 6;      // ahora hay 6 pantallas generales
+        const totalSteps = 6;
         const totalAssemblySteps = 10;
 
         function createStars() {
             const starsContainer = document.getElementById('stars');
             if (!starsContainer) return;
-            for (let i = 0; i < 100; i++) {
+            for (let i = 0; i < 150; i++) {
                 const star = document.createElement('div');
                 star.className = 'star';
                 star.style.left = Math.random() * 100 + '%';
@@ -451,8 +560,26 @@
                 starsContainer.appendChild(star);
             }
         }
+        
+        function createShootingStar() {
+            const shootingStar = document.createElement('div');
+            shootingStar.className = 'shooting-star';
+            shootingStar.style.left = Math.random() * 100 + '%';
+            shootingStar.style.top = Math.random() * 50 + '%';
+            document.body.appendChild(shootingStar);
+            
+            setTimeout(() => {
+                shootingStar.remove();
+            }, 1000);
+        }
+        
+        setInterval(() => {
+            if (Math.random() > 0.7) {
+                createShootingStar();
+            }
+        }, 3000);
 
-        // YouTube API
+
         let player;
         let videoEnded = false;
 
@@ -476,7 +603,6 @@
 
         function onPlayerReady(event) {
             hideLoadingMessage();
-            // Intento de fullscreen automático (puede ser bloqueado por el navegador)
             try {
                 const iframe = event.target.getIframe();
                 if (iframe && iframe.requestFullscreen) {
@@ -517,6 +643,7 @@
             const loadingMessage = document.getElementById('loading-message');
             if (loadingMessage) {
                 loadingMessage.innerHTML = '✅ Transmisión completada. ¡Listo para la misión!';
+                loadingMessage.classList.remove('animate-bounce');
                 loadingMessage.classList.add('text-green-400');
                 loadingMessage.style.display = 'block';
             }
@@ -564,7 +691,6 @@
             }
         }
 
-        // Ensamblaje Milo
         function showAssemblyStep(stepNumber) {
             for (let i = 1; i <= totalAssemblySteps; i++) {
                 const step = document.getElementById(`assembly-step-${i}`);
@@ -612,7 +738,6 @@
             }
         }
 
-        // Botón "Activar Robot en Scratch" -> muestra pantalla Scratch (step-5)
         function activateRobot(e) {
             const button = e?.target;
             if (button) {
