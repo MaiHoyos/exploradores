@@ -146,10 +146,42 @@
             background: rgba(168, 85, 247, 0.2);
             transform: scale(1.01);
         }
+
+        /* Estilos para botón de audio */
+        .audio-toggle {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            z-index: 1000;
+            background: rgba(168, 85, 247, 0.9);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            padding: 0.75rem 1.25rem;
+            border-radius: 9999px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(168, 85, 247, 0.4);
+        }
+
+        .audio-toggle:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 35px rgba(168, 85, 247, 0.6);
+        }
+
+        .audio-toggle.active {
+            background: rgba(16, 185, 129, 0.9);
+        }
     </style>
 </head>
 <body class="min-h-screen text-white relative overflow-hidden">
     <div class="stars" id="stars"></div>
+    
+    <!-- Agregando botón de control de audio -->
+    <button id="audio-toggle" class="audio-toggle active" onclick="toggleAudio()">
+        🔊 Audio ON
+    </button>
     
     <!-- Header mejorado con efectos glassmorphism -->
     <header class="relative z-20 glass-card bg-gradient-to-r from-purple-600/80 to-purple-500/80 rounded-b-3xl p-4 md:p-6 m-3 md:m-4">
@@ -617,6 +649,95 @@
             
             setInterval(createShootingStar, 5000);
         }
+
+        let audioContext;
+        let audioEnabled = true;
+        let backgroundMusicInterval;
+        
+        function initAudio() {
+            if (!audioContext) {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioContext.state === 'suspended') {
+                audioContext.resume();
+            }
+        }
+        
+        function playTone(frequency, duration, type = 'square') {
+            if (!audioEnabled || !audioContext) return;
+            
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator.frequency.value = frequency;
+            oscillator.type = type;
+            
+            gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration);
+            
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + duration);
+        }
+        
+        function playBackgroundMusic() {
+            if (!audioEnabled) return;
+            
+            const melody = [
+                {freq: 523.25, dur: 0.2},
+                {freq: 587.33, dur: 0.2},
+                {freq: 659.25, dur: 0.2},
+                {freq: 698.46, dur: 0.3},
+                {freq: 783.99, dur: 0.2},
+                {freq: 698.46, dur: 0.2},
+                {freq: 659.25, dur: 0.4},
+            ];
+            
+            let currentTime = 0;
+            melody.forEach(note => {
+                setTimeout(() => {
+                    if (audioEnabled) playTone(note.freq, note.dur, 'sine');
+                }, currentTime * 1000);
+                currentTime += note.dur + 0.1;
+            });
+        }
+        
+        function startBackgroundMusic() {
+            if (backgroundMusicInterval) clearInterval(backgroundMusicInterval);
+            playBackgroundMusic();
+            backgroundMusicInterval = setInterval(playBackgroundMusic, 3000);
+        }
+        
+        function stopBackgroundMusic() {
+            if (backgroundMusicInterval) {
+                clearInterval(backgroundMusicInterval);
+                backgroundMusicInterval = null;
+            }
+        }
+        
+        function toggleAudio() {
+            audioEnabled = !audioEnabled;
+            const button = document.getElementById('audio-toggle');
+            
+            if (audioEnabled) {
+                button.textContent = '🔊 Audio ON';
+                button.classList.add('active');
+                initAudio();
+                startBackgroundMusic();
+            } else {
+                button.textContent = '🔇 Audio OFF';
+                button.classList.remove('active');
+                stopBackgroundMusic();
+            }
+        }
+        
+        document.addEventListener('click', function initOnFirstClick() {
+            initAudio();
+            startBackgroundMusic();
+            document.removeEventListener('click', initOnFirstClick);
+        }, { once: true });
 
         document.addEventListener('DOMContentLoaded', initialize);
     </script>
