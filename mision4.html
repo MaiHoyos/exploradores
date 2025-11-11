@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Misión 4: El Enigma de Zython</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Agregando fuente Fredoka más amigable para niños -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
-            font-family: 'Exo 2', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Fredoka', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
         }
 
         .title-font {
@@ -16,6 +17,20 @@
             letter-spacing: 0.12em;
         }
 
+        /* Fondo con gradiente animado */
+        body {
+            background: linear-gradient(-45deg, #0f172a, #1e1b4b, #0c4a6e, #1e3a8a);
+            background-size: 400% 400%;
+            animation: gradientShift 20s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Estrellas mejoradas con brillo */
         .stars {
             position: fixed;
             top: 0;
@@ -31,23 +46,85 @@
             background: white;
             border-radius: 50%;
             animation: twinkle 3s infinite;
+            box-shadow: 0 0 4px rgba(255, 255, 255, 0.8);
         }
 
         @keyframes twinkle {
-            0%, 100% { opacity: 0.2; }
-            50% { opacity: 1; }
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
         }
 
+        /* Estrellas fugaces */
+        .shooting-star {
+            position: fixed;
+            width: 3px;
+            height: 3px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 8px 2px rgba(255, 255, 255, 0.8);
+            animation: shoot 2s linear;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        @keyframes shoot {
+            0% {
+                transform: translateX(0) translateY(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(300px) translateY(300px);
+                opacity: 0;
+            }
+        }
+
+        /* Transiciones suaves entre páginas */
         .page {
             display: none;
+            animation: fadeInScale 0.6s ease-out;
         }
 
         .page.active {
             display: block;
         }
 
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.95) translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        /* Botones mejorados con efecto 3D */
         .sheet-nav-btn {
-            @apply px-4 py-2 md:px-6 md:py-3 bg-white/5 border border-cyan-400/60 text-cyan-300 rounded-full text-xs md:text-sm font-semibold tracking-wide hover:bg-cyan-400/10 hover:scale-105 transition-all;
+            @apply px-4 py-2 md:px-6 md:py-3 bg-gradient-to-br from-cyan-500 to-blue-600 text-white rounded-full text-xs md:text-sm font-semibold tracking-wide transition-all duration-300;
+            box-shadow: 0 4px 15px rgba(6, 182, 212, 0.4), 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .sheet-nav-btn:hover:not(:disabled) {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(6, 182, 212, 0.6), 0 4px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        .sheet-nav-btn:active:not(:disabled) {
+            transform: translateY(0) scale(0.98);
+        }
+
+        .sheet-nav-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Cards con efecto vidrio esmerilado */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
         }
 
         .answer-box {
@@ -56,8 +133,15 @@
             padding: 0.75rem;
             min-height: 4rem;
             margin-top: 0.35rem;
-            background: radial-gradient(circle at top left, rgba(79, 70, 229, 0.16), transparent);
+            background: rgba(79, 70, 229, 0.12);
+            backdrop-filter: blur(8px);
             font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .answer-box:hover {
+            background: rgba(79, 70, 229, 0.18);
+            border-color: rgba(148, 163, 253, 0.85);
         }
 
         .image-slot {
@@ -72,9 +156,17 @@
             text-transform: uppercase;
             letter-spacing: 0.12em;
             color: rgba(226, 232, 240, 0.85);
-            background: linear-gradient(to bottom right, rgba(15,23,42,0.9), rgba(30,64,175,0.25));
+            background: linear-gradient(135deg, rgba(15,23,42,0.9), rgba(30,64,175,0.25));
+            backdrop-filter: blur(8px);
+            transition: all 0.3s ease;
         }
 
+        .image-slot:hover {
+            border-color: rgba(248, 250, 252, 0.85);
+            transform: scale(1.02);
+        }
+
+        /* Badges con animación de pulso */
         .label-chip {
             display: inline-flex;
             align-items: center;
@@ -84,13 +176,29 @@
             font-size: 0.65rem;
             text-transform: uppercase;
             letter-spacing: 0.14em;
-            background-color: rgba(15,23,42,0.85);
+            background: rgba(15,23,42,0.85);
+            backdrop-filter: blur(8px);
             border: 1px solid rgba(148, 163, 253, 0.6);
             color: #bfdbfe;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 10px rgba(148, 163, 253, 0.4); }
+            50% { box-shadow: 0 0 20px rgba(148, 163, 253, 0.8); }
+        }
+
+        /* Efecto hover en imágenes */
+        img {
+            transition: transform 0.3s ease;
+        }
+
+        img:hover {
+            transform: scale(1.05);
         }
     </style>
 </head>
-<body class="min-h-screen bg-gradient-to-b from-slate-950 via-indigo-950 to-black text-white relative overflow-auto">
+<body class="min-h-screen text-white relative overflow-auto">
     <div class="stars" id="stars"></div>
 
     <!-- HEADER -->
@@ -136,7 +244,7 @@
         </div>
 
         <!-- HOJA 1: INTRO CINEMÁTICA -->
-        <section class="page active bg-white/10 backdrop-blur-md rounded-3xl p-5 md:p-8 border-4 border-indigo-300/50 shadow-[0_25px_80px_rgba(15,23,42,0.95)]">
+        <section class="page active glass-card rounded-3xl p-5 md:p-8 shadow-[0_25px_80px_rgba(15,23,42,0.95)]">
             <h2 class="title-font text-2xl md:text-3xl lg:text-4xl font-extrabold text-center mb-4 md:mb-6 text-cyan-300 drop-shadow-lg">
                 Señal en la Oscuridad: La Ciudad Perdida de Zython
             </h2>
@@ -150,12 +258,12 @@
             </p>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mt-4 items-center">
                 <div class="w-full rounded-2xl border-4 border-white/50 shadow-xl overflow-hidden">
-    <img src="Zython/1.webp" alt="Ciudad Perdida de Zython" 
-         class="w-full h-auto object-cover rounded-2xl"
-         onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;image-slot&quot;>Imagen no encontrada</div>'">
-</div>
+                    <img src="Zython/1.webp" alt="Ciudad Perdida de Zython" 
+                         class="w-full h-auto object-cover rounded-2xl"
+                         onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;image-slot&quot;>Imagen no encontrada</div>'">
+                </div>
 
-                <div class="bg-black/40 p-4 md:p-5 rounded-2xl border border-cyan-300/50 shadow-xl">
+                <div class="glass-card p-4 md:p-5 rounded-2xl shadow-xl">
                     <h3 class="text-lg md:text-2xl font-semibold mb-2 text-cyan-300">Objetivo épico de la misión</h3>
                     <ul class="list-disc list-inside space-y-1 text-sm md:text-base text-slate-100/95">
                         <li>Aplicar todo lo aprendido sobre <span class="font-semibold text-emerald-300">movimiento, giros, sensores y rutas seguras</span>.</li>
@@ -167,7 +275,7 @@
         </section>
 
         <!-- HOJA 2: OBJETIVOS + MATERIALES -->
-        <section class="page bg-white/10 backdrop-blur-md rounded-3xl p-5 md:p-8 border-4 border-cyan-300/50 shadow-2xl">
+        <section class="page glass-card rounded-3xl p-5 md:p-8 shadow-2xl">
             <h2 class="title-font text-2xl md:text-3xl font-extrabold text-cyan-300 mb-4 text-center">
                 ¿Qué vas a demostrar en este reto final?
             </h2>
@@ -195,8 +303,8 @@
                     <p class="mt-3 text-[0.7rem] md:text-xs text-slate-300/90 leading-snug">
                         Imágenes de construcción:
                         <span class="italic">
-                            “Imagen ©2015 The LEGO Group. Usada con fines educativos y sin ánimo de lucro.
-                            Fuente: Instrucciones de construcción del set LEGO® Education WeDo 2.0 (45300) o similares.”
+                            "Imagen ©2015 The LEGO Group. Usada con fines educativos y sin ánimo de lucro.
+                            Fuente: Instrucciones de construcción del set LEGO® Education WeDo 2.0 (45300) o similares."
                         </span>
                     </p>
                 </div>
@@ -204,7 +312,7 @@
         </section>
 
         <!-- HOJA 3: ETAPA 1 - DISEÑO ROBOT + ESPACIOS -->
-        <section class="page bg-white/10 backdrop-blur-md rounded-3xl p-5 md:p-8 border-4 border-indigo-300/40 shadow-2xl">
+        <section class="page glass-card rounded-3xl p-5 md:p-8 shadow-2xl">
             <h2 class="title-font text-2xl md:text-3xl font-extrabold text-emerald-300 mb-3 text-center">
                 Etapa 1 · Diseña tu RoverBot Navegador
             </h2>
@@ -236,7 +344,7 @@
         </section>
 
         <!-- HOJA 4: ETAPA 2 - CALIBRACIÓN + TABLA (INSTRUCCIÓN EXCEL/WORD) -->
-        <section class="page bg-white/10 backdrop-blur-md rounded-3xl p-5 md:p-8 border-4 border-cyan-400/40 shadow-2xl">
+        <section class="page glass-card rounded-3xl p-5 md:p-8 shadow-2xl">
             <h2 class="title-font text-2xl md:text-3xl font-extrabold text-cyan-300 mb-3 text-center">
                 Etapa 2 · Calibra tus Giros: Tiempo → Ángulo
             </h2>
@@ -250,7 +358,7 @@
                 <li>Registra los datos en una tabla digital.</li>
             </ol>
 
-            <div class="bg-black/50 rounded-2xl border border-indigo-300/50 p-3 md:p-4 mb-3">
+            <div class="glass-card rounded-2xl p-3 md:p-4 mb-3">
                 <p class="text-xs md:text-sm text-cyan-200/95 font-semibold mb-1">
                     Tarea digital obligatoria:
                 </p>
@@ -275,7 +383,7 @@
         </section>
 
         <!-- HOJA 5: ETAPA 3 - MAQUETA CIUDAD + PLAN RUTA -->
-        <section class="page bg-white/10 backdrop-blur-md rounded-3xl p-5 md:p-8 border-4 border-indigo-400/40 shadow-2xl">
+        <section class="page glass-card rounded-3xl p-5 md:p-8 shadow-2xl">
             <h2 class="title-font text-2xl md:text-3xl font-extrabold text-emerald-300 mb-3 text-center">
                 Etapa 3 · La Ciudad Perdida de Zython
             </h2>
@@ -312,7 +420,7 @@
         </section>
 
         <!-- HOJA 6: ETAPA 4 - PROGRAMA, REFLEXIÓN + COMPLETAR MISIÓN -->
-        <section class="page bg-white/10 backdrop-blur-md rounded-3xl p-5 md:p-8 border-4 border-emerald-400/40 shadow-2xl">
+        <section class="page glass-card rounded-3xl p-5 md:p-8 shadow-2xl">
             <h2 class="title-font text-2xl md:text-3xl font-extrabold text-yellow-300 mb-3 text-center">
                 Etapa 4 · Ejecuta la Misión y Descubre el Enigma
             </h2>
@@ -340,14 +448,14 @@
                 <li>Sube el archivo final a la carpeta de <span class="font-semibold">Drive</span> indicada.</li>
             </ul>
 
-            <div class="bg-black/60 rounded-2xl border border-yellow-300/70 p-4 mt-2">
+            <div class="glass-card rounded-2xl p-4 mt-2">
                 <p class="text-sm md:text-base text-yellow-300 font-semibold mb-1">
                     Mensaje de la Civilización de Zython:
                 </p>
                 <p class="text-xs md:text-sm text-slate-100/95">
-                    “La precisión es la huella de quienes piensan antes de avanzar.
+                    "La precisión es la huella de quienes piensan antes de avanzar.
                     Has unido construcción, programación y matemáticas para descifrar nuestro legado.
-                    Desde hoy, eres un <span class="font-semibold text-emerald-300">Maestro Explorador de Zython</span>.”
+                    Desde hoy, eres un <span class="font-semibold text-emerald-300">Maestro Explorador de Zython</span>."
                 </p>
             </div>
 
@@ -381,7 +489,7 @@
         function createStars() {
             const starsContainer = document.getElementById('stars');
             if (!starsContainer) return;
-            for (let i = 0; i < 120; i++) {
+            for (let i = 0; i < 150; i++) {
                 const star = document.createElement('div');
                 star.className = 'star';
                 star.style.left = Math.random() * 100 + '%';
@@ -394,6 +502,17 @@
                 starsContainer.appendChild(star);
             }
         }
+
+        function createShootingStar() {
+            const star = document.createElement('div');
+            star.className = 'shooting-star';
+            star.style.left = Math.random() * 50 + '%';
+            star.style.top = Math.random() * 50 + '%';
+            document.body.appendChild(star);
+            setTimeout(() => star.remove(), 2000);
+        }
+
+        setInterval(createShootingStar, 5000);
 
         /* PROGRESO JUGADOR */
         function getCurrentPlayer() {
@@ -459,7 +578,7 @@
                 progress.completedMissions.push(4);
                 progress.completed = progress.completedMissions.length;
                 progress.badges = progress.completedMissions.length;
-                progress.currentMission = 4; // última misión
+                progress.currentMission = 4;
 
                 savePlayerProgress(currentPlayer, progress);
 
