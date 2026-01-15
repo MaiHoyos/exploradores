@@ -1,773 +1,840 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Misión 3: Corredor de Cráteres del Sensorium</title>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        body {
-            font-family: 'Fredoka', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Misión 3: Corredor de Cráteres del Sensorium</title>
 
-        /* Agregando fondo animado con gradiente dinámico */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(-45deg, #1e3a8a, #312e81, #7c3aed, #0f172a);
-            background-size: 400% 400%;
-            animation: gradientShift 15s ease infinite;
-            z-index: -2;
-        }
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
 
-        @keyframes gradientShift {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
+  <style>
+    * { font-family: 'Fredoka', system-ui, -apple-system, BlinkMacSystemFont, sans-serif; }
 
-        /* Mejorando estrellas con brillo */
-        .stars {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-        }
+    :root{
+      --card: rgba(255,255,255,.10);
+      --border: rgba(255,255,255,.18);
+      --shadow: 0 18px 60px rgba(0,0,0,.45);
+      --radius: 24px;
+      --accent: #60a5fa;   /* blue-400 */
+      --accent2:#a78bfa;   /* purple-400 */
+      --warm1: #fbbf24;    /* amber-400 */
+      --warm2: #f97316;    /* orange-500 */
+    }
 
-        .star {
-            position: absolute;
-            background: white;
-            border-radius: 50%;
-            animation: twinkle 3s infinite;
-            box-shadow: 0 0 4px rgba(255, 255, 255, 0.8);
-        }
+    :focus-visible{
+      outline: 3px solid rgba(96,165,250,.8);
+      outline-offset: 3px;
+    }
 
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.3; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.2); }
-        }
+    /* Fondo animado */
+    @keyframes gradientShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+    body{
+      background: linear-gradient(-45deg, #1a0b2e, #16213e, #0f3460, #533483);
+      background-size: 400% 400%;
+      animation: gradientShift 15s ease infinite;
+      padding-top: 92px; /* header fijo */
+      overflow-x: hidden;
+    }
 
-        /* Agregando estrellas fugaces */
-        @keyframes shootingStar {
-            0% { transform: translateX(0) translateY(0); opacity: 1; }
-            100% { transform: translateX(-300px) translateY(300px); opacity: 0; }
-        }
+    /* Stars + parallax */
+    .stars{
+      position: fixed;
+      top:0; left:0;
+      width:100%; height:100%;
+      pointer-events:none;
+      z-index:0;
+      transition: transform .2s ease;
+    }
+    .star{
+      position:absolute;
+      background:white;
+      border-radius:50%;
+      animation: twinkle 3s infinite;
+      box-shadow: 0 0 4px rgba(255,255,255,.8);
+    }
+    @keyframes twinkle{
+      0%,100%{ opacity:.3; transform: scale(1); }
+      50%{ opacity:1; transform: scale(1.2); }
+    }
 
-        .shooting-star {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: white;
-            border-radius: 50%;
-            box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.8);
-            animation: shootingStar 1.5s ease-out;
-        }
+    @keyframes shootingStar{
+      0%{ transform: translateX(0) translateY(0); opacity:1; }
+      100%{ transform: translateX(-300px) translateY(300px); opacity:0; }
+    }
+    .shooting-star{
+      position: fixed;
+      width: 2px; height: 2px;
+      background: white;
+      border-radius: 50%;
+      box-shadow: 0 0 10px 2px rgba(255,255,255,.8);
+      animation: shootingStar 1s linear;
+      z-index: 1;
+      pointer-events: none;
+    }
 
-        .sheet-title {
-            font-family: 'Fredoka', sans-serif;
-        }
+    /* Sheet transitions */
+    .sheet{
+      display:none;
+      animation: fadeInScale .55s cubic-bezier(.34,1.56,.64,1);
+    }
+    .sheet.active{ display:flex; }
 
-        textarea {
-            resize: vertical;
-        }
+    @keyframes fadeInScale{
+      from{ opacity:0; transform: translateY(16px) scale(.97); }
+      to{ opacity:1; transform: translateY(0) scale(1); }
+    }
 
-        /* Agregando transición suave entre hojas */
-        .sheet {
-            display: none;
-            animation: fadeInScale 0.5s ease-out;
-        }
+    /* Glass card */
+    .glass-card{
+      background: var(--card);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      border-radius: var(--radius);
+    }
 
-        .sheet.active {
-            display: flex;
-        }
+    /* Hover lift */
+    .hover-lift{
+      transition: all .35s cubic-bezier(.175,.885,.32,1.275);
+    }
+    .hover-lift:hover{
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(0,0,0,.4);
+    }
 
-        @keyframes fadeInScale {
-            from {
-                opacity: 0;
-                transform: scale(0.95);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
+    /* Buttons (consistentes) */
+    .btn-3d{
+      transition: all .25s ease;
+      box-shadow: 0 6px 0 rgba(0,0,0,.3), 0 10px 20px rgba(0,0,0,.2);
+    }
+    .btn-3d:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 8px 0 rgba(0,0,0,.3), 0 15px 30px rgba(0,0,0,.3);
+    }
+    .btn-3d:active{
+      transform: translateY(2px);
+      box-shadow: 0 2px 0 rgba(0,0,0,.3), 0 5px 10px rgba(0,0,0,.2);
+    }
 
-        /* Agregando efecto hover en imágenes */
-        .hover-lift {
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
+    .btn-premium{
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-premium::after{
+      content:"";
+      position:absolute;
+      inset:-120%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.22), transparent);
+      transform: rotate(25deg) translateX(-40%);
+      transition: transform .6s ease;
+      pointer-events: none;
+    }
+    .btn-premium:hover::after{
+      transform: rotate(25deg) translateX(40%);
+    }
 
-        .hover-lift:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-        }
+    /* Badge pulse */
+    @keyframes badgePulse { 0%,100%{ transform: scale(1);} 50%{ transform: scale(1.05);} }
+    .badge-pulse{ animation: badgePulse 2s ease-in-out infinite; }
 
-        /* Badge pulsante */
-        @keyframes badgePulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
+    /* Progress bars */
+    .progress-bar{
+      height: 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.1);
+      border: 2px solid rgba(255,255,255,.2);
+      overflow: hidden;
+      box-shadow: inset 0 2px 8px rgba(0,0,0,.3);
+    }
+    .progress-fill{
+      height:100%;
+      border-radius:999px;
+      background: linear-gradient(90deg, var(--warm1), #f59e0b, var(--warm2));
+      background-size: 200% 100%;
+      transition: width .6s cubic-bezier(.34,1.56,.64,1);
+      animation: progressShine 2s ease-in-out infinite;
+      box-shadow: 0 0 20px rgba(251,191,36,.6);
+      width: 0%;
+    }
+    @keyframes progressShine{
+      0%,100%{ background-position: 0% 50%; }
+      50%{ background-position: 100% 50%; }
+    }
 
-        .badge-pulse {
-            animation: badgePulse 2s ease-in-out infinite;
-        }
+    /* Audio */
+    .audio-toggle{
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      z-index: 1000;
+      background: rgba(59,130,246,.9);
+      backdrop-filter: blur(10px);
+      border: 2px solid rgba(255,255,255,.3);
+      padding: .75rem 1.25rem;
+      border-radius: 9999px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all .25s ease;
+      box-shadow: 0 8px 25px rgba(59,130,246,.4);
+    }
+    .audio-toggle:hover{
+      transform: scale(1.05);
+      box-shadow: 0 12px 35px rgba(59,130,246,.55);
+    }
+    .audio-toggle.active{ background: rgba(16,185,129,.9); }
 
-        /* Botón de audio */
-        .audio-toggle {
-            position: fixed;
-            bottom: 1.5rem;
-            right: 1.5rem;
-            z-index: 1000;
-            background: rgba(79, 70, 229, 0.9);
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            padding: 0.75rem 1.25rem;
-            border-radius: 9999px;
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 25px rgba(79, 70, 229, 0.4);
-        }
+    /* Toast */
+    .toast-wrap{ top: 110px; }
 
-        .audio-toggle:hover {
-            transform: scale(1.05);
-            box-shadow: 0 12px 35px rgba(79, 70, 229, 0.6);
-        }
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce){
+      * { animation: none !important; transition: none !important; }
+    }
 
-        .audio-toggle.active {
-            background: rgba(16, 185, 129, 0.9);
-        }
-
-        /* Optimizaciones para móvil 360x800px */
-        @media (max-width: 640px) {
-            header {
-                padding: 0.75rem !important;
-                margin: 0.5rem !important;
-            }
-            
-            .sheet-title {
-                font-size: 1.125rem !important;
-                line-height: 1.3;
-            }
-            
-            h2 {
-                font-size: 1rem !important;
-            }
-            
-            h3 {
-                font-size: 0.875rem !important;
-            }
-            
-            p, li {
-                font-size: 0.75rem !important;
-                line-height: 1.4;
-            }
-            
-            .sheet {
-                padding: 0.875rem !important;
-            }
-            
-            button {
-                font-size: 0.7rem !important;
-                padding: 0.5rem 0.75rem !important;
-            }
-            
-            table {
-                font-size: 0.65rem !important;
-            }
-            
-            table th, table td {
-                padding: 0.25rem !important;
-            }
-        }
-    </style>
+    /* Mobile */
+    @media (max-width: 640px){
+      body{ padding-top: 86px; }
+      .sheet-title{ font-size: 1.125rem !important; line-height: 1.3; }
+      h2{ font-size: 1rem !important; }
+      h3{ font-size: .9rem !important; }
+      p, li{ font-size: .82rem !important; line-height: 1.45; }
+      .sheet{ padding: .95rem !important; }
+      button{ font-size: .78rem !important; padding: .55rem .85rem !important; }
+      table{ font-size: .7rem !important; }
+      table th, table td{ padding: .35rem !important; }
+    }
+  </style>
 </head>
-<body class="min-h-screen text-white relative overflow-hidden">
-    <div class="stars" id="stars"></div>
-    
-    <!-- Agregando botón de control de audio -->
-    <button id="audio-toggle" class="audio-toggle active" onclick="toggleAudio()">
-        🔊 Audio ON
-    </button>
 
-    <!-- HEADER -->
-    <header class="relative z-20 bg-gradient-to-r from-purple-400 to-purple-600 border-4 border-white rounded-b-3xl p-4 md:p-6 m-3 md:m-4 shadow-2xl">
-        <div class="flex flex-wrap items-center justify-between gap-4">
-            <button onclick="volverAMisiones()" class="px-3 md:px-4 py-2 bg-white text-purple-600 font-bold rounded-full shadow-lg transition-transform transform hover:scale-105 text-xs md:text-sm">
-                ← Volver a Misiones
-            </button>
-            <div class="flex items-center gap-3">
-                <div class="text-xl md:text-2xl lg:text-3xl font-extrabold text-white drop-shadow-lg">MISIÓN 3 · Sensorium</div>
-                <div class="text-2xl md:text-3xl">🌌🤝</div>
-            </div>
-            <div id="completion-badge" class="hidden px-3 md:px-4 py-2 bg-green-500 text-white font-bold rounded-full shadow-lg text-xs md:text-sm badge-pulse">
-                🏅 Insignia: Colaboración en Sensorium
-            </div>
+<body class="min-h-screen text-white relative">
+  <div class="stars" id="stars"></div>
+
+  <!-- Header fijo estilo app -->
+  <header class="fixed top-0 left-0 right-0 z-50 px-4 py-3">
+    <div class="max-w-6xl mx-auto glass-card rounded-2xl px-5 py-3 flex items-center justify-between gap-3">
+      <div class="flex items-center gap-3 min-w-0">
+        <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center text-2xl">🌌</div>
+        <div class="min-w-0">
+          <div class="font-bold leading-none truncate">Zython</div>
+          <div id="header-subtitle" class="text-xs text-white/70 truncate">Misión 3 · Hoja 1</div>
         </div>
-        <div class="mt-1 text-[10px] md:text-sm text-purple-100 text-right">
-            Hoja <span id="sheet-indicator">1</span> de <span id="sheet-total">10</span>
+      </div>
+
+      <div class="hidden md:flex items-center gap-3 w-[360px]">
+        <div class="text-xs text-white/70">Progreso</div>
+        <div class="flex-1 h-2 rounded-full bg-white/10 overflow-hidden">
+          <div id="progress-bar-top" class="h-full bg-gradient-to-r from-cyan-400 to-purple-500 w-[0%]"></div>
         </div>
-    </header>
+        <div id="progress-top-text" class="text-xs text-white/70 w-12 text-right">0%</div>
+      </div>
 
-    <!-- MAIN -->
-    <main class="relative z-10 px-3 md:px-8 max-w-5xl mx-auto pb-20">
-        <!-- CONTENEDOR DE HOJAS (pantalla fija) -->
-        <div id="sheet-container" class="min-h-[calc(100vh-230px)] flex items-center justify-center">
-            <!-- HOJA 1: HISTORIA Y OBJETIVOS -->
-            <section id="sheet-1" class="sheet active w-full max-w-5xl bg-white/10 backdrop-blur-md rounded-3xl p-4 md:p-6 border-4 border-white/30 shadow-2xl flex-col justify-center space-y-3 md:space-y-4">
-                <h2 class="sheet-title text-xl md:text-2xl lg:text-3xl font-bold text-center text-yellow-300 drop-shadow-lg">
-                    Hoja 1 · Corredor de Cráteres del Sensorium
-                </h2>
-                <p class="text-xs md:text-base text-white/90 text-center px-2 leading-relaxed">
-                    En el planeta <span class="font-bold text-teal-300">Sensorium</span>, dos RoverBots deben colaborar para transportar una valiosa muestra de energía
-                    hasta un punto exacto del mapa. El camino está lleno de cráteres y zonas inestables.
-                    Solo lo lograrán si planifican <span class="font-semibold text-yellow-300">trayectorias con giros y ángulos precisos</span>
-                    y trabajan como un equipo científico.
-                </p>
+      <div class="flex items-center gap-2">
+        <button onclick="volverAMisiones()" class="btn-3d btn-premium px-4 py-2 bg-white/10 hover:bg-white/15 text-white font-bold rounded-xl">
+          ⬅️ Misiones
+        </button>
+        <div id="completion-badge" class="hidden px-3 py-2 bg-green-500 text-white font-bold rounded-xl shadow-lg text-xs badge-pulse">
+          🏅 Insignia
+        </div>
+      </div>
+    </div>
+  </header>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 items-center">
-                    <div>
-                        <img src="mision3_sensorium.png"
-                            alt="Corredor de cráteres en Sensorium"
-                            class="w-full rounded-2xl border-2 border-white/60 shadow-xl hover-lift"
-                            onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full aspect-video flex items-center justify-center text-4xl bg-gradient-to-br from-purple-500 via-blue-500 to-black rounded-2xl border-2 border-white/40&quot;>🌌🕳️🕳️</div>'">
-                    </div>
-                    <div class="bg-black/40 backdrop-blur-md p-3 md:p-4 rounded-2xl border-2 border-white/40 space-y-2">
-                        <h3 class="text-sm md:text-lg font-semibold text-white">Objetivo de la misión</h3>
-                        <ul class="list-disc list-inside text-xs md:text-base text-white/90 space-y-1">
-                            <li>Unir dos RoverBots para transportar una misma carga.</li>
-                            <li>Diseñar un recorrido con cambios de dirección y ángulos.</li>
-                            <li>Esquivar cráteres y zonas peligrosas.</li>
-                            <li>Detenerse exactamente en el punto de entrega marcado.</li>
-                        </ul>
-                    </div>
-                </div>
+  <!-- Toast -->
+  <div id="toast" class="fixed left-1/2 -translate-x-1/2 z-50 hidden toast-wrap">
+    <div class="glass-card px-6 py-4 rounded-2xl flex items-center gap-3">
+      <div class="text-2xl" id="toast-icon">🏅</div>
+      <div>
+        <div class="font-bold" id="toast-title">Mensaje</div>
+        <div class="text-sm text-white/80" id="toast-msg">Detalle</div>
+      </div>
+    </div>
+  </div>
 
-                <div class="space-y-1 text-xs md:text-base">
-                    <p class="font-semibold text-purple-300">Conceptos matemáticos:</p>
-                    <ul class="list-disc list-inside text-white/90 space-y-1">
-                        <li>Distancias en centímetros o cuadros.</li>
-                        <li>Ángulos (90°, 45°, 135°, 180°).</li>
-                        <li>Relación potencia–tiempo–distancia.</li>
-                        <li>Recorridos en un plano (trayectorias).</li>
-                    </ul>
-                </div>
-            </section>
+  <!-- Audio -->
+  <button id="audio-toggle" class="audio-toggle active" onclick="toggleAudio()">
+    🔊 Audio ON
+  </button>
 
-            <!-- HOJA 2: ESCENARIO + PSEUDOCÓDIGO -->
-            <section id="sheet-2" class="sheet w-full max-w-5xl bg-white/10 backdrop-blur-md rounded-3xl p-4 md:p-6 border-4 border-indigo-300/40 shadow-2xl flex-col justify-center space-y-3 md:space-y-4">
-                <h2 class="sheet-title text-xl md:text-2xl lg:text-3xl font-bold text-yellow-300 text-center drop-shadow-lg">
-                    Hoja 2 · Diseña tu trayectoria segura en Sensorium
-                </h2>
-                <p class="text-xs md:text-base text-white/90 px-2 text-center leading-relaxed">
-                    Momento STEAM 🎨: En equipos, <span class="font-semibold text-teal-300">crea el escenario</span> de Sensorium.
-                </p>
-                <ul class="list-disc list-inside text-xs md:text-base text-white/90 px-4 md:px-6 space-y-1">
-                    <li>Pinta o construye con materiales simples los cráteres, montañas y rocas.</li>
-                    <li>Marca el <span class="font-semibold">Punto A</span>: salida de los RoverBots.</li>
-                    <li>La profe señalará el <span class="font-semibold">Punto B</span>: lugar exacto de entrega.</li>
-                    <li>Dibuja al menos <span class="font-semibold">2 cráteres</span> que deben esquivar.</li>
-                </ul>
+  <!-- MAIN -->
+  <main class="relative z-10 px-3 md:px-8 max-w-5xl mx-auto pb-20">
+    <!-- Progreso principal -->
+    <section class="glass-card rounded-3xl p-5 md:p-6 mt-3 md:mt-4">
+      <div class="flex items-center justify-between gap-3">
+        <div class="font-extrabold text-white drop-shadow-lg">
+          MISIÓN 3 · Sensorium <span class="ml-2">🌌🤝</span>
+        </div>
+        <div class="text-[10px] md:text-sm text-white/80 text-right">
+          Hoja <span id="sheet-indicator">1</span> de <span id="sheet-total">10</span>
+        </div>
+      </div>
 
-                <div class="bg-black/40 backdrop-blur-md rounded-2xl border border-white/30 p-3 md:p-4 space-y-2">
-                    <p class="font-semibold text-yellow-300 text-xs md:text-base">Ahora escribe el plan en tus palabras (pseudocódigo):</p>
-                    <p class="text-xs md:text-base text-white/90 leading-relaxed">
-                        1️⃣ Coloca los RoverBots en el Punto A.<br>
-                        2️⃣ Observa el escenario: ¿cuántos pasos rectos?, ¿dónde girar?, ¿qué ángulos usar?<br>
-                        3️⃣ En un archivo Word llamado <strong>"Misión 3 - Sensorium - Pseudocódigo"</strong>,
-                        escribe la secuencia con tus palabras. Ejemplo:
-                    </p>
-                    <ul class="list-disc list-inside text-xs md:text-base ml-4 text-white/90">
-                        <li>Ir recto 5 cuadros.</li>
-                        <li>Girar 90° a la derecha.</li>
-                        <li>Ir recto 3 cuadros.</li>
-                        <li>Girar 45° a la izquierda.</li>
-                        <li>Continuar hasta el Punto B.</li>
-                    </ul>
-                    <p class="text-xs md:text-base text-white/90">
-                        4️⃣ Guarda el archivo en la carpeta de la <strong>Misión 3</strong> en el Drive del curso.
-                    </p>
-                </div>
-            </section>
+      <div class="mt-3 progress-bar">
+        <div id="progress-fill" class="progress-fill"></div>
+      </div>
 
-            <!-- HOJA 3: CONSTRUCCIÓN 1-3 -->
-            <section id="sheet-3" class="sheet w-full max-w-5xl bg-white/10 backdrop-blur-md rounded-3xl p-4 md:p-5 border-4 border-pink-300/40 shadow-2xl flex-col justify-center space-y-3">
-                <h2 class="sheet-title text-lg md:text-2xl font-bold text-yellow-300 text-center drop-shadow-lg">
-                    Hoja 3 · Construcción (Pasos 1-3)
-                </h2>
-                <p class="text-xs md:text-sm text-center text-white/90">
-                    Inicia el módulo que unirá a los dos RoverBots.
-                </p>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
-                    <img src="Colaboración/1.jpg" class="w-full rounded-2xl border-2 border-white/40 hover-lift" alt="Paso 1" onerror="this.style.display='none';">
-                    <img src="Colaboración/2.jpg" class="w-full rounded-2xl border-2 border-white/40 hover-lift" alt="Paso 2" onerror="this.style.display='none';">
-                    <img src="Colaboración/3.jpg" class="w-full rounded-2xl border-2 border-white/40 hover-lift" alt="Paso 3" onerror="this.style.display='none';">
-                </div>
-            </section>
+      <div class="mt-3 text-xs md:text-sm text-white/70">
+        Consejo: tu avance se guarda automáticamente ✅
+      </div>
+    </section>
 
-            <!-- HOJA 4: CONSTRUCCIÓN 4-6 -->
-            <section id="sheet-4" class="sheet w-full max-w-5xl bg-white/10 backdrop-blur-md rounded-3xl p-4 md:p-5 border-4 border-pink-300/40 shadow-2xl flex-col justify-center space-y-3">
-                <h2 class="sheet-title text-lg md:text-2xl font-bold text-yellow-300 text-center drop-shadow-lg">
-                    Hoja 4 · Construcción (Pasos 4-6)
-                </h2>
-                <p class="text-xs md:text-sm text-center text-white/90">
-                    Refuerza la base para que sea estable.
-                </p>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
-                    <img src="Colaboración/4.jpg" class="w-full rounded-2xl border-2 border-white/40 hover-lift" alt="Paso 4" onerror="this.style.display='none';">
-                    <img src="Colaboración/5.jpg" class="w-full rounded-2xl border-2 border-white/40 hover-lift" alt="Paso 5" onerror="this.style.display='none';">
-                    <img src="Colaboración/6.jpg" class="w-full rounded-2xl border-2 border-white/40 hover-lift" alt="Paso 6" onerror="this.style.display='none';">
-                </div>
-            </section>
+    <!-- CONTENEDOR DE HOJAS -->
+    <div id="sheet-container" class="min-h-[calc(100vh-260px)] flex items-center justify-center mt-4">
+      <!-- HOJA 1 -->
+      <section id="sheet-1" class="sheet active w-full max-w-5xl glass-card p-4 md:p-6 border border-white/10 shadow-2xl flex-col justify-center space-y-3 md:space-y-4">
+        <h2 class="sheet-title text-xl md:text-2xl lg:text-3xl font-bold text-center text-yellow-300 drop-shadow-lg">
+          Hoja 1 · Corredor de Cráteres del Sensorium
+        </h2>
 
-            <!-- HOJA 5: CONSTRUCCIÓN 7-9 -->
-            <section id="sheet-5" class="sheet w-full max-w-5xl bg-white/10 backdrop-blur-md rounded-3xl p-4 md:p-5 border-4 border-pink-300/40 shadow-2xl flex-col justify-center space-y-3">
-                <h2 class="sheet-title text-lg md:text-2xl font-bold text-yellow-300 text-center drop-shadow-lg">
-                    Hoja 5 · Construcción (Pasos 7-9)
-                </h2>
-                <p class="text-xs md:text-sm text-center text-white/90">
-                    Ajusta el soporte de la carga compartida.
-                </p>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
-                    <img src="Colaboración/7.jpg" class="w-full rounded-2xl border-2 border-white/40 hover-lift" alt="Paso 7" onerror="this.style.display='none';">
-                    <img src="Colaboración/8.jpg" class="w-full rounded-2xl border-2 border-white/40 hover-lift" alt="Paso 8" onerror="this.style.display='none';">
-                    <img src="Colaboración/9.jpg" class="w-full rounded-2xl border-2 border-white/40 hover-lift" alt="Paso 9" onerror="this.style.display='none';">
-                </div>
-            </section>
+        <p class="text-xs md:text-base text-white/90 text-center px-2 leading-relaxed">
+          En el planeta <span class="font-bold text-teal-300">Sensorium</span>, dos RoverBots deben colaborar para transportar una valiosa muestra de energía
+          hasta un punto exacto del mapa. El camino está lleno de cráteres y zonas inestables.
+          Solo lo lograrán si planifican <span class="font-semibold text-yellow-300">trayectorias con giros y ángulos precisos</span>
+          y trabajan como un equipo científico.
+        </p>
 
-            <!-- HOJA 6: CONSTRUCCIÓN 10-12 -->
-            <section id="sheet-6" class="sheet w-full max-w-5xl bg-white/10 backdrop-blur-md rounded-3xl p-4 md:p-5 border-4 border-pink-300/40 shadow-2xl flex-col justify-center space-y-3">
-                <h2 class="sheet-title text-lg md:text-2xl font-bold text-yellow-300 text-center drop-shadow-lg">
-                    Hoja 6 · Construcción (Pasos 10-12)
-                </h2>
-                <p class="text-xs md:text-sm text-center text-white/90">
-                    Conecta ambos RoverBots con el módulo central.
-                </p>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
-                    <img src="Colaboración/10.jpg" class="w-full rounded-2xl border-2 border-white/40 hover-lift" alt="Paso 10" onerror="this.style.display='none';">
-                    <img src="Colaboración/11.jpg" class="w-full rounded-2xl border-2 border-white/40 hover-lift" alt="Paso 11" onerror="this.style.display='none';">
-                    <img src="Colaboración/12.jpg" class="w-full rounded-2xl border-2 border-white/40 hover-lift" alt="Paso 12" onerror="this.style.display='none';">
-                </div>
-            </section>
-
-            <!-- HOJA 7: CONSTRUCCIÓN 13-15 -->
-            <section id="sheet-7" class="sheet w-full max-w-5xl bg-white/10 backdrop-blur-md rounded-3xl p-4 md:p-5 border-4 border-pink-300/40 shadow-2xl flex-col justify-center space-y-3">
-                <h2 class="sheet-title text-lg md:text-2xl font-bold text-yellow-300 text-center drop-shadow-lg">
-                    Hoja 7 · Construcción (Pasos 13-15)
-                </h2>
-                <p class="text-xs md:text-sm text-center text-white/90">
-                    Verifica que la estructura quede firme y alineada.
-                </p>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
-                    <img src="Colaboración/13.jpg" class="w-full rounded-2xl border-2 border-white/40 hover-lift" alt="Paso 13" onerror="this.style.display='none';">
-                    <img src="Colaboración/14.jpg" class="w-full rounded-2xl border-2 border-white/40 hover-lift" alt="Paso 14" onerror="this.style.display='none';">
-                    <img src="Colaboración/15.jpg" class="w-full rounded-2xl border-2 border-white/40 hover-lift" alt="Paso 15" onerror="this.style.display='none';">
-                </div>
-            </section>
-
-            <!-- HOJA 8: CONSTRUCCIÓN 16-17 -->
-            <section id="sheet-8" class="sheet w-full max-w-5xl bg-white/10 backdrop-blur-md rounded-3xl p-4 md:p-5 border-4 border-pink-300/40 shadow-2xl flex-col justify-center space-y-3">
-                <h2 class="sheet-title text-lg md:text-2xl font-bold text-yellow-300 text-center drop-shadow-lg">
-                    Hoja 8 · Construcción (Pasos 16-17)
-                </h2>
-                <p class="text-xs md:text-sm text-center text-white/90">
-                    Revisa detalles finales. Tu módulo de colaboración está listo para las pruebas.
-                </p>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
-                    <img src="Colaboración/16.jpg" class="w-full rounded-2xl border-2 border-white/40 hover-lift" alt="Paso 16" onerror="this.style.display='none';">
-                    <img src="Colaboración/17.jpg" class="w-full rounded-2xl border-2 border-white/40 hover-lift" alt="Paso 17" onerror="this.style.display='none';">
-                </div>
-                <p class="text-[9px] md:text-xs text-white/70 text-center">
-                    Imagen ©2015 The LEGO Group. Usada con fines educativos y sin ánimo de lucro.
-                    Fuente: Instrucciones de construcción del set LEGO® Education WeDo 2.0 (45300).
-                </p>
-            </section>
-
-            <!-- HOJA 9: PROGRAMA, PRUEBA Y CALCULA -->
-            <section id="sheet-9" class="sheet w-full max-w-5xl bg-white/10 backdrop-blur-md rounded-3xl p-4 md:p-6 border-4 border-cyan-300/40 shadow-2xl flex-col justify-center space-y-3 md:space-y-4">
-                <h2 class="sheet-title text-xl md:text-2xl lg:text-3xl font-bold text-yellow-300 text-center drop-shadow-lg">
-                    Hoja 9 · Programa, prueba y calcula
-                </h2>
-                <p class="text-xs md:text-base text-white/90 text-center px-2 leading-relaxed">
-                    Usa tu pseudocódigo para programar ambos RoverBots. Haz al menos <strong>3 ensayos</strong> con la ruta,
-                    esquivando los cráteres y llegando juntos al Punto B.
-                </p>
-                <p class="text-[10px] md:text-sm text-purple-200 text-center">
-                    Copia esta tabla en tu cuaderno o en Word/Excel. Complétala y súbela al Drive como evidencia.
-                </p>
-
-                <div class="overflow-x-auto">
-                    <table class="min-w-full text-[9px] md:text-xs text-center border border-white/30 rounded-2xl overflow-hidden">
-                        <thead class="bg-black/60 text-purple-200">
-                            <tr>
-                                <th class="px-1 md:px-2 py-1 border border-white/20">Ensayo</th>
-                                <th class="px-1 md:px-2 py-1 border border-white/20">Distancia total (cm)</th>
-                                <th class="px-1 md:px-2 py-1 border border-white/20">Potencia A (%)</th>
-                                <th class="px-1 md:px-2 py-1 border border-white/20">Potencia B (%)</th>
-                                <th class="px-1 md:px-2 py-1 border border-white/20">Tiempo (s)</th>
-                                <th class="px-1 md:px-2 py-1 border border-white/20">Ángulos usados</th>
-                                <th class="px-1 md:px-2 py-1 border border-white/20">¿Llegan juntos?</th>
-                            </tr>
-                        </thead>
-                        <tbody class="bg-black/40 text-white/90">
-                            <tr class="hover:bg-white/5 transition-colors">
-                                <td class="border border-white/10 py-1">1</td>
-                                <td class="border border-white/10"></td>
-                                <td class="border border-white/10"></td>
-                                <td class="border border-white/10"></td>
-                                <td class="border border-white/10"></td>
-                                <td class="border border-white/10"></td>
-                                <td class="border border-white/10"></td>
-                            </tr>
-                            <tr class="hover:bg-white/5 transition-colors">
-                                <td class="border border-white/10 py-1">2</td>
-                                <td class="border border-white/10"></td>
-                                <td class="border border-white/10"></td>
-                                <td class="border border-white/10"></td>
-                                <td class="border border-white/10"></td>
-                                <td class="border border-white/10"></td>
-                                <td class="border border-white/10"></td>
-                            </tr>
-                            <tr class="hover:bg-white/5 transition-colors">
-                                <td class="border border-white/10 py-1">3</td>
-                                <td class="border border-white/10"></td>
-                                <td class="border border-white/10"></td>
-                                <td class="border border-white/10"></td>
-                                <td class="border border-white/10"></td>
-                                <td class="border border-white/10"></td>
-                                <td class="border border-white/10"></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <p class="text-[10px] md:text-sm text-purple-200 text-center">
-                    Incluye una explicación: ¿qué cambio matemático ayudó a que los RoverBots llegaran coordinados?
-                </p>
-            </section>
-
-            <!-- HOJA 10: REFLEXIÓN + EVIDENCIAS + COMPLETAR -->
-            <section id="sheet-10" class="sheet w-full max-w-5xl bg-white/10 backdrop-blur-md rounded-3xl p-4 md:p-6 border-4 border-green-300/40 shadow-2xl flex-col justify-center space-y-3 md:space-y-4">
-                <h2 class="sheet-title text-xl md:text-2xl lg:text-3xl font-bold text-yellow-300 text-center drop-shadow-lg">
-                    Hoja 10 · Reflexiona y sube tus evidencias
-                </h2>
-                <p class="text-xs md:text-base text-white/90 text-center leading-relaxed">
-                    Responde estas preguntas en tu cuaderno o en un archivo Word (Misión 3 - Reflexión) y súbelo al Drive.
-                </p>
-
-                <ul class="list-decimal list-inside text-xs md:text-base text-white/90 space-y-1 px-4 md:px-6">
-                    <li>¿Por qué fue importante coordinar a los dos RoverBots?</li>
-                    <li>¿Cómo usaron distancias, tiempos y ángulos para mejorar el recorrido?</li>
-                    <li>Describe un ejemplo real de buena colaboración en tu equipo.</li>
-                </ul>
-
-                <div class="space-y-1 text-[10px] md:text-sm text-purple-200 px-2 md:px-4">
-                    <p class="font-semibold">Evidencias para la carpeta de la Misión 3 en Drive:</p>
-                    <ul class="list-disc list-inside text-white/90 space-y-1">
-                        <li>Archivo Word con el pseudocódigo.</li>
-                        <li>Tabla de ensayos (cuaderno escaneado o archivo digital).</li>
-                        <li>Respuestas de reflexión.</li>
-                        <li>Fotos del escenario, los RoverBots conectados y la programación.</li>
-                    </ul>
-                </div>
-
-                <div class="mt-4 flex flex-wrap justify-center gap-3">
-                    <button id="complete-btn"
-                            onclick="completeMission()"
-                            class="px-4 md:px-6 py-2 md:py-3 bg-gradient-to-r from-green-500 to-green-700 text-white font-bold text-xs md:text-base rounded-full shadow-lg transition-transform transform hover:scale-110 hover:shadow-2xl">
-                        Marcar Misión 3 como completada
-                    </button>
-                    <a href="index.html"
-                       id="completed-btn"
-                       class="hidden px-4 md:px-6 py-2 md:py-3 bg-white text-green-600 font-bold text-xs md:text-base rounded-full shadow-lg transition-transform transform hover:scale-110 hover:shadow-2xl">
-                        Volver a Misiones
-                    </a>
-                </div>
-            </section>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 items-center">
+          <div>
+            <img src="mision3_sensorium.png"
+                 alt="Corredor de cráteres en Sensorium"
+                 class="w-full rounded-2xl border-2 border-white/20 shadow-xl hover-lift"
+                 onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full aspect-video flex items-center justify-center text-4xl bg-gradient-to-br from-purple-500 via-blue-500 to-black rounded-2xl border-2 border-white/20&quot;>🌌🕳️🕳️</div>'">
+          </div>
+          <div class="bg-black/35 p-3 md:p-4 rounded-2xl border border-white/10 space-y-2">
+            <h3 class="text-sm md:text-lg font-semibold text-white">Objetivo de la misión</h3>
+            <ul class="list-disc list-inside text-xs md:text-base text-white/90 space-y-1">
+              <li>Unir dos RoverBots para transportar una misma carga.</li>
+              <li>Diseñar un recorrido con cambios de dirección y ángulos.</li>
+              <li>Esquivar cráteres y zonas peligrosas.</li>
+              <li>Detenerse exactamente en el punto de entrega marcado.</li>
+            </ul>
+          </div>
         </div>
 
-        <!-- NAVEGACIÓN ENTRE HOJAS -->
-        <div class="relative z-20 flex items-center justify-between mt-3 md:mt-4">
-            <button id="prev-btn"
-                    onclick="prevSheet()"
-                    class="px-3 md:px-4 py-2 bg-white/10 border border-white/40 text-white text-xs md:text-base rounded-full shadow-lg transition-transform transform hover:scale-105 disabled:opacity-30 disabled:hover:scale-100">
-                ← Hoja anterior
-            </button>
-            <button id="next-btn"
-                    onclick="nextSheet()"
-                    class="px-3 md:px-4 py-2 bg-purple-500 text-white text-xs md:text-base font-semibold rounded-full shadow-lg transition-transform transform hover:scale-105 disabled:opacity-30 disabled:hover:scale-100">
-                Siguiente hoja →
-            </button>
+        <div class="space-y-1 text-xs md:text-base">
+          <p class="font-semibold text-purple-200">Conceptos matemáticos:</p>
+          <ul class="list-disc list-inside text-white/90 space-y-1">
+            <li>Distancias en centímetros o cuadros.</li>
+            <li>Ángulos (90°, 45°, 135°, 180°).</li>
+            <li>Relación potencia–tiempo–distancia.</li>
+            <li>Recorridos en un plano (trayectorias).</li>
+          </ul>
         </div>
-    </main>
+      </section>
 
-    <script>
-        function createStars() {
-            const starsContainer = document.getElementById('stars');
-            if (!starsContainer) return;
-            for (let i = 0; i < 150; i++) {
-                const star = document.createElement('div');
-                star.className = 'star';
-                star.style.left = Math.random() * 100 + '%';
-                star.style.top = Math.random() * 100 + '%';
-                const size = Math.random() * 2.5 + 0.8;
-                star.style.width = size + 'px';
-                star.style.height = size + 'px';
-                star.style.opacity = Math.random() * 0.8 + 0.2;
-                star.style.animationDelay = Math.random() * 3 + 's';
-                starsContainer.appendChild(star);
-            }
-        }
+      <!-- HOJA 2 -->
+      <section id="sheet-2" class="sheet w-full max-w-5xl glass-card p-4 md:p-6 border border-white/10 shadow-2xl flex-col justify-center space-y-3 md:space-y-4">
+        <h2 class="sheet-title text-xl md:text-2xl lg:text-3xl font-bold text-yellow-300 text-center drop-shadow-lg">
+          Hoja 2 · Diseña tu trayectoria segura en Sensorium
+        </h2>
+        <p class="text-xs md:text-base text-white/90 px-2 text-center leading-relaxed">
+          Momento STEAM 🎨: En equipos, <span class="font-semibold text-teal-300">crea el escenario</span> de Sensorium.
+        </p>
+        <ul class="list-disc list-inside text-xs md:text-base text-white/90 px-4 md:px-6 space-y-1">
+          <li>Pinta o construye con materiales simples los cráteres, montañas y rocas.</li>
+          <li>Marca el <span class="font-semibold">Punto A</span>: salida de los RoverBots.</li>
+          <li>La profe señalará el <span class="font-semibold">Punto B</span>: lugar exacto de entrega.</li>
+          <li>Dibuja al menos <span class="font-semibold">2 cráteres</span> que deben esquivar.</li>
+        </ul>
 
-        function createShootingStar() {
-            const starsContainer = document.getElementById('stars');
-            if (!starsContainer) return;
-            
-            const shootingStar = document.createElement('div');
-            shootingStar.className = 'shooting-star';
-            shootingStar.style.left = Math.random() * 100 + '%';
-            shootingStar.style.top = Math.random() * 50 + '%';
-            starsContainer.appendChild(shootingStar);
-            
-            setTimeout(() => {
-                shootingStar.remove();
-            }, 1500);
-        }
+        <div class="bg-black/35 rounded-2xl border border-white/10 p-3 md:p-4 space-y-2">
+          <p class="font-semibold text-yellow-300 text-xs md:text-base">Ahora escribe el plan en tus palabras (pseudocódigo):</p>
+          <p class="text-xs md:text-base text-white/90 leading-relaxed">
+            1️⃣ Coloca los RoverBots en el Punto A.<br>
+            2️⃣ Observa el escenario: ¿cuántos pasos rectos?, ¿dónde girar?, ¿qué ángulos usar?<br>
+            3️⃣ En un archivo Word llamado <strong>"Misión 3 - Sensorium - Pseudocódigo"</strong>,
+            escribe la secuencia con tus palabras. Ejemplo:
+          </p>
+          <ul class="list-disc list-inside text-xs md:text-base ml-4 text-white/90">
+            <li>Ir recto 5 cuadros.</li>
+            <li>Girar 90° a la derecha.</li>
+            <li>Ir recto 3 cuadros.</li>
+            <li>Girar 45° a la izquierda.</li>
+            <li>Continuar hasta el Punto B.</li>
+          </ul>
+          <p class="text-xs md:text-base text-white/90">
+            4️⃣ Guarda el archivo en la carpeta de la <strong>Misión 3</strong> en el Drive del curso.
+          </p>
+        </div>
+      </section>
 
-        setInterval(createShootingStar, 5000);
+      <!-- HOJAS 3–8 (imágenes) -->
+      <section id="sheet-3" class="sheet w-full max-w-5xl glass-card p-4 md:p-5 border border-white/10 shadow-2xl flex-col justify-center space-y-3">
+        <h2 class="sheet-title text-lg md:text-2xl font-bold text-yellow-300 text-center drop-shadow-lg">Hoja 3 · Construcción (Pasos 1-3)</h2>
+        <p class="text-xs md:text-sm text-center text-white/90">Inicia el módulo que unirá a los dos RoverBots.</p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
+          <img src="Colaboración/1.jpg" class="w-full rounded-2xl border-2 border-white/20 hover-lift" alt="Paso 1" onerror="this.style.display='none';">
+          <img src="Colaboración/2.jpg" class="w-full rounded-2xl border-2 border-white/20 hover-lift" alt="Paso 2" onerror="this.style.display='none';">
+          <img src="Colaboración/3.jpg" class="w-full rounded-2xl border-2 border-white/20 hover-lift" alt="Paso 3" onerror="this.style.display='none';">
+        </div>
+      </section>
 
-        let audioContext;
-        let audioEnabled = true;
-        let backgroundMusicInterval;
-        
-        function initAudio() {
-            if (!audioContext) {
-                audioContext = new (window.AudioContext || window.webkitAudioContext)();
-            }
-            if (audioContext.state === 'suspended') {
-                audioContext.resume();
-            }
-        }
-        
-        function playTone(frequency, duration, type = 'square') {
-            if (!audioEnabled || !audioContext) return;
-            
-            const oscillator = audioContext.createOscillator();
-            const gainNode = audioContext.createGain();
-            
-            oscillator.connect(gainNode);
-            gainNode.connect(audioContext.destination);
-            
-            oscillator.frequency.value = frequency;
-            oscillator.type = type;
-            
-            gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
-            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration);
-            
-            oscillator.start(audioContext.currentTime);
-            oscillator.stop(audioContext.currentTime + duration);
-        }
-        
-        function playBackgroundMusic() {
-            if (!audioEnabled) return;
-            
-            const melody = [
-                {freq: 523.25, dur: 0.2},
-                {freq: 587.33, dur: 0.2},
-                {freq: 659.25, dur: 0.2},
-                {freq: 698.46, dur: 0.3},
-                {freq: 783.99, dur: 0.2},
-                {freq: 698.46, dur: 0.2},
-                {freq: 659.25, dur: 0.4},
-            ];
-            
-            let currentTime = 0;
-            melody.forEach(note => {
-                setTimeout(() => {
-                    if (audioEnabled) playTone(note.freq, note.dur, 'sine');
-                }, currentTime * 1000);
-                currentTime += note.dur + 0.1;
-            });
-        }
-        
-        function startBackgroundMusic() {
-            if (backgroundMusicInterval) clearInterval(backgroundMusicInterval);
-            playBackgroundMusic();
-            backgroundMusicInterval = setInterval(playBackgroundMusic, 3000);
-        }
-        
-        function stopBackgroundMusic() {
-            if (backgroundMusicInterval) {
-                clearInterval(backgroundMusicInterval);
-                backgroundMusicInterval = null;
-            }
-        }
-        
-        function toggleAudio() {
-            audioEnabled = !audioEnabled;
-            const button = document.getElementById('audio-toggle');
-            
-            if (audioEnabled) {
-                button.textContent = '🔊 Audio ON';
-                button.classList.add('active');
-                initAudio();
-                startBackgroundMusic();
-            } else {
-                button.textContent = '🔇 Audio OFF';
-                button.classList.remove('active');
-                stopBackgroundMusic();
-            }
-        }
-        
-        document.addEventListener('click', function initOnFirstClick() {
-            initAudio();
-            startBackgroundMusic();
-            document.removeEventListener('click', initOnFirstClick);
-        }, { once: true });
+      <section id="sheet-4" class="sheet w-full max-w-5xl glass-card p-4 md:p-5 border border-white/10 shadow-2xl flex-col justify-center space-y-3">
+        <h2 class="sheet-title text-lg md:text-2xl font-bold text-yellow-300 text-center drop-shadow-lg">Hoja 4 · Construcción (Pasos 4-6)</h2>
+        <p class="text-xs md:text-sm text-center text-white/90">Refuerza la base para que sea estable.</p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
+          <img src="Colaboración/4.jpg" class="w-full rounded-2xl border-2 border-white/20 hover-lift" alt="Paso 4" onerror="this.style.display='none';">
+          <img src="Colaboración/5.jpg" class="w-full rounded-2xl border-2 border-white/20 hover-lift" alt="Paso 5" onerror="this.style.display='none';">
+          <img src="Colaboración/6.jpg" class="w-full rounded-2xl border-2 border-white/20 hover-lift" alt="Paso 6" onerror="this.style.display='none';">
+        </div>
+      </section>
 
-        // Progreso
-        function getCurrentPlayer() {
-            return localStorage.getItem('zython-current-player');
-        }
+      <section id="sheet-5" class="sheet w-full max-w-5xl glass-card p-4 md:p-5 border border-white/10 shadow-2xl flex-col justify-center space-y-3">
+        <h2 class="sheet-title text-lg md:text-2xl font-bold text-yellow-300 text-center drop-shadow-lg">Hoja 5 · Construcción (Pasos 7-9)</h2>
+        <p class="text-xs md:text-sm text-center text-white/90">Ajusta el soporte de la carga compartida.</p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
+          <img src="Colaboración/7.jpg" class="w-full rounded-2xl border-2 border-white/20 hover-lift" alt="Paso 7" onerror="this.style.display='none';">
+          <img src="Colaboración/8.jpg" class="w-full rounded-2xl border-2 border-white/20 hover-lift" alt="Paso 8" onerror="this.style.display='none';">
+          <img src="Colaboración/9.jpg" class="w-full rounded-2xl border-2 border-white/20 hover-lift" alt="Paso 9" onerror="this.style.display='none';">
+        </div>
+      </section>
 
-        function loadPlayerProgress(playerName) {
-            try {
-                const players = JSON.parse(localStorage.getItem('zython-players') || '{}');
-                return players[playerName] || {
-                    completedMissions: [],
-                    completed: 0,
-                    currentMission: 1,
-                    available: 1,
-                    badges: 0
-                };
-            } catch (error) {
-                console.error('Error loading progress:', error);
-                return {
-                    completedMissions: [],
-                    completed: 0,
-                    currentMission: 1,
-                    available: 1,
-                    badges: 0
-                };
-            }
-        }
+      <section id="sheet-6" class="sheet w-full max-w-5xl glass-card p-4 md:p-5 border border-white/10 shadow-2xl flex-col justify-center space-y-3">
+        <h2 class="sheet-title text-lg md:text-2xl font-bold text-yellow-300 text-center drop-shadow-lg">Hoja 6 · Construcción (Pasos 10-12)</h2>
+        <p class="text-xs md:text-sm text-center text-white/90">Conecta ambos RoverBots con el módulo central.</p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
+          <img src="Colaboración/10.jpg" class="w-full rounded-2xl border-2 border-white/20 hover-lift" alt="Paso 10" onerror="this.style.display='none';">
+          <img src="Colaboración/11.jpg" class="w-full rounded-2xl border-2 border-white/20 hover-lift" alt="Paso 11" onerror="this.style.display='none';">
+          <img src="Colaboración/12.jpg" class="w-full rounded-2xl border-2 border-white/20 hover-lift" alt="Paso 12" onerror="this.style.display='none';">
+        </div>
+      </section>
 
-        function savePlayerProgress(playerName, progress) {
-            try {
-                const players = JSON.parse(localStorage.getItem('zython-players') || '{}');
-                players[playerName] = progress;
-                localStorage.setItem('zython-players', JSON.stringify(players));
-            } catch (error) {
-                console.error('Error saving progress:', error);
-            }
-        }
+      <section id="sheet-7" class="sheet w-full max-w-5xl glass-card p-4 md:p-5 border border-white/10 shadow-2xl flex-col justify-center space-y-3">
+        <h2 class="sheet-title text-lg md:text-2xl font-bold text-yellow-300 text-center drop-shadow-lg">Hoja 7 · Construcción (Pasos 13-15)</h2>
+        <p class="text-xs md:text-sm text-center text-white/90">Verifica que la estructura quede firme y alineada.</p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
+          <img src="Colaboración/13.jpg" class="w-full rounded-2xl border-2 border-white/20 hover-lift" alt="Paso 13" onerror="this.style.display='none';">
+          <img src="Colaboración/14.jpg" class="w-full rounded-2xl border-2 border-white/20 hover-lift" alt="Paso 14" onerror="this.style.display='none';">
+          <img src="Colaboración/15.jpg" class="w-full rounded-2xl border-2 border-white/20 hover-lift" alt="Paso 15" onerror="this.style.display='none';">
+        </div>
+      </section>
 
-        // Navegación entre hojas
-        let currentSheet = 1;
-        const totalSheets = 10;
+      <section id="sheet-8" class="sheet w-full max-w-5xl glass-card p-4 md:p-5 border border-white/10 shadow-2xl flex-col justify-center space-y-3">
+        <h2 class="sheet-title text-lg md:text-2xl font-bold text-yellow-300 text-center drop-shadow-lg">Hoja 8 · Construcción (Pasos 16-17)</h2>
+        <p class="text-xs md:text-sm text-center text-white/90">Revisa detalles finales. Tu módulo de colaboración está listo para las pruebas.</p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
+          <img src="Colaboración/16.jpg" class="w-full rounded-2xl border-2 border-white/20 hover-lift" alt="Paso 16" onerror="this.style.display='none';">
+          <img src="Colaboración/17.jpg" class="w-full rounded-2xl border-2 border-white/20 hover-lift" alt="Paso 17" onerror="this.style.display='none';">
+        </div>
+        <p class="text-[10px] md:text-xs text-white/70 text-center">
+          Imagen ©2015 The LEGO Group. Usada con fines educativos y sin ánimo de lucro.
+          Fuente: Instrucciones de construcción del set LEGO® Education WeDo 2.0 (45300).
+        </p>
+      </section>
 
-        function showSheet(n) {
-            if (n < 1 || n > totalSheets) return;
-            currentSheet = n;
+      <!-- HOJA 9 -->
+      <section id="sheet-9" class="sheet w-full max-w-5xl glass-card p-4 md:p-6 border border-white/10 shadow-2xl flex-col justify-center space-y-3 md:space-y-4">
+        <h2 class="sheet-title text-xl md:text-2xl lg:text-3xl font-bold text-yellow-300 text-center drop-shadow-lg">
+          Hoja 9 · Programa, prueba y calcula
+        </h2>
+        <p class="text-xs md:text-base text-white/90 text-center px-2 leading-relaxed">
+          Usa tu pseudocódigo para programar ambos RoverBots. Haz al menos <strong>3 ensayos</strong> con la ruta,
+          esquivando los cráteres y llegando juntos al Punto B.
+        </p>
+        <p class="text-[10px] md:text-sm text-white/70 text-center">
+          Copia esta tabla en tu cuaderno o en Word/Excel. Complétala y súbela al Drive como evidencia.
+        </p>
 
-            for (let i = 1; i <= totalSheets; i++) {
-                const sheet = document.getElementById(`sheet-${i}`);
-                if (sheet) {
-                    sheet.classList.toggle('active', i === currentSheet);
-                }
-            }
+        <div class="overflow-x-auto">
+          <table class="min-w-full text-[9px] md:text-xs text-center border border-white/20 rounded-2xl overflow-hidden">
+            <thead class="bg-black/50 text-white/80">
+              <tr>
+                <th class="px-1 md:px-2 py-1 border border-white/10">Ensayo</th>
+                <th class="px-1 md:px-2 py-1 border border-white/10">Distancia total (cm)</th>
+                <th class="px-1 md:px-2 py-1 border border-white/10">Potencia A (%)</th>
+                <th class="px-1 md:px-2 py-1 border border-white/10">Potencia B (%)</th>
+                <th class="px-1 md:px-2 py-1 border border-white/10">Tiempo (s)</th>
+                <th class="px-1 md:px-2 py-1 border border-white/10">Ángulos usados</th>
+                <th class="px-1 md:px-2 py-1 border border-white/10">¿Llegan juntos?</th>
+              </tr>
+            </thead>
+            <tbody class="bg-black/35 text-white/90">
+              <tr class="hover:bg-white/5 transition-colors">
+                <td class="border border-white/10 py-1">1</td>
+                <td class="border border-white/10"></td>
+                <td class="border border-white/10"></td>
+                <td class="border border-white/10"></td>
+                <td class="border border-white/10"></td>
+                <td class="border border-white/10"></td>
+                <td class="border border-white/10"></td>
+              </tr>
+              <tr class="hover:bg-white/5 transition-colors">
+                <td class="border border-white/10 py-1">2</td>
+                <td class="border border-white/10"></td>
+                <td class="border border-white/10"></td>
+                <td class="border border-white/10"></td>
+                <td class="border border-white/10"></td>
+                <td class="border border-white/10"></td>
+                <td class="border border-white/10"></td>
+              </tr>
+              <tr class="hover:bg-white/5 transition-colors">
+                <td class="border border-white/10 py-1">3</td>
+                <td class="border border-white/10"></td>
+                <td class="border border-white/10"></td>
+                <td class="border border-white/10"></td>
+                <td class="border border-white/10"></td>
+                <td class="border border-white/10"></td>
+                <td class="border border-white/10"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
 
-            const prevBtn = document.getElementById('prev-btn');
-            const nextBtn = document.getElementById('next-btn');
-            const sheetIndicator = document.getElementById('sheet-indicator');
-            const sheetTotal = document.getElementById('sheet-total');
+        <p class="text-[10px] md:text-sm text-white/80 text-center">
+          Incluye una explicación: ¿qué cambio matemático ayudó a que los RoverBots llegaran coordinados?
+        </p>
+      </section>
 
-            if (sheetIndicator) sheetIndicator.textContent = currentSheet;
-            if (sheetTotal) sheetTotal.textContent = totalSheets;
+      <!-- HOJA 10 -->
+      <section id="sheet-10" class="sheet w-full max-w-5xl glass-card p-4 md:p-6 border border-white/10 shadow-2xl flex-col justify-center space-y-3 md:space-y-4">
+        <h2 class="sheet-title text-xl md:text-2xl lg:text-3xl font-bold text-yellow-300 text-center drop-shadow-lg">
+          Hoja 10 · Reflexiona y sube tus evidencias
+        </h2>
+        <p class="text-xs md:text-base text-white/90 text-center leading-relaxed">
+          Responde estas preguntas en tu cuaderno o en un archivo Word (Misión 3 - Reflexión) y súbelo al Drive.
+        </p>
 
-            if (prevBtn) prevBtn.disabled = currentSheet === 1;
-            if (nextBtn) {
-                nextBtn.disabled = currentSheet === totalSheets;
-                nextBtn.textContent = currentSheet === totalSheets ? 'Última hoja' : 'Siguiente hoja →';
-            }
-        }
+        <ul class="list-decimal list-inside text-xs md:text-base text-white/90 space-y-1 px-4 md:px-6">
+          <li>¿Por qué fue importante coordinar a los dos RoverBots?</li>
+          <li>¿Cómo usaron distancias, tiempos y ángulos para mejorar el recorrido?</li>
+          <li>Describe un ejemplo real de buena colaboración en tu equipo.</li>
+        </ul>
 
-        function nextSheet() {
-            if (currentSheet < totalSheets) showSheet(currentSheet + 1);
-        }
+        <div class="space-y-1 text-[10px] md:text-sm text-white/70 px-2 md:px-4">
+          <p class="font-semibold">Evidencias para la carpeta de la Misión 3 en Drive:</p>
+          <ul class="list-disc list-inside text-white/90 space-y-1">
+            <li>Archivo Word con el pseudocódigo.</li>
+            <li>Tabla de ensayos (cuaderno escaneado o archivo digital).</li>
+            <li>Respuestas de reflexión.</li>
+            <li>Fotos del escenario, los RoverBots conectados y la programación.</li>
+          </ul>
+        </div>
 
-        function prevSheet() {
-            if (currentSheet > 1) showSheet(currentSheet - 1);
-        }
+        <div class="mt-4 flex flex-wrap justify-center gap-3">
+          <button id="complete-btn"
+                  onclick="completeMission()"
+                  class="btn-3d btn-premium px-5 md:px-7 py-3 bg-gradient-to-r from-green-500 to-green-700 text-white font-bold text-xs md:text-base rounded-full">
+            Marcar Misión 3 como completada
+          </button>
+          <a href="index.html"
+             id="completed-btn"
+             class="hidden btn-3d btn-premium px-5 md:px-7 py-3 bg-white/90 text-green-700 font-bold text-xs md:text-base rounded-full">
+            Volver a Misiones
+          </a>
+        </div>
+      </section>
 
-        // Completar misión
-        function checkCompletion() {
-            const currentPlayer = getCurrentPlayer();
-            if (currentPlayer) {
-                const progress = loadPlayerProgress(currentPlayer);
-                if (progress.completedMissions.includes(3)) {
-                    const badge = document.getElementById('completion-badge');
-                    const completeBtn = document.getElementById('complete-btn');
-                    const completedBtn = document.getElementById('completed-btn');
-                    if (badge) badge.classList.remove('hidden');
-                    if (completeBtn) completeBtn.classList.add('hidden');
-                    if (completedBtn) completedBtn.classList.remove('hidden');
-                }
-            }
-        }
+    </div>
 
-        function completeMission() {
-            const currentPlayer = getCurrentPlayer();
-            if (!currentPlayer) {
-                console.error('No current player for mission completion');
-                alert('Error: No se encontró información del jugador. Por favor, regresa al menú principal.');
-                return;
-            }
+    <!-- Navegación -->
+    <div class="relative z-20 flex items-center justify-between mt-3 md:mt-4">
+      <button id="prev-btn"
+              onclick="prevSheet()"
+              class="btn-3d btn-premium px-4 py-2 bg-white/10 hover:bg-white/15 border border-white/20 text-white text-xs md:text-base rounded-full disabled:opacity-30">
+        ← Hoja anterior
+      </button>
+      <button id="next-btn"
+              onclick="nextSheet()"
+              class="btn-3d btn-premium px-4 py-2 bg-purple-500 hover:bg-purple-600 text-white text-xs md:text-base font-semibold rounded-full disabled:opacity-30">
+        Siguiente hoja →
+      </button>
+    </div>
+  </main>
 
-            const progress = loadPlayerProgress(currentPlayer);
+  <script>
+    'use strict';
 
-            if (!progress.completedMissions.includes(3)) {
-                progress.completedMissions.push(3);
-                progress.completed = progress.completedMissions.length;
-                progress.badges = progress.completedMissions.length;
+    /* Toast */
+    function showToast(title, msg, icon='🏅'){
+      const t = document.getElementById('toast');
+      const tt = document.getElementById('toast-title');
+      const tm = document.getElementById('toast-msg');
+      const ti = document.getElementById('toast-icon');
+      if(!t) return;
+      tt.textContent = title;
+      tm.textContent = msg;
+      ti.textContent = icon;
+      t.classList.remove('hidden');
+      setTimeout(()=> t.classList.add('hidden'), 2800);
+    }
 
-                progress.currentMission = Math.max(progress.currentMission, 4);
-                progress.available = Math.max(progress.available, 4);
+    /* Stars */
+    function createStars() {
+      const starsContainer = document.getElementById('stars');
+      if (!starsContainer) return;
+      starsContainer.innerHTML = '';
+      for (let i = 0; i < 160; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        star.style.left = Math.random() * 100 + '%';
+        star.style.top = Math.random() * 100 + '%';
+        const size = Math.random() * 2.5 + 0.8;
+        star.style.width = size + 'px';
+        star.style.height = size + 'px';
+        star.style.opacity = Math.random() * 0.8 + 0.2;
+        star.style.animationDelay = Math.random() * 3 + 's';
+        starsContainer.appendChild(star);
+      }
+    }
 
-                savePlayerProgress(currentPlayer, progress);
+    document.addEventListener('mousemove', (e) => {
+      const x = (e.clientX / window.innerWidth - 0.5) * 10;
+      const y = (e.clientY / window.innerHeight - 0.5) * 10;
+      const stars = document.getElementById('stars');
+      if (stars) stars.style.transform = `translate(${x}px, ${y}px)`;
+    });
 
-                const badge = document.getElementById('completion-badge');
-                const completeBtn = document.getElementById('complete-btn');
-                const completedBtn = document.getElementById('completed-btn');
-                if (badge) badge.classList.remove('hidden');
-                if (completeBtn) completeBtn.classList.add('hidden');
-                if (completedBtn) completedBtn.classList.remove('hidden');
+    function createShootingStar() {
+      const s = document.createElement('div');
+      s.className = 'shooting-star';
+      s.style.left = Math.random() * 100 + '%';
+      s.style.top = Math.random() * 50 + '%';
+      document.body.appendChild(s);
+      setTimeout(() => s.remove(), 1000);
+    }
 
-                alert('¡Felicitaciones! Has obtenido la Insignia "Colaboración en Sensorium". La Misión 4 ahora está disponible.');
-            } else {
-                alert('Esta misión ya ha sido completada anteriormente.');
-            }
-        }
+    /* Audio */
+    let audioContext;
+    let audioEnabled = true;
+    let backgroundMusicInterval;
 
-        function volverAMisiones() {
-            window.location.href = 'index.html';
-        }
+    function initAudio() {
+      if (!audioContext) audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      if (audioContext.state === 'suspended') audioContext.resume();
+    }
 
-        function initialize() {
-            createStars();
-            showSheet(1);
-            checkCompletion();
-        }
+    function playTone(frequency, duration, type = 'square') {
+      if (!audioEnabled || !audioContext) return;
+      const oscillator = audioContext.createOscillator();
+      const gainNode = audioContext.createGain();
+      oscillator.connect(gainNode);
+      gainNode.connect(audioContext.destination);
+      oscillator.frequency.value = frequency;
+      oscillator.type = type;
+      gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+      gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration);
+      oscillator.start(audioContext.currentTime);
+      oscillator.stop(audioContext.currentTime + duration);
+    }
 
-        document.addEventListener('DOMContentLoaded', initialize);
-    </script>
+    function playBackgroundMusic() {
+      if (!audioEnabled) return;
+      const melody = [
+        {freq: 523.25, dur: 0.2},
+        {freq: 587.33, dur: 0.2},
+        {freq: 659.25, dur: 0.2},
+        {freq: 698.46, dur: 0.3},
+        {freq: 783.99, dur: 0.2},
+        {freq: 698.46, dur: 0.2},
+        {freq: 659.25, dur: 0.4},
+      ];
+      let currentTime = 0;
+      melody.forEach(note => {
+        setTimeout(() => { if (audioEnabled) playTone(note.freq, note.dur, 'sine'); }, currentTime * 1000);
+        currentTime += note.dur + 0.1;
+      });
+    }
+
+    function startBackgroundMusic() {
+      if (backgroundMusicInterval) clearInterval(backgroundMusicInterval);
+      playBackgroundMusic();
+      backgroundMusicInterval = setInterval(playBackgroundMusic, 3000);
+    }
+
+    function stopBackgroundMusic() {
+      if (backgroundMusicInterval) {
+        clearInterval(backgroundMusicInterval);
+        backgroundMusicInterval = null;
+      }
+    }
+
+    function toggleAudio() {
+      audioEnabled = !audioEnabled;
+      const button = document.getElementById('audio-toggle');
+
+      if (audioEnabled) {
+        button.textContent = '🔊 Audio ON';
+        button.classList.add('active');
+        initAudio();
+        startBackgroundMusic();
+        showToast('Audio activado', '¡Listos para colaborar! 🔊', '🔊');
+      } else {
+        button.textContent = '🔇 Audio OFF';
+        button.classList.remove('active');
+        stopBackgroundMusic();
+        showToast('Audio desactivado', 'Silencio espacial 🛰️', '🔇');
+      }
+    }
+
+    document.addEventListener('click', function initOnFirstClick() {
+      initAudio();
+      startBackgroundMusic();
+      document.removeEventListener('click', initOnFirstClick);
+    }, { once: true });
+
+    /* Progreso jugador */
+    function getCurrentPlayer() {
+      return localStorage.getItem('zython-current-player');
+    }
+
+    function loadPlayerProgress(playerName) {
+      try {
+        const players = JSON.parse(localStorage.getItem('zython-players') || '{}');
+        return players[playerName] || { completedMissions: [], completed: 0, currentMission: 1, available: 1, badges: 0 };
+      } catch (error) {
+        console.error('Error loading progress:', error);
+        return { completedMissions: [], completed: 0, currentMission: 1, available: 1, badges: 0 };
+      }
+    }
+
+    function savePlayerProgress(playerName, progress) {
+      try {
+        const players = JSON.parse(localStorage.getItem('zython-players') || '{}');
+        players[playerName] = progress;
+        localStorage.setItem('zython-players', JSON.stringify(players));
+      } catch (error) {
+        console.error('Error saving progress:', error);
+      }
+    }
+
+    /* Hojas + progreso + persistencia */
+    let currentSheet = 1;
+    const totalSheets = 10;
+
+    function persistSheet(n){
+      localStorage.setItem('zython-m3-sheet', String(n));
+    }
+    function restoreSheet(){
+      const s = Number(localStorage.getItem('zython-m3-sheet') || '1');
+      currentSheet = Math.min(Math.max(s,1), totalSheets);
+    }
+
+    function updateHeaderSubtitle(){
+      const el = document.getElementById('header-subtitle');
+      if(!el) return;
+      el.textContent = `Misión 3 · Hoja ${currentSheet}`;
+    }
+
+    function updateProgressUI(){
+      const pct = Math.round((currentSheet / totalSheets) * 100);
+
+      const sheetIndicator = document.getElementById('sheet-indicator');
+      const sheetTotal = document.getElementById('sheet-total');
+      if (sheetIndicator) sheetIndicator.textContent = currentSheet;
+      if (sheetTotal) sheetTotal.textContent = totalSheets;
+
+      const fill = document.getElementById('progress-fill');
+      if (fill) fill.style.width = `${pct}%`;
+
+      const topBar = document.getElementById('progress-bar-top');
+      const topText = document.getElementById('progress-top-text');
+      if (topBar) topBar.style.width = `${pct}%`;
+      if (topText) topText.textContent = `${pct}%`;
+
+      updateHeaderSubtitle();
+      persistSheet(currentSheet);
+
+      const prevBtn = document.getElementById('prev-btn');
+      const nextBtn = document.getElementById('next-btn');
+      if (prevBtn) prevBtn.disabled = currentSheet === 1;
+      if (nextBtn) {
+        nextBtn.disabled = currentSheet === totalSheets;
+        nextBtn.textContent = currentSheet === totalSheets ? 'Última hoja' : 'Siguiente hoja →';
+      }
+    }
+
+    function showSheet(n) {
+      if (n < 1 || n > totalSheets) return;
+      currentSheet = n;
+
+      for (let i = 1; i <= totalSheets; i++) {
+        const sheet = document.getElementById(`sheet-${i}`);
+        if (sheet) sheet.classList.toggle('active', i === currentSheet);
+      }
+
+      updateProgressUI();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function nextSheet() {
+      if (currentSheet < totalSheets) {
+        playTone(660, 0.06, 'sine');
+        showSheet(currentSheet + 1);
+      }
+    }
+
+    function prevSheet() {
+      if (currentSheet > 1) {
+        playTone(600, 0.06, 'sine');
+        showSheet(currentSheet - 1);
+      }
+    }
+
+    /* Completar misión */
+    function checkCompletion() {
+      const currentPlayer = getCurrentPlayer();
+      if (!currentPlayer) return;
+      const progress = loadPlayerProgress(currentPlayer);
+      if (progress.completedMissions.includes(3)) {
+        const badge = document.getElementById('completion-badge');
+        const completeBtn = document.getElementById('complete-btn');
+        const completedBtn = document.getElementById('completed-btn');
+        if (badge) badge.classList.remove('hidden');
+        if (completeBtn) completeBtn.classList.add('hidden');
+        if (completedBtn) completedBtn.classList.remove('hidden');
+      }
+    }
+
+    function completeMission() {
+      const currentPlayer = getCurrentPlayer();
+      if (!currentPlayer) {
+        showToast('Error', 'No se encontró jugador. Vuelve al menú principal.', '⚠️');
+        return;
+      }
+
+      const progress = loadPlayerProgress(currentPlayer);
+
+      if (!progress.completedMissions.includes(3)) {
+        progress.completedMissions.push(3);
+        progress.completed = progress.completedMissions.length;
+        progress.badges = progress.completedMissions.length;
+        progress.currentMission = Math.max(progress.currentMission, 4);
+        progress.available = Math.max(progress.available, 4);
+
+        savePlayerProgress(currentPlayer, progress);
+
+        const badge = document.getElementById('completion-badge');
+        const completeBtn = document.getElementById('complete-btn');
+        const completedBtn = document.getElementById('completed-btn');
+        if (badge) badge.classList.remove('hidden');
+        if (completeBtn) completeBtn.classList.add('hidden');
+        if (completedBtn) completedBtn.classList.remove('hidden');
+
+        showToast('¡Misión completada!', 'Insignia: Colaboración en Sensorium 🏅', '🏅');
+      } else {
+        showToast('Ya completada', 'Esta misión ya fue completada antes ✅', '✅');
+      }
+    }
+
+    function volverAMisiones() {
+      window.location.href = 'index.html';
+    }
+
+    function initialize() {
+      createStars();
+      restoreSheet();
+      showSheet(currentSheet);
+      checkCompletion();
+      setInterval(() => { if (Math.random() > 0.7) createShootingStar(); }, 3000);
+    }
+
+    document.addEventListener('DOMContentLoaded', initialize);
+  </script>
 </body>
 </html>
