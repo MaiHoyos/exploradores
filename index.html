@@ -1039,6 +1039,30 @@
     }
 
     document.addEventListener('DOMContentLoaded', initialize);
+
+    function resetGame() {
+    if (confirm('¿Estás seguro de que quieres reiniciar el progreso?')) {
+
+        // 🔥 Borrado total de progreso
+        localStorage.removeItem('zython-players');
+        localStorage.removeItem('zython-current-player');
+
+        // 🔑 NUEVO: forzar nueva sesión de juego
+        const newSessionId = Date.now().toString();
+        localStorage.setItem('zython-game-session', newSessionId);
+
+        // Limpieza opcional extra (por seguridad)
+        Object.keys(localStorage).forEach(key => {
+            if (key.startsWith('mision')) {
+                localStorage.removeItem(key);
+            }
+        });
+
+        // Volver al inicio
+        window.location.href = 'mision0.html';
+    }
+}
+
   </script>
 </body>
 </html>
