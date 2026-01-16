@@ -700,6 +700,41 @@
 
   <script>
     'use strict';
+/* =========================
+   RESET FORZADO MISION 0 (por sesión de juego)
+   - Si cambias la sesión del juego, M0 vuelve a Step 0 y Assembly 1
+========================== */
+(function forceMission0ResetIfNeeded() {
+  const SESSION_KEY = 'zython-game-session';
+  const M0_SESSION_KEY = 'zython-m0-session';
+
+  const currentSession = localStorage.getItem(SESSION_KEY);
+
+  // Si no existe sesión global, crearla
+  if (!currentSession) {
+    const newSessionId = String(Date.now());
+    localStorage.setItem(SESSION_KEY, newSessionId);
+    localStorage.setItem(M0_SESSION_KEY, newSessionId);
+    return;
+  }
+
+  const missionSession = localStorage.getItem(M0_SESSION_KEY);
+
+  // Si misión 0 pertenece a otra sesión -> reset total misión 0
+  if (missionSession !== currentSession) {
+    console.log('🔄 Reinicio forzado de Misión 0 (nueva sesión detectada)');
+
+    // Borra progreso específico de misión 0
+    localStorage.removeItem('zython-m0-assembly-step');
+    localStorage.removeItem('zython-m0-step');
+
+    // Vincula esta misión a la sesión actual
+    localStorage.setItem(M0_SESSION_KEY, currentSession);
+
+    // Recarga para arrancar limpio
+    location.reload();
+  }
+})();
 
     /* =========================
        Audio
@@ -1060,7 +1095,7 @@
     }
 
     function persistAssemblyStep(){
-      localStorage.setItem('zython-m0-assembly-step', String(currentAssemblyStep));
+      // localStorage.setItem('zython-m0-assembly-step', String(currentAssemblyStep));
       const s = document.getElementById('saved-indicator');
       if(s){
         s.textContent = 'guardado';
@@ -1202,9 +1237,16 @@
 
       setupImageLightbox();
 
-      restoreAssemblyStep();
-      showStep(0);
-      showAssemblyStep(currentAssemblyStep);
+      // Siempre iniciar Misión 0 desde el principio (Step 0 y Assembly 1)
+currentStep = 0;
+currentAssemblyStep = 1;
+
+// Opcional: si NO quieres guardar progreso nunca en M0, descomenta:
+// localStorage.removeItem('zython-m0-assembly-step');
+
+showStep(currentStep);
+showAssemblyStep(currentAssemblyStep);
+
 
       loadYouTubeAPI();
 
