@@ -849,37 +849,49 @@
 
   <script>
 
-        (function forceMission1ResetIfNeeded() {
-    const currentSession = localStorage.getItem('zython-game-session');
+        (function forceMission1Reset() {
+  const GAME_SESSION_KEY = 'zython-game-session';
+  const MISSION_SESSION_KEY = 'zython-mision-1-session';
+  const SLIDE_KEY = 'zython-m1-slide';
 
-    // Si no existe sesión (primer acceso), crearla
-    if (!currentSession) {
-        const newSessionId = Date.now().toString();
-        localStorage.setItem('zython-game-session', newSessionId);
-        localStorage.setItem('zython-mision-1-session', newSessionId);
-        return;
-    }
+  // 1️⃣ Asegurar sesión global
+  let gameSession = localStorage.getItem(GAME_SESSION_KEY);
+  if (!gameSession) {
+    gameSession = Date.now().toString();
+    localStorage.setItem(GAME_SESSION_KEY, gameSession);
+  }
 
-    const missionSessionKey = 'zython-mision-1-session';
-    const missionSession = localStorage.getItem(missionSessionKey);
+  // 2️⃣ Comprobar sesión asociada a la misión
+  const missionSession = localStorage.getItem(MISSION_SESSION_KEY);
 
-    // Si la misión pertenece a una sesión anterior → reset total
-    if (missionSession !== currentSession) {
-        console.log('🔄 Reinicio forzado de Misión 1 (nueva sesión detectada)');
+  // 3️⃣ Si la sesión cambió → RESET TOTAL
+  if (missionSession !== gameSession) {
+    console.log('🔄 RESET TOTAL → Misión 1');
 
-        // 🔥 Borra todo lo que pertenezca a la misión 1
-        Object.keys(localStorage).forEach(key => {
-            if (key.includes('mision1')) {
-                localStorage.removeItem(key);
-            }
-        });
+    // 🔥 Borrar TODO lo relacionado con misión 1
+    [
+      'mision1Data',
+      'mision1Completada',
+      SLIDE_KEY,
+      MISSION_SESSION_KEY
+    ].forEach(key => localStorage.removeItem(key));
 
-        // Vincular esta misión a la nueva sesión
-        localStorage.setItem(missionSessionKey, currentSession);
+    // 🔥 Failsafe: cualquier clave futura
+    Object.keys(localStorage).forEach(key => {
+      if (key.includes('mision1') || key.includes('zython-m1')) {
+        localStorage.removeItem(key);
+      }
+    });
 
-        // Recargar para empezar desde cero
-        location.reload();
-    }
+    // 4️⃣ Vincular misión a la nueva sesión
+    localStorage.setItem(MISSION_SESSION_KEY, gameSession);
+
+    // 5️⃣ Forzar inicio en slide 1
+    localStorage.setItem(SLIDE_KEY, '1');
+
+    // 6️⃣ Recarga sin caché
+    location.href = location.pathname + '?reset=' + Date.now();
+  }
 })();
     'use strict';
 
