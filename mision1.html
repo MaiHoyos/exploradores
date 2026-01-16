@@ -848,6 +848,39 @@
   </main>
 
   <script>
+
+        (function forceMission1ResetIfNeeded() {
+    const currentSession = localStorage.getItem('zython-game-session');
+
+    // Si no existe sesión (primer acceso), crearla
+    if (!currentSession) {
+        const newSessionId = Date.now().toString();
+        localStorage.setItem('zython-game-session', newSessionId);
+        localStorage.setItem('zython-mision-1-session', newSessionId);
+        return;
+    }
+
+    const missionSessionKey = 'zython-mision-1-session';
+    const missionSession = localStorage.getItem(missionSessionKey);
+
+    // Si la misión pertenece a una sesión anterior → reset total
+    if (missionSession !== currentSession) {
+        console.log('🔄 Reinicio forzado de Misión 1 (nueva sesión detectada)');
+
+        // 🔥 Borra todo lo que pertenezca a la misión 1
+        Object.keys(localStorage).forEach(key => {
+            if (key.includes('mision1')) {
+                localStorage.removeItem(key);
+            }
+        });
+
+        // Vincular esta misión a la nueva sesión
+        localStorage.setItem(missionSessionKey, currentSession);
+
+        // Recargar para empezar desde cero
+        location.reload();
+    }
+})();
     'use strict';
 
     /* =========================
@@ -1236,38 +1269,7 @@
     }
 
     window.addEventListener('DOMContentLoaded', initializeApp);
-    (function forceMission1ResetIfNeeded() {
-    const currentSession = localStorage.getItem('zython-game-session');
 
-    // Si no existe sesión (primer acceso), crearla
-    if (!currentSession) {
-        const newSessionId = Date.now().toString();
-        localStorage.setItem('zython-game-session', newSessionId);
-        localStorage.setItem('zython-mision-1-session', newSessionId);
-        return;
-    }
-
-    const missionSessionKey = 'zython-mision-1-session';
-    const missionSession = localStorage.getItem(missionSessionKey);
-
-    // Si la misión pertenece a una sesión anterior → reset total
-    if (missionSession !== currentSession) {
-        console.log('🔄 Reinicio forzado de Misión 1 (nueva sesión detectada)');
-
-        // 🔥 Borra todo lo que pertenezca a la misión 1
-        Object.keys(localStorage).forEach(key => {
-            if (key.includes('mision1')) {
-                localStorage.removeItem(key);
-            }
-        });
-
-        // Vincular esta misión a la nueva sesión
-        localStorage.setItem(missionSessionKey, currentSession);
-
-        // Recargar para empezar desde cero
-        location.reload();
-    }
-})();
   </script>
 </body>
 </html>
