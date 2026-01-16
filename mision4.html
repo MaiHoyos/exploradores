@@ -545,6 +545,50 @@
   </main>
 
   <script>
+    (function forceMission4Reset() {
+  const GAME_SESSION_KEY = 'zython-game-session';
+  const MISSION_SESSION_KEY = 'zython-mision-4-session';
+  const PAGE_KEY = 'zython-m4-page'; // si usas otra clave para página/hoja actual, cámbiala aquí
+
+  // 1️⃣ Asegurar sesión global
+  let gameSession = localStorage.getItem(GAME_SESSION_KEY);
+  if (!gameSession) {
+    gameSession = Date.now().toString();
+    localStorage.setItem(GAME_SESSION_KEY, gameSession);
+  }
+
+  // 2️⃣ Comprobar sesión asociada a la misión
+  const missionSession = localStorage.getItem(MISSION_SESSION_KEY);
+
+  // 3️⃣ Si la sesión cambió → RESET TOTAL
+  if (missionSession !== gameSession) {
+    console.log('🔄 RESET TOTAL → Misión 4');
+
+    // 🔥 Borra TODO lo relacionado con misión 4
+    [
+      'mision4Data',
+      'mision4Completada',
+      PAGE_KEY,
+      MISSION_SESSION_KEY
+    ].forEach(key => localStorage.removeItem(key));
+
+    // 🔥 Failsafe: cualquier clave futura
+    Object.keys(localStorage).forEach(key => {
+      if (key.includes('mision4') || key.includes('zython-m4')) {
+        localStorage.removeItem(key);
+      }
+    });
+
+    // 4️⃣ Vincular misión a la nueva sesión
+    localStorage.setItem(MISSION_SESSION_KEY, gameSession);
+
+    // 5️⃣ Forzar inicio en hoja/página 1
+    localStorage.setItem(PAGE_KEY, '1');
+
+    // 6️⃣ Recarga sin caché
+    location.href = location.pathname + '?reset=' + Date.now();
+  }
+})();
     'use strict';
 
     /* Toast */
