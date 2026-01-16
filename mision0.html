@@ -588,61 +588,76 @@
     </div>
 
     <!-- Paso 5: Ir a Scratch -->
+<div id="step-5" class="step-container min-h-screen flex-col items-center justify-center p-6 hidden">
+  <div class="max-w-5xl w-full text-center animate-fade-in-scale">
+    <div class="text-7xl mb-6 animate-float">🧩</div>
+    <h2 class="text-4xl md:text-5xl font-bold mb-4 text-cyan-300 text-glow">
+      Conecta tu LEGO Education WeDo 2.0 en Scratch
+    </h2>
+    <p class="text-xl text-white/90 mb-6">
+      Ahora vamos a vincular tu robot con Scratch para que puedas controlarlo en las próximas misiones.
+    </p>
+
+    <!-- ✅ TODO lo de Canva y ayuda va DENTRO de step-5 -->
     <div class="glass-card rounded-3xl p-8 mb-8 text-left space-y-6">
 
-  <!-- Instrucciones mínimas -->
-  <div class="text-xl text-white/90 space-y-2">
-    <p>1️⃣ Abre <span class="font-bold text-cyan-300">Scratch</span> en tu navegador o en la app del aula.</p>
-    <p>2️⃣ Inicia sesión con tu usuario (o el de tu clase).</p>
-    <p class="text-white/70 text-base">
-      A continuación, sigue el paso a paso visual para conectar tu robot:
-    </p>
+      <!-- Instrucciones mínimas -->
+      <div class="text-xl text-white/90 space-y-2">
+        <p>1️⃣ Abre <span class="font-bold text-cyan-300">Scratch</span> en tu navegador o en la app del aula.</p>
+        <p>2️⃣ Inicia sesión con tu usuario (o el de tu clase).</p>
+        <p class="text-white/70 text-base">
+          A continuación, sigue el paso a paso visual para conectar tu robot:
+        </p>
+      </div>
+
+      <!-- Presentación Canva incrustada -->
+      <div style="
+        position: relative;
+        width: 100%;
+        padding-top: 56.25%;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      ">
+        <iframe
+          loading="lazy"
+          src="https://www.canva.com/design/DAG-lo3EES8/bPVV5Zg8Lq2KDKHRxYRjZQ/view?embed"
+          allowfullscreen="allowfullscreen"
+          allow="fullscreen"
+          style="position:absolute; top:0; left:0; width:100%; height:100%; border:0;"
+          title="Guía paso a paso – Conectar WeDo 2.0 en Scratch">
+        </iframe>
+      </div>
+
+      <!-- Nota -->
+      <p class="text-sm text-white/60 text-center">
+        💡 Puedes avanzar a tu ritmo. Si algo no funciona, usa el botón de ayuda.
+      </p>
+
+      <!-- Botón de ayuda (dentro del card para que quede integrado) -->
+      <div class="flex justify-center">
+        <a
+          href="https://scratch.mit.edu/wedo"
+          target="_blank"
+          rel="noopener"
+          class="flex items-center gap-2 px-6 py-3 rounded-full bg-yellow-400/90 hover:bg-yellow-500 text-black font-bold transition transform hover:scale-105 btn-3d"
+          title="Ayuda oficial Scratch WeDo 2.0"
+        >
+          ❓ Ayuda
+        </a>
+      </div>
+
+    </div>
+
+    <!-- Botón continuar -->
+    <button
+      onclick="nextStep()"
+      class="px-12 py-5 bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 hover:from-purple-600 hover:via-pink-600 hover:to-red-600 rounded-2xl font-bold text-2xl transition-all duration-300 transform hover:scale-105 btn-3d btn-premium">
+      ✅ Ya conectamos el set
+    </button>
   </div>
-
-  <!-- Presentación Canva incrustada -->
-  <div style="
-    position: relative;
-    width: 100%;
-    padding-top: 56.25%;
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-  ">
-    <iframe
-      loading="lazy"
-      src="https://www.canva.com/design/DAG-lo3EES8/bPVV5Zg8Lq2KDKHRxYRjZQ/view?embed"
-      allowfullscreen
-      class="absolute top-0 left-0 w-full h-full border-0"
-      title="Guía paso a paso – Conectar WeDo 2.0 en Scratch">
-    </iframe>
-  </div>
-
-  <!-- Nota accesible -->
-  <p class="text-sm text-white/60 text-center">
-    💡 Puedes avanzar a tu ritmo. Si algo no funciona, usa el botón de ayuda.
-  </p>
-
 </div>
 
-<!-- Botón de ayuda -->
-<div class="flex justify-center mb-6">
-  <a
-    href="https://scratch.mit.edu/wedo"
-    target="_blank"
-    rel="noopener"
-    class="flex items-center gap-2 px-6 py-3 rounded-full bg-yellow-400/90 hover:bg-yellow-500 text-black font-bold transition transform hover:scale-105 btn-3d"
-    title="Ayuda oficial Scratch WeDo 2.0"
-  >
-    ❓ Ayuda
-  </a>
-</div>
-
-<!-- Botón continuar -->
-<button
-  onclick="nextStep()"
-  class="px-12 py-5 bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 hover:from-purple-600 hover:via-pink-600 hover:to-red-600 rounded-2xl font-bold text-2xl transition-all duration-300 transform hover:scale-105 btn-3d btn-premium">
-  ✅ Ya conectamos el set
-</button>
 
 
     <!-- Paso 6: Misión completada -->
