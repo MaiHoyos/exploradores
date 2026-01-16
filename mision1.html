@@ -330,6 +330,10 @@
       img{ max-width: 100% !important; height: auto !important; }
       body{ padding-top: 86px; }
     }
+    /* Lightbox (zoom de imágenes) */
+.lightboxable { cursor: zoom-in; }
+.lightboxable:active { transform: scale(0.98); }
+
   </style>
 </head>
 
@@ -413,9 +417,7 @@
               Acabas de aterrizar en Zython. Tu RoverBot debe recorrer exactamente la distancia hasta el primer punto de control.
               Calibra, prueba y registra como un auténtico explorador.
             </p>
-            <p class="text-lg font-semibold text-yellow-300">
-              Lee toda la guía antes de empezar. Esta misión se trabaja en equipo y con registro de evidencias.
-            </p>
+            
           </div>
           <div class="flex justify-between mt-8 gap-4">
             <button class="px-4 py-2 bg-gray-500/50 text-white font-bold rounded-full opacity-50 cursor-not-allowed">
@@ -476,8 +478,8 @@
               <p class="text-lg font-semibold text-yellow-300 mb-3">Preparación:</p>
               <ol class="list-decimal list-inside space-y-2 text-white/90 text-lg">
                 <li>Marca la línea de salida con cinta.</li>
-                <li>Marca el objetivo (ejemplo: 50 cm desde la salida).</li>
-                <li>Conecta el set a Scratch y verifica que el motor responda correctamente.</li>
+                <li>Marca el objetivo que quieres que recorra tu Rover (ejemplo: 50 cm desde la salida).</li>
+                <li>Verifica que el robot continúa enlazado con Scratch.</li>
               </ol>
             </div>
           </div>
@@ -503,12 +505,12 @@
             <p class="text-lg text-white/90 mb-4 font-semibold">Qué hacer:</p>
             <ol class="list-decimal list-inside space-y-2 text-white/90 mb-6 text-lg">
               <li>Escribe la distancia objetivo.</li>
-              <li>Haz una predicción: ¿qué potencia (%) y qué tiempo (s) crees necesitar?</li>
+              <li>Haz una predicción: ¿qué potencia (%) y qué tiempo (s) crees que necesita el robot para que recorra la distancia ?</li>
             </ol>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
               <div>
                 <label class="block mb-2 font-semibold text-yellow-300">Distancia objetivo (cm):</label>
-                <input type="number" id="distancia-objetivo" value="50" min="1" max="300">
+                <input type="number" id="distancia-objetivo" min="0" max="100" placeholder="Escribe la distancia que escogiste">
               </div>
               <div>
                 <label class="block mb-2 font-semibold text-yellow-300">Predicción - Potencia (%):</label>
@@ -549,7 +551,10 @@
             <div class="text-sm text-white/70 italic">
               Imagen tomada como referencia de programación inicial del motor.
             </div>
-            <img src="Programación/1.png" alt="Programa inicial RoverBot" class="mx-auto my-4 max-w-full rounded-xl border-2 border-white/20 shadow-lg">
+            <img src="Programación/1.png"
+     alt="Programa inicial RoverBot"
+     class="mx-auto my-4 max-w-full rounded-xl border-2 border-white/20 shadow-lg lightboxable">
+
             <ol class="list-decimal list-inside space-y-2 text-white/90 text-lg">
               <li>En Scratch, arma el bloque para encender el motor con tu potencia y tiempo predichos.</li>
               <li>Coloca el RoverBot en la línea de salida.</li>
@@ -846,6 +851,30 @@
 
     </div>
   </main>
+<!-- Lightbox / Modal para ampliar imágenes -->
+<div id="img-modal" class="fixed inset-0 z-[9999] hidden items-center justify-center p-4">
+  <!-- Fondo -->
+  <div id="img-modal-backdrop" class="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
+
+  <!-- Contenido -->
+  <div class="relative z-10 w-full max-w-5xl glass-card rounded-3xl border border-white/20 shadow-2xl overflow-hidden">
+    <div class="flex items-center justify-between px-4 py-3 bg-white/5 border-b border-white/10">
+      <div class="text-sm text-white/80 truncate pr-3" id="img-modal-caption">Vista ampliada</div>
+      <button id="img-modal-close"
+              class="px-3 py-2 rounded-xl bg-white/10 hover:bg-white/20 transition font-bold btn-premium"
+              aria-label="Cerrar imagen (ESC)">
+        ✕
+      </button>
+    </div>
+
+    <div class="p-3 md:p-4">
+      <img id="img-modal-src" alt="Imagen ampliada" class="w-full h-auto rounded-2xl border border-white/10">
+      <div class="mt-2 text-xs text-white/60 text-center">
+        Tip: presiona <span class="font-bold text-white/80">ESC</span> para cerrar
+      </div>
+    </div>
+  </div>
+</div>
 
   <script>
 
@@ -1270,6 +1299,8 @@
       createStars();
       loadSavedData();
 
+      setupImageLightbox();
+      
       restoreSlide();
       showSlide(currentSlide);
 
@@ -1281,6 +1312,50 @@
     }
 
     window.addEventListener('DOMContentLoaded', initializeApp);
+function setupImageLightbox() {
+  const modal = document.getElementById('img-modal');
+  const backdrop = document.getElementById('img-modal-backdrop');
+  const closeBtn = document.getElementById('img-modal-close');
+  const modalImg = document.getElementById('img-modal-src');
+  const caption = document.getElementById('img-modal-caption');
+
+  if (!modal || !backdrop || !closeBtn || !modalImg || !caption) return;
+
+  function open(src, altText) {
+    modalImg.src = src;
+    modalImg.alt = altText || 'Imagen ampliada';
+    caption.textContent = altText || 'Vista ampliada';
+
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+
+    // Bloquear scroll del fondo
+    document.body.style.overflow = 'hidden';
+
+    closeBtn.focus();
+  }
+
+  function close() {
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+    document.body.style.overflow = '';
+    modalImg.src = '';
+  }
+
+  closeBtn.addEventListener('click', close);
+  backdrop.addEventListener('click', close);
+
+  document.addEventListener('keydown', (e) => {
+    if (!modal.classList.contains('hidden') && e.key === 'Escape') close();
+  });
+
+  // Delegación: cualquier img con clase .lightboxable abre
+  document.addEventListener('click', (e) => {
+    const img = e.target?.closest?.('img.lightboxable');
+    if (!img || !img.src) return;
+    open(img.src, img.alt);
+  });
+}
 
   </script>
 </body>
