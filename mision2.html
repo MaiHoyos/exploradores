@@ -550,50 +550,39 @@ AL INICIAR:
 
   <script>
 
-    (function forceMission2Reset() {
-  const GAME_SESSION_KEY = 'zython-game-session';
-  const MISSION_SESSION_KEY = 'zython-mision-2-session';
-  const SLIDE_KEY = 'zython-m2-slide';
+    /* 🔒 RESET FORZADO – MISIÓN 2 + Anti-bfcache */
+window.addEventListener('pageshow', (e) => {
+  if (e.persisted) location.reload();
+});
 
-  // 1️⃣ Asegurar sesión global
-  let gameSession = localStorage.getItem(GAME_SESSION_KEY);
+(function forceMission2Reset() {
+  const GAME = 'zython-game-session';
+  const MS = 'zython-mision-2-session';
+
+  let gameSession = localStorage.getItem(GAME);
   if (!gameSession) {
     gameSession = Date.now().toString();
-    localStorage.setItem(GAME_SESSION_KEY, gameSession);
+    localStorage.setItem(GAME, gameSession);
   }
 
-  // 2️⃣ Comprobar sesión asociada a la misión
-  const missionSession = localStorage.getItem(MISSION_SESSION_KEY);
+  const missionSession = localStorage.getItem(MS);
 
-  // 3️⃣ Si la sesión cambió → RESET TOTAL
   if (missionSession !== gameSession) {
-    console.log('🔄 RESET TOTAL → Misión 2');
-
-    // 🔥 Borra TODO lo relacionado con misión 2
-    [
-      'mision2Data',
-      'mision2Completada',
-      SLIDE_KEY,
-      MISSION_SESSION_KEY
-    ].forEach(key => localStorage.removeItem(key));
-
-    // 🔥 Failsafe: cualquier clave futura
-    Object.keys(localStorage).forEach(key => {
-      if (key.includes('mision2') || key.includes('zython-m2')) {
-        localStorage.removeItem(key);
-      }
+    // 🔥 borra cualquier cosa de misión2 / zython-m2
+    Object.keys(localStorage).forEach(k => {
+      if (k.includes('mision2') || k.includes('zython-m2')) localStorage.removeItem(k);
     });
 
-    // 4️⃣ Vincular misión a la nueva sesión
-    localStorage.setItem(MISSION_SESSION_KEY, gameSession);
+    localStorage.setItem(MS, gameSession);
 
-    // 5️⃣ Forzar inicio en slide 1
-    localStorage.setItem(SLIDE_KEY, '1');
+    // bandera para forzar slide 1 en esta carga
+    sessionStorage.setItem('zython-m2-force-first', '1');
 
-    // 6️⃣ Recarga sin caché
+    // recarga sin caché
     location.href = location.pathname + '?reset=' + Date.now();
   }
 })();
+
     'use strict';
 
     /* =========================
@@ -925,6 +914,11 @@ AL INICIAR:
        Init
     ========================== */
     function initialize() {
+      if (sessionStorage.getItem('zython-m2-force-first') === '1') {
+  currentSlide = 1;
+  sessionStorage.removeItem('zython-m2-force-first');
+}
+
       createStars();
       checkCompletion();
 
