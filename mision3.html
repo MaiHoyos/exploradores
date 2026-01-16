@@ -548,6 +548,50 @@
   </main>
 
   <script>
+    (function forceMission3Reset() {
+  const GAME_SESSION_KEY = 'zython-game-session';
+  const MISSION_SESSION_KEY = 'zython-mision-3-session';
+  const SHEET_KEY = 'zython-m3-sheet'; // si usas otra clave para hoja actual, cámbiala aquí
+
+  // 1️⃣ Asegurar sesión global
+  let gameSession = localStorage.getItem(GAME_SESSION_KEY);
+  if (!gameSession) {
+    gameSession = Date.now().toString();
+    localStorage.setItem(GAME_SESSION_KEY, gameSession);
+  }
+
+  // 2️⃣ Comprobar sesión asociada a la misión
+  const missionSession = localStorage.getItem(MISSION_SESSION_KEY);
+
+  // 3️⃣ Si la sesión cambió → RESET TOTAL
+  if (missionSession !== gameSession) {
+    console.log('🔄 RESET TOTAL → Misión 3');
+
+    // 🔥 Borra TODO lo relacionado con misión 3
+    [
+      'mision3Data',
+      'mision3Completada',
+      SHEET_KEY,
+      MISSION_SESSION_KEY
+    ].forEach(key => localStorage.removeItem(key));
+
+    // 🔥 Failsafe: cualquier clave futura
+    Object.keys(localStorage).forEach(key => {
+      if (key.includes('mision3') || key.includes('zython-m3')) {
+        localStorage.removeItem(key);
+      }
+    });
+
+    // 4️⃣ Vincular misión a la nueva sesión
+    localStorage.setItem(MISSION_SESSION_KEY, gameSession);
+
+    // 5️⃣ Forzar inicio en hoja 1
+    localStorage.setItem(SHEET_KEY, '1');
+
+    // 6️⃣ Recarga sin caché
+    location.href = location.pathname + '?reset=' + Date.now();
+  }
+})();
     'use strict';
 
     /* Toast */
