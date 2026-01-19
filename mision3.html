@@ -210,6 +210,11 @@
       table{ font-size: .7rem !important; }
       table th, table td{ padding: .35rem !important; }
     }
+
+    /* Lightbox: cursor + feedback */
+.lightboxable { cursor: zoom-in; }
+.lightboxable:active { transform: scale(0.99); }
+
   </style>
 </head>
 
@@ -301,11 +306,13 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 items-center">
           <div>
-            <img src="mision3_sensorium.png"
-                 alt="Corredor de cráteres en Sensorium"
-                 class="w-full rounded-2xl border-2 border-white/20 shadow-xl hover-lift"
-                 onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full aspect-video flex items-center justify-center text-4xl bg-gradient-to-br from-purple-500 via-blue-500 to-black rounded-2xl border-2 border-white/20&quot;>🌌🕳️🕳️</div>'">
-          </div>
+            <img src="Zython/Portada 3.png"
+     alt="Portada Misión 3: Dos RoverBots colaborando en Sensorium"
+     class="w-full rounded-2xl border-2 border-white/20 shadow-xl hover-lift lightboxable"
+     loading="lazy"
+     onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full aspect-video flex items-center justify-center text-4xl bg-gradient-to-br from-purple-500 via-blue-500 to-black rounded-2xl border-2 border-white/20&quot;>🌌🤝</div>'">
+
+             </div>
           <div class="bg-black/35 p-3 md:p-4 rounded-2xl border border-white/10 space-y-2">
             <h3 class="text-sm md:text-lg font-semibold text-white">Objetivo de la misión</h3>
             <ul class="list-disc list-inside text-xs md:text-base text-white/90 space-y-1">
@@ -365,68 +372,69 @@
       </section>
 
       <!-- HOJAS 3–8 (imágenes) -->
-      <section id="sheet-3" class="sheet w-full max-w-5xl glass-card p-4 md:p-5 border border-white/10 shadow-2xl flex-col justify-center space-y-3">
-        <h2 class="sheet-title text-lg md:text-2xl font-bold text-yellow-300 text-center drop-shadow-lg">Hoja 3 · Construcción (Pasos 1-3)</h2>
-        <p class="text-xs md:text-sm text-center text-white/90">Inicia el módulo que unirá a los dos RoverBots.</p>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
-          <img src="Colaboración/1.jpg" class="w-full rounded-2xl border-2 border-white/20 hover-lift" alt="Paso 1" onerror="this.style.display='none';">
-          <img src="Colaboración/2.jpg" class="w-full rounded-2xl border-2 border-white/20 hover-lift" alt="Paso 2" onerror="this.style.display='none';">
-          <img src="Colaboración/3.jpg" class="w-full rounded-2xl border-2 border-white/20 hover-lift" alt="Paso 3" onerror="this.style.display='none';">
-        </div>
-      </section>
+<section id="sheet-3" class="sheet w-full max-w-5xl glass-card p-4 md:p-5 border border-white/10 shadow-2xl flex-col justify-center space-y-3">
+  <h2 class="sheet-title text-lg md:text-2xl font-bold text-yellow-300 text-center drop-shadow-lg">Hoja 3 · Construcción (Pasos 1-3)</h2>
+  <p class="text-xs md:text-sm text-center text-white/90">Inicia el módulo que unirá a los dos RoverBots.</p>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
+    <img src="Colaboración/1.jpg" class="w-full rounded-2xl border-2 border-white/20 hover-lift lightboxable" alt="Paso 1" onerror="this.style.display='none';">
+    <img src="Colaboración/2.jpg" class="w-full rounded-2xl border-2 border-white/20 hover-lift lightboxable" alt="Paso 2" onerror="this.style.display='none';">
+    <img src="Colaboración/3.jpg" class="w-full rounded-2xl border-2 border-white/20 hover-lift lightboxable" alt="Paso 3" onerror="this.style.display='none';">
+  </div>
+</section>
 
-      <section id="sheet-4" class="sheet w-full max-w-5xl glass-card p-4 md:p-5 border border-white/10 shadow-2xl flex-col justify-center space-y-3">
-        <h2 class="sheet-title text-lg md:text-2xl font-bold text-yellow-300 text-center drop-shadow-lg">Hoja 4 · Construcción (Pasos 4-6)</h2>
-        <p class="text-xs md:text-sm text-center text-white/90">Refuerza la base para que sea estable.</p>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
-          <img src="Colaboración/4.jpg" class="w-full rounded-2xl border-2 border-white/20 hover-lift" alt="Paso 4" onerror="this.style.display='none';">
-          <img src="Colaboración/5.jpg" class="w-full rounded-2xl border-2 border-white/20 hover-lift" alt="Paso 5" onerror="this.style.display='none';">
-          <img src="Colaboración/6.jpg" class="w-full rounded-2xl border-2 border-white/20 hover-lift" alt="Paso 6" onerror="this.style.display='none';">
-        </div>
-      </section>
+<section id="sheet-4" class="sheet w-full max-w-5xl glass-card p-4 md:p-5 border border-white/10 shadow-2xl flex-col justify-center space-y-3">
+  <h2 class="sheet-title text-lg md:text-2xl font-bold text-yellow-300 text-center drop-shadow-lg">Hoja 4 · Construcción (Pasos 4-6)</h2>
+  <p class="text-xs md:text-sm text-center text-white/90">Refuerza la base para que sea estable.</p>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
+    <img src="Colaboración/4.jpg" class="w-full rounded-2xl border-2 border-white/20 hover-lift lightboxable" alt="Paso 4" onerror="this.style.display='none';">
+    <img src="Colaboración/5.jpg" class="w-full rounded-2xl border-2 border-white/20 hover-lift lightboxable" alt="Paso 5" onerror="this.style.display='none';">
+    <img src="Colaboración/6.jpg" class="w-full rounded-2xl border-2 border-white/20 hover-lift lightboxable" alt="Paso 6" onerror="this.style.display='none';">
+  </div>
+</section>
 
-      <section id="sheet-5" class="sheet w-full max-w-5xl glass-card p-4 md:p-5 border border-white/10 shadow-2xl flex-col justify-center space-y-3">
-        <h2 class="sheet-title text-lg md:text-2xl font-bold text-yellow-300 text-center drop-shadow-lg">Hoja 5 · Construcción (Pasos 7-9)</h2>
-        <p class="text-xs md:text-sm text-center text-white/90">Ajusta el soporte de la carga compartida.</p>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
-          <img src="Colaboración/7.jpg" class="w-full rounded-2xl border-2 border-white/20 hover-lift" alt="Paso 7" onerror="this.style.display='none';">
-          <img src="Colaboración/8.jpg" class="w-full rounded-2xl border-2 border-white/20 hover-lift" alt="Paso 8" onerror="this.style.display='none';">
-          <img src="Colaboración/9.jpg" class="w-full rounded-2xl border-2 border-white/20 hover-lift" alt="Paso 9" onerror="this.style.display='none';">
-        </div>
-      </section>
+<section id="sheet-5" class="sheet w-full max-w-5xl glass-card p-4 md:p-5 border border-white/10 shadow-2xl flex-col justify-center space-y-3">
+  <h2 class="sheet-title text-lg md:text-2xl font-bold text-yellow-300 text-center drop-shadow-lg">Hoja 5 · Construcción (Pasos 7-9)</h2>
+  <p class="text-xs md:text-sm text-center text-white/90">Ajusta el soporte de la carga compartida.</p>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
+    <img src="Colaboración/7.jpg" class="w-full rounded-2xl border-2 border-white/20 hover-lift lightboxable" alt="Paso 7" onerror="this.style.display='none';">
+    <img src="Colaboración/8.jpg" class="w-full rounded-2xl border-2 border-white/20 hover-lift lightboxable" alt="Paso 8" onerror="this.style.display='none';">
+    <img src="Colaboración/9.jpg" class="w-full rounded-2xl border-2 border-white/20 hover-lift lightboxable" alt="Paso 9" onerror="this.style.display='none';">
+  </div>
+</section>
 
-      <section id="sheet-6" class="sheet w-full max-w-5xl glass-card p-4 md:p-5 border border-white/10 shadow-2xl flex-col justify-center space-y-3">
-        <h2 class="sheet-title text-lg md:text-2xl font-bold text-yellow-300 text-center drop-shadow-lg">Hoja 6 · Construcción (Pasos 10-12)</h2>
-        <p class="text-xs md:text-sm text-center text-white/90">Conecta ambos RoverBots con el módulo central.</p>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
-          <img src="Colaboración/10.jpg" class="w-full rounded-2xl border-2 border-white/20 hover-lift" alt="Paso 10" onerror="this.style.display='none';">
-          <img src="Colaboración/11.jpg" class="w-full rounded-2xl border-2 border-white/20 hover-lift" alt="Paso 11" onerror="this.style.display='none';">
-          <img src="Colaboración/12.jpg" class="w-full rounded-2xl border-2 border-white/20 hover-lift" alt="Paso 12" onerror="this.style.display='none';">
-        </div>
-      </section>
+<section id="sheet-6" class="sheet w-full max-w-5xl glass-card p-4 md:p-5 border border-white/10 shadow-2xl flex-col justify-center space-y-3">
+  <h2 class="sheet-title text-lg md:text-2xl font-bold text-yellow-300 text-center drop-shadow-lg">Hoja 6 · Construcción (Pasos 10-12)</h2>
+  <p class="text-xs md:text-sm text-center text-white/90">Conecta ambos RoverBots con el módulo central.</p>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
+    <img src="Colaboración/10.jpg" class="w-full rounded-2xl border-2 border-white/20 hover-lift lightboxable" alt="Paso 10" onerror="this.style.display='none';">
+    <img src="Colaboración/11.jpg" class="w-full rounded-2xl border-2 border-white/20 hover-lift lightboxable" alt="Paso 11" onerror="this.style.display='none';">
+    <img src="Colaboración/12.jpg" class="w-full rounded-2xl border-2 border-white/20 hover-lift lightboxable" alt="Paso 12" onerror="this.style.display='none';">
+  </div>
+</section>
 
-      <section id="sheet-7" class="sheet w-full max-w-5xl glass-card p-4 md:p-5 border border-white/10 shadow-2xl flex-col justify-center space-y-3">
-        <h2 class="sheet-title text-lg md:text-2xl font-bold text-yellow-300 text-center drop-shadow-lg">Hoja 7 · Construcción (Pasos 13-15)</h2>
-        <p class="text-xs md:text-sm text-center text-white/90">Verifica que la estructura quede firme y alineada.</p>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
-          <img src="Colaboración/13.jpg" class="w-full rounded-2xl border-2 border-white/20 hover-lift" alt="Paso 13" onerror="this.style.display='none';">
-          <img src="Colaboración/14.jpg" class="w-full rounded-2xl border-2 border-white/20 hover-lift" alt="Paso 14" onerror="this.style.display='none';">
-          <img src="Colaboración/15.jpg" class="w-full rounded-2xl border-2 border-white/20 hover-lift" alt="Paso 15" onerror="this.style.display='none';">
-        </div>
-      </section>
+<section id="sheet-7" class="sheet w-full max-w-5xl glass-card p-4 md:p-5 border border-white/10 shadow-2xl flex-col justify-center space-y-3">
+  <h2 class="sheet-title text-lg md:text-2xl font-bold text-yellow-300 text-center drop-shadow-lg">Hoja 7 · Construcción (Pasos 13-15)</h2>
+  <p class="text-xs md:text-sm text-center text-white/90">Verifica que la estructura quede firme y alineada.</p>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
+    <img src="Colaboración/13.jpg" class="w-full rounded-2xl border-2 border-white/20 hover-lift lightboxable" alt="Paso 13" onerror="this.style.display='none';">
+    <img src="Colaboración/14.jpg" class="w-full rounded-2xl border-2 border-white/20 hover-lift lightboxable" alt="Paso 14" onerror="this.style.display='none';">
+    <img src="Colaboración/15.jpg" class="w-full rounded-2xl border-2 border-white/20 hover-lift lightboxable" alt="Paso 15" onerror="this.style.display='none';">
+  </div>
+</section>
 
-      <section id="sheet-8" class="sheet w-full max-w-5xl glass-card p-4 md:p-5 border border-white/10 shadow-2xl flex-col justify-center space-y-3">
-        <h2 class="sheet-title text-lg md:text-2xl font-bold text-yellow-300 text-center drop-shadow-lg">Hoja 8 · Construcción (Pasos 16-17)</h2>
-        <p class="text-xs md:text-sm text-center text-white/90">Revisa detalles finales. Tu módulo de colaboración está listo para las pruebas.</p>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
-          <img src="Colaboración/16.jpg" class="w-full rounded-2xl border-2 border-white/20 hover-lift" alt="Paso 16" onerror="this.style.display='none';">
-          <img src="Colaboración/17.jpg" class="w-full rounded-2xl border-2 border-white/20 hover-lift" alt="Paso 17" onerror="this.style.display='none';">
-        </div>
-        <p class="text-[10px] md:text-xs text-white/70 text-center">
-          Imagen ©2015 The LEGO Group. Usada con fines educativos y sin ánimo de lucro.
-          Fuente: Instrucciones de construcción del set LEGO® Education WeDo 2.0 (45300).
-        </p>
-      </section>
+<section id="sheet-8" class="sheet w-full max-w-5xl glass-card p-4 md:p-5 border border-white/10 shadow-2xl flex-col justify-center space-y-3">
+  <h2 class="sheet-title text-lg md:text-2xl font-bold text-yellow-300 text-center drop-shadow-lg">Hoja 8 · Construcción (Pasos 16-17)</h2>
+  <p class="text-xs md:text-sm text-center text-white/90">Revisa detalles finales. Tu módulo de colaboración está listo para las pruebas.</p>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
+    <img src="Colaboración/16.jpg" class="w-full rounded-2xl border-2 border-white/20 hover-lift lightboxable" alt="Paso 16" onerror="this.style.display='none';">
+    <img src="Colaboración/17.jpg" class="w-full rounded-2xl border-2 border-white/20 hover-lift lightboxable" alt="Paso 17" onerror="this.style.display='none';">
+  </div>
+  <p class="text-[10px] md:text-xs text-white/70 text-center">
+    Imagen ©2015 The LEGO Group. Usada con fines educativos y sin ánimo de lucro.
+    Fuente: Instrucciones de construcción del set LEGO® Education WeDo 2.0 (45300).
+  </p>
+</section>
+
 
       <!-- HOJA 9 -->
       <section id="sheet-9" class="sheet w-full max-w-5xl glass-card p-4 md:p-6 border border-white/10 shadow-2xl flex-col justify-center space-y-3 md:space-y-4">
@@ -547,6 +555,34 @@
     </div>
   </main>
 
+  <!-- Lightbox / Modal para ampliar imágenes -->
+<div id="img-modal" class="fixed inset-0 z-[9999] hidden items-center justify-center p-4">
+  <!-- Fondo -->
+  <div id="img-modal-backdrop" class="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
+
+  <!-- Contenido -->
+  <div class="relative z-10 w-full max-w-5xl glass-card rounded-3xl border border-white/20 shadow-2xl overflow-hidden">
+    <!-- Barra superior -->
+    <div class="flex items-center justify-between px-4 py-3 bg-white/5 border-b border-white/10">
+      <div class="text-sm text-white/80 truncate pr-3" id="img-modal-caption">Vista ampliada</div>
+      <button id="img-modal-close"
+              class="px-3 py-2 rounded-xl bg-white/10 hover:bg-white/20 transition font-bold btn-premium"
+              aria-label="Cerrar imagen (ESC)">
+        ✕
+      </button>
+    </div>
+
+    <!-- Imagen -->
+    <div class="p-3 md:p-4">
+      <img id="img-modal-src" alt="Imagen ampliada" class="w-full h-auto rounded-2xl border border-white/10">
+      <div class="mt-2 text-xs text-white/60 text-center">
+        Tip: presiona <span class="font-bold text-white/80">ESC</span> para cerrar
+      </div>
+    </div>
+  </div>
+</div>
+
+  
   <script>
     /* 🔒 RESET FORZADO – MISIÓN 3 + Anti-bfcache */
 window.addEventListener('pageshow', (e) => {
@@ -861,6 +897,7 @@ window.addEventListener('pageshow', (e) => {
 }
 
       createStars();
+       setupImageLightbox();
       restoreSheet();
       showSheet(currentSheet);
       checkCompletion();
@@ -868,6 +905,52 @@ window.addEventListener('pageshow', (e) => {
     }
 
     document.addEventListener('DOMContentLoaded', initialize);
+/* =========================
+   Lightbox / Zoom imágenes
+========================= */
+function setupImageLightbox() {
+  const modal = document.getElementById('img-modal');
+  const backdrop = document.getElementById('img-modal-backdrop');
+  const closeBtn = document.getElementById('img-modal-close');
+  const modalImg = document.getElementById('img-modal-src');
+  const caption = document.getElementById('img-modal-caption');
+
+  if (!modal || !backdrop || !closeBtn || !modalImg || !caption) return;
+
+  function open(src, altText) {
+    modalImg.src = src;
+    modalImg.alt = altText || 'Imagen ampliada';
+    caption.textContent = altText || 'Vista ampliada';
+
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    document.body.style.overflow = 'hidden';
+    closeBtn.focus();
+  }
+
+  function close() {
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+    document.body.style.overflow = '';
+    modalImg.src = '';
+  }
+
+  closeBtn.addEventListener('click', close);
+  backdrop.addEventListener('click', close);
+
+  document.addEventListener('keydown', (e) => {
+    if (!modal.classList.contains('hidden') && e.key === 'Escape') close();
+  });
+
+  // Delegación de eventos: sirve para TODAS las imágenes con .lightboxable
+  document.addEventListener('click', (e) => {
+    const img = e.target?.closest?.('img.lightboxable');
+    if (!img) return;
+    open(img.src, img.alt);
+  });
+}
+
+    
   </script>
 </body>
 </html>
