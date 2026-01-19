@@ -229,6 +229,45 @@
       button{ padding: .6rem 1.1rem !important; font-size: .8rem !important; }
       .grid{ grid-template-columns: 1fr !important; }
     }
+
+/* ===== Mini-game (Zython) ===== */
+.game-button{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:.4rem;
+  padding:.7rem 1rem;
+  border-radius: 9999px;
+  font-weight: 800;
+  border: 1px solid rgba(255,255,255,.18);
+  background: rgba(255,255,255,.10);
+  transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+  box-shadow: 0 6px 0 rgba(0,0,0,.28), 0 10px 20px rgba(0,0,0,.18);
+}
+.game-button:hover{ transform: translateY(-2px); background: rgba(255,255,255,.14); }
+.game-button:active{ transform: translateY(2px); box-shadow: 0 2px 0 rgba(0,0,0,.28), 0 5px 10px rgba(0,0,0,.18); }
+.game-button:disabled{ opacity:.35; cursor:not-allowed; transform:none; box-shadow:none; }
+
+@keyframes shake{
+  0%,100%{ transform: translateX(0); }
+  20%{ transform: translateX(-6px); }
+  40%{ transform: translateX(6px); }
+  60%{ transform: translateX(-4px); }
+  80%{ transform: translateX(4px); }
+}
+.animate-shake{ animation: shake .35s ease; }
+
+.maze-cell{
+  aspect-ratio: 1 / 1;
+  border-radius: 12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position: relative;
+  overflow: hidden;
+}
+
+
   </style>
 </head>
 
@@ -486,6 +525,94 @@ AL DESPERTAR:
       ➜ Son instrucciones claras, en orden, usando palabras normales.
     </p>
   </div>
+
+<!-- MINI-JUEGO (antes de escribir el pseudocódigo) -->
+<div class="glass-card rounded-2xl border border-white/10 p-4 md:p-5 bg-black/25 mb-4">
+  <div class="flex items-center justify-between gap-3 mb-3">
+    <h4 class="text-sm md:text-lg font-bold text-yellow-300">
+      Mini-juego: programa una ruta 🏛️🤖
+    </h4>
+    <span class="text-[10px] md:text-xs text-white/70">
+      Comandos: <span class="font-bold text-white/90">máx 10</span>
+    </span>
+  </div>
+
+  <p class="text-xs md:text-sm text-white/85 mb-4">
+    Practica antes del pseudocódigo: crea una lista de instrucciones para que el robot llegue al
+    <span class="font-bold text-yellow-300">Templo</span> sin chocar con paredes.
+  </p>
+
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
+    <!-- Mapa -->
+    <div class="bg-black/30 rounded-2xl p-3 border border-white/10">
+      <div class="text-center text-sm font-bold text-white mb-2">Mapa</div>
+
+      <div class="aspect-square max-w-xs mx-auto bg-slate-900 rounded-2xl p-2 relative" id="m2-maze">
+        <!-- Se dibuja con JS -->
+      </div>
+
+      <div class="text-center mt-8 h-8">
+        <p id="m2-status" class="text-sm font-bold"></p>
+      </div>
+
+      <div class="text-center text-xs text-white/60 -mt-2">
+        Dirección:
+        <span id="m2-dir" class="text-cyan-300 font-black text-xl">→</span>
+        · Intentos: <span id="m2-attempts" class="text-white/80 font-bold">0</span>
+      </div>
+    </div>
+
+    <!-- Panel -->
+    <div class="bg-black/30 rounded-2xl p-3 border border-white/10">
+      <div class="text-center text-sm font-bold text-white mb-2">Tu Programa</div>
+
+      <div class="bg-black/40 rounded-xl p-3 min-h-24 border border-white/10 mb-3">
+        <div id="m2-commands" class="flex flex-wrap gap-2"></div>
+        <p id="m2-empty" class="text-white/40 text-center text-sm">Agrega comandos abajo 👇</p>
+      </div>
+
+      <div class="grid grid-cols-3 gap-2 mb-3">
+        <button id="m2-add-move" class="game-button bg-green-500/25 text-green-300">
+          → Avanzar
+        </button>
+        <button id="m2-add-right" class="game-button bg-purple-500/25 text-purple-300">
+          ↻ Girar 90°
+        </button>
+        <button id="m2-add-left" class="game-button bg-purple-500/25 text-purple-300">
+          ↺ Girar -90°
+        </button>
+      </div>
+
+      <div class="flex flex-wrap gap-2 justify-center">
+        <button id="m2-undo" class="game-button bg-white/10 text-white">
+          ← Borrar
+        </button>
+        <button id="m2-clear" class="game-button bg-red-500/20 text-red-300">
+          ⟲ Limpiar
+        </button>
+        <button id="m2-run" class="game-button bg-gradient-to-r from-cyan-500 to-blue-600 text-white">
+          ▶ Ejecutar
+        </button>
+      </div>
+
+      <div class="text-center text-xs text-white/50 mt-3">
+        Comandos: <span id="m2-count" class="font-bold text-white/70">0</span>/10
+      </div>
+
+      <div id="m2-result" class="hidden mt-4 text-center">
+        <div class="text-lg font-black text-yellow-300">⭐ Resultado</div>
+        <div class="mt-1 text-white/80 text-sm">
+          Estrellas: <span id="m2-stars" class="font-bold text-yellow-300">0</span>
+        </div>
+        <p class="text-white/70 text-xs mt-2">
+          Tip: menos intentos = más ⭐
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 
   <p class="text-sm md:text-base text-white/90 mb-2">
     🧠 Ahora piensa:
@@ -972,6 +1099,10 @@ window.addEventListener('pageshow', (e) => {
     
       createStars();
       setupImageLightbox();
+
+initMiniGameM2();
+
+
       checkCompletion();
 
       const total = document.querySelectorAll('.slide').length;
@@ -1023,6 +1154,239 @@ window.addEventListener('pageshow', (e) => {
     open(img.src, img.alt);
   });
 }
+
+/* =========================
+   MINI-JUEGO M2: Laberinto (vanilla JS)
+   (se muestra en el SLIDE 6)
+========================= */
+function initMiniGameM2(){
+  const maze = [
+    [1, 1, 1, 1, 2],
+    [0, 0, 0, 0, 0],
+    [0, 1, 1, 1, 0],
+    [0, 0, 0, 1, 0],
+    [0, 1, 0, 0, 0],
+  ];
+  const goal = { x: 4, y: 0 };
+  const dirs = ['up','right','down','left'];
+  const arrow = { up:'↑', right:'→', down:'↓', left:'←' };
+
+  let commands = [];
+  let robot = { x: 0, y: 4, dir: 'right' };
+  let isExecuting = false;
+  let reachedGoal = false;
+  let hitWall = false;
+  let attempts = 0;
+
+  const elMaze = document.getElementById('m2-maze');
+  const elStatus = document.getElementById('m2-status');
+  const elDir = document.getElementById('m2-dir');
+  const elAttempts = document.getElementById('m2-attempts');
+  const elCommands = document.getElementById('m2-commands');
+  const elEmpty = document.getElementById('m2-empty');
+  const elCount = document.getElementById('m2-count');
+  const elResult = document.getElementById('m2-result');
+  const elStars = document.getElementById('m2-stars');
+
+  const btnMove = document.getElementById('m2-add-move');
+  const btnRight = document.getElementById('m2-add-right');
+  const btnLeft = document.getElementById('m2-add-left');
+  const btnUndo = document.getElementById('m2-undo');
+  const btnClear = document.getElementById('m2-clear');
+  const btnRun = document.getElementById('m2-run');
+
+  if(!elMaze || !btnRun) return; // si no existe (por ejemplo si quitaste el HTML), no hace nada
+
+  function setStatus(text, colorClass){
+    elStatus.textContent = text || '';
+    elStatus.className = colorClass ? `text-sm font-bold ${colorClass}` : 'text-sm font-bold';
+  }
+
+  function calcStars(){
+    if(!reachedGoal) return 0;
+    if(attempts <= 2) return 3;
+    if(attempts <= 4) return 2;
+    return 1;
+  }
+
+  function lockUI(lock){
+    const disabled = lock || isExecuting;
+    [btnMove, btnRight, btnLeft, btnUndo, btnClear, btnRun].forEach(b=>{
+      if(!b) return;
+      b.disabled = disabled;
+    });
+  }
+
+  function renderCommands(){
+    elCommands.innerHTML = '';
+    elCount.textContent = String(commands.length);
+    elAttempts.textContent = String(attempts);
+
+    if(commands.length === 0){
+      elEmpty.classList.remove('hidden');
+    }else{
+      elEmpty.classList.add('hidden');
+      commands.forEach((cmd)=>{
+        const chip = document.createElement('div');
+        chip.className = `px-3 py-2 rounded-lg text-xs font-bold border border-white/10 ${
+          cmd.type === 'move' ? 'bg-green-500/20 text-green-300' : 'bg-purple-500/20 text-purple-300'
+        }`;
+        chip.textContent = (cmd.type === 'move') ? '→ Avanzar' : (cmd.value === 90 ? '↻ Girar 90°' : '↺ Girar -90°');
+        elCommands.appendChild(chip);
+      });
+    }
+  }
+
+  function cellClass(cell){
+    if(cell === 1) return 'bg-slate-700';
+    if(cell === 2) return 'bg-yellow-500/20 border-2 border-yellow-500';
+    return 'bg-slate-800/50';
+  }
+
+  function drawMaze(){
+    elDir.textContent = arrow[robot.dir] || '→';
+    elMaze.innerHTML = '';
+
+    maze.forEach((row, y)=>{
+      const rowEl = document.createElement('div');
+      rowEl.className = 'flex';
+      row.forEach((cell, x)=>{
+        const c = document.createElement('div');
+        c.className = `flex-1 m-0.5 maze-cell ${cellClass(cell)}`;
+
+        if(cell === 1){
+          const w = document.createElement('div');
+          w.className = 'w-full h-full bg-gradient-to-br from-slate-600 to-slate-800 rounded-xl';
+          c.appendChild(w);
+        }
+
+        if(cell === 2 && !(robot.x === x && robot.y === y)){
+          const g = document.createElement('div');
+          g.className = 'text-2xl';
+          g.textContent = '🏛️';
+          c.appendChild(g);
+        }
+
+        if(robot.x === x && robot.y === y){
+          const r = document.createElement('div');
+          r.className = `text-3xl transition-transform ${hitWall ? 'animate-shake' : ''}`;
+          r.textContent = '🤖';
+          c.appendChild(r);
+        }
+
+        rowEl.appendChild(c);
+      });
+      elMaze.appendChild(rowEl);
+    });
+  }
+
+  function resetRobot(){
+    robot = { x: 0, y: 4, dir: 'right' };
+    reachedGoal = false;
+    hitWall = false;
+    setStatus('', '');
+    elResult.classList.add('hidden');
+    drawMaze();
+  }
+
+  function addCommand(cmd){
+    if(isExecuting) return;
+    if(commands.length >= 10) return;
+    commands.push(cmd);
+    renderCommands();
+  }
+
+  function undo(){
+    if(isExecuting) return;
+    commands.pop();
+    renderCommands();
+  }
+
+  function clearAll(){
+    if(isExecuting) return;
+    commands = [];
+    renderCommands();
+  }
+
+  function sleep(ms){ return new Promise(r=>setTimeout(r, ms)); }
+
+  async function execute(){
+    if(isExecuting) return;
+    if(commands.length === 0) return;
+
+    attempts += 1;
+    resetRobot();
+    renderCommands();
+    isExecuting = true;
+    lockUI(true);
+
+    let pos = { x: 0, y: 4 };
+    let dir = 'right';
+
+    for(const cmd of commands){
+      await sleep(450);
+
+      if(cmd.type === 'turn'){
+        const idx = dirs.indexOf(dir);
+        dir = (cmd.value === 90) ? dirs[(idx + 1) % 4] : dirs[(idx + 3) % 4];
+        robot.dir = dir;
+        drawMaze();
+        continue;
+      }
+
+      let newPos = { ...pos };
+      if(dir === 'up') newPos.y--;
+      if(dir === 'down') newPos.y++;
+      if(dir === 'left') newPos.x--;
+      if(dir === 'right') newPos.x++;
+
+      const out = (newPos.x < 0 || newPos.x > 4 || newPos.y < 0 || newPos.y > 4);
+      const wall = !out && maze[newPos.y][newPos.x] === 1;
+
+      if(out || wall){
+        hitWall = true;
+        setStatus('💥 ¡Chocaste con una pared!', 'text-red-300');
+        drawMaze();
+        isExecuting = false;
+        lockUI(false);
+        return;
+      }
+
+      pos = newPos;
+      robot.x = newPos.x;
+      robot.y = newPos.y;
+      robot.dir = dir;
+      drawMaze();
+
+      if(newPos.x === goal.x && newPos.y === goal.y){
+        reachedGoal = true;
+        setStatus('🎉 ¡Llegaste al templo!', 'text-green-300');
+        const stars = calcStars();
+        elStars.textContent = String(stars);
+        elResult.classList.remove('hidden');
+        isExecuting = false;
+        lockUI(false);
+        return;
+      }
+    }
+
+    setStatus('🧠 Casi… Ajusta tu programa y prueba otra vez.', 'text-yellow-200');
+    isExecuting = false;
+    lockUI(false);
+  }
+
+  btnMove?.addEventListener('click', ()=> addCommand({type:'move'}));
+  btnRight?.addEventListener('click', ()=> addCommand({type:'turn', value: 90}));
+  btnLeft?.addEventListener('click', ()=> addCommand({type:'turn', value: -90}));
+  btnUndo?.addEventListener('click', undo);
+  btnClear?.addEventListener('click', clearAll);
+  btnRun?.addEventListener('click', execute);
+
+  renderCommands();
+  drawMaze();
+  lockUI(false);
+}
+
 
   </script>
   <!-- Lightbox / Modal para ampliar imágenes -->
