@@ -424,306 +424,502 @@
       </div>
     </section>
 
-    <!-- HOJA 4 -->
-    <section class="page glass-card rounded-3xl p-5 md:p-8 shadow-2xl">
-      <h2 class="title-font text-2xl md:text-3xl font-extrabold text-cyan-300 mb-3 text-center">
-        Etapa 2 · Calibra tus Giros: Tiempo → Ángulo
-      </h2>
-      <p class="text-sm md:text-base text-slate-100/95 mb-3">
-        Ahora debes descubrir cómo se transforman los valores del programa en giros reales.
-        Dibuja en el suelo un gran semicírculo graduado o usa un transportador grande.
-      </p>
-      <ol class="list-decimal list-inside text-sm md:text-base space-y-1 text-slate-100/95 mb-3">
-        <li>Programa tu RoverBot para girar usando distintas combinaciones de potencia y tiempo.</li>
-        <li>Observa el ángulo real que gira.</li>
-        <li>Registra los datos en una tabla digital.</li>
-      </ol>
+    <!-- HOJA 4 (REEMPLAZAR COMPLETA) -->
+<section class="page glass-card rounded-3xl p-5 md:p-8 shadow-2xl">
+  <h2 class="title-font text-2xl md:text-3xl font-extrabold text-cyan-300 mb-3 text-center">
+    Etapa 2 · Laboratorio de Giros (Potencia fija 50%)
+  </h2>
 
-      <div class="glass-card rounded-2xl p-3 md:p-4 mb-3">
-        <p class="text-xs md:text-sm text-cyan-200/95 font-semibold mb-1">Tarea digital obligatoria:</p>
-        <p class="text-[0.7rem] md:text-xs text-slate-100/90 leading-relaxed">
-          Crea una tabla en <span class="font-semibold">Excel o Word</span> con las columnas:
-          <span class="font-semibold">Potencia (%) · Tiempo (s) · Ángulo aproximado (°)</span>.
-          Guarda el archivo con el nombre <span class="font-semibold">"M4_Apellido_Grupo_CalibraciónGiros"</span>
-          y súbelo a la carpeta de <span class="font-semibold">Drive</span> indicada por tu docente.
-        </p>
-      </div>
+  <p class="text-sm md:text-base text-slate-100/95 mb-3">
+    En este laboratorio vamos a descubrir un secreto:
+    <span class="font-semibold text-yellow-300">si la potencia es la misma, el tiempo cambia el ángulo</span>.
+    Hoy trabajaremos con <span class="font-semibold text-emerald-300">potencia fija = 50%</span> y tú variarás el
+    <span class="font-semibold text-cyan-300">tiempo de giro</span>.
+  </p>
 
-      <div class="image-slot mb-3">ESPACIO PARA CAPTURA / ESQUEMA DE TABLA DE GIROS</div>
+  <div class="glass-card rounded-2xl p-4 border border-white/10 bg-black/25 mb-4">
+    <h3 class="text-base md:text-lg font-extrabold text-emerald-300 mb-2">Paso A · Modifica tu RoverBot ✏️</h3>
+    <ul class="list-disc list-inside text-sm md:text-base text-slate-100/90 space-y-1">
+      <li>Agrega una pieza para sostener un <span class="font-semibold">lápiz o marcador</span> en el RoverBot.</li>
+      <li>El lápiz debe tocar el papel <span class="font-semibold">suave</span> (sin rasgar) para dejar una línea.</li>
+      <li>Usa una hoja grande (o varias unidas) y cinta para que no se mueva.</li>
+      <li>Haz un punto de inicio y escribe: <span class="font-semibold text-yellow-300">“INICIO”</span>.</li>
+    </ul>
 
-      <h3 class="text-xs md:text-sm font-semibold text-yellow-300 mb-1">Escribe aquí tus primeras conclusiones (resumen breve):</h3>
-      <div class="answer-box">
-        ¿Qué patrones observas entre tiempo, potencia y ángulo? ¿Alguna combinación que funcione bien para 90°, 180°...?
-      </div>
+    <div class="mt-3 image-slot">ESPACIO PARA FOTO DEL ROBOT CON LÁPIZ</div>
+  </div>
 
-      <!-- ✅ ACTIVIDAD NUEVA (niños 7–9): PREDICCIÓN -->
-      <div class="glass-card rounded-2xl p-4 md:p-5 mt-4 border border-white/10 bg-black/25">
-        <div class="flex items-center justify-between gap-3 mb-2">
-          <h3 class="text-base md:text-lg font-extrabold text-emerald-300">
-            Actividad: Predicción de científicos 🔮📏
-          </h3>
-          <span class="label-chip">Usa tus datos</span>
-        </div>
+  <div class="glass-card rounded-2xl p-4 border border-white/10 bg-black/25 mb-4">
+    <h3 class="text-base md:text-lg font-extrabold text-yellow-300 mb-2">
+      Paso B · Experimento (Potencia 50% + variar tiempo)
+    </h3>
 
-        <p class="text-sm md:text-base text-slate-100/90">
-          Antes de probar, vamos a <span class="font-semibold text-yellow-300">adivinar con datos</span>.
-          Usen lo que aprendieron en la calibración para predecir
-          <span class="font-semibold text-cyan-300">potencia</span> y <span class="font-semibold text-cyan-300">tiempo</span>.
-        </p>
+    <p class="text-sm md:text-base text-slate-100/90 mb-2">
+      Configura el giro con <span class="font-semibold text-emerald-300">potencia 50%</span>.
+      Ahora prueba distintos <span class="font-semibold text-cyan-300">tiempos de giro</span>.
+      Después de cada intento:
+      <span class="font-semibold text-yellow-300">mide el ángulo</span> con un transportador sobre la marca del lápiz.
+    </p>
 
-        <div class="glass-card rounded-2xl p-3 md:p-4 mt-3 bg-white/5 border border-white/10">
-          <p class="text-xs md:text-sm text-yellow-200 font-semibold mb-1">Regla rápida (súper fácil):</p>
-          <ul class="list-disc list-inside text-xs md:text-sm text-slate-100/90 space-y-1">
-            <li>Si subes la <span class="font-semibold">potencia</span>, el robot va más rápido.</li>
-            <li>Si subes el <span class="font-semibold">tiempo</span>, el robot recorre más distancia.</li>
-            <li>Si quieres <span class="font-semibold">doble distancia</span>, prueba casi <span class="font-semibold">doble tiempo</span> (con potencia parecida).</li>
-          </ul>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-          <!-- Medidas -->
-          <div class="glass-card rounded-2xl p-4 border border-white/10 bg-black/20">
-            <h4 class="text-sm md:text-base font-bold text-cyan-300 mb-2">1) Mide el reto</h4>
-
-            <div class="space-y-3">
-              <div>
-                <div class="text-xs md:text-sm text-slate-100/90 font-semibold">Distancia de A → X (cm)</div>
-                <div class="answer-box">Escribe aquí: ____ cm</div>
-              </div>
-
-              <div>
-                <div class="text-xs md:text-sm text-slate-100/90 font-semibold">Distancia de X → B (cm)</div>
-                <div class="answer-box">Escribe aquí: ____ cm</div>
-              </div>
-
-              <div>
-                <div class="text-xs md:text-sm text-slate-100/90 font-semibold">Giro en X (¿cuántos grados?)</div>
-                <div class="answer-box">Ejemplo: 90° a la derecha / 45° a la izquierda</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Predicción -->
-          <div class="glass-card rounded-2xl p-4 border border-white/10 bg-black/20">
-            <h4 class="text-sm md:text-base font-bold text-emerald-300 mb-2">2) Predice tu programa</h4>
-            <p class="text-xs md:text-sm text-slate-100/80 mb-3">
-              Escribe tu predicción <span class="font-semibold">ANTES</span> de probar.
-            </p>
-
-            <div class="space-y-3">
-              <div>
-                <div class="text-xs md:text-sm text-slate-100/90 font-semibold">Tramo 1 (A → X)</div>
-                <div class="answer-box">Potencia: ___% · Tiempo: ___ s</div>
-              </div>
-
-              <div>
-                <div class="text-xs md:text-sm text-slate-100/90 font-semibold">Giro en X</div>
-                <div class="answer-box">Ángulo: ___° · Potencia: ___% · Tiempo: ___ s</div>
-              </div>
-
-              <div>
-                <div class="text-xs md:text-sm text-slate-100/90 font-semibold">Tramo 2 (X → B)</div>
-                <div class="answer-box">Potencia: ___% · Tiempo: ___ s</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Comparación -->
-        <div class="glass-card rounded-2xl p-4 border border-white/10 bg-black/20 mt-4">
-          <h4 class="text-sm md:text-base font-bold text-yellow-300 mb-2">3) Compara (después de probar)</h4>
-
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-            <div>
-              <div class="text-xs md:text-sm text-slate-100/90 font-semibold">¿Llegó a X?</div>
-              <div class="answer-box">Sí / No · ¿qué tan cerca? ____ cm</div>
-            </div>
-            <div>
-              <div class="text-xs md:text-sm text-slate-100/90 font-semibold">¿Llegó a B?</div>
-              <div class="answer-box">Sí / No · ¿qué tan cerca? ____ cm</div>
-            </div>
-            <div>
-              <div class="text-xs md:text-sm text-slate-100/90 font-semibold">¿Qué cambiarías?</div>
-              <div class="answer-box">Más/menos tiempo · más/menos potencia · otro giro</div>
-            </div>
-          </div>
-        </div>
-
-        <p class="mt-3 text-[0.7rem] md:text-xs text-slate-200/80">
-          ✅ Evidencia: toma una foto del mapa con A, X y B y guarda tu predicción en el documento digital del equipo.
-        </p>
-      </div>
-    </section>
-
-    <!-- HOJA 5 -->
-    <section class="page glass-card rounded-3xl p-5 md:p-8 shadow-2xl">
-      <h2 class="title-font text-2xl md:text-3xl font-extrabold text-emerald-300 mb-3 text-center">
-        Etapa 3 · La Ciudad Perdida de Zython
-      </h2>
-      <p class="text-sm md:text-base text-slate-100/95 mb-2">
-        Construyan una maqueta que represente una zona de la posible ciudad zythoniana:
-        calles, giros, pasillos, plazas, obstáculos y el <span class="text-yellow-300 font-semibold">Templo de los Antiguos</span>.
-      </p>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mt-2">
-        <div class="image-slot">ESPACIO PARA FOTO / DIBUJO DE LA MAQUETA URBANA</div>
-        <div>
-          <h3 class="text-xs md:text-sm font-semibold text-cyan-300 mb-1">
-            1. Marca el punto de inicio (Base) y el punto final (Templo de los Antiguos).
-          </h3>
-          <div class="answer-box">Describe aquí dónde está la Base, dónde está el Templo y qué obstáculos hay en el camino.</div>
-
-          <h3 class="text-xs md:text-sm font-semibold text-cyan-300 mt-3 mb-1">2. Diseña tu ruta:</h3>
-          <div class="answer-box">
-            Escribe la secuencia de movimientos usando distancias y ángulos (ejemplo:
-            40 cm recto → giro 90° derecha → 30 cm recto → giro 45° izquierda...).
-          </div>
-        </div>
-      </div>
-
-      <p class="mt-3 text-[0.7rem] md:text-xs text-slate-200/90">
-        Si lo prefieres, dibuja la ruta en un documento Word, marca los giros y súbelo junto con la foto de la maqueta al Drive.
-      </p>
-    </section>
-
-    <!-- HOJA 6 -->
-    <section class="page glass-card rounded-3xl p-5 md:p-8 shadow-2xl">
-      <h2 class="title-font text-2xl md:text-3xl font-extrabold text-yellow-300 mb-3 text-center">
-        Etapa 4 · Ejecuta la Misión y Descubre el Enigma
-      </h2>
-      <ol class="list-decimal list-inside text-sm md:text-base space-y-1 text-slate-100/95 mb-3">
-        <li>Programa tu RoverBot con la secuencia completa de movimientos para ir desde la Base hasta el Templo.</li>
-        <li>Prueba el recorrido sin tocar el robot. Si falla, ajusta tus valores.</li>
-        <li>Cuenta cuántos intentos necesitaste y qué cambios hiciste.</li>
-      </ol>
-
-      <h3 class="text-xs md:text-sm font-semibold text-cyan-300 mb-1">1. Registra tus resultados:</h3>
-      <div class="answer-box">Número de intentos, tiempo total, si llegó al punto correcto, qué tuviste que corregir en tu programa.</div>
-
-      <h3 class="text-xs md:text-sm font-semibold text-cyan-300 mt-3 mb-1">2. En tu documento digital (Word o Excel), añade:</h3>
-      <ul class="list-disc list-inside text-[0.7rem] md:text-xs text-slate-100/90 mb-3">
-        <li>Foto del RoverBot y de la maqueta.</li>
-        <li>Tabla de calibración de giros.</li>
-        <li>Ruta escrita o dibujada.</li>
-        <li>Breve explicación: ¿cómo te ayudó la matemática a lograr la misión?</li>
-        <li>Sube el archivo final a la carpeta de <span class="font-semibold">Drive</span> indicada.</li>
+    <div class="glass-card rounded-2xl p-3 border border-white/10 bg-white/5">
+      <p class="text-xs md:text-sm text-cyan-200/95 font-semibold mb-1">Cómo medir el ángulo (súper fácil):</p>
+      <ul class="list-disc list-inside text-xs md:text-sm text-slate-100/90 space-y-1">
+        <li>La primera línea del lápiz es tu “rayo” inicial.</li>
+        <li>La línea después del giro es el “rayo” final.</li>
+        <li>Coloca el centro del transportador justo donde el robot giró y mide.</li>
       </ul>
+    </div>
 
-      <!-- ✅ RETO FINAL (niños 7–9): A → X → B y volver por la misma ruta -->
-      <div class="glass-card rounded-3xl p-5 md:p-6 mt-5 border border-white/10 bg-black/25">
-        <div class="flex items-center justify-between gap-3 mb-2">
-          <h3 class="text-lg md:text-xl font-extrabold text-yellow-300">
-            Reto final: A → X → B (¡y luego regreso!) 🧭🤖
-          </h3>
-          <span class="label-chip">Reto</span>
+    <div class="mt-4 image-slot">ESPACIO PARA FOTO / CAPTURA DEL TRAZO Y MEDICIÓN DEL ÁNGULO</div>
+  </div>
+
+  <!-- TABLA DE CALIBRACIÓN -->
+  <div class="glass-card rounded-2xl p-4 border border-white/10 bg-black/25">
+    <div class="flex items-center justify-between gap-3 mb-2">
+      <h3 class="text-base md:text-lg font-extrabold text-cyan-300">Tabla de calibración</h3>
+      <span class="label-chip">Potencia = 50%</span>
+    </div>
+
+    <p class="text-xs md:text-sm text-slate-100/80 mb-3">
+      Completa mínimo 6 ensayos. Si puedes, haz más para tener una mejor “regla”.
+      Guarda esta tabla en Word o Excel con el nombre:
+      <span class="font-semibold">"M4_Apellido_Grupo_CalibraciónGiros"</span> y súbelo a Drive.
+    </p>
+
+    <div class="overflow-x-auto">
+      <table class="min-w-full text-[11px] md:text-sm text-left border border-white/15 rounded-2xl overflow-hidden">
+        <thead class="bg-black/50 text-white/85">
+          <tr>
+            <th class="px-3 py-2 border border-white/10">Ensayo</th>
+            <th class="px-3 py-2 border border-white/10">Potencia (%)</th>
+            <th class="px-3 py-2 border border-white/10">Tiempo de giro (s)</th>
+            <th class="px-3 py-2 border border-white/10">Ángulo obtenido (°)</th>
+            <th class="px-3 py-2 border border-white/10">Nota (¿qué observé?)</th>
+          </tr>
+        </thead>
+        <tbody class="bg-black/30 text-white/90">
+          <tr>
+            <td class="px-3 py-2 border border-white/10">1</td>
+            <td class="px-3 py-2 border border-white/10">50</td>
+            <td class="px-3 py-2 border border-white/10">____</td>
+            <td class="px-3 py-2 border border-white/10">____</td>
+            <td class="px-3 py-2 border border-white/10">____</td>
+          </tr>
+          <tr>
+            <td class="px-3 py-2 border border-white/10">2</td>
+            <td class="px-3 py-2 border border-white/10">50</td>
+            <td class="px-3 py-2 border border-white/10">____</td>
+            <td class="px-3 py-2 border border-white/10">____</td>
+            <td class="px-3 py-2 border border-white/10">____</td>
+          </tr>
+          <tr>
+            <td class="px-3 py-2 border border-white/10">3</td>
+            <td class="px-3 py-2 border border-white/10">50</td>
+            <td class="px-3 py-2 border border-white/10">____</td>
+            <td class="px-3 py-2 border border-white/10">____</td>
+            <td class="px-3 py-2 border border-white/10">____</td>
+          </tr>
+          <tr>
+            <td class="px-3 py-2 border border-white/10">4</td>
+            <td class="px-3 py-2 border border-white/10">50</td>
+            <td class="px-3 py-2 border border-white/10">____</td>
+            <td class="px-3 py-2 border border-white/10">____</td>
+            <td class="px-3 py-2 border border-white/10">____</td>
+          </tr>
+          <tr>
+            <td class="px-3 py-2 border border-white/10">5</td>
+            <td class="px-3 py-2 border border-white/10">50</td>
+            <td class="px-3 py-2 border border-white/10">____</td>
+            <td class="px-3 py-2 border border-white/10">____</td>
+            <td class="px-3 py-2 border border-white/10">____</td>
+          </tr>
+          <tr>
+            <td class="px-3 py-2 border border-white/10">6</td>
+            <td class="px-3 py-2 border border-white/10">50</td>
+            <td class="px-3 py-2 border border-white/10">____</td>
+            <td class="px-3 py-2 border border-white/10">____</td>
+            <td class="px-3 py-2 border border-white/10">____</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="mt-4">
+      <h4 class="text-sm md:text-base font-extrabold text-yellow-300 mb-1">Conclusión rápida (en una frase):</h4>
+      <div class="answer-box">
+        Cuando el tiempo de giro aumenta, el ángulo ______________________________.
+      </div>
+    </div>
+  </div>
+</section>
+
+
+ <!-- HOJA 5 (REEMPLAZAR COMPLETA) -->
+<section class="page glass-card rounded-3xl p-5 md:p-8 shadow-2xl">
+  <h2 class="title-font text-2xl md:text-3xl font-extrabold text-emerald-300 mb-3 text-center">
+    Etapa 3 · Ruta de 3 puntos (¡con predicción!)
+  </h2>
+
+  <p class="text-sm md:text-base text-slate-100/95 mb-3">
+    Dibuja <span class="font-semibold text-yellow-300">3 puntos que NO estén en línea</span> en tu “ciudad”:
+    <span class="font-semibold text-cyan-300">A (inicio)</span>,
+    <span class="font-semibold text-cyan-300">X (punto intermedio)</span> y
+    <span class="font-semibold text-cyan-300">B (meta)</span>.
+  </p>
+
+  <div class="image-slot mb-4">ESPACIO PARA FOTO / DIBUJO DEL MAPA CON A, X y B</div>
+
+  <div class="glass-card rounded-2xl p-4 border border-white/10 bg-black/25">
+    <h3 class="text-base md:text-lg font-extrabold text-yellow-300 mb-2">Paso 1 · Mide y planea 📏</h3>
+    <ul class="list-disc list-inside text-sm md:text-base text-slate-100/90 space-y-1">
+      <li>Mide distancia de <span class="font-semibold">A → X</span> (cm).</li>
+      <li>Mide distancia de <span class="font-semibold">X → B</span> (cm).</li>
+      <li>Marca dónde debe girar el robot (en X).</li>
+      <li>Con el transportador, mide el ángulo que necesitas para pasar de A→X a X→B.</li>
+    </ul>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-3">
+      <div class="answer-box">A → X = ____ cm</div>
+      <div class="answer-box">X → B = ____ cm</div>
+      <div class="answer-box">Ángulo en X = ____° (derecha/izquierda)</div>
+    </div>
+  </div>
+
+  <div class="glass-card rounded-2xl p-4 border border-white/10 bg-black/25 mt-4">
+    <h3 class="text-base md:text-lg font-extrabold text-cyan-300 mb-2">
+      Paso 2 · Predicción (¡antes de probar!) 🔮
+    </h3>
+
+    <p class="text-sm md:text-base text-slate-100/90 mb-2">
+      Usando tu <span class="font-semibold text-emerald-300">tabla de calibración</span>, predice el
+      <span class="font-semibold text-yellow-300">tiempo de giro</span> que crees que necesita tu robot para ese ángulo
+      (recuerda: potencia fija 50%).
+    </p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+      <div class="answer-box">
+        Predicción del tiempo de giro (50%): ____ s
+      </div>
+      <div class="answer-box">
+        ¿Por qué escogimos ese tiempo? (porque en la tabla…)
+      </div>
+    </div>
+  </div>
+
+  <div class="glass-card rounded-2xl p-4 border border-white/10 bg-black/25 mt-4">
+    <h3 class="text-base md:text-lg font-extrabold text-emerald-300 mb-2">
+      Paso 3 · Escribe el pseudocódigo ✍️
+    </h3>
+
+    <p class="text-sm md:text-base text-slate-100/90 mb-2">
+      Escribe el plan con tus palabras. Debe incluir:
+      <span class="font-semibold text-yellow-300">avanzar</span>,
+      <span class="font-semibold text-yellow-300">girar</span> y
+      <span class="font-semibold text-yellow-300">avanzar</span>.
+    </p>
+
+    <div class="answer-box">
+      Ejemplo:<br>
+      1) Avanzar desde A hasta X<br>
+      2) Girar ____° (derecha/izquierda) usando tiempo ____ s<br>
+      3) Avanzar desde X hasta B
+    </div>
+
+    <p class="mt-2 text-[0.7rem] md:text-xs text-slate-200/80">
+      ✅ Evidencia: guarda el pseudocódigo en el documento digital del equipo.
+    </p>
+  </div>
+
+  <div class="glass-card rounded-2xl p-4 border border-white/10 bg-black/25 mt-4">
+    <h3 class="text-base md:text-lg font-extrabold text-yellow-300 mb-2">
+      Paso 4 · Prueba y comprueba ✅
+    </h3>
+
+    <p class="text-sm md:text-base text-slate-100/90 mb-3">
+      Ahora sí: programa y prueba. Luego responde:
+    </p>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+      <div class="answer-box">
+        ¿La predicción fue correcta?<br>
+        Sí / No
+      </div>
+      <div class="answer-box">
+        ¿Qué pasó en el giro?<br>
+        Se pasó / Le faltó / Perfecto
+      </div>
+      <div class="answer-box">
+        ¿Qué ajusté?<br>
+        Tiempo: ____ s<br>
+        (o) otra cosa: ______
+      </div>
+    </div>
+
+    <div class="mt-3">
+      <div class="text-xs md:text-sm font-extrabold text-cyan-200 mb-1">Explicación (sencilla):</div>
+      <div class="answer-box">
+        Mi predicción fue ______ porque ________________________________.
+      </div>
+    </div>
+  </div>
+</section>
+
+
+ <!-- HOJA 6 (REEMPLAZAR COMPLETA) -->
+<section class="page glass-card rounded-3xl p-5 md:p-8 shadow-2xl">
+  <h2 class="title-font text-2xl md:text-3xl font-extrabold text-yellow-300 mb-3 text-center">
+    Etapa 4 · Reto final: A → X → B y regreso B → X → A 🔁
+  </h2>
+
+  <p class="text-sm md:text-base text-slate-100/95 mb-3">
+    ¡Ahora el reto completo! Primero logra que el RoverBot pase por
+    <span class="font-semibold text-cyan-300">A → X → B</span>.
+    Luego, sin mover el mapa, haz que se devuelva por la misma ruta:
+    <span class="font-semibold text-emerald-300">B → X → A</span>.
+  </p>
+
+  <div class="glass-card rounded-2xl p-4 border border-white/10 bg-black/25">
+    <h3 class="text-base md:text-lg font-extrabold text-cyan-300 mb-2">Parte 1 · Ida</h3>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+      <div class="answer-box">Intento 1: ¿Llegó a X? ¿Llegó a B?</div>
+      <div class="answer-box">Intento 2: ¿Qué cambié?</div>
+      <div class="answer-box">Intento 3: ¿Resultado final?</div>
+    </div>
+
+    <div class="mt-3">
+      <div class="text-xs md:text-sm font-extrabold text-yellow-200 mb-1">Mi mejor ajuste matemático fue:</div>
+      <div class="answer-box">Subí/bajé ____ s · potencia ____ · giro ____</div>
+    </div>
+  </div>
+
+  <div class="glass-card rounded-2xl p-4 border border-white/10 bg-black/25 mt-4">
+    <h3 class="text-base md:text-lg font-extrabold text-emerald-300 mb-2">Parte 2 · Vuelta (misma ruta)</h3>
+
+    <div class="glass-card rounded-2xl p-3 border border-white/10 bg-white/5 mb-3">
+      <p class="text-xs md:text-sm text-yellow-200 font-semibold mb-1">Reglas para regresar:</p>
+      <ul class="list-disc list-inside text-xs md:text-sm text-slate-100/90 space-y-1">
+        <li>Haz los pasos en <span class="font-semibold">orden contrario</span>.</li>
+        <li>Invierte el giro: si fue <span class="font-semibold">derecha</span>, ahora <span class="font-semibold">izquierda</span>.</li>
+        <li>Usa tiempos parecidos (y ajusta si hace falta).</li>
+      </ul>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+      <div class="answer-box">
+        Pseudocódigo de vuelta:<br>
+        1) ________<br>
+        2) ________<br>
+        3) ________<br>
+        4) ________
+      </div>
+      <div class="answer-box">
+        Para que funcionara, ajusté:<br>
+        Tiempo: ____ s<br>
+        (o) giro: ____°<br>
+        (o) potencia: ____%
+      </div>
+    </div>
+
+    <p class="mt-3 text-[0.7rem] md:text-xs text-slate-200/80">
+      ✅ Evidencia: video corto mostrando ida y vuelta + foto del programa.
+    </p>
+  </div>
+
+  <div class="glass-card rounded-2xl p-4 mt-5">
+    <p class="text-sm md:text-base text-yellow-300 font-semibold mb-1">Mensaje final:</p>
+    <p class="text-xs md:text-sm text-slate-100/95">
+      “Los Exploradores Maestros no adivinan: <span class="font-semibold text-emerald-300">predicen con datos</span> y mejoran con pruebas.”
+    </p>
+  </div>
+
+  <div class="mt-6 flex flex-col md:flex-row justify-center items-center gap-3">
+    <button id="complete-btn"
+            onclick="completeMission()"
+            class="btn-3d btn-premium px-6 md:px-8 py-3 bg-gradient-to-r from-emerald-400 via-cyan-400 to-indigo-500 text-black font-extrabold text-base md:text-lg rounded-full">
+      🏁 He completado el Enigma de Zython
+    </button>
+    <a href="index.html"
+       id="completed-btn"
+       class="hidden btn-3d btn-premium px-6 md:px-8 py-3 bg-white text-emerald-700 font-extrabold text-base md:text-lg rounded-full text-center">
+      🏆 ¡Todas las Misiones Completadas!
+    </a>
+  </div>
+
+  <section id="final-celebration" class="hidden mt-6 text-center">
+    <h2 class="title-font text-3xl md:text-4xl font-extrabold text-emerald-300 drop-shadow-xl">
+      ¡Felicitaciones, Maestro Explorador!
+    </h2>
+    <p class="text-sm md:text-base text-slate-100/95 mt-2">
+      Has completado el viaje por Zython. Tu RoverBot no solo se mueve: <span class="font-semibold text-cyan-300">piensa con matemáticas</span>.
+    </p>
+  </section>
+</section>
+
+      <!-- ✅ HOJA RETO FINAL (niños 7–9): A → X → B y volver por la misma ruta -->
+<section class="page glass-card rounded-3xl p-5 md:p-8 shadow-2xl">
+  <div class="flex items-center justify-between gap-3 mb-3">
+    <h2 class="title-font text-2xl md:text-3xl font-extrabold text-yellow-300">
+      Hoja Reto Final · A → X → B (¡y luego regreso!) 🧭🤖
+    </h2>
+    <span class="label-chip">Reto</span>
+  </div>
+
+  <p class="text-sm md:text-base text-slate-100/90">
+    Ahora haz que tu RoverBot vaya de <span class="font-semibold text-cyan-300">A → X → B</span>.
+    Cuando lo logres, viene la parte de expertos:
+    <span class="font-semibold text-emerald-300">¡volver de B → X → A por la misma ruta!</span>
+  </p>
+
+  <p class="text-xs md:text-sm text-slate-100/85 mt-2">
+    💡 <span class="font-semibold">X</span> es el punto intermedio (la “estación”) que debes tocar antes de llegar a B.
+  </p>
+
+  <!-- Parte 1: Ida -->
+  <div class="glass-card rounded-3xl p-5 border border-white/10 bg-black/20 mt-5">
+    <h3 class="text-base md:text-lg font-extrabold text-cyan-300 mb-3">
+      Parte 1 · Ida (A → X → B)
+    </h3>
+
+    <!-- Predicción -->
+    <div class="glass-card rounded-2xl p-4 border border-white/10 bg-white/5 mb-4">
+      <p class="text-xs md:text-sm text-yellow-200 font-semibold mb-1">🔮 Predicción (ANTES de probar)</p>
+      <p class="text-xs md:text-sm text-slate-100/85 mb-2">
+        Usa tu <span class="font-semibold">tabla de calibración</span> (potencia 50 + tiempos) para adivinar el
+        <span class="font-semibold">tiempo de giro</span> que necesitas.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div>
+          <div class="text-xs md:text-sm font-semibold text-slate-100/90">Predicción para llegar a X</div>
+          <div class="answer-box">Tiempo de giro: ____ s · ¿Por qué?: __________________________________</div>
         </div>
-
-        <p class="text-sm md:text-base text-slate-100/90">
-          Ahora haz que tu RoverBot vaya de <span class="font-semibold text-cyan-300">A → X → B</span>.
-          Cuando lo logres, viene la parte de expertos:
-          <span class="font-semibold text-emerald-300">¡volver de B → X → A por la misma ruta!</span>
-        </p>
-
-        <!-- Parte 1: Ida -->
-        <div class="glass-card rounded-2xl p-4 border border-white/10 bg-black/20 mt-4">
-          <h4 class="text-base font-extrabold text-cyan-300 mb-2">Parte 1 · Ida (A → X → B)</h4>
-
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-            <div>
-              <div class="text-xs md:text-sm font-semibold text-slate-100/90">Intento 1</div>
-              <div class="answer-box">¿Qué pasó? ¿Llegó a X? ¿Llegó a B?</div>
-            </div>
-            <div>
-              <div class="text-xs md:text-sm font-semibold text-slate-100/90">Intento 2</div>
-              <div class="answer-box">¿Qué cambié? (tiempo / potencia / giro)</div>
-            </div>
-            <div>
-              <div class="text-xs md:text-sm font-semibold text-slate-100/90">Intento 3</div>
-              <div class="answer-box">Resultado final: ¿llegó exacto? (sí/no)</div>
-            </div>
-          </div>
-
-          <div class="mt-3">
-            <div class="text-xs md:text-sm font-semibold text-yellow-200">¿Qué ajuste matemático ayudó más?</div>
-            <div class="answer-box">Ejemplo: “Subí 0.3 s” / “Bajé potencia” / “Cambié a giro 90°”</div>
-          </div>
+        <div>
+          <div class="text-xs md:text-sm font-semibold text-slate-100/90">Predicción para llegar a B</div>
+          <div class="answer-box">Tiempo de giro: ____ s · ¿Por qué?: __________________________________</div>
         </div>
+      </div>
+    </div>
 
-        <!-- Parte 2: Vuelta -->
-        <div class="glass-card rounded-2xl p-4 border border-white/10 bg-black/20 mt-4">
-          <h4 class="text-base font-extrabold text-emerald-300 mb-2">Parte 2 · Vuelta (B → X → A) 🔁</h4>
+    <!-- Intentos (sin número fijo) -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+      <div>
+        <div class="text-xs md:text-sm font-semibold text-slate-100/90">Intento 1</div>
+        <div class="answer-box">¿Qué pasó? ¿Llegó a X? ¿Llegó a B?</div>
+      </div>
+      <div>
+        <div class="text-xs md:text-sm font-semibold text-slate-100/90">Intento 2</div>
+        <div class="answer-box">¿Qué cambié? (tiempo / potencia / giro)</div>
+      </div>
+      <div>
+        <div class="text-xs md:text-sm font-semibold text-slate-100/90">Intento final (el que funcionó)</div>
+        <div class="answer-box">Resultado: ¿llegó exacto? (sí/no) · ¿por qué crees que sí/no?</div>
+      </div>
+    </div>
 
-          <p class="text-xs md:text-sm text-slate-100/85 mb-3">
-            Para volver por el mismo camino:
-            <span class="font-semibold">haz la ruta al revés</span> y <span class="font-semibold">cambia el giro</span>.
-          </p>
+    <!-- Comparación predicción vs realidad -->
+    <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <div class="text-xs md:text-sm font-semibold text-yellow-200">✅ ¿Tu predicción fue correcta?</div>
+        <div class="answer-box">Sí / No · Explica con una frase: __________________________________</div>
+      </div>
+      <div>
+        <div class="text-xs md:text-sm font-semibold text-yellow-200">🛠️ Si ajustaste, ¿qué ajustaste?</div>
+        <div class="answer-box">Ejemplo: “+0.2 s” / “-0.1 s” / “bajé potencia” / “cambié el giro”</div>
+      </div>
+    </div>
 
-          <div class="glass-card rounded-2xl p-3 border border-white/10 bg-white/5 mb-3">
-            <p class="text-xs md:text-sm text-yellow-200 font-semibold mb-1">Reglas de oro:</p>
-            <ul class="list-disc list-inside text-xs md:text-sm text-slate-100/90 space-y-1">
-              <li>Los pasos van <span class="font-semibold">en orden contrario</span>.</li>
-              <li>Si antes giraste a la <span class="font-semibold">derecha</span>, ahora giras a la <span class="font-semibold">izquierda</span> (y viceversa).</li>
-              <li>Usa tiempos/potencia parecidos a la ida (luego ajustas).</li>
-            </ul>
-          </div>
+    <div class="mt-4">
+      <div class="text-xs md:text-sm font-semibold text-yellow-200">📐 ¿Qué ajuste matemático ayudó más?</div>
+      <div class="answer-box">Ejemplo: “Subí 0.3 s” / “Bajé potencia” / “Mi tabla decía ~90° con 0.8 s”</div>
+    </div>
+  </div>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <div class="text-xs md:text-sm font-semibold text-slate-100/90">Escribe tu “programa de vuelta”</div>
-              <div class="answer-box">
-                Ejemplo:<br>
-                1) Retroceder ___ s<br>
-                2) Girar ___° a la izquierda/derecha<br>
-                3) Retroceder ___ s<br>
-                (sigue hasta volver a A)
-              </div>
-            </div>
+  <!-- Parte 2: Vuelta -->
+  <div class="glass-card rounded-3xl p-5 border border-white/10 bg-black/20 mt-5">
+    <h3 class="text-base md:text-lg font-extrabold text-emerald-300 mb-3">
+      Parte 2 · Vuelta (B → X → A) 🔁
+    </h3>
 
-            <div>
-              <div class="text-xs md:text-sm font-semibold text-slate-100/90">¿Qué tuviste que modificar para que funcione?</div>
-              <div class="answer-box">
-                Ejemplo: “Subí 0.2 s en el último tramo” / “Cambié el giro” / “Bajé potencia”
-              </div>
-            </div>
-          </div>
+    <p class="text-xs md:text-sm text-slate-100/85 mb-3">
+      Para volver por el mismo camino:
+      <span class="font-semibold">haz la ruta al revés</span> y <span class="font-semibold">cambia el giro</span>.
+    </p>
 
-          <p class="mt-3 text-[0.7rem] md:text-xs text-slate-200/80">
-            ✅ Evidencia: video corto mostrando ida y vuelta + foto del programa.
-          </p>
+    <div class="glass-card rounded-2xl p-4 border border-white/10 bg-white/5 mb-3">
+      <p class="text-xs md:text-sm text-yellow-200 font-semibold mb-2">Reglas de oro:</p>
+      <ul class="list-disc list-inside text-xs md:text-sm text-slate-100/90 space-y-1">
+        <li>Los pasos van <span class="font-semibold">en orden contrario</span>.</li>
+        <li>Si antes giraste a la <span class="font-semibold">derecha</span>, ahora giras a la <span class="font-semibold">izquierda</span> (y viceversa).</li>
+        <li>Primero usa la <span class="font-semibold">misma potencia</span> que en la ida (luego ajustas si hace falta).</li>
+        <li>Usa tiempos parecidos a la ida (luego ajustas).</li>
+      </ul>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <div class="text-xs md:text-sm font-semibold text-slate-100/90">Escribe tu “programa de vuelta”</div>
+        <div class="answer-box">
+          Ejemplo:<br>
+          1) Ir hacia atrás ___ s<br>
+          2) Girar ___ (izquierda/derecha) con ___ s<br>
+          3) Ir hacia atrás ___ s<br>
+          (sigue hasta volver a A)
         </div>
       </div>
 
-      <div class="glass-card rounded-2xl p-4 mt-5">
-        <p class="text-sm md:text-base text-yellow-300 font-semibold mb-1">Mensaje de la Civilización de Zython:</p>
-        <p class="text-xs md:text-sm text-slate-100/95">
-          "La precisión es la huella de quienes piensan antes de avanzar.
-          Has unido construcción, programación y matemáticas para descifrar nuestro legado.
-          Desde hoy, eres un <span class="font-semibold text-emerald-300">Maestro Explorador de Zython</span>."
-        </p>
+      <div>
+        <div class="text-xs md:text-sm font-semibold text-slate-100/90">¿Qué tuviste que modificar para que funcione?</div>
+        <div class="answer-box">
+          Ejemplo: “Subí 0.2 s en el último tramo” / “Cambié el giro” / “Bajé potencia”
+        </div>
       </div>
+    </div>
 
-      <div class="mt-6 flex flex-col md:flex-row justify-center items-center gap-3">
-        <button id="complete-btn"
-                onclick="completeMission()"
-                class="btn-3d btn-premium px-6 md:px-8 py-3 bg-gradient-to-r from-emerald-400 via-cyan-400 to-indigo-500 text-black font-extrabold text-base md:text-lg rounded-full">
-          🏁 He completado el Enigma de Zython
-        </button>
-        <a href="index.html"
-           id="completed-btn"
-           class="hidden btn-3d btn-premium px-6 md:px-8 py-3 bg-white text-emerald-700 font-extrabold text-base md:text-lg rounded-full text-center">
-          🏆 ¡Todas las Misiones Completadas!
-        </a>
-      </div>
+    <div class="mt-4 text-xs md:text-sm text-slate-100/90">
+      ✅ Evidencias:
+      <ul class="list-disc list-inside text-xs md:text-sm text-slate-100/85 space-y-1">
+        <li>Video corto mostrando ida y vuelta</li>
+        <li>Foto del mapa con A, X y B</li>
+        <li>Foto del programa (bloques)</li>
+      </ul>
+    </div>
+  </div>
 
-      <section id="final-celebration" class="hidden mt-6 text-center">
-        <h2 class="title-font text-3xl md:text-4xl font-extrabold text-emerald-300 drop-shadow-xl">
-          ¡Felicitaciones, Maestro Explorador!
-        </h2>
-        <p class="text-sm md:text-base text-slate-100/95 mt-2">
-          Has completado el viaje por Zython. Tu RoverBot no solo se mueve: <span class="font-semibold text-cyan-300">piensa con matemáticas</span>.
-        </p>
-      </section>
-    </section>
+  <!-- Mensaje final -->
+  <div class="glass-card rounded-2xl p-4 mt-5 border border-white/10 bg-black/20">
+    <p class="text-sm md:text-base text-yellow-300 font-semibold mb-1">Mensaje de la Civilización de Zython:</p>
+    <p class="text-xs md:text-sm text-slate-100/95">
+      "La precisión es la huella de quienes piensan antes de avanzar.
+      Has unido construcción, programación y matemáticas para descifrar nuestro legado.
+      Desde hoy, eres un <span class="font-semibold text-emerald-300">Maestro Explorador de Zython</span>."
+    </p>
+  </div>
+
+  <!-- Botones fin -->
+  <div class="mt-6 flex flex-col md:flex-row justify-center items-center gap-3">
+    <button id="complete-btn"
+            onclick="completeMission()"
+            class="btn-3d btn-premium px-6 md:px-8 py-3 bg-gradient-to-r from-emerald-400 via-cyan-400 to-indigo-500 text-black font-extrabold text-base md:text-lg rounded-full">
+      🏁 He completado el Enigma de Zython
+    </button>
+    <a href="index.html"
+       id="completed-btn"
+       class="hidden btn-3d btn-premium px-6 md:px-8 py-3 bg-white text-emerald-700 font-extrabold text-base md:text-lg rounded-full text-center">
+      🏆 ¡Todas las Misiones Completadas!
+    </a>
+  </div>
+
+  <section id="final-celebration" class="hidden mt-6 text-center">
+    <h2 class="title-font text-3xl md:text-4xl font-extrabold text-emerald-300 drop-shadow-xl">
+      ¡Felicitaciones, Maestro Explorador!
+    </h2>
+    <p class="text-sm md:text-base text-slate-100/95 mt-2">
+      Has completado el viaje por Zython. Tu RoverBot no solo se mueve:
+      <span class="font-semibold text-cyan-300">piensa con matemáticas</span>.
+    </p>
+  </section>
+</section>
   </main>
 
   <script>
