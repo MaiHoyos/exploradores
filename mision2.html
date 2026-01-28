@@ -372,10 +372,9 @@
         </p>
         <ul class="list-disc list-inside space-y-1 md:space-y-2 text-xs md:text-base text-white/85 mb-3 md:mb-4">
           <li>Marca una <span class="font-semibold">línea de inicio</span> para RoverBot.</li>
-          <li>Delimita el <span class="font-semibold">abismo</span> con cinta o cartulina oscura.</li>
-          <li>Asegura que RoverBot solo pueda avanzar y retroceder en línea recta.</li>
-          <li>Conecta el hub y comprueba motor y sensor de movimiento.</li>
+          <li>Delimita el <span class="font-semibold">abismo</span> con cartulina oscura.</li>
           <li>Abre el entorno de programación por bloques.</li>
+          <li>Conecta el hub</li>
         </ul>
         <div class="mt-3 md:mt-4">
           <img src="Sensor/7.jpg"
@@ -509,22 +508,27 @@
   </div>
 
   <div class="bg-black/50 border border-white/10 rounded-xl p-3 mb-3">
-    <p class="text-xs md:text-sm text-yellow-200 font-semibold mb-1">
-      📌 Ejemplo de pseudocódigo:
-    </p>
-    <pre class="text-[10px] md:text-sm whitespace-pre-wrap text-white/90">
+  <p class="text-xs md:text-sm text-yellow-200 font-semibold mb-1">
+    📌 Ejemplo de pseudocódigo:
+  </p>
+  <pre class="text-[10px] md:text-sm whitespace-pre-wrap text-white/90">
 AL DESPERTAR:
   LEVANTARSE DE LA CAMA
   IR AL BAÑO
+  BAÑARSE
   LAVARSE LOS DIENTES
-  DESAYUNAR
+  SI HAY TIEMPO:
+      DESAYUNAR TRANQUILO
+  SI NO:
+      DESAYUNAR RÁPIDO
   PREPARAR LA MOCHILA
   IR AL COLEGIO
-    </pre>
-    <p class="text-[10px] md:text-xs text-white/70 mt-1">
-      ➜ Son instrucciones claras, en orden, usando palabras normales.
-    </p>
-  </div>
+  </pre>
+  <p class="text-[10px] md:text-xs text-white/70 mt-1">
+    ➜ El <span class="font-semibold text-yellow-200">SI / SI NO</span> ayuda a decidir qué hacer según una condición.
+  </p>
+</div>
+
 
 <!-- MINI-JUEGO (antes de escribir el pseudocódigo) -->
 <div class="glass-card rounded-2xl border border-white/10 p-4 md:p-5 bg-black/25 mb-4">
@@ -532,15 +536,22 @@ AL DESPERTAR:
     <h4 class="text-sm md:text-lg font-bold text-yellow-300">
       Mini-juego: programa una ruta 🏛️🤖
     </h4>
-   <span class="text-[10px] md:text-xs text-white/70">
-  Comandos: <span class="font-bold text-white/90">∞</span>
-</span>
+    <span class="text-[10px] md:text-xs text-white/70">
+      Comandos: <span class="font-bold text-white/90">∞</span>
+    </span>
   </div>
 
-  <p class="text-xs md:text-sm text-white/85 mb-4">
+  <p class="text-xs md:text-sm text-white/85 mb-3">
     Practica antes del pseudocódigo: crea una lista de instrucciones para que el robot llegue al
     <span class="font-bold text-yellow-300">Templo</span> sin chocar con paredes.
   </p>
+
+  <!-- Sugerencia -->
+  <div class="bg-cyan-500/10 border border-cyan-400/30 rounded-xl p-3 mb-4 text-xs md:text-sm text-cyan-200">
+    💡 <span class="font-semibold">Sugerencia:</span>
+    usa los botones de la derecha, prueba, observa qué pasa y repite hasta lograr que el robot llegue
+    al templo sin chocar.
+  </div>
 
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
     <!-- Mapa -->
@@ -568,7 +579,9 @@ AL DESPERTAR:
 
       <div class="bg-black/40 rounded-xl p-3 min-h-24 border border-white/10 mb-3">
         <div id="m2-commands" class="flex flex-wrap gap-2"></div>
-        <p id="m2-empty" class="text-white/40 text-center text-sm">Agrega comandos abajo 👇</p>
+        <p id="m2-empty" class="text-white/40 text-center text-sm">
+          Agrega comandos abajo 👇
+        </p>
       </div>
 
       <div class="grid grid-cols-3 gap-2 mb-3">
@@ -576,10 +589,10 @@ AL DESPERTAR:
           → Avanzar
         </button>
         <button id="m2-add-right" class="game-button bg-purple-500/25 text-purple-300">
-          ↻ Girar 90°
+          ↻ Girar derecha
         </button>
         <button id="m2-add-left" class="game-button bg-purple-500/25 text-purple-300">
-          ↺ Girar -90°
+          ↺ Girar izquierda
         </button>
       </div>
 
@@ -595,9 +608,9 @@ AL DESPERTAR:
         </button>
       </div>
 
-     <div class="text-center text-xs text-white/50 mt-3">
-  Comandos: <span id="m2-count" class="font-bold text-white/70">0</span>
-</div>
+      <div class="text-center text-xs text-white/50 mt-3">
+        Comandos: <span id="m2-count" class="font-bold text-white/70">0</span>
+      </div>
 
       <div id="m2-result" class="hidden mt-4 text-center">
         <div class="text-lg font-black text-yellow-300">⭐ Resultado</div>
@@ -614,6 +627,7 @@ AL DESPERTAR:
 
 
 
+
   <p class="text-sm md:text-base text-white/90 mb-2">
     🧠 Ahora piensa:
     <span class="font-semibold">
@@ -627,6 +641,14 @@ AL DESPERTAR:
   </p>
 </div>
 
+<!-- SLIDE 6B -->
+<div class="slide" data-slide="6B">
+  <h3 class="text-lg md:text-xl font-semibold text-yellow-300 mb-2 md:mb-3">
+    4. Tutorial: ¿Cómo funciona el sensor de RoverBot?
+  </h3>
+
+  <!-- Contenido del tutorial del sensor (pendiente) -->
+</div>
 
       <!-- SLIDE 7 -->
       <div class="slide" data-slide="7">
