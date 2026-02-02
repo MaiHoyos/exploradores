@@ -653,38 +653,32 @@ AL DESPERTAR:
     de RoverBot.
   </p>
 
-  <!-- Imagen del sensor -->
-  <div class="flex justify-center mb-4">
-    <img src="Zython/Sensor.png" alt="Sensor de movimiento RoverBot"
-         class="max-w-xs md:max-w-sm rounded-xl border border-white/20 bg-black/30 p-2">
+ <div class="bg-black/50 border border-white/10 rounded-xl p-4 text-center">
+
+  <!-- Imagen del sensor con zoom -->
+  <div class="flex flex-col items-center text-xs text-white/70 mb-4">
+    <img src="Zython/Sensor.png"
+         alt="Sensor de distancia"
+         class="w-full max-w-md rounded-xl border border-white/20 mb-2 
+                transition-all duration-300 hover:scale-105 cursor-zoom-in lightboxable">
+    <span>Sensor de distancia</span>
   </div>
 
-  <!-- Pasos -->
-  <div class="bg-black/40 border border-white/10 rounded-xl p-4 space-y-3">
-    <p class="text-sm md:text-base font-semibold text-yellow-200">
-      📋 Pasos a seguir
+  <!-- Instrucciones -->
+  <div class="text-sm text-white/90 space-y-2">
+    <p class="font-semibold text-yellow-200">🎯 Actividad</p>
+    <ul class="list-disc list-inside text-left">
+      <li>Programa el sensor usando <strong>Scratch</strong>.</li>
+      <li>Ejecuta el programa y comprueba su funcionamiento.</li>
+      <li>Graba un <strong>video corto</strong> explicando con tus palabras:</li>
+    </ul>
+    <p class="text-xs text-white/70 ml-4">
+      ➜ ¿Qué hace el programa y por qué el robot se detiene a tiempo?
     </p>
-
-    <ol class="list-decimal list-inside text-xs md:text-base text-white/85 space-y-2">
-      <li>
-        Programa el sensor de movimiento en
-        <span class="font-semibold">Scratch</span> para que RoverBot
-        se detenga cuando esté muy cerca de un obstáculo.
-      </li>
-      <li>
-        Ejecuta el programa y observa qué ocurre cuando RoverBot se acerca
-        al borde.
-      </li>
-      <li>
-        Graba un <span class="font-semibold">video corto</span> y explica con
-        tus propias palabras:
-        <ul class="list-disc list-inside ml-4 mt-1 space-y-1">
-          <li>Qué mide el sensor.</li>
-          <li>Qué hace el programa cuando detecta un objeto cerca.</li>
-        </ul>
-      </li>
-    </ol>
   </div>
+
+</div>
+
 
   <!-- Cierre -->
   <p class="text-sm md:text-base text-white/90 font-semibold mt-4">
