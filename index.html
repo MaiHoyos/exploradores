@@ -306,35 +306,7 @@
       gap:10px;
     }
 
-    /* Insignias “flotantes” permanentes (sobre planetas completados) */
-    @keyframes badgeBob{
-      0%,100%{ transform: translateY(0); }
-      50%{ transform: translateY(-8px); }
-    }
-    .planet-badge-float{
-      position: absolute;
-      left: 50%;
-      top: -14px;
-      transform: translateX(-50%);
-      z-index: 20;
-      animation: badgeBob 2.2s ease-in-out infinite;
-      pointer-events: none;
-    }
-    .planet-badge-float span{
-      display:inline-flex;
-      align-items:center;
-      gap:6px;
-      padding: 6px 10px;
-      border-radius: 999px;
-      font-weight: 800;
-      font-size: 12px;
-      background: rgba(16,185,129,.85);
-      border: 1px solid rgba(255,255,255,.25);
-      box-shadow: 0 12px 30px rgba(0,0,0,.35);
-      color: white;
-      white-space: nowrap;
-    }
-
+       
     /* Responsive */
     @media (max-width: 768px){
       .mobile-planet-small { width: 100px !important; height: 100px !important; }
@@ -377,6 +349,41 @@
       .reset-button{ left: .5rem !important; }
       .sound-toggle{ left: 5.5rem !important; right: auto !important; }
     }
+
+.badge-icon{
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  font-size: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at top left,
+    rgba(255,255,255,.35),
+    rgba(16,185,129,.9)
+  );
+  box-shadow:
+    0 0 20px rgba(16,185,129,.9),
+    0 0 40px rgba(16,185,129,.6),
+    inset 0 0 10px rgba(255,255,255,.4);
+  animation: badgeGlow 2.5s ease-in-out infinite;
+}
+
+@keyframes badgeGlow{
+  0%,100%{
+    transform: scale(1);
+    box-shadow:
+      0 0 20px rgba(16,185,129,.9),
+      0 0 40px rgba(16,185,129,.6);
+  }
+  50%{
+    transform: scale(1.08);
+    box-shadow:
+      0 0 35px rgba(16,185,129,1),
+      0 0 70px rgba(16,185,129,.9);
+  }
+}
+
   </style>
 </head>
 
@@ -438,6 +445,11 @@
             </div>
           </div>
         </div>
+<!-- Insignias desbloqueadas -->
+<div id="badge-panel"
+     class="hidden md:flex justify-center gap-6 mt-4">
+</div>
+
       </div>
     </header>
 
@@ -594,21 +606,24 @@
       setTimeout(()=> el.remove(), 2800);
     }
 
-    function renderPlanetFloatingBadges(completedMissions){
-      // Limpia badges previos
-      document.querySelectorAll('.planet-badge-float').forEach(x => x.remove());
+function renderPlanetFloatingBadges(completedMissions){
+  const panel = document.getElementById('badge-panel');
+  if (!panel) return;
 
-      completedMissions.forEach(id => {
-        const missionEl = document.querySelector(`[data-mission-id="${id}"]`);
-        if(!missionEl) return;
+  panel.innerHTML = '';
 
-        const badge = document.createElement('div');
-        badge.className = 'planet-badge-float';
-        const data = MISSION_BADGES[id] || { name: `Completada`, icon: '🏅' };
-        badge.innerHTML = `<span>${data.icon} ✓</span>`;
-        missionEl.appendChild(badge);
-      });
-    }
+  completedMissions.forEach(id => {
+    const data = MISSION_BADGES[id] || { icon: '🏅', name: 'Insignia' };
+
+    const badge = document.createElement('div');
+    badge.className = 'badge-icon';
+    badge.title = data.name;
+    badge.textContent = data.icon;
+
+    panel.appendChild(badge);
+  });
+}
+
 
     /* =========================
        Audio
@@ -1067,4 +1082,3 @@ localStorage.setItem('zython-game-session', Date.now().toString());
   </script>
 </body>
 </html>
-
