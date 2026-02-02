@@ -644,98 +644,54 @@ AL DESPERTAR:
 <!-- SLIDE 7 -->
 <div class="slide" data-slide="7">
   <h3 class="text-lg md:text-xl font-semibold text-yellow-300 mb-2 md:mb-3">
-    4. Tutorial: ¿Cómo funciona el sensor de RoverBot?
+    4. Tutorial: Uso del sensor de movimiento
   </h3>
 
-  <p class="text-sm md:text-base text-white/90 mb-3">
-    El <span class="font-semibold text-yellow-200">sensor de movimiento</span> es como el
-    <span class="font-semibold">ojo de RoverBot</span>.
-    No ve colores ni formas, pero puede <span class="font-semibold">medir qué tan lejos</span>
-    está algo que tiene enfrente.
+  <p class="text-sm md:text-base text-white/90 mb-4">
+    Observa la siguiente imagen y sigue los pasos para entender cómo funciona
+    el <span class="font-semibold text-yellow-200">sensor de movimiento</span>
+    de RoverBot.
   </p>
 
-  <!-- Qué mide el sensor -->
-  <div class="bg-white/10 border border-white/20 rounded-xl p-3 mb-3">
-    <p class="text-sm md:text-base font-semibold text-yellow-200 mb-2">
-      📏 ¿Qué mide el sensor?
-    </p>
-    <ul class="list-disc list-inside text-xs md:text-sm text-white/85 space-y-1">
-      <li>Mide <span class="font-semibold">distancia</span>.</li>
-      <li>La distancia se expresa en <span class="font-semibold">centímetros (cm)</span>.</li>
-      <li>Siempre devuelve <span class="font-semibold">un número</span>.</li>
-    </ul>
+  <!-- Imagen del sensor -->
+  <div class="flex justify-center mb-4">
+    <img src="Zython/Sensor.png" alt="Sensor de movimiento RoverBot"
+         class="max-w-xs md:max-w-sm rounded-xl border border-white/20 bg-black/30 p-2">
   </div>
 
-  <!-- Sensor no decide -->
-  <div class="bg-black/40 border border-white/10 rounded-xl p-3 mb-3">
-    <p class="text-sm md:text-base font-semibold text-yellow-200 mb-2">
-      🤖 El sensor no decide
+  <!-- Pasos -->
+  <div class="bg-black/40 border border-white/10 rounded-xl p-4 space-y-3">
+    <p class="text-sm md:text-base font-semibold text-yellow-200">
+      📋 Pasos a seguir
     </p>
-    <p class="text-xs md:text-sm text-white/85">
-      El sensor <span class="font-semibold">solo mide</span>.
-      <br>
-      Quien decide qué hacer es el <span class="font-semibold">programa</span>,
-      usando el número que entrega el sensor.
-    </p>
-  </div>
 
-  <!-- Condicional explicado -->
-  <div class="bg-white/10 border border-white/20 rounded-xl p-3 mb-4">
-    <p class="text-sm md:text-base font-semibold text-yellow-200 mb-2">
-      🔀 Decidir con un SI / SI NO
-    </p>
-    <p class="text-xs md:text-sm text-white/85 mb-2">
-      El programa usa una <span class="font-semibold">condición</span> para proteger a RoverBot:
-    </p>
-    <pre class="text-[10px] md:text-sm whitespace-pre-wrap text-white/90 bg-black/40 rounded-lg p-2">
-SI la distancia es menor que 8 cm:
-    DETENERSE
-SI NO:
-    AVANZAR
-    </pre>
-    <p class="text-[10px] md:text-xs text-white/70 mt-1">
-      ➜ El número del sensor ayuda al robot a tomar decisiones seguras.
-    </p>
-  </div>
-
-  <!-- Tabla explicativa -->
-  <div class="overflow-x-auto mb-3">
-    <table class="w-full text-[10px] md:text-sm text-left border border-white/20 rounded-xl overflow-hidden">
-      <thead class="bg-white/10">
-        <tr>
-          <th class="px-2 py-1 border-b border-white/20">Distancia medida</th>
-          <th class="px-2 py-1 border-b border-white/20">¿Qué significa?</th>
-          <th class="px-2 py-1 border-b border-white/20">Acción del robot</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr class="table-row">
-          <td class="px-2 py-1 border-b border-white/10">20 cm</td>
-          <td class="px-2 py-1 border-b border-white/10">Está lejos</td>
-          <td class="px-2 py-1 border-b border-white/10">Avanza</td>
-        </tr>
-        <tr class="table-row">
-          <td class="px-2 py-1 border-b border-white/10">10 cm</td>
-          <td class="px-2 py-1 border-b border-white/10">Se está acercando</td>
-          <td class="px-2 py-1 border-b border-white/10">Avanza con cuidado</td>
-        </tr>
-        <tr class="table-row">
-          <td class="px-2 py-1 border-b border-white/10">6 cm</td>
-          <td class="px-2 py-1 border-b border-white/10">Muy cerca del abismo</td>
-          <td class="px-2 py-1 border-b border-white/10">⚠️ Detenerse</td>
-        </tr>
-      </tbody>
-    </table>
+    <ol class="list-decimal list-inside text-xs md:text-base text-white/85 space-y-2">
+      <li>
+        Programa el sensor de movimiento en
+        <span class="font-semibold">Scratch</span> para que RoverBot
+        se detenga cuando esté muy cerca de un obstáculo.
+      </li>
+      <li>
+        Ejecuta el programa y observa qué ocurre cuando RoverBot se acerca
+        al borde.
+      </li>
+      <li>
+        Graba un <span class="font-semibold">video corto</span> y explica con
+        tus propias palabras:
+        <ul class="list-disc list-inside ml-4 mt-1 space-y-1">
+          <li>Qué mide el sensor.</li>
+          <li>Qué hace el programa cuando detecta un objeto cerca.</li>
+        </ul>
+      </li>
+    </ol>
   </div>
 
   <!-- Cierre -->
-  <p class="text-sm md:text-base text-white/90 font-semibold mt-3">
-    🤔 Pregunta clave:
-    <span class="font-normal">
-      ¿a qué distancia debería detenerse RoverBot para estar seguro?
-    </span>
+  <p class="text-sm md:text-base text-white/90 font-semibold mt-4">
+    🎥 El video será parte de la evidencia de la misión.
   </p>
 </div>
+
 
 
       <!-- SLIDE 8 -->
